@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import metricsData from "../data/processed/latest_metrics.json";
-import { Search, Trophy, BarChart3, FlaskConical, ArrowUpDown, Flame, Activity } from "lucide-react";
+import { Search, ArrowUpDown, ChevronDown } from "lucide-react";
 import { ResponsiveContainer, ScatterChart, Scatter, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 
 type Player = {
@@ -18,32 +18,30 @@ type Player = {
   BLK: number;
   TOV: number;
   TS_PCT: number;
-  AST_TOV: number;
-  CUSTOM_IMPACT: number;
+  FGI: number;
+  DDR: number;
+  HIR: number;
 };
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState<"leaderboard" | "visuals" | "metrics">("leaderboard");
+  const [activeTab, setActiveTab] = useState<"table" | "chart" | "docs">("table");
   const [search, setSearch] = useState("");
-  const [selectedTeam, setSelectedTeam] = useState("ALL");
-  const [sortField, setSortField] = useState<keyof Player>("CUSTOM_IMPACT");
+  const [teamFilter, setTeamFilter] = useState("ALL");
+  const [sortField, setSortField] = useState<keyof Player>("HIR");
   const [sortAsc, setSortAsc] = useState(false);
 
-  const players: Player[] = (metricsData.players as Player[]) || [];
+  const players = (metricsData.players as Player[]) || [];
 
-  // Unique Teams List
   const teams = useMemo(() => {
-    const list = Array.from(new Set(players.map((p) => p.TEAM_ABBREVIATION))).sort();
-    return ["ALL", ...list];
+    return ["ALL", ...Array.from(new Set(players.map((p) => p.TEAM_ABBREVIATION))).sort()];
   }, [players]);
 
-  // Filtered & Sorted Players
-  const filteredPlayers = useMemo(() => {
+  const filtered = useMemo(() => {
     return players
       .filter((p) => {
-        const matchesSearch = p.PLAYER_NAME.toLowerCase().includes(search.toLowerCase());
-        const matchesTeam = selectedTeam === "ALL" || p.TEAM_ABBREVIATION === selectedTeam;
-        return matchesSearch && matchesTeam;
+        const matchesName = p.PLAYER_NAME.toLowerCase().includes(search.toLowerCase());
+        const matchesTeam = teamFilter === "ALL" || p.TEAM_ABBREVIATION === teamFilter;
+        return matchesName && matchesTeam;
       })
       .sort((a, b) => {
         const valA = a[sortField];
@@ -53,246 +51,205 @@ export default function Dashboard() {
         }
         return 0;
       });
-  }, [players, search, selectedTeam, sortField, sortAsc]);
+  }, [players, search, teamFilter, sortField, sortAsc]);
 
   const handleSort = (field: keyof Player) => {
-    if (sortField === field) {
-      setSortAsc(!sortAsc);
-    } else {
+    if (sortField === field) setSortAsc(!sortAsc);
+    else {
       setSortField(field);
       setSortAsc(false);
     }
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-      {/* Top Header */}
-      <header className="flex flex-col md:flex-row md:items-center justify-between pb-8 border-b border-slate-800 gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="p-2 bg-blue-600/10 text-blue-400 rounded-lg border border-blue-500/20">
-              <Activity className="w-6 h-6" />
-            </span>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">CourtIQ Analytics</h1>
-          </div>
-          <p className="text-slate-400 text-sm mt-1">
-            Season {metricsData.season_year} • Last Updated: <span className="text-slate-300 font-mono">{metricsData.last_updated}</span>
-          </p>
-        </div>
-
-        {/* Global Summary Badges */}
-        <div className="flex items-center gap-3">
-          <div className="bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-right">
-            <div className="text-xs text-slate-400 font-medium">Active Players</div>
-            <div className="text-lg font-bold text-white font-mono">{metricsData.total_players}</div>
-          </div>
-          <div className="bg-blue-950/40 border border-blue-800/40 rounded-xl px-4 py-2 text-right">
-            <div className="text-xs text-blue-400 font-medium">Metric Engine</div>
-            <div className="text-lg font-bold text-blue-300">v2.0 Active</div>
-          </div>
-        </div>
-      </header>
-
-      {/* Modern Navigation Tabs */}
-      <div className="flex space-x-1 border-b border-slate-800 mt-6 pb-2">
-        <button
-          onClick={() => setActiveTab("leaderboard")}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-            activeTab === "leaderboard"
-              ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20"
-              : "text-slate-400 hover:text-white hover:bg-slate-900"
-          }`}
-        >
-          <Trophy className="w-4 h-4" /> Leaderboard
-        </button>
-        <button
-          onClick={() => setActiveTab("visuals")}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-            activeTab === "visuals"
-              ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20"
-              : "text-slate-400 hover:text-white hover:bg-slate-900"
-          }`}
-        >
-          <BarChart3 className="w-4 h-4" /> Visualizations
-        </button>
-        <button
-          onClick={() => setActiveTab("metrics")}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-            activeTab === "metrics"
-              ? "bg-blue-600 text-white shadow-lg shadow-blue-600/20"
-              : "text-slate-400 hover:text-white hover:bg-slate-900"
-          }`}
-        >
-          <FlaskConical className="w-4 h-4" /> Metric Formula Lab
-        </button>
-      </div>
-
-      {/* === TAB 1: LEADERBOARD === */}
-      {activeTab === "leaderboard" && (
-        <section className="mt-6 space-y-4">
-          {/* Controls Bar */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-between items-center bg-slate-900/60 p-3 rounded-xl border border-slate-800">
-            <div className="relative w-full sm:w-72">
-              <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
-              <input
-                type="text"
-                placeholder="Search player name..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <div className="flex items-center gap-2 w-full sm:w-auto">
-              <span className="text-xs text-slate-400 font-medium">Team:</span>
-              <select
-                value={selectedTeam}
-                onChange={(e) => setSelectedTeam(e.target.value)}
-                className="bg-slate-950 border border-slate-800 text-slate-200 text-sm rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                {teams.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          {/* Table Container */}
-          <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900/30">
-            <table className="w-full text-left text-sm text-slate-300">
-              <thead className="bg-slate-950/80 text-xs font-semibold uppercase text-slate-400 border-b border-slate-800">
-                <tr>
-                  <th className="px-4 py-3.5">Player</th>
-                  <th className="px-3 py-3.5 cursor-pointer hover:text-white" onClick={() => handleSort("TEAM_ABBREVIATION")}>
-                    Team
-                  </th>
-                  <th className="px-3 py-3.5 cursor-pointer hover:text-white" onClick={() => handleSort("GP")}>
-                    GP
-                  </th>
-                  <th className="px-3 py-3.5 cursor-pointer hover:text-white" onClick={() => handleSort("MIN")}>
-                    MIN
-                  </th>
-                  <th className="px-3 py-3.5 cursor-pointer hover:text-white" onClick={() => handleSort("PTS")}>
-                    PTS
-                  </th>
-                  <th className="px-3 py-3.5 cursor-pointer hover:text-white" onClick={() => handleSort("REB")}>
-                    REB
-                  </th>
-                  <th className="px-3 py-3.5 cursor-pointer hover:text-white" onClick={() => handleSort("AST")}>
-                    AST
-                  </th>
-                  <th className="px-3 py-3.5 cursor-pointer hover:text-white" onClick={() => handleSort("TS_PCT")}>
-                    TS%
-                  </th>
-                  <th className="px-3 py-3.5 cursor-pointer hover:text-white" onClick={() => handleSort("AST_TOV")}>
-                    AST/TO
-                  </th>
-                  <th
-                    className="px-4 py-3.5 cursor-pointer bg-blue-950/30 text-blue-400 hover:text-blue-300 font-bold"
-                    onClick={() => handleSort("CUSTOM_IMPACT")}
-                  >
-                    <div className="flex items-center gap-1">
-                      <span>Impact Score</span>
-                      <ArrowUpDown className="w-3.5 h-3.5" />
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800/60 font-mono text-xs sm:text-sm">
-                {filteredPlayers.slice(0, 50).map((player, idx) => (
-                  <tr key={player.PLAYER_ID} className="hover:bg-slate-800/40 transition-colors">
-                    <td className="px-4 py-3 font-sans font-medium text-white flex items-center gap-2">
-                      <span className="text-slate-500 font-mono text-xs w-5">{idx + 1}.</span>
-                      {player.PLAYER_NAME}
-                    </td>
-                    <td className="px-3 py-3 text-slate-400">{player.TEAM_ABBREVIATION}</td>
-                    <td className="px-3 py-3">{player.GP}</td>
-                    <td className="px-3 py-3">{player.MIN}</td>
-                    <td className="px-3 py-3 font-semibold text-slate-100">{player.PTS}</td>
-                    <td className="px-3 py-3">{player.REB}</td>
-                    <td className="px-3 py-3">{player.AST}</td>
-                    <td className="px-3 py-3 text-emerald-400">{player.TS_PCT}%</td>
-                    <td className="px-3 py-3">{player.AST_TOV}</td>
-                    <td className="px-4 py-3 bg-blue-950/20 font-bold text-blue-400">{player.CUSTOM_IMPACT}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-xs text-slate-500 text-right">Showing top 50 filtered results</p>
-        </section>
-      )}
-
-      {/* === TAB 2: VISUALIZATIONS === */}
-      {activeTab === "visuals" && (
-        <section className="mt-6 bg-slate-900/40 p-6 rounded-2xl border border-slate-800 space-y-4">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 antialiased font-sans">
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        {/* Minimal Header */}
+        <header className="flex flex-col sm:flex-row justify-between items-start sm:items-end pb-8 border-b border-zinc-800/80 gap-4">
           <div>
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
-              <Flame className="w-5 h-5 text-blue-500" /> True Shooting % vs. Custom Impact Score
-            </h2>
-            <p className="text-sm text-slate-400">Hover over any point to inspect player stats.</p>
+            <div className="text-xs uppercase tracking-widest text-zinc-500 font-mono mb-1">CourtIQ — Intelligence Hub</div>
+            <h1 className="text-2xl font-medium tracking-tight text-white">NBA Performance Matrix</h1>
           </div>
+          <div className="text-xs text-zinc-500 font-mono">
+            {metricsData.season_year} Season • Updated {metricsData.last_updated}
+          </div>
+        </header>
 
-          <div className="h-[450px] w-full pt-4">
-            <ResponsiveContainer width="100%" height="100%">
-              <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis type="number" dataKey="TS_PCT" name="TS%" unit="%" stroke="#64748b" domain={[20, 100]} />
-                <YAxis type="number" dataKey="CUSTOM_IMPACT" name="Impact" stroke="#64748b" />
-                <Tooltip
-                  cursor={{ strokeDasharray: "3 3" }}
-                  content={({ payload }) => {
-                    if (payload && payload.length) {
-                      const data = payload[0].payload as Player;
+        {/* Understated Nav Tabs */}
+        <div className="flex space-x-6 border-b border-zinc-900 mt-6 text-sm">
+          <button
+            onClick={() => setActiveTab("table")}
+            className={`pb-3 font-medium transition-colors border-b-2 -mb-px ${
+              activeTab === "table" ? "border-zinc-200 text-white" : "border-transparent text-zinc-500 hover:text-zinc-300"
+            }`}
+          >
+            Leaderboard
+          </button>
+          <button
+            onClick={() => setActiveTab("chart")}
+            className={`pb-3 font-medium transition-colors border-b-2 -mb-px ${
+              activeTab === "chart" ? "border-zinc-200 text-white" : "border-transparent text-zinc-500 hover:text-zinc-300"
+            }`}
+          >
+            Scatter Plot
+          </button>
+          <button
+            onClick={() => setActiveTab("docs")}
+            className={`pb-3 font-medium transition-colors border-b-2 -mb-px ${
+              activeTab === "docs" ? "border-zinc-200 text-white" : "border-transparent text-zinc-500 hover:text-zinc-300"
+            }`}
+          >
+            Definitions
+          </button>
+        </div>
+
+        {/* === TAB 1: MINIMALIST TABLE === */}
+        {activeTab === "table" && (
+          <div className="mt-8 space-y-4">
+            {/* Filter Row */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-between">
+              <div className="relative w-full sm:w-64">
+                <Search className="absolute left-3 top-2.5 h-3.5 w-3.5 text-zinc-600" />
+                <input
+                  type="text"
+                  placeholder="Filter by name..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full bg-zinc-900/60 border border-zinc-800 text-xs rounded-md pl-8 pr-3 py-2 text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-zinc-600 transition"
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <select
+                  value={teamFilter}
+                  onChange={(e) => setTeamFilter(e.target.value)}
+                  className="bg-zinc-900/60 border border-zinc-800 text-xs rounded-md px-3 py-2 text-zinc-300 focus:outline-none focus:border-zinc-600 transition"
+                >
+                  {teams.map((t) => (
+                    <option key={t} value={t}>
+                      {t === "ALL" ? "All Franchises" : t}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Table */}
+            <div className="overflow-x-auto border border-zinc-800/80 rounded-lg">
+              <table className="w-full text-left text-xs text-zinc-400">
+                <thead className="bg-zinc-900/40 text-zinc-500 uppercase tracking-wider font-mono text-[10px] border-b border-zinc-800/80">
+                  <tr>
+                    <th className="py-3 px-4 font-medium text-zinc-400">Player</th>
+                    <th className="py-3 px-3 font-medium">Team</th>
+                    <th className="py-3 px-3 font-medium cursor-pointer hover:text-zinc-200" onClick={() => handleSort("MIN")}>MIN</th>
+                    <th className="py-3 px-3 font-medium cursor-pointer hover:text-zinc-200" onClick={() => handleSort("PTS")}>PTS</th>
+                    <th className="py-3 px-3 font-medium cursor-pointer hover:text-zinc-200" onClick={() => handleSort("REB")}>REB</th>
+                    <th className="py-3 px-3 font-medium cursor-pointer hover:text-zinc-200" onClick={() => handleSort("AST")}>AST</th>
+                    <th className="py-3 px-3 font-medium cursor-pointer hover:text-zinc-200" onClick={() => handleSort("TS_PCT")}>TS%</th>
+                    <th className="py-3 px-3 font-medium cursor-pointer hover:text-zinc-200" onClick={() => handleSort("FGI")}>FGI</th>
+                    <th className="py-3 px-3 font-medium cursor-pointer hover:text-zinc-200" onClick={() => handleSort("DDR")}>DDR</th>
+                    <th className="py-3 px-4 font-semibold text-white cursor-pointer bg-zinc-900/60 hover:bg-zinc-900" onClick={() => handleSort("HIR")}>
+                      <div className="flex items-center gap-1.5">
+                        <span>HIR</span>
+                        <ArrowUpDown className="w-3 h-3 text-zinc-400" />
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-zinc-900 font-mono text-xs tabular-nums">
+                  {filtered.slice(0, 100).map((player, idx) => (
+                    <tr key={player.PLAYER_ID} className="hover:bg-zinc-900/30 transition-colors">
+                      <td className="py-3 px-4 font-sans font-medium text-zinc-200 flex items-center gap-2">
+                        <span className="text-zinc-600 text-[11px] w-5 font-mono">{idx + 1}</span>
+                        {player.PLAYER_NAME}
+                      </td>
+                      <td className="py-3 px-3 text-zinc-500 font-sans">{player.TEAM_ABBREVIATION}</td>
+                      <td className="py-3 px-3">{player.MIN}</td>
+                      <td className="py-3 px-3 text-zinc-200 font-semibold">{player.PTS}</td>
+                      <td className="py-3 px-3">{player.REB}</td>
+                      <td className="py-3 px-3">{player.AST}</td>
+                      <td className="py-3 px-3">{player.TS_PCT}%</td>
+                      <td className="py-3 px-3">{player.FGI}</td>
+                      <td className="py-3 px-3">{player.DDR}</td>
+                      <td className="py-3 px-4 font-bold text-white bg-zinc-900/30">{player.HIR}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="text-[11px] text-zinc-600 font-mono text-right">Displaying {Math.min(filtered.length, 100)} of {filtered.length} entries</div>
+          </div>
+        )}
+
+        {/* === TAB 2: MINIMALIST VISUALIZATION === */}
+        {activeTab === "chart" && (
+          <div className="mt-8 border border-zinc-800/80 rounded-lg p-6 bg-zinc-950">
+            <div className="mb-4">
+              <h2 className="text-sm font-medium text-white">Efficiency vs. Holistic Impact</h2>
+              <p className="text-xs text-zinc-500 mt-0.5">True Shooting Percentage plotted against Holistic Impact Rating (HIR).</p>
+            </div>
+            <div className="h-[400px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                  <CartesianGrid strokeDasharray="2 2" stroke="#27272a" opacity={0.6} />
+                  <XAxis type="number" dataKey="TS_PCT" name="TS%" stroke="#52525b" tick={{ fontSize: 11, fill: '#71717a' }} domain={[30, 90]} />
+                  <YAxis type="number" dataKey="HIR" name="HIR" stroke="#52525b" tick={{ fontSize: 11, fill: '#71717a' }} />
+                  <Tooltip
+                    content={({ payload }) => {
+                      if (!payload || !payload.length) return null;
+                      const d = payload[0].payload as Player;
                       return (
-                        <div className="bg-slate-950 p-3 rounded-lg border border-slate-700 shadow-xl text-xs space-y-1">
-                          <p className="font-bold text-sm text-white">{data.PLAYER_NAME} ({data.TEAM_ABBREVIATION})</p>
-                          <p className="text-blue-400 font-semibold">Impact Score: {data.CUSTOM_IMPACT}</p>
-                          <p className="text-emerald-400">True Shooting: {data.TS_PCT}%</p>
-                          <p className="text-slate-400">PTS: {data.PTS} | REB: {data.REB} | AST: {data.AST}</p>
+                        <div className="bg-zinc-900 border border-zinc-800 p-2.5 rounded shadow-2xl text-[11px] font-mono space-y-1">
+                          <div className="font-sans font-semibold text-white">{d.PLAYER_NAME} ({d.TEAM_ABBREVIATION})</div>
+                          <div className="text-zinc-300">HIR: <span className="text-white font-bold">{d.HIR}</span></div>
+                          <div className="text-zinc-400">TS%: {d.TS_PCT}%</div>
+                          <div className="text-zinc-500 text-[10px]">{d.PTS} PTS | {d.REB} REB | {d.AST} AST</div>
                         </div>
                       );
-                    }
-                    return null;
-                  }}
-                />
-                <Scatter name="Players" data={filteredPlayers} fill="#3b82f6" />
-              </ScatterChart>
-            </ResponsiveContainer>
+                    }}
+                  />
+                  <Scatter name="Players" data={filtered} fill="#e4e4e7" opacity={0.7} />
+                </ScatterChart>
+              </ResponsiveContainer>
+            </div>
           </div>
-        </section>
-      )}
+        )}
 
-      {/* === TAB 3: METRIC FORMULA LAB === */}
-      {activeTab === "metrics" && (
-        <section className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-slate-900/40 p-6 rounded-2xl border border-slate-800 space-y-3">
-            <div className="flex items-center gap-2 text-blue-400 font-bold">
-              <FlaskConical className="w-5 h-5" /> Custom Impact Metric
+        {/* === TAB 3: MINIMAL DEFINITIONS === */}
+        {activeTab === "docs" && (
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="p-5 border border-zinc-800/80 rounded-lg space-y-2">
+              <div className="text-xs uppercase tracking-wider font-mono text-zinc-400">Holistic Impact (HIR)</div>
+              <p className="text-xs text-zinc-500 leading-relaxed">
+                Weights raw box scores with heavier rewards for defensive playmaking (stocks) and severe penalties for turnovers.
+              </p>
+              <div className="font-mono text-[10px] text-zinc-400 bg-zinc-900/60 p-2 rounded border border-zinc-800">
+                PTS + 1.2·REB + 1.5·AST + 2.5·STL + 2.2·BLK - 2.0·TOV
+              </div>
             </div>
-            <p className="text-sm text-slate-300 leading-relaxed">
-              Synthesizes overall on-court output, balancing offensive creation against turnovers and rewarding defensive disruptiveness.
-            </p>
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800/80 font-mono text-xs text-blue-300">
-              CUSTOM_IMPACT = PTS + (1.2 × REB) + (1.5 × AST) + (2.0 × STL) + (2.0 × BLK) - (1.5 × TOV)
-            </div>
-          </div>
 
-          <div className="bg-slate-900/40 p-6 rounded-2xl border border-slate-800 space-y-3">
-            <div className="flex items-center gap-2 text-emerald-400 font-bold">
-              <Activity className="w-5 h-5" /> True Shooting Percentage (TS%)
+            <div className="p-5 border border-zinc-800/80 rounded-lg space-y-2">
+              <div className="text-xs uppercase tracking-wider font-mono text-zinc-400">Floor General (FGI)</div>
+              <p className="text-xs text-zinc-500 leading-relaxed">
+                Measures pure point guard play: playmaking creation volume while penalizing ball loss.
+              </p>
+              <div className="font-mono text-[10px] text-zinc-400 bg-zinc-900/60 p-2 rounded border border-zinc-800">
+                (AST × 2.2) - (TOV × 1.8) + (PTS × 0.2)
+              </div>
             </div>
-            <p className="text-sm text-slate-300 leading-relaxed">
-              Measures shooting efficiency taking into account 2-point field goals, 3-point field goals, and free throws.
-            </p>
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800/80 font-mono text-xs text-emerald-300">
-              TS% = PTS / (2 × (FGA + 0.44 × FTA)) × 100
+
+            <div className="p-5 border border-zinc-800/80 rounded-lg space-y-2">
+              <div className="text-xs uppercase tracking-wider font-mono text-zinc-400">Defensive Disruption (DDR)</div>
+              <p className="text-xs text-zinc-500 leading-relaxed">
+                Pace-neutral defensive impact. Calculates total stocks (steals + blocks) normalized per 36 minutes of play.
+              </p>
+              <div className="font-mono text-[10px] text-zinc-400 bg-zinc-900/60 p-2 rounded border border-zinc-800">
+                ((STL + BLK) / MIN) × 36
+              </div>
             </div>
           </div>
-        </section>
-      )}
+        )}
+      </div>
     </div>
   );
 }
