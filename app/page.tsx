@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Link from "next/link";
 import metricsData from "../data/processed/latest_metrics.json";
-import { Search, ArrowUpDown, ChevronDown } from "lucide-react";
+import { Search, ArrowUpDown } from "lucide-react";
 import { ResponsiveContainer, ScatterChart, Scatter, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 
 type Player = {
@@ -161,7 +162,12 @@ export default function Dashboard() {
                     <tr key={player.PLAYER_ID} className="hover:bg-zinc-900/30 transition-colors">
                       <td className="py-3 px-4 font-sans font-medium text-zinc-200 flex items-center gap-2">
                         <span className="text-zinc-600 text-[11px] w-5 font-mono">{idx + 1}</span>
-                        {player.PLAYER_NAME}
+                        <Link
+                          href={`/player/${player.PLAYER_ID}`}
+                          className="hover:text-white hover:underline transition-colors cursor-pointer"
+                        >
+                          {player.PLAYER_NAME}
+                        </Link>
                       </td>
                       <td className="py-3 px-3 text-zinc-500 font-sans">{player.TEAM_ABBREVIATION}</td>
                       <td className="py-3 px-3">{player.MIN}</td>
@@ -177,7 +183,9 @@ export default function Dashboard() {
                 </tbody>
               </table>
             </div>
-            <div className="text-[11px] text-zinc-600 font-mono text-right">Displaying {Math.min(filtered.length, 100)} of {filtered.length} entries</div>
+            <div className="text-[11px] text-zinc-600 font-mono text-right">
+              Displaying {Math.min(filtered.length, 100)} of {filtered.length} entries
+            </div>
           </div>
         )}
 

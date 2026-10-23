@@ -1,9 +1,10 @@
 import "./globals.css";
 import React from "react";
+import Navbar from "../components/Navbar";
 
 export const metadata = {
-  title: "CourtIQ | Advanced NBA Analytics Hub",
-  description: "Custom metrics, live player evaluation and advanced statistics.",
+  title: "CourtIQ | Advanced NBA Intelligence",
+  description: "Next-generation sports analytics and custom metric modeling.",
 };
 
 export default function RootLayout({
@@ -13,7 +14,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className="min-h-screen antialiased selection:bg-blue-600 selection:text-white">
+      <body className="min-h-screen bg-zinc-950 text-zinc-100 antialiased selection:bg-zinc-800 selection:text-white">
+        <Navbar />
         {children}
       </body>
     </html>
