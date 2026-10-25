@@ -1,12 +1,12 @@
 // app/game/[id]/page.tsx
 import Link from "next/link";
 import { getGamesFeed, getSingleGameData } from "@/lib/data";
-import { ArrowLeft, Trophy, Zap, Flame } from "lucide-react";
+import { ArrowLeft, Trophy, Zap } from "lucide-react";
 
 export async function generateStaticParams() {
   const games = getGamesFeed("2026-27");
   if (games.length === 0) {
-    return [{ id: "0022600006" }]; // Fallback dummy ID to satisfy Next.js static validator
+    return [{ id: "0022600006" }];
   }
   return games.map((g) => ({
     id: g.game_id,
@@ -35,51 +35,12 @@ export default async function GameDetailPage({ params }: Props) {
     );
   }
 
-  const { pbp_events, player_boxscore } = gameData;
+  const { player_boxscore } = gameData;
   const homeTid = summary.home_team.id;
   const awayTid = summary.away_team.id;
 
-  const homePlayers = player_boxscore.filter((p) => Number(p.TEAM_ID) === homeTid);
-  const awayPlayers = player_boxscore.filter((p) => Number(p.TEAM_ID) === awayTid);
-
-  // Extract Scoring Runs (8-0+) from PBP
-  let currentRunTeam: number | null = null;
-  let currentRunPts = 0;
-  const runs: Array<{ team_id: number; pts: number }> = [];
-
-  let prevH = 0;
-  let prevA = 0;
-
-  for (const ev of pbp_events) {
-    const sh = ev.score_home;
-    const sa = ev.score_away;
-    if (sh && !isNaN(Number(sh)) && sa && !isNaN(Number(sa))) {
-      const curH = Number(sh);
-      const curA = Number(sa);
-      const diffH = curH - prevH;
-      const diffA = curA - prevA;
-
-      if (diffH > 0 || diffA > 0) {
-        const scoringTeam = diffH > 0 ? homeTid : awayTid;
-        const pts = diffH > 0 ? diffH : diffA;
-
-        if (scoringTeam === currentRunTeam) {
-          currentRunPts += pts;
-        } else {
-          if (currentRunTeam && currentRunPts >= 8) {
-            runs.push({ team_id: currentRunTeam, pts: currentRunPts });
-          }
-          currentRunTeam = scoringTeam;
-          currentRunPts = pts;
-        }
-        prevH = curH;
-        prevA = curA;
-      }
-    }
-  }
-  if (currentRunTeam && currentRunPts >= 8) {
-    runs.push({ team_id: currentRunTeam, pts: currentRunPts });
-  }
+  const homePlayers = player_boxscore.filter((p: any) => Number(p.team_id) === homeTid || Number(p.TEAM_ID) === homeTid);
+  const awayPlayers = player_boxscore.filter((p: any) => Number(p.team_id) === awayTid || Number(p.TEAM_ID) === awayTid);
 
   const homeWon = summary.home_team.win;
 
@@ -157,36 +118,6 @@ export default async function GameDetailPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Game Momentum & Scoring Runs */}
-      <div className="rounded-xl border border-surface-border bg-surface p-6">
-        <h3 className="text-base font-bold text-white flex items-center gap-2 mb-4">
-          <Flame className="h-4 w-4 text-crimson" /> Unanswered Scoring Runs (8-0+)
-        </h3>
-        {runs.length === 0 ? (
-          <p className="text-xs text-gray-500 font-mono">No unanswered runs of 8+ points occurred in this game.</p>
-        ) : (
-          <div className="flex flex-wrap gap-2.5">
-            {runs.map((r, i) => {
-              const teamAbbrev = r.team_id === homeTid ? summary.home_team.abbrev : summary.away_team.abbrev;
-              return (
-                <div
-                  key={i}
-                  className="flex items-center gap-2 rounded-lg bg-surface-elevated border border-surface-border px-3 py-2 text-xs font-mono"
-                >
-                  <img
-                    src={`https://cdn.nba.com/logos/nba/${r.team_id}/global/L/logo.svg`}
-                    alt={teamAbbrev}
-                    className="h-4 w-4 object-contain"
-                  />
-                  <span className="font-bold text-white">{teamAbbrev}</span>
-                  <span className="text-crimson font-black">+{r.pts}-0 RUN</span>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
       {/* Player Box Scores */}
       <div className="space-y-6">
         <BoxScoreTable
@@ -246,32 +177,47 @@ function BoxScoreTable({
             </tr>
           </thead>
           <tbody className="divide-y divide-surface-border/50 text-gray-300">
-            {players.map((p) => {
-              const pm = Number(p.PLUS_MINUS || 0);
+            {players.map((p: any) => {
+              const pm = Number(p.plus_minus || p.PLUS_MINUS || 0);
+              const pId = p.player_id || p.PLAYER_ID;
+              const pName = p.player_name || p.PLAYER_NAME;
+              const pMin = Math.round(Number(p.min || p.MIN || 0));
+              const pPts = p.pts || p.PTS || 0;
+              const pReb = p.reb || p.REB || 0;
+              const pAst = p.ast || p.AST || 0;
+              const pStl = p.stl || p.STL || 0;
+              const pBlk = p.blk || p.BLK || 0;
+              const pFgm = p.fgm || p.FGM || 0;
+              const pFga = p.fga || p.FGA || 0;
+              const pFg3m = p.fg3m || p.FG3M || 0;
+              const pFg3a = p.fg3a || p.FG3A || 0;
+              const pFtm = p.ftm || p.FTM || 0;
+              const pFta = p.fta || p.FTA || 0;
+
               return (
-                <tr key={p.PLAYER_ID} className="hover:bg-surface-elevated/30 transition-colors">
+                <tr key={pId} className="hover:bg-surface-elevated/30 transition-colors">
                   <td className="px-4 py-2.5 font-medium text-white flex items-center gap-2">
                     <Link
-                      href={`/player/${p.PLAYER_ID}`}
+                      href={`/player/${pId}`}
                       className="hover:text-accent hover:underline truncate max-w-[150px]"
                     >
-                      {p.PLAYER_NAME}
+                      {pName}
                     </Link>
                   </td>
-                  <td className="px-3 py-2.5 text-right">{Math.round(p.MIN)}</td>
-                  <td className="px-3 py-2.5 text-right font-bold text-white">{p.PTS}</td>
-                  <td className="px-3 py-2.5 text-right">{p.REB}</td>
-                  <td className="px-3 py-2.5 text-right">{p.AST}</td>
-                  <td className="px-3 py-2.5 text-right">{p.STL}</td>
-                  <td className="px-3 py-2.5 text-right">{p.BLK}</td>
+                  <td className="px-3 py-2.5 text-right">{pMin}</td>
+                  <td className="px-3 py-2.5 text-right font-bold text-white">{pPts}</td>
+                  <td className="px-3 py-2.5 text-right">{pReb}</td>
+                  <td className="px-3 py-2.5 text-right">{pAst}</td>
+                  <td className="px-3 py-2.5 text-right">{pStl}</td>
+                  <td className="px-3 py-2.5 text-right">{pBlk}</td>
                   <td className="px-3 py-2.5 text-right text-gray-400">
-                    {p.FGM}-{p.FGA}
+                    {pFgm}-{pFga}
                   </td>
                   <td className="px-3 py-2.5 text-right text-gray-400">
-                    {p.FG3M}-{p.FG3A}
+                    pFg3m-{pFg3a}
                   </td>
                   <td className="px-3 py-2.5 text-right text-gray-400">
-                    {p.FTM}-{p.FTA}
+                    {pFtm}-{pFta}
                   </td>
                   <td className={`px-3 py-2.5 text-right font-semibold ${pm > 0 ? "text-emerald" : pm < 0 ? "text-crimson" : "text-gray-400"}`}>
                     {pm > 0 ? `+${pm}` : pm}

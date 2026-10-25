@@ -45,13 +45,7 @@ export default function Navbar() {
             <span>Teams</span>
           </Link>
 
-          <Link
-            href="/leaderboards"
-            className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-semibold text-gray-300 transition-colors hover:bg-surface-elevated hover:text-white"
-          >
-            <Award className="h-4 w-4 text-gold" />
-            <span>Leaderboards</span>
-          </Link>
+
 
           <Link
             href="/simulator"
