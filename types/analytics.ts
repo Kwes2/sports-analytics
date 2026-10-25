@@ -32,6 +32,7 @@ export interface TeamIdentity {
   division: string;
   logo_url: string;
   colors: TeamColors;
+  overall_elo?: number;
 }
 
 // ---------------------------------------------------------------------------
@@ -91,6 +92,15 @@ export interface ZoneShotStats {
   baseline_fg_pct?: number;
   delta_fg_pct?: number | null;
   status?: 'HOT' | 'COLD' | 'NEUTRAL' | 'INSUFFICIENT_VOLUME';
+}
+
+export interface ShotDensityBin {
+  x: number;
+  y: number;
+  fga: number;
+  fgm: number;
+  fg_pct: number;
+  efg_pct: number;
 }
 
 export interface PlayerFullProfile {
@@ -195,6 +205,7 @@ export interface PlayerFullProfile {
     };
     corner_3_specialist_premium?: number | null;
     hot_cold_zones?: Record<string, ZoneShotStats>;
+    shot_density_bins?: ShotDensityBin[];
   };
   game_flow_and_clutch: {
     quarter_splits?: {
@@ -247,11 +258,14 @@ export interface PlayerFullProfile {
   archetype?: {
     offensive_role: string;
     defensive_role: string;
-    description: string;
+    description?: string;
+    offensive_description?: string;
+    defensive_description?: string;
   };
   similar_players?: Array<{
     player_id: number;
     player_name: string;
+    team_abbrev?: string;
     similarity_score_pct: number;
     headshot_url: string;
   }>;
@@ -280,6 +294,7 @@ export interface TeamFullProfile extends TeamIdentity {
       defensive_rebound_pct?: number;
       opp_free_throw_rate?: number;
     };
+    shot_density_bins?: ShotDensityBin[];
   };
   defensive_spatial_suppression: {
     opp_shot_quality_allowed_xefga?: number;
@@ -344,9 +359,9 @@ export interface TeamFullProfile extends TeamIdentity {
   percentile_ranks?: Record<string, number | null>;
 }
 
-// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------\
 // Tier 3: Pre-sorted Leaderboards (~35 KB)
-// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------\
 export interface LeaderboardEntry {
   rank: number;
   player_id: number;
@@ -370,14 +385,14 @@ export interface SeasonLeaderboards {
     smoe_per_100: LeaderboardEntry[];
     true_ast_pct: LeaderboardEntry[];
     deflections_per_100: LeaderboardEntry[];
-    screen_assist_points_per_100: LeaderboardEntry[];
+    screen_assist_pts_per_100: LeaderboardEntry[];
     true_shooting_pct: LeaderboardEntry[];
   };
 }
 
-// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------\
 // Tier 4: Head-to-Head Matchup Prediction (~5 KB)
-// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------\
 export interface MatchupSimulation {
   matchup_id: string;
   home_team: TeamIdentity;
@@ -389,21 +404,24 @@ export interface MatchupSimulation {
     home: number;
     away: number;
     margin: number;
+    total_points?: number;
   };
-  tactical_matchups: {
+  tactical_clashes: {
     rim_pressure_vs_denial: {
-      home_rim_rate: number;
-      away_rim_denial: number;
+      home_rim_rate?: number;
+      away_rim_denial?: number;
       edge: 'home' | 'away' | 'even';
     };
     perimeter_spacing_clash: {
-      home_3pt_rate: number;
-      away_3pt_allowed: number;
+      home_3pt_rate?: number;
       edge: 'home' | 'away' | 'even';
     };
-    possession_turnover_battle: {
-      home_poss_margin: number;
-      away_poss_margin: number;
+    possession_turnover_battle?: {
+      home_poss_margin?: number;
+      away_poss_margin?: number;
+      edge: 'home' | 'away' | 'even';
+    };
+    possession_turnover_war?: {
       edge: 'home' | 'away' | 'even';
     };
   };
