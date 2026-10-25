@@ -7,6 +7,9 @@ import PlayerProfileClient from "./PlayerProfileClient";
 
 export async function generateStaticParams() {
   const players = getPlayersIndex("2026-27");
+  if (players.length === 0) {
+    return [{ id: "2544" }]; // Fallback dummy ID for LeBron James
+  }
   return players.slice(0, 50).map((p) => ({
     id: String(p.player_id),
   }));

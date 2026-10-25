@@ -5,6 +5,9 @@ import { ArrowLeft, Trophy, Zap, Flame } from "lucide-react";
 
 export async function generateStaticParams() {
   const games = getGamesFeed("2026-27");
+  if (games.length === 0) {
+    return [{ id: "0022600006" }]; // Fallback dummy ID to satisfy Next.js static validator
+  }
   return games.map((g) => ({
     id: g.game_id,
   }));
