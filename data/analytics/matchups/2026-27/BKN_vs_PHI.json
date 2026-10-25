@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BKN_vs_PHI",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 946.2
+  },
+  "away_team": {
+    "team_id": 1610612755,
+    "team_name": "Philadelphia 76ers",
+    "team_abbrev": "PHI",
+    "overall_elo": 1002.7
+  },
+  "predicted_pace": 105.8,
+  "home_win_probability": 0.4194,
+  "away_win_probability": 0.5806,
+  "predicted_score": {
+    "home": 91.7,
+    "away": 100.9,
+    "margin": -9.2,
+    "total_points": 192.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3,
+      "away_rim_denial_efficiency": -0.0146,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3875,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -5.0,
+      "away_poss_margin_per_game": -1.0,
+      "edge": "away"
+    }
+  }
+}

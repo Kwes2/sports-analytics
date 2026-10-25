@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CHA_vs_PHX",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1024.1
+  },
+  "away_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1000.6
+  },
+  "predicted_pace": 94.3,
+  "home_win_probability": 0.5338,
+  "away_win_probability": 0.4662,
+  "predicted_score": {
+    "home": 98.8,
+    "away": 82.5,
+    "margin": 16.3,
+    "total_points": 181.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2222,
+      "away_rim_denial_efficiency": 0.0177,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.55,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.0,
+      "away_poss_margin_per_game": -2.0,
+      "edge": "home"
+    }
+  }
+}

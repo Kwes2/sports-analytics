@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DET_vs_POR",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1050.5
+  },
+  "away_team": {
+    "team_id": 1610612757,
+    "team_name": "Portland Trail Blazers",
+    "team_abbrev": "POR",
+    "overall_elo": 1010.3
+  },
+  "predicted_pace": 100.4,
+  "home_win_probability": 0.5576,
+  "away_win_probability": 0.4424,
+  "predicted_score": {
+    "home": 118.6,
+    "away": 109.4,
+    "margin": 9.2,
+    "total_points": 228.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3401,
+      "away_rim_denial_efficiency": -0.0014,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3452,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.57,
+      "away_poss_margin_per_game": 0.46,
+      "edge": "home"
+    }
+  }
+}

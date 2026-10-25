@@ -1,0 +1,41 @@
+{
+  "matchup_id": "LAL_vs_PHI",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612747,
+    "team_name": "Los Angeles Lakers",
+    "team_abbrev": "LAL",
+    "overall_elo": 1016.6
+  },
+  "away_team": {
+    "team_id": 1610612755,
+    "team_name": "Philadelphia 76ers",
+    "team_abbrev": "PHI",
+    "overall_elo": 998.7
+  },
+  "predicted_pace": 96.5,
+  "home_win_probability": 0.5257,
+  "away_win_probability": 0.4743,
+  "predicted_score": {
+    "home": 115.8,
+    "away": 113.8,
+    "margin": 2.0,
+    "total_points": 229.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2681,
+      "away_rim_denial_efficiency": -0.0308,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3936,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.33,
+      "away_poss_margin_per_game": 1.51,
+      "edge": "away"
+    }
+  }
+}

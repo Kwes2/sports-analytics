@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BKN_vs_DEN",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 946.2
+  },
+  "away_team": {
+    "team_id": 1610612743,
+    "team_name": "Denver Nuggets",
+    "team_abbrev": "DEN",
+    "overall_elo": 1026.0
+  },
+  "predicted_pace": 91.0,
+  "home_win_probability": 0.3871,
+  "away_win_probability": 0.6129,
+  "predicted_score": {
+    "home": 82.7,
+    "away": 76.1,
+    "margin": 6.6,
+    "total_points": 158.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3,
+      "away_rim_denial_efficiency": -0.0531,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3875,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -5.0,
+      "away_poss_margin_per_game": -7.0,
+      "edge": "home"
+    }
+  }
+}

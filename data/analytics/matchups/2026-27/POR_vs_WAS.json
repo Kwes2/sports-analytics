@@ -1,0 +1,41 @@
+{
+  "matchup_id": "POR_vs_WAS",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612757,
+    "team_name": "Portland Trail Blazers",
+    "team_abbrev": "POR",
+    "overall_elo": 1015.3
+  },
+  "away_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 943.5
+  },
+  "predicted_pace": 107.2,
+  "home_win_probability": 0.6019,
+  "away_win_probability": 0.3981,
+  "predicted_score": {
+    "home": 128.0,
+    "away": 103.0,
+    "margin": 25.0,
+    "total_points": 231.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.266,
+      "away_rim_denial_efficiency": -0.008,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.5,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 4.0,
+      "away_poss_margin_per_game": -8.5,
+      "edge": "home"
+    }
+  }
+}

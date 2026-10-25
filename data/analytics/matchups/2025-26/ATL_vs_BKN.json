@@ -1,0 +1,41 @@
+{
+  "matchup_id": "ATL_vs_BKN",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1023.9
+  },
+  "away_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 926.8
+  },
+  "predicted_pace": 98.0,
+  "home_win_probability": 0.6362,
+  "away_win_probability": 0.3638,
+  "predicted_score": {
+    "home": 119.0,
+    "away": 106.3,
+    "margin": 12.7,
+    "total_points": 225.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2878,
+      "away_rim_denial_efficiency": -0.0424,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4293,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.72,
+      "away_poss_margin_per_game": -1.1,
+      "edge": "home"
+    }
+  }
+}

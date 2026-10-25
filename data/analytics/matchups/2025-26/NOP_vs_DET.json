@@ -1,0 +1,41 @@
+{
+  "matchup_id": "NOP_vs_DET",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 978.7
+  },
+  "away_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1050.5
+  },
+  "predicted_pace": 99.5,
+  "home_win_probability": 0.3981,
+  "away_win_probability": 0.6019,
+  "predicted_score": {
+    "home": 109.2,
+    "away": 121.5,
+    "margin": -12.3,
+    "total_points": 230.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3841,
+      "away_rim_denial_efficiency": 0.0307,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3551,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.17,
+      "away_poss_margin_per_game": 3.57,
+      "edge": "away"
+    }
+  }
+}

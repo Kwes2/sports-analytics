@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIL_vs_TOR",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612749,
+    "team_name": "Milwaukee Bucks",
+    "team_abbrev": "MIL",
+    "overall_elo": 958.2
+  },
+  "away_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1025.6
+  },
+  "predicted_pace": 112.5,
+  "home_win_probability": 0.4042,
+  "away_win_probability": 0.5958,
+  "predicted_score": {
+    "home": 101.0,
+    "away": 139.0,
+    "margin": -38.0,
+    "total_points": 240.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2874,
+      "away_rim_denial_efficiency": -0.009,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4754,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -4.5,
+      "away_poss_margin_per_game": 15.0,
+      "edge": "away"
+    }
+  }
+}

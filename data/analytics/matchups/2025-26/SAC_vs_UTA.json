@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAC_vs_UTA",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612758,
+    "team_name": "Sacramento Kings",
+    "team_abbrev": "SAC",
+    "overall_elo": 945.5
+  },
+  "away_team": {
+    "team_id": 1610612762,
+    "team_name": "Utah Jazz",
+    "team_abbrev": "UTA",
+    "overall_elo": 948.5
+  },
+  "predicted_pace": 100.4,
+  "home_win_probability": 0.4957,
+  "away_win_probability": 0.5043,
+  "predicted_score": {
+    "home": 120.9,
+    "away": 121.9,
+    "margin": -1.0,
+    "total_points": 242.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2258,
+      "away_rim_denial_efficiency": 0.035,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3392,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.05,
+      "away_poss_margin_per_game": -0.76,
+      "edge": "even"
+    }
+  }
+}

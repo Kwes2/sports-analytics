@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BOS_vs_CHI",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1051.2
+  },
+  "away_team": {
+    "team_id": 1610612741,
+    "team_name": "Chicago Bulls",
+    "team_abbrev": "CHI",
+    "overall_elo": 956.2
+  },
+  "predicted_pace": 96.9,
+  "home_win_probability": 0.6334,
+  "away_win_probability": 0.3666,
+  "predicted_score": {
+    "home": 120.5,
+    "away": 108.6,
+    "margin": 11.9,
+    "total_points": 229.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2102,
+      "away_rim_denial_efficiency": -0.0406,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4672,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.7,
+      "away_poss_margin_per_game": -3.29,
+      "edge": "home"
+    }
+  }
+}

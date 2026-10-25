@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIA_vs_NYK",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1000.5
+  },
+  "away_team": {
+    "team_id": 1610612752,
+    "team_name": "New York Knicks",
+    "team_abbrev": "NYK",
+    "overall_elo": 1028.9
+  },
+  "predicted_pace": 102.8,
+  "home_win_probability": 0.4592,
+  "away_win_probability": 0.5408,
+  "predicted_score": {
+    "home": 100.0,
+    "away": 115.6,
+    "margin": -15.6,
+    "total_points": 215.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.1852,
+      "away_rim_denial_efficiency": -0.0004,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.459,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.0,
+      "away_poss_margin_per_game": 0.0,
+      "edge": "away"
+    }
+  }
+}

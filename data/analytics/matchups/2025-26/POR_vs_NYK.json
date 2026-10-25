@@ -1,0 +1,41 @@
+{
+  "matchup_id": "POR_vs_NYK",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612757,
+    "team_name": "Portland Trail Blazers",
+    "team_abbrev": "POR",
+    "overall_elo": 1010.3
+  },
+  "away_team": {
+    "team_id": 1610612752,
+    "team_name": "New York Knicks",
+    "team_abbrev": "NYK",
+    "overall_elo": 1041.7
+  },
+  "predicted_pace": 97.3,
+  "home_win_probability": 0.4549,
+  "away_win_probability": 0.5451,
+  "predicted_score": {
+    "home": 109.8,
+    "away": 117.5,
+    "margin": -7.7,
+    "total_points": 227.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3176,
+      "away_rim_denial_efficiency": 0.0044,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4685,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.46,
+      "away_poss_margin_per_game": 3.44,
+      "edge": "away"
+    }
+  }
+}

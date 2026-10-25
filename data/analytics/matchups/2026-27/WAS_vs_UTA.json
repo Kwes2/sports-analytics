@@ -1,0 +1,41 @@
+{
+  "matchup_id": "WAS_vs_UTA",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 943.5
+  },
+  "away_team": {
+    "team_id": 1610612762,
+    "team_name": "Utah Jazz",
+    "team_abbrev": "UTA",
+    "overall_elo": 958.5
+  },
+  "predicted_pace": 104.6,
+  "home_win_probability": 0.4784,
+  "away_win_probability": 0.5216,
+  "predicted_score": {
+    "home": 118.5,
+    "away": 112.8,
+    "margin": 5.7,
+    "total_points": 231.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.297,
+      "away_rim_denial_efficiency": -0.0389,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3939,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -8.5,
+      "away_poss_margin_per_game": -5.5,
+      "edge": "away"
+    }
+  }
+}

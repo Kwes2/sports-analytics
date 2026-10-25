@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DEN_vs_CHI",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612743,
+    "team_name": "Denver Nuggets",
+    "team_abbrev": "DEN",
+    "overall_elo": 1026.0
+  },
+  "away_team": {
+    "team_id": 1610612741,
+    "team_name": "Chicago Bulls",
+    "team_abbrev": "CHI",
+    "overall_elo": 962.2
+  },
+  "predicted_pace": 99.9,
+  "home_win_probability": 0.5908,
+  "away_win_probability": 0.4092,
+  "predicted_score": {
+    "home": 95.6,
+    "away": 89.7,
+    "margin": 5.9,
+    "total_points": 185.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3049,
+      "away_rim_denial_efficiency": -0.0367,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3659,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -7.0,
+      "away_poss_margin_per_game": -2.0,
+      "edge": "away"
+    }
+  }
+}

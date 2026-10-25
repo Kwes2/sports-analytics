@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIA_vs_TOR",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1000.5
+  },
+  "away_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1025.6
+  },
+  "predicted_pace": 112.6,
+  "home_win_probability": 0.4639,
+  "away_win_probability": 0.5361,
+  "predicted_score": {
+    "home": 87.9,
+    "away": 139.7,
+    "margin": -51.8,
+    "total_points": 227.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.1852,
+      "away_rim_denial_efficiency": -0.009,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.459,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.0,
+      "away_poss_margin_per_game": 15.0,
+      "edge": "away"
+    }
+  }
+}

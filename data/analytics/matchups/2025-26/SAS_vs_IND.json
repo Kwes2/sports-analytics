@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAS_vs_IND",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1062.9
+  },
+  "away_team": {
+    "team_id": 1610612754,
+    "team_name": "Indiana Pacers",
+    "team_abbrev": "IND",
+    "overall_elo": 960.2
+  },
+  "predicted_pace": 99.8,
+  "home_win_probability": 0.6436,
+  "away_win_probability": 0.3564,
+  "predicted_score": {
+    "home": 124.4,
+    "away": 108.5,
+    "margin": 15.9,
+    "total_points": 232.9
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.312,
+      "away_rim_denial_efficiency": -0.0318,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4217,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.49,
+      "away_poss_margin_per_game": -2.43,
+      "edge": "home"
+    }
+  }
+}

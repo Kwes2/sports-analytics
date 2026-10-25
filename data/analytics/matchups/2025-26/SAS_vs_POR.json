@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAS_vs_POR",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1062.9
+  },
+  "away_team": {
+    "team_id": 1610612757,
+    "team_name": "Portland Trail Blazers",
+    "team_abbrev": "POR",
+    "overall_elo": 1010.3
+  },
+  "predicted_pace": 100.5,
+  "home_win_probability": 0.5751,
+  "away_win_probability": 0.4249,
+  "predicted_score": {
+    "home": 121.1,
+    "away": 111.5,
+    "margin": 9.6,
+    "total_points": 232.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.312,
+      "away_rim_denial_efficiency": -0.0014,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4217,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.49,
+      "away_poss_margin_per_game": 0.46,
+      "edge": "even"
+    }
+  }
+}

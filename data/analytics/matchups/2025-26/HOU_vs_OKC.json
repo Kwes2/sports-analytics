@@ -1,0 +1,41 @@
+{
+  "matchup_id": "HOU_vs_OKC",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612745,
+    "team_name": "Houston Rockets",
+    "team_abbrev": "HOU",
+    "overall_elo": 1027.4
+  },
+  "away_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1063.7
+  },
+  "predicted_pace": 94.9,
+  "home_win_probability": 0.4479,
+  "away_win_probability": 0.5521,
+  "predicted_score": {
+    "home": 105.8,
+    "away": 112.6,
+    "margin": -6.8,
+    "total_points": 218.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2729,
+      "away_rim_denial_efficiency": 0.0292,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3505,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.78,
+      "away_poss_margin_per_game": 1.85,
+      "edge": "even"
+    }
+  }
+}

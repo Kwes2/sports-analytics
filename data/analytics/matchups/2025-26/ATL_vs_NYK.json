@@ -1,0 +1,41 @@
+{
+  "matchup_id": "ATL_vs_NYK",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1023.9
+  },
+  "away_team": {
+    "team_id": 1610612752,
+    "team_name": "New York Knicks",
+    "team_abbrev": "NYK",
+    "overall_elo": 1041.7
+  },
+  "predicted_pace": 97.6,
+  "home_win_probability": 0.4744,
+  "away_win_probability": 0.5256,
+  "predicted_score": {
+    "home": 112.6,
+    "away": 117.0,
+    "margin": -4.4,
+    "total_points": 229.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2878,
+      "away_rim_denial_efficiency": 0.0044,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4293,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.72,
+      "away_poss_margin_per_game": 3.44,
+      "edge": "away"
+    }
+  }
+}

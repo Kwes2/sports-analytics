@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CHI_vs_BOS",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612741,
+    "team_name": "Chicago Bulls",
+    "team_abbrev": "CHI",
+    "overall_elo": 962.2
+  },
+  "away_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1037.5
+  },
+  "predicted_pace": 102.5,
+  "home_win_probability": 0.3933,
+  "away_win_probability": 0.6067,
+  "predicted_score": {
+    "home": 107.2,
+    "away": 124.2,
+    "margin": -17.0,
+    "total_points": 231.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3933,
+      "away_rim_denial_efficiency": 0.0861,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4426,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.0,
+      "away_poss_margin_per_game": 3.0,
+      "edge": "away"
+    }
+  }
+}

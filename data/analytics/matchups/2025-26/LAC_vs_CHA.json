@@ -1,0 +1,41 @@
+{
+  "matchup_id": "LAC_vs_CHA",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612746,
+    "team_name": "LA Clippers",
+    "team_abbrev": "LAC",
+    "overall_elo": 1011.7
+  },
+  "away_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1045.8
+  },
+  "predicted_pace": 93.8,
+  "home_win_probability": 0.4511,
+  "away_win_probability": 0.5489,
+  "predicted_score": {
+    "home": 111.3,
+    "away": 112.3,
+    "margin": -1.0,
+    "total_points": 223.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2691,
+      "away_rim_denial_efficiency": -0.006,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4043,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.0,
+      "away_poss_margin_per_game": -0.12,
+      "edge": "away"
+    }
+  }
+}

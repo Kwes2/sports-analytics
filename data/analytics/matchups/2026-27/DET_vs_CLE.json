@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DET_vs_CLE",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1041.4
+  },
+  "away_team": {
+    "team_id": 1610612739,
+    "team_name": "Cleveland Cavaliers",
+    "team_abbrev": "CLE",
+    "overall_elo": 1013.2
+  },
+  "predicted_pace": 108.6,
+  "home_win_probability": 0.5405,
+  "away_win_probability": 0.4595,
+  "predicted_score": {
+    "home": 121.4,
+    "away": 103.4,
+    "margin": 18.0,
+    "total_points": 224.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.1628,
+      "away_rim_denial_efficiency": -0.1402,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4457,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -7.5,
+      "away_poss_margin_per_game": -3.0,
+      "edge": "away"
+    }
+  }
+}

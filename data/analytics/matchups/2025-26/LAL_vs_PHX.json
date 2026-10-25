@@ -1,0 +1,41 @@
+{
+  "matchup_id": "LAL_vs_PHX",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612747,
+    "team_name": "Los Angeles Lakers",
+    "team_abbrev": "LAL",
+    "overall_elo": 1016.6
+  },
+  "away_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1010.7
+  },
+  "predicted_pace": 94.8,
+  "home_win_probability": 0.5085,
+  "away_win_probability": 0.4915,
+  "predicted_score": {
+    "home": 112.4,
+    "away": 111.3,
+    "margin": 1.1,
+    "total_points": 223.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2681,
+      "away_rim_denial_efficiency": 0.0021,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3936,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.33,
+      "away_poss_margin_per_game": 2.95,
+      "edge": "away"
+    }
+  }
+}

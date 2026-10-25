@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAC_vs_CHA",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612758,
+    "team_name": "Sacramento Kings",
+    "team_abbrev": "SAC",
+    "overall_elo": 956.0
+  },
+  "away_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1024.1
+  },
+  "predicted_pace": 102.4,
+  "home_win_probability": 0.4032,
+  "away_win_probability": 0.5968,
+  "predicted_score": {
+    "home": 107.2,
+    "away": 105.4,
+    "margin": 1.8,
+    "total_points": 212.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3412,
+      "away_rim_denial_efficiency": -0.0249,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3352,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.5,
+      "away_poss_margin_per_game": -1.0,
+      "edge": "away"
+    }
+  }
+}

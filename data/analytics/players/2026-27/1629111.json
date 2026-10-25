@@ -1,0 +1,391 @@
+{
+  "player_id": 1629111,
+  "player_name": "Jock Landale",
+  "team_id": 1610612737,
+  "team_abbrev": "ATL",
+  "position": "Forward",
+  "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1629111.png",
+  "bio": {
+    "raw_position": "F",
+    "height": "6-11",
+    "weight": "255",
+    "age": 30.0
+  },
+  "games_played": 2,
+  "minutes_total": 37.0,
+  "minutes_per_game": 18.5,
+  "usage_pct": 15.92,
+  "true_shooting_pct": 0.6098,
+  "effective_fg_pct": 0.5769,
+  "ast_tov_ratio": 7.0,
+  "per_100_possessions": {
+    "points": 22.4,
+    "rebounds": 9.9,
+    "assists": 8.7,
+    "turnovers": 0.0,
+    "steals": 1.2,
+    "blocks": 2.5
+  },
+  "effective_plus_minus": {
+    "offensive_epm": 4.84,
+    "defensive_epm": -7.54,
+    "net_epm": -2.7
+  },
+  "relative_plus_minus": {
+    "stint_possessions": 53.0,
+    "actual_net_margin_per_100": -90.6,
+    "expected_net_margin_per_100": -11.53,
+    "relative_plus_minus": -79.07
+  },
+  "oliver_floor_rates": {
+    "true_ast_pct": 24.6,
+    "true_orb_pct": 6.33,
+    "true_dreb_pct": 16.39,
+    "stock_rate_per_100": 3.73,
+    "foul_drawing_premium": 1.0
+  },
+  "hustle_tracking": {
+    "minutes_evaluated": 37.0,
+    "deflections_total": 1,
+    "deflections_per_100": 1.2,
+    "screen_assists_total": 2,
+    "screen_assists_per_100": 2.5,
+    "screen_assist_points_total": 0,
+    "screen_assist_pts_per_100": 0.0,
+    "charges_drawn_total": 0,
+    "charges_drawn_per_100": 0.0,
+    "loose_balls_recovered_per_100": 0.0,
+    "box_outs_per_100": 8.7
+  },
+  "archetype": {
+    "offensive_role": "Connector / Secondary Playmaker",
+    "offensive_description": "High-IQ ball mover sustaining offensive flow through rapid swing passes and quick attacks.",
+    "defensive_role": "Positional Team Defender",
+    "defensive_description": "Solid system defender executing standard drop and rotation schemes."
+  },
+  "similar_players": [
+    {
+      "player_id": 1642270,
+      "player_name": "Donovan Clingan",
+      "team_abbrev": "POR",
+      "similarity_score_pct": 86.6,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1642270.png"
+    },
+    {
+      "player_id": 1641744,
+      "player_name": "Zach Edey",
+      "team_abbrev": "MEM",
+      "similarity_score_pct": 84.3,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1641744.png"
+    },
+    {
+      "player_id": 1631159,
+      "player_name": "Leonard Miller",
+      "team_abbrev": "CHI",
+      "similarity_score_pct": 84.2,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1631159.png"
+    },
+    {
+      "player_id": 1631117,
+      "player_name": "Walker Kessler",
+      "team_abbrev": "LAL",
+      "similarity_score_pct": 83.7,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1631117.png"
+    },
+    {
+      "player_id": 1628392,
+      "player_name": "Isaiah Hartenstein",
+      "team_abbrev": "OKC",
+      "similarity_score_pct": 83.2,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1628392.png"
+    }
+  ],
+  "assist_network_profile": {
+    "passer_profile": {
+      "assists_delivered": 7,
+      "assisted_points_created": 16,
+      "points_per_assist": 2.29,
+      "three_pt_assist_share": 0.2857,
+      "rim_assist_share": 0.4286,
+      "top_assisted_targets": [
+        {
+          "target_id": 1630598,
+          "target_name": "Aaron Wiggins",
+          "assists_received": 2
+        },
+        {
+          "target_id": 1630700,
+          "target_name": "Dyson Daniels",
+          "assists_received": 2
+        },
+        {
+          "target_id": 1629652,
+          "target_name": "Luguentz Dort",
+          "assists_received": 1
+        }
+      ]
+    },
+    "finisher_profile": {
+      "assisted_baskets_finished": 6,
+      "points_from_assists": 13,
+      "primary_feeders": [
+        {
+          "feeder_id": 1629638,
+          "feeder_name": "Nickeil Alexander-Walker",
+          "feeds_delivered": 5
+        },
+        {
+          "feeder_id": 1643412,
+          "feeder_name": "Kingston Flemings",
+          "feeds_delivered": 1
+        }
+      ]
+    }
+  },
+  "shot_making_and_creation": {
+    "fga": 13,
+    "shot_quality_xefg": 0.6089,
+    "smoe_total": -0.83,
+    "smoe_per_100": -6.4,
+    "creation_profile": {
+      "self_created_fga": 4,
+      "self_creation_rate": 0.3077,
+      "self_created_efg": 0.75,
+      "self_created_smoe_per_100": 28.23,
+      "assisted_fga": 9,
+      "assisted_efg": 0.5,
+      "assisted_smoe_per_100": -21.79,
+      "creation_efficiency_tax": -0.25
+    },
+    "rim_pressure": {
+      "rim_attempts": 7,
+      "rim_pressure_rate": 0.5385,
+      "rim_fg_pct": 0.7143,
+      "rim_finishing_premium": 0.042
+    },
+    "corner_3_specialist_premium": 0.5,
+    "hot_cold_zones": {
+      "Restricted Area": {
+        "attempts": 7,
+        "made": 5,
+        "fg_pct": 0.7143,
+        "baseline_fg_pct": 0.6723,
+        "delta_fg_pct": 0.042,
+        "status": "HOT"
+      },
+      "In The Paint (Non-RA)": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.4451,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Mid-Range": {
+        "attempts": 1,
+        "made": 1,
+        "fg_pct": 1.0,
+        "baseline_fg_pct": 0.4185,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Left Corner 3": {
+        "attempts": 2,
+        "made": 0,
+        "fg_pct": 0.0,
+        "baseline_fg_pct": 0.3892,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Right Corner 3": {
+        "attempts": 1,
+        "made": 1,
+        "fg_pct": 1.0,
+        "baseline_fg_pct": 0.3843,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Above the Break 3": {
+        "attempts": 2,
+        "made": 0,
+        "fg_pct": 0.0,
+        "baseline_fg_pct": 0.3491,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Backcourt": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.4783,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      }
+    },
+    "shot_density_bins": [
+      {
+        "x": 0,
+        "y": 40,
+        "fga": 2,
+        "fgm": 1,
+        "fg_pct": 0.5,
+        "efg_pct": 0.5
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "fga": 2,
+        "fgm": 2,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": -240,
+        "y": 0,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -160,
+        "y": 200,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 20,
+        "y": 20,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 100,
+        "y": 20,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 0,
+        "y": 20,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -100,
+        "y": 260,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 220,
+        "y": 0,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": -40,
+        "y": 20,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      }
+    ]
+  },
+  "game_flow_and_clutch": {
+    "quarter_splits": {
+      "q1_fga": 4,
+      "q1_efg": 0.5,
+      "q1_jumpstart_rating": -0.0769,
+      "q4_fga": 4,
+      "q4_efg": 1.125,
+      "q4_production_rating": 0.7917
+    },
+    "clutch_execution": {
+      "clutch_fga": 0,
+      "clutch_efg": null,
+      "non_clutch_efg": 0.5769,
+      "clutch_execution_gap": null
+    }
+  },
+  "consistency_and_schedule": {
+    "volatility_profile": {
+      "scoring_volatility_index_svi": 1.77,
+      "scoring_floor_pts_100": 21.3,
+      "scoring_ceiling_pts_100": 23.3,
+      "sub_zero_game_rate": 1.0,
+      "sub_zero_games_count": 1,
+      "explosion_game_rate": 0.0,
+      "explosion_games_count": 0
+    },
+    "schedule_rest_splits": {
+      "b2b_degradation_ts": null,
+      "splits": {
+        "b2b_zero_rest": null,
+        "one_day_rest": {
+          "games": 1,
+          "minutes_per_game": 18.0,
+          "true_shooting_pct": 0.4505,
+          "pts_per_100": 21.0
+        },
+        "well_rested": {
+          "games": 1,
+          "minutes_per_game": 19.0,
+          "true_shooting_pct": 0.8503,
+          "pts_per_100": 23.5
+        }
+      }
+    },
+    "venue_splits": {
+      "road_dropoff_ts": null,
+      "home": null,
+      "away": {
+        "games": 2,
+        "minutes_per_game": 18.5,
+        "true_shooting_pct": 0.6098,
+        "pts_per_100": 22.3
+      }
+    }
+  },
+  "percentile_ranks": {
+    "league_wide": {
+      "true_shooting": 63.0,
+      "usage": 26.0,
+      "ast_tov_ratio": 97.0,
+      "true_ast_pct": 79.1,
+      "true_dreb_pct": 63.4,
+      "stock_rate": 71.5,
+      "net_epm": 10.6,
+      "relative_plus_minus": 6.0,
+      "deflections": 17.0,
+      "screen_assist_points": 30.4,
+      "smoe_per_100": 47.9,
+      "shot_quality": 93.6,
+      "self_creation_rate": 24.1,
+      "rim_pressure_rate": 88.5,
+      "points_per_100": 51.5
+    },
+    "positional_peer": {
+      "position_group": "Forward",
+      "true_shooting": 63.0,
+      "net_epm": 10.6,
+      "rim_pressure": 88.5,
+      "playmaking_load": 79.1,
+      "rebound_dominance": 63.4,
+      "usage_to_efficiency_ratio": 38.3
+    }
+  }
+}

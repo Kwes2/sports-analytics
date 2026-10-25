@@ -1,0 +1,41 @@
+{
+  "matchup_id": "TOR_vs_MIL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1026.6
+  },
+  "away_team": {
+    "team_id": 1610612749,
+    "team_name": "Milwaukee Bucks",
+    "team_abbrev": "MIL",
+    "overall_elo": 949.7
+  },
+  "predicted_pace": 95.0,
+  "home_win_probability": 0.6089,
+  "away_win_probability": 0.3911,
+  "predicted_score": {
+    "home": 115.6,
+    "away": 106.7,
+    "margin": 8.9,
+    "total_points": 222.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3019,
+      "away_rim_denial_efficiency": 0.0082,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3632,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 2.37,
+      "away_poss_margin_per_game": -4.33,
+      "edge": "home"
+    }
+  }
+}

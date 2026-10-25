@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BKN_vs_MIN",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 946.2
+  },
+  "away_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1020.2
+  },
+  "predicted_pace": 101.4,
+  "home_win_probability": 0.3951,
+  "away_win_probability": 0.6049,
+  "predicted_score": {
+    "home": 88.9,
+    "away": 114.3,
+    "margin": -25.4,
+    "total_points": 203.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3,
+      "away_rim_denial_efficiency": 0.0534,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3875,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -5.0,
+      "away_poss_margin_per_game": 17.0,
+      "edge": "away"
+    }
+  }
+}

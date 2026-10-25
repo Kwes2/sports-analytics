@@ -1,0 +1,41 @@
+{
+  "matchup_id": "TOR_vs_WAS",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1025.6
+  },
+  "away_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 943.5
+  },
+  "predicted_pace": 113.0,
+  "home_win_probability": 0.616,
+  "away_win_probability": 0.384,
+  "predicted_score": {
+    "home": 125.1,
+    "away": 94.9,
+    "margin": 30.2,
+    "total_points": 220.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3216,
+      "away_rim_denial_efficiency": -0.008,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3266,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 15.0,
+      "away_poss_margin_per_game": -8.5,
+      "edge": "home"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "LAC_vs_PHX",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612746,
+    "team_name": "LA Clippers",
+    "team_abbrev": "LAC",
+    "overall_elo": 1010.6
+  },
+  "away_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1000.6
+  },
+  "predicted_pace": 96.9,
+  "home_win_probability": 0.5144,
+  "away_win_probability": 0.4856,
+  "predicted_score": {
+    "home": 121.4,
+    "away": 80.7,
+    "margin": 40.7,
+    "total_points": 202.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2317,
+      "away_rim_denial_efficiency": 0.0177,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4364,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.5,
+      "away_poss_margin_per_game": -2.0,
+      "edge": "even"
+    }
+  }
+}

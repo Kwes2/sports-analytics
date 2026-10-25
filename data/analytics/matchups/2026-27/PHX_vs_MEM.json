@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHX_vs_MEM",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1000.6
+  },
+  "away_team": {
+    "team_id": 1610612763,
+    "team_name": "Memphis Grizzlies",
+    "team_abbrev": "MEM",
+    "overall_elo": 961.7
+  },
+  "predicted_pace": 96.1,
+  "home_win_probability": 0.5557,
+  "away_win_probability": 0.4443,
+  "predicted_score": {
+    "home": 78.8,
+    "away": 119.5,
+    "margin": -40.7,
+    "total_points": 198.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2262,
+      "away_rim_denial_efficiency": -0.023,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.381,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.0,
+      "away_poss_margin_per_game": 2.5,
+      "edge": "away"
+    }
+  }
+}

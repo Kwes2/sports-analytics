@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAS_vs_DET",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1043.6
+  },
+  "away_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1041.4
+  },
+  "predicted_pace": 104.4,
+  "home_win_probability": 0.5032,
+  "away_win_probability": 0.4968,
+  "predicted_score": {
+    "home": 104.6,
+    "away": 128.3,
+    "margin": -23.7,
+    "total_points": 232.9
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3118,
+      "away_rim_denial_efficiency": 0.1587,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4111,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.5,
+      "away_poss_margin_per_game": -7.5,
+      "edge": "home"
+    }
+  }
+}

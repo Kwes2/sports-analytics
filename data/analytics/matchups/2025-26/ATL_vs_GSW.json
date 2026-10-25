@@ -1,0 +1,41 @@
+{
+  "matchup_id": "ATL_vs_GSW",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1023.9
+  },
+  "away_team": {
+    "team_id": 1610612744,
+    "team_name": "Golden State Warriors",
+    "team_abbrev": "GSW",
+    "overall_elo": 982.4
+  },
+  "predicted_pace": 99.9,
+  "home_win_probability": 0.5594,
+  "away_win_probability": 0.4406,
+  "predicted_score": {
+    "home": 117.9,
+    "away": 114.8,
+    "margin": 3.1,
+    "total_points": 232.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2878,
+      "away_rim_denial_efficiency": 0.0228,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4293,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.72,
+      "away_poss_margin_per_game": 0.1,
+      "edge": "home"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "UTA_vs_GSW",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612762,
+    "team_name": "Utah Jazz",
+    "team_abbrev": "UTA",
+    "overall_elo": 948.5
+  },
+  "away_team": {
+    "team_id": 1610612744,
+    "team_name": "Golden State Warriors",
+    "team_abbrev": "GSW",
+    "overall_elo": 982.4
+  },
+  "predicted_pace": 100.6,
+  "home_win_probability": 0.4514,
+  "away_win_probability": 0.5486,
+  "predicted_score": {
+    "home": 116.5,
+    "away": 124.3,
+    "margin": -7.8,
+    "total_points": 240.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2581,
+      "away_rim_denial_efficiency": 0.0228,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4025,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.76,
+      "away_poss_margin_per_game": 0.1,
+      "edge": "even"
+    }
+  }
+}

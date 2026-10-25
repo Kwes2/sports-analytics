@@ -1,0 +1,510 @@
+{
+  "player_id": 1642443,
+  "player_name": "Jahmir Young",
+  "team_id": 1610612748,
+  "team_abbrev": "MIA",
+  "position": "Forward",
+  "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1642443.png",
+  "bio": {
+    "raw_position": "F",
+    "height": "6-0",
+    "weight": "185",
+    "age": 25.0
+  },
+  "games_played": 14,
+  "minutes_total": 58.0,
+  "minutes_per_game": 4.1,
+  "usage_pct": 20.29,
+  "true_shooting_pct": 0.483,
+  "effective_fg_pct": 0.46,
+  "ast_tov_ratio": 3.0,
+  "per_100_possessions": {
+    "points": 20.3,
+    "rebounds": 3.3,
+    "assists": 7.3,
+    "turnovers": 2.4,
+    "steals": 0.8,
+    "blocks": 0.0
+  },
+  "effective_plus_minus": {
+    "offensive_epm": 0.76,
+    "defensive_epm": -1.94,
+    "net_epm": -1.19
+  },
+  "relative_plus_minus": {
+    "stint_possessions": 108.7,
+    "actual_net_margin_per_100": -3.68,
+    "expected_net_margin_per_100": 13.89,
+    "relative_plus_minus": -17.57
+  },
+  "oliver_floor_rates": {
+    "true_ast_pct": 21.07,
+    "true_orb_pct": 3.55,
+    "true_dreb_pct": 3.6,
+    "stock_rate_per_100": 0.81,
+    "foul_drawing_premium": 0.29
+  },
+  "hustle_tracking": {
+    "minutes_evaluated": 45.0,
+    "deflections_total": 4,
+    "deflections_per_100": 4.2,
+    "screen_assists_total": 0,
+    "screen_assists_per_100": 0.0,
+    "screen_assist_points_total": 0,
+    "screen_assist_pts_per_100": 0.0,
+    "charges_drawn_total": 0,
+    "charges_drawn_per_100": 0.0,
+    "loose_balls_recovered_per_100": 1.0,
+    "box_outs_per_100": 0.0
+  },
+  "archetype": {
+    "offensive_role": "Shot-Creating Wing",
+    "offensive_description": "Three-level scoring threat capable of generating efficient looks off the dribble.",
+    "defensive_role": "Point-of-Attack Disruptor",
+    "defensive_description": "Aggressive perimeter defender generating deflections, blowing up screens, and forcing turnovers."
+  },
+  "similar_players": [
+    {
+      "player_id": 1631245,
+      "player_name": "Quenton Jackson",
+      "team_abbrev": "IND",
+      "similarity_score_pct": 93.5,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1631245.png"
+    },
+    {
+      "player_id": 1628420,
+      "player_name": "Monte Morris",
+      "team_abbrev": "IND",
+      "similarity_score_pct": 92.3,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1628420.png"
+    },
+    {
+      "player_id": 1630536,
+      "player_name": "Sharife Cooper",
+      "team_abbrev": "WAS",
+      "similarity_score_pct": 92.0,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1630536.png"
+    },
+    {
+      "player_id": 1642859,
+      "player_name": "Jase Richardson",
+      "team_abbrev": "ORL",
+      "similarity_score_pct": 91.8,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1642859.png"
+    },
+    {
+      "player_id": 1631113,
+      "player_name": "Kennedy Chandler",
+      "team_abbrev": "UTA",
+      "similarity_score_pct": 91.3,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1631113.png"
+    }
+  ],
+  "assist_network_profile": {
+    "passer_profile": {
+      "assists_delivered": 9,
+      "assisted_points_created": 22,
+      "points_per_assist": 2.44,
+      "three_pt_assist_share": 0.4444,
+      "rim_assist_share": 0.5556,
+      "top_assisted_targets": [
+        {
+          "target_id": 1642352,
+          "target_name": "Keshad Johnson",
+          "assists_received": 2
+        },
+        {
+          "target_id": 1631211,
+          "target_name": "Trevor Keels",
+          "assists_received": 2
+        },
+        {
+          "target_id": 1642276,
+          "target_name": "Kel'el Ware",
+          "assists_received": 1
+        }
+      ]
+    },
+    "finisher_profile": {
+      "assisted_baskets_finished": 4,
+      "points_from_assists": 11,
+      "primary_feeders": [
+        {
+          "feeder_id": 1641796,
+          "feeder_name": "Pelle Larsson",
+          "feeds_delivered": 1
+        },
+        {
+          "feeder_id": 1642276,
+          "feeder_name": "Kel'el Ware",
+          "feeds_delivered": 1
+        },
+        {
+          "feeder_id": 1630696,
+          "feeder_name": "Dru Smith",
+          "feeds_delivered": 1
+        }
+      ]
+    }
+  },
+  "shot_making_and_creation": {
+    "fga": 25,
+    "shot_quality_xefg": 0.5592,
+    "smoe_total": -4.96,
+    "smoe_per_100": -19.84,
+    "creation_profile": {
+      "self_created_fga": 14,
+      "self_creation_rate": 0.56,
+      "self_created_efg": 0.5357,
+      "self_created_smoe_per_100": -2.7,
+      "assisted_fga": 11,
+      "assisted_efg": 0.3636,
+      "assisted_smoe_per_100": -41.66,
+      "creation_efficiency_tax": -0.1721
+    },
+    "rim_pressure": {
+      "rim_attempts": 9,
+      "rim_pressure_rate": 0.36,
+      "rim_fg_pct": 0.4444,
+      "rim_finishing_premium": -0.2279
+    },
+    "corner_3_specialist_premium": 0.75,
+    "hot_cold_zones": {
+      "Restricted Area": {
+        "attempts": 9,
+        "made": 4,
+        "fg_pct": 0.4444,
+        "baseline_fg_pct": 0.6723,
+        "delta_fg_pct": -0.2279,
+        "status": "COLD"
+      },
+      "In The Paint (Non-RA)": {
+        "attempts": 4,
+        "made": 2,
+        "fg_pct": 0.5,
+        "baseline_fg_pct": 0.4451,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Mid-Range": {
+        "attempts": 3,
+        "made": 1,
+        "fg_pct": 0.3333,
+        "baseline_fg_pct": 0.4185,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Left Corner 3": {
+        "attempts": 3,
+        "made": 2,
+        "fg_pct": 0.6667,
+        "baseline_fg_pct": 0.3892,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Right Corner 3": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.3843,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Above the Break 3": {
+        "attempts": 6,
+        "made": 1,
+        "fg_pct": 0.1667,
+        "baseline_fg_pct": 0.3491,
+        "delta_fg_pct": -0.1824,
+        "status": "COLD"
+      },
+      "Backcourt": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.4783,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      }
+    },
+    "shot_density_bins": [
+      {
+        "x": -20,
+        "y": 20,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 20,
+        "y": 20,
+        "fga": 2,
+        "fgm": 1,
+        "fg_pct": 0.5,
+        "efg_pct": 0.5
+      },
+      {
+        "x": -100,
+        "y": 0,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -240,
+        "y": 0,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": -20,
+        "y": 0,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 200,
+        "y": 180,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": -120,
+        "y": 220,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -20,
+        "y": 40,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": -40,
+        "y": 20,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 20,
+        "y": 260,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -220,
+        "y": 80,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -140,
+        "y": 220,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 20,
+        "y": 0,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 0,
+        "y": 60,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 100,
+        "y": 20,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -140,
+        "y": 240,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 0,
+        "y": 120,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 0,
+        "y": 20,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": -40,
+        "y": 260,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -100,
+        "y": 100,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 60,
+        "y": 120,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -240,
+        "y": 20,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      }
+    ]
+  },
+  "game_flow_and_clutch": {
+    "quarter_splits": {
+      "q1_fga": 1,
+      "q1_efg": 0.0,
+      "q1_jumpstart_rating": -0.46,
+      "q4_fga": 24,
+      "q4_efg": 0.4792,
+      "q4_production_rating": 0.4792
+    },
+    "clutch_execution": {
+      "clutch_fga": 19,
+      "clutch_efg": 0.5263,
+      "non_clutch_efg": 0.25,
+      "clutch_execution_gap": 0.2763
+    }
+  },
+  "consistency_and_schedule": {
+    "volatility_profile": {
+      "scoring_volatility_index_svi": null,
+      "scoring_floor_pts_100": null,
+      "scoring_ceiling_pts_100": null,
+      "sub_zero_game_rate": null,
+      "sub_zero_games_count": 0,
+      "explosion_game_rate": null,
+      "explosion_games_count": 0
+    },
+    "schedule_rest_splits": {
+      "b2b_degradation_ts": -0.4159,
+      "splits": {
+        "b2b_zero_rest": {
+          "games": 1,
+          "minutes_per_game": 1.0,
+          "true_shooting_pct": 0.0,
+          "pts_per_100": 0.0
+        },
+        "one_day_rest": {
+          "games": 4,
+          "minutes_per_game": 1.2,
+          "true_shooting_pct": 0.9009,
+          "pts_per_100": 70.1
+        },
+        "well_rested": {
+          "games": 9,
+          "minutes_per_game": 5.8,
+          "true_shooting_pct": 0.4159,
+          "pts_per_100": 16.3
+        }
+      }
+    },
+    "venue_splits": {
+      "road_dropoff_ts": -0.0766,
+      "home": {
+        "games": 7,
+        "minutes_per_game": 4.0,
+        "true_shooting_pct": 0.5376,
+        "pts_per_100": 27.9
+      },
+      "away": {
+        "games": 7,
+        "minutes_per_game": 4.3,
+        "true_shooting_pct": 0.461,
+        "pts_per_100": 33.1
+      }
+    }
+  },
+  "percentile_ranks": {
+    "league_wide": {
+      "true_shooting": null,
+      "usage": null,
+      "ast_tov_ratio": null,
+      "true_ast_pct": null,
+      "true_dreb_pct": null,
+      "stock_rate": null,
+      "net_epm": null,
+      "relative_plus_minus": null,
+      "deflections": null,
+      "screen_assist_points": null,
+      "smoe_per_100": null,
+      "shot_quality": null,
+      "self_creation_rate": null,
+      "rim_pressure_rate": null,
+      "points_per_100": null
+    },
+    "positional_peer": {
+      "position_group": "Forward",
+      "true_shooting": null,
+      "net_epm": null,
+      "rim_pressure": null,
+      "playmaking_load": null,
+      "rebound_dominance": null,
+      "usage_to_efficiency_ratio": null
+    }
+  }
+}

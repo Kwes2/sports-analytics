@@ -1,0 +1,340 @@
+{
+  "player_id": 1627734,
+  "player_name": "Domantas Sabonis",
+  "team_id": 1610612758,
+  "team_abbrev": "SAC",
+  "position": "Forward",
+  "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1627734.png",
+  "bio": {
+    "raw_position": "F",
+    "height": "6-10",
+    "weight": "240",
+    "age": 30.0
+  },
+  "games_played": 2,
+  "minutes_total": 73.0,
+  "minutes_per_game": 36.5,
+  "usage_pct": 17.23,
+  "true_shooting_pct": 0.8929,
+  "effective_fg_pct": 0.8611,
+  "ast_tov_ratio": 2.25,
+  "per_100_possessions": {
+    "points": 26.0,
+    "rebounds": 24.0,
+    "assists": 11.7,
+    "turnovers": 5.2,
+    "steals": 0.6,
+    "blocks": 0.0
+  },
+  "effective_plus_minus": {
+    "offensive_epm": -11.47,
+    "defensive_epm": 9.75,
+    "net_epm": -1.72
+  },
+  "relative_plus_minus": {
+    "stint_possessions": 71.5,
+    "actual_net_margin_per_100": -51.77,
+    "expected_net_margin_per_100": -13.97,
+    "relative_plus_minus": -37.8
+  },
+  "oliver_floor_rates": {
+    "true_ast_pct": 40.62,
+    "true_orb_pct": 11.56,
+    "true_dreb_pct": 43.84,
+    "stock_rate_per_100": 0.65,
+    "foul_drawing_premium": 1.25
+  },
+  "hustle_tracking": {
+    "minutes_evaluated": 72.0,
+    "deflections_total": 3,
+    "deflections_per_100": 2.0,
+    "screen_assists_total": 14,
+    "screen_assists_per_100": 9.2,
+    "screen_assist_points_total": 13,
+    "screen_assist_pts_per_100": 8.6,
+    "charges_drawn_total": 0,
+    "charges_drawn_per_100": 0.0,
+    "loose_balls_recovered_per_100": 0.0,
+    "box_outs_per_100": 2.6
+  },
+  "archetype": {
+    "offensive_role": "Connector / Secondary Playmaker",
+    "offensive_description": "High-IQ ball mover sustaining offensive flow through rapid swing passes and quick attacks.",
+    "defensive_role": "Switchable Wing Defender",
+    "defensive_description": "Versatile multi-positional stopper capable of sliding feet on guards and holding ground on bigs."
+  },
+  "similar_players": [
+    {
+      "player_id": 203083,
+      "player_name": "Andre Drummond",
+      "team_abbrev": "NYK",
+      "similarity_score_pct": 87.3,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/203083.png"
+    },
+    {
+      "player_id": 1627826,
+      "player_name": "Ivica Zubac",
+      "team_abbrev": "IND",
+      "similarity_score_pct": 86.4,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1627826.png"
+    },
+    {
+      "player_id": 1630552,
+      "player_name": "Jalen Johnson",
+      "team_abbrev": "ATL",
+      "similarity_score_pct": 86.1,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1630552.png"
+    },
+    {
+      "player_id": 1631170,
+      "player_name": "Jaime Jaquez Jr.",
+      "team_abbrev": "MIL",
+      "similarity_score_pct": 84.6,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1631170.png"
+    },
+    {
+      "player_id": 1643409,
+      "player_name": "Cameron Boozer",
+      "team_abbrev": "MEM",
+      "similarity_score_pct": 84.4,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1643409.png"
+    }
+  ],
+  "assist_network_profile": {
+    "passer_profile": {
+      "assists_delivered": 8,
+      "assisted_points_created": 19,
+      "points_per_assist": 2.38,
+      "three_pt_assist_share": 0.375,
+      "rim_assist_share": 0.5,
+      "top_assisted_targets": [
+        {
+          "target_id": 203897,
+          "target_name": "Zach LaVine",
+          "assists_received": 4
+        },
+        {
+          "target_id": 1629631,
+          "target_name": "De'Andre Hunter",
+          "assists_received": 1
+        },
+        {
+          "target_id": 1630173,
+          "target_name": "Precious Achiuwa",
+          "assists_received": 1
+        }
+      ]
+    },
+    "finisher_profile": {
+      "assisted_baskets_finished": 4,
+      "points_from_assists": 8,
+      "primary_feeders": [
+        {
+          "feeder_id": 203897,
+          "feeder_name": "Zach LaVine",
+          "feeds_delivered": 3
+        },
+        {
+          "feeder_id": 1630173,
+          "feeder_name": "Precious Achiuwa",
+          "feeds_delivered": 1
+        }
+      ]
+    }
+  },
+  "shot_making_and_creation": {
+    "fga": 18,
+    "shot_quality_xefg": 0.6723,
+    "smoe_total": 3.28,
+    "smoe_per_100": 65.55,
+    "creation_profile": {
+      "self_created_fga": 2,
+      "self_creation_rate": 0.4,
+      "self_created_efg": 1.0,
+      "self_created_smoe_per_100": 65.55,
+      "assisted_fga": 3,
+      "assisted_efg": 1.0,
+      "assisted_smoe_per_100": 65.55,
+      "creation_efficiency_tax": 0.0
+    },
+    "rim_pressure": {
+      "rim_attempts": 5,
+      "rim_pressure_rate": 1.0,
+      "rim_fg_pct": 1.0,
+      "rim_finishing_premium": 0.3277
+    },
+    "corner_3_specialist_premium": null,
+    "hot_cold_zones": {
+      "Restricted Area": {
+        "attempts": 5,
+        "made": 5,
+        "fg_pct": 1.0,
+        "baseline_fg_pct": 0.6723,
+        "delta_fg_pct": 0.3277,
+        "status": "HOT"
+      },
+      "In The Paint (Non-RA)": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.4451,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Mid-Range": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.4185,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Left Corner 3": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.3892,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Right Corner 3": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.3843,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Above the Break 3": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.3491,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Backcourt": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.4783,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      }
+    },
+    "shot_density_bins": [
+      {
+        "x": 0,
+        "y": 20,
+        "fga": 2,
+        "fgm": 2,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "fga": 2,
+        "fgm": 2,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": -40,
+        "y": 0,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      }
+    ]
+  },
+  "game_flow_and_clutch": {
+    "quarter_splits": {
+      "q1_fga": 2,
+      "q1_efg": 1.0,
+      "q1_jumpstart_rating": 0.0,
+      "q4_fga": 0,
+      "q4_efg": null,
+      "q4_production_rating": null
+    },
+    "clutch_execution": {
+      "clutch_fga": 0,
+      "clutch_efg": null,
+      "non_clutch_efg": 1.0,
+      "clutch_execution_gap": null
+    }
+  },
+  "consistency_and_schedule": {
+    "volatility_profile": {
+      "scoring_volatility_index_svi": 7.78,
+      "scoring_floor_pts_100": 21.0,
+      "scoring_ceiling_pts_100": 29.8,
+      "sub_zero_game_rate": 0.0,
+      "sub_zero_games_count": 0,
+      "explosion_game_rate": 0.5,
+      "explosion_games_count": 1
+    },
+    "schedule_rest_splits": {
+      "b2b_degradation_ts": null,
+      "splits": {
+        "b2b_zero_rest": null,
+        "one_day_rest": {
+          "games": 1,
+          "minutes_per_game": 39.0,
+          "true_shooting_pct": 0.8312,
+          "pts_per_100": 30.9
+        },
+        "well_rested": {
+          "games": 1,
+          "minutes_per_game": 34.0,
+          "true_shooting_pct": 1.0355,
+          "pts_per_100": 19.9
+        }
+      }
+    },
+    "venue_splits": {
+      "road_dropoff_ts": 0.2043,
+      "home": {
+        "games": 1,
+        "minutes_per_game": 39.0,
+        "true_shooting_pct": 0.8312,
+        "pts_per_100": 30.9
+      },
+      "away": {
+        "games": 1,
+        "minutes_per_game": 34.0,
+        "true_shooting_pct": 1.0355,
+        "pts_per_100": 19.9
+      }
+    }
+  },
+  "percentile_ranks": {
+    "league_wide": {
+      "true_shooting": 99.6,
+      "usage": 34.5,
+      "ast_tov_ratio": 68.7,
+      "true_ast_pct": 97.0,
+      "true_dreb_pct": 100.0,
+      "stock_rate": 10.2,
+      "net_epm": 20.7,
+      "relative_plus_minus": 20.3,
+      "deflections": 32.3,
+      "screen_assist_points": 94.5,
+      "smoe_per_100": 97.4,
+      "shot_quality": 99.6,
+      "self_creation_rate": 36.1,
+      "rim_pressure_rate": 99.6,
+      "points_per_100": 67.0
+    },
+    "positional_peer": {
+      "position_group": "Forward",
+      "true_shooting": 99.6,
+      "net_epm": 20.7,
+      "rim_pressure": 99.6,
+      "playmaking_load": 97.0,
+      "rebound_dominance": 100.0,
+      "usage_to_efficiency_ratio": 79.1
+    }
+  }
+}

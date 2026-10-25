@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DAL_vs_POR",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612742,
+    "team_name": "Dallas Mavericks",
+    "team_abbrev": "DAL",
+    "overall_elo": 961.3
+  },
+  "away_team": {
+    "team_id": 1610612757,
+    "team_name": "Portland Trail Blazers",
+    "team_abbrev": "POR",
+    "overall_elo": 1010.3
+  },
+  "predicted_pace": 102.2,
+  "home_win_probability": 0.4299,
+  "away_win_probability": 0.5701,
+  "predicted_score": {
+    "home": 114.5,
+    "away": 119.1,
+    "margin": -4.6,
+    "total_points": 233.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2884,
+      "away_rim_denial_efficiency": -0.0014,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.355,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.61,
+      "away_poss_margin_per_game": 0.46,
+      "edge": "away"
+    }
+  }
+}

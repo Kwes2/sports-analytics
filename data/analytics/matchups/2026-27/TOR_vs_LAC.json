@@ -1,0 +1,41 @@
+{
+  "matchup_id": "TOR_vs_LAC",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1025.6
+  },
+  "away_team": {
+    "team_id": 1610612746,
+    "team_name": "LA Clippers",
+    "team_abbrev": "LAC",
+    "overall_elo": 1010.6
+  },
+  "predicted_pace": 110.5,
+  "home_win_probability": 0.5216,
+  "away_win_probability": 0.4784,
+  "predicted_score": {
+    "home": 122.0,
+    "away": 99.9,
+    "margin": 22.1,
+    "total_points": 221.9
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3216,
+      "away_rim_denial_efficiency": -0.0575,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3266,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 15.0,
+      "away_poss_margin_per_game": -1.5,
+      "edge": "home"
+    }
+  }
+}

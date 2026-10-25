@@ -1,0 +1,41 @@
+{
+  "matchup_id": "NYK_vs_BKN",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612752,
+    "team_name": "New York Knicks",
+    "team_abbrev": "NYK",
+    "overall_elo": 1028.9
+  },
+  "away_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 946.2
+  },
+  "predicted_pace": 97.2,
+  "home_win_probability": 0.6168,
+  "away_win_probability": 0.3832,
+  "predicted_score": {
+    "home": 93.1,
+    "away": 95.0,
+    "margin": -1.9,
+    "total_points": 188.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2743,
+      "away_rim_denial_efficiency": 0.0471,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4195,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.0,
+      "away_poss_margin_per_game": -5.0,
+      "edge": "home"
+    }
+  }
+}

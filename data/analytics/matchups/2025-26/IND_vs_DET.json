@@ -1,0 +1,41 @@
+{
+  "matchup_id": "IND_vs_DET",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612754,
+    "team_name": "Indiana Pacers",
+    "team_abbrev": "IND",
+    "overall_elo": 960.2
+  },
+  "away_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1050.5
+  },
+  "predicted_pace": 99.7,
+  "home_win_probability": 0.3729,
+  "away_win_probability": 0.6271,
+  "predicted_score": {
+    "home": 106.4,
+    "away": 121.9,
+    "margin": -15.5,
+    "total_points": 228.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2707,
+      "away_rim_denial_efficiency": 0.0307,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4222,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.43,
+      "away_poss_margin_per_game": 3.57,
+      "edge": "away"
+    }
+  }
+}

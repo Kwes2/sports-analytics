@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BOS_vs_GSW",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1051.2
+  },
+  "away_team": {
+    "team_id": 1610612744,
+    "team_name": "Golden State Warriors",
+    "team_abbrev": "GSW",
+    "overall_elo": 982.4
+  },
+  "predicted_pace": 94.0,
+  "home_win_probability": 0.5977,
+  "away_win_probability": 0.4023,
+  "predicted_score": {
+    "home": 114.4,
+    "away": 106.8,
+    "margin": 7.6,
+    "total_points": 221.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2102,
+      "away_rim_denial_efficiency": 0.0228,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4672,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.7,
+      "away_poss_margin_per_game": 0.1,
+      "edge": "home"
+    }
+  }
+}

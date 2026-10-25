@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHI_vs_MIN",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612755,
+    "team_name": "Philadelphia 76ers",
+    "team_abbrev": "PHI",
+    "overall_elo": 1002.7
+  },
+  "away_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1020.2
+  },
+  "predicted_pace": 109.4,
+  "home_win_probability": 0.4748,
+  "away_win_probability": 0.5252,
+  "predicted_score": {
+    "home": 94.7,
+    "away": 112.7,
+    "margin": -18.0,
+    "total_points": 207.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3591,
+      "away_rim_denial_efficiency": 0.0534,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3757,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.0,
+      "away_poss_margin_per_game": 17.0,
+      "edge": "away"
+    }
+  }
+}

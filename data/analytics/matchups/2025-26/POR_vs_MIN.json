@@ -1,0 +1,41 @@
+{
+  "matchup_id": "POR_vs_MIN",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612757,
+    "team_name": "Portland Trail Blazers",
+    "team_abbrev": "POR",
+    "overall_elo": 1010.3
+  },
+  "away_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1016.1
+  },
+  "predicted_pace": 100.9,
+  "home_win_probability": 0.4917,
+  "away_win_probability": 0.5083,
+  "predicted_score": {
+    "home": 113.6,
+    "away": 118.9,
+    "margin": -5.3,
+    "total_points": 232.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3176,
+      "away_rim_denial_efficiency": -0.0283,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4685,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.46,
+      "away_poss_margin_per_game": -0.48,
+      "edge": "even"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIN_vs_MIL",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1020.2
+  },
+  "away_team": {
+    "team_id": 1610612749,
+    "team_name": "Milwaukee Bucks",
+    "team_abbrev": "MIL",
+    "overall_elo": 958.2
+  },
+  "predicted_pace": 107.2,
+  "home_win_probability": 0.5883,
+  "away_win_probability": 0.4117,
+  "predicted_score": {
+    "home": 138.1,
+    "away": 106.0,
+    "margin": 32.1,
+    "total_points": 244.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.1888,
+      "away_rim_denial_efficiency": -0.1129,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4439,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 17.0,
+      "away_poss_margin_per_game": -4.5,
+      "edge": "home"
+    }
+  }
+}

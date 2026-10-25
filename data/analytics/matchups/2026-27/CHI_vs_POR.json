@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CHI_vs_POR",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612741,
+    "team_name": "Chicago Bulls",
+    "team_abbrev": "CHI",
+    "overall_elo": 962.2
+  },
+  "away_team": {
+    "team_id": 1610612757,
+    "team_name": "Portland Trail Blazers",
+    "team_abbrev": "POR",
+    "overall_elo": 1015.3
+  },
+  "predicted_pace": 110.9,
+  "home_win_probability": 0.4242,
+  "away_win_probability": 0.5758,
+  "predicted_score": {
+    "home": 99.3,
+    "away": 142.1,
+    "margin": -42.8,
+    "total_points": 241.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3933,
+      "away_rim_denial_efficiency": 0.0575,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4426,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.0,
+      "away_poss_margin_per_game": 4.0,
+      "edge": "away"
+    }
+  }
+}

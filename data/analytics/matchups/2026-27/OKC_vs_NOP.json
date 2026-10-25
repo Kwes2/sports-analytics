@@ -1,0 +1,41 @@
+{
+  "matchup_id": "OKC_vs_NOP",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1051.3
+  },
+  "away_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 982.3
+  },
+  "predicted_pace": 102.0,
+  "home_win_probability": 0.598,
+  "away_win_probability": 0.402,
+  "predicted_score": {
+    "home": 113.6,
+    "away": 99.2,
+    "margin": 14.4,
+    "total_points": 212.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2842,
+      "away_rim_denial_efficiency": -0.083,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3895,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.5,
+      "away_poss_margin_per_game": 0.5,
+      "edge": "home"
+    }
+  }
+}

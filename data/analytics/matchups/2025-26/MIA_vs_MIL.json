@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIA_vs_MIL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1009.3
+  },
+  "away_team": {
+    "team_id": 1610612749,
+    "team_name": "Milwaukee Bucks",
+    "team_abbrev": "MIL",
+    "overall_elo": 949.7
+  },
+  "predicted_pace": 99.7,
+  "home_win_probability": 0.5849,
+  "away_win_probability": 0.4151,
+  "predicted_score": {
+    "home": 122.3,
+    "away": 113.5,
+    "margin": 8.8,
+    "total_points": 235.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2884,
+      "away_rim_denial_efficiency": 0.0082,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4062,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.63,
+      "away_poss_margin_per_game": -4.33,
+      "edge": "home"
+    }
+  }
+}

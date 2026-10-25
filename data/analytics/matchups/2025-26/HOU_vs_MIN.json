@@ -1,0 +1,41 @@
+{
+  "matchup_id": "HOU_vs_MIN",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612745,
+    "team_name": "Houston Rockets",
+    "team_abbrev": "HOU",
+    "overall_elo": 1027.4
+  },
+  "away_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1016.1
+  },
+  "predicted_pace": 96.3,
+  "home_win_probability": 0.5163,
+  "away_win_probability": 0.4837,
+  "predicted_score": {
+    "home": 112.6,
+    "away": 112.0,
+    "margin": 0.6,
+    "total_points": 224.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2729,
+      "away_rim_denial_efficiency": -0.0283,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3505,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.78,
+      "away_poss_margin_per_game": -0.48,
+      "edge": "home"
+    }
+  }
+}

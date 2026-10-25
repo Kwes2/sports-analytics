@@ -1,0 +1,41 @@
+{
+  "matchup_id": "LAC_vs_MIL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612746,
+    "team_name": "LA Clippers",
+    "team_abbrev": "LAC",
+    "overall_elo": 1011.7
+  },
+  "away_team": {
+    "team_id": 1610612749,
+    "team_name": "Milwaukee Bucks",
+    "team_abbrev": "MIL",
+    "overall_elo": 949.7
+  },
+  "predicted_pace": 92.9,
+  "home_win_probability": 0.5883,
+  "away_win_probability": 0.4117,
+  "predicted_score": {
+    "home": 114.7,
+    "away": 107.1,
+    "margin": 7.6,
+    "total_points": 221.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2691,
+      "away_rim_denial_efficiency": 0.0082,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4043,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.0,
+      "away_poss_margin_per_game": -4.33,
+      "edge": "home"
+    }
+  }
+}

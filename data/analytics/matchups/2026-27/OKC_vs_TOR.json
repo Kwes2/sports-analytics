@@ -1,0 +1,41 @@
+{
+  "matchup_id": "OKC_vs_TOR",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1051.3
+  },
+  "away_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1025.6
+  },
+  "predicted_pace": 107.0,
+  "home_win_probability": 0.5369,
+  "away_win_probability": 0.4631,
+  "predicted_score": {
+    "home": 86.7,
+    "away": 102.1,
+    "margin": -15.4,
+    "total_points": 188.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2842,
+      "away_rim_denial_efficiency": -0.009,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3895,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.5,
+      "away_poss_margin_per_game": 15.0,
+      "edge": "away"
+    }
+  }
+}

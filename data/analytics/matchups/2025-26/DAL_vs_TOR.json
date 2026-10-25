@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DAL_vs_TOR",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612742,
+    "team_name": "Dallas Mavericks",
+    "team_abbrev": "DAL",
+    "overall_elo": 961.3
+  },
+  "away_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1026.6
+  },
+  "predicted_pace": 99.2,
+  "home_win_probability": 0.4071,
+  "away_win_probability": 0.5929,
+  "predicted_score": {
+    "home": 109.5,
+    "away": 118.1,
+    "margin": -8.6,
+    "total_points": 227.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2884,
+      "away_rim_denial_efficiency": -0.0183,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.355,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.61,
+      "away_poss_margin_per_game": 2.37,
+      "edge": "away"
+    }
+  }
+}

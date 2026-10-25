@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DET_vs_TOR",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1050.5
+  },
+  "away_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1026.6
+  },
+  "predicted_pace": 97.5,
+  "home_win_probability": 0.5343,
+  "away_win_probability": 0.4657,
+  "predicted_score": {
+    "home": 113.4,
+    "away": 108.6,
+    "margin": 4.8,
+    "total_points": 222.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3401,
+      "away_rim_denial_efficiency": -0.0183,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3452,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.57,
+      "away_poss_margin_per_game": 2.37,
+      "edge": "home"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "IND_vs_TOR",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612754,
+    "team_name": "Indiana Pacers",
+    "team_abbrev": "IND",
+    "overall_elo": 967.9
+  },
+  "away_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1025.6
+  },
+  "predicted_pace": 112.3,
+  "home_win_probability": 0.4177,
+  "away_win_probability": 0.5823,
+  "predicted_score": {
+    "home": 94.0,
+    "away": 134.0,
+    "margin": -40.0,
+    "total_points": 228.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3277,
+      "away_rim_denial_efficiency": -0.009,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3483,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -3.5,
+      "away_poss_margin_per_game": 15.0,
+      "edge": "away"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BOS_vs_PHX",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1037.5
+  },
+  "away_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1000.6
+  },
+  "predicted_pace": 88.9,
+  "home_win_probability": 0.5529,
+  "away_win_probability": 0.4471,
+  "predicted_score": {
+    "home": 112.2,
+    "away": 79.5,
+    "margin": 32.7,
+    "total_points": 191.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2,
+      "away_rim_denial_efficiency": 0.0177,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4629,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.0,
+      "away_poss_margin_per_game": -2.0,
+      "edge": "home"
+    }
+  }
+}

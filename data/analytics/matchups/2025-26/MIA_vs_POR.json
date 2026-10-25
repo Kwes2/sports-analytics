@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIA_vs_POR",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1009.3
+  },
+  "away_team": {
+    "team_id": 1610612757,
+    "team_name": "Portland Trail Blazers",
+    "team_abbrev": "POR",
+    "overall_elo": 1010.3
+  },
+  "predicted_pace": 103.9,
+  "home_win_probability": 0.4986,
+  "away_win_probability": 0.5014,
+  "predicted_score": {
+    "home": 122.3,
+    "away": 118.5,
+    "margin": 3.8,
+    "total_points": 240.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2884,
+      "away_rim_denial_efficiency": -0.0014,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4062,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.63,
+      "away_poss_margin_per_game": 0.46,
+      "edge": "home"
+    }
+  }
+}

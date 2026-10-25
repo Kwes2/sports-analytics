@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DAL_vs_UTA",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612742,
+    "team_name": "Dallas Mavericks",
+    "team_abbrev": "DAL",
+    "overall_elo": 961.3
+  },
+  "away_team": {
+    "team_id": 1610612762,
+    "team_name": "Utah Jazz",
+    "team_abbrev": "UTA",
+    "overall_elo": 948.5
+  },
+  "predicted_pace": 103.1,
+  "home_win_probability": 0.5184,
+  "away_win_probability": 0.4816,
+  "predicted_score": {
+    "home": 123.7,
+    "away": 120.8,
+    "margin": 2.9,
+    "total_points": 244.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2884,
+      "away_rim_denial_efficiency": 0.035,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.355,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.61,
+      "away_poss_margin_per_game": -0.76,
+      "edge": "away"
+    }
+  }
+}

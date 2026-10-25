@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CLE_vs_CHA",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612739,
+    "team_name": "Cleveland Cavaliers",
+    "team_abbrev": "CLE",
+    "overall_elo": 1013.2
+  },
+  "away_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1024.1
+  },
+  "predicted_pace": 107.1,
+  "home_win_probability": 0.4843,
+  "away_win_probability": 0.5157,
+  "predicted_score": {
+    "home": 105.6,
+    "away": 90.2,
+    "margin": 15.4,
+    "total_points": 195.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2874,
+      "away_rim_denial_efficiency": -0.0249,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3333,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -3.0,
+      "away_poss_margin_per_game": -1.0,
+      "edge": "away"
+    }
+  }
+}

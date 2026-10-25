@@ -1,0 +1,41 @@
+{
+  "matchup_id": "POR_vs_BKN",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612757,
+    "team_name": "Portland Trail Blazers",
+    "team_abbrev": "POR",
+    "overall_elo": 1015.3
+  },
+  "away_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 946.2
+  },
+  "predicted_pace": 101.0,
+  "home_win_probability": 0.5982,
+  "away_win_probability": 0.4018,
+  "predicted_score": {
+    "home": 117.3,
+    "away": 91.5,
+    "margin": 25.8,
+    "total_points": 208.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.266,
+      "away_rim_denial_efficiency": 0.0471,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.5,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 4.0,
+      "away_poss_margin_per_game": -5.0,
+      "edge": "home"
+    }
+  }
+}

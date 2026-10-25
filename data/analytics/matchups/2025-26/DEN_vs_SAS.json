@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DEN_vs_SAS",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612743,
+    "team_name": "Denver Nuggets",
+    "team_abbrev": "DEN",
+    "overall_elo": 1036.6
+  },
+  "away_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1062.9
+  },
+  "predicted_pace": 97.5,
+  "home_win_probability": 0.4622,
+  "away_win_probability": 0.5378,
+  "predicted_score": {
+    "home": 117.2,
+    "away": 120.6,
+    "margin": -3.4,
+    "total_points": 237.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2686,
+      "away_rim_denial_efficiency": 0.021,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4077,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.59,
+      "away_poss_margin_per_game": 0.49,
+      "edge": "away"
+    }
+  }
+}

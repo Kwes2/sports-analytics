@@ -1,0 +1,143 @@
+{
+  "player_id": 1643588,
+  "player_name": "Tobi Lawal",
+  "team_id": 1610612742,
+  "team_abbrev": "DAL",
+  "position": "Forward",
+  "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1643588.png",
+  "bio": {
+    "raw_position": "F",
+    "height": "6-7",
+    "weight": "215",
+    "age": 23.0
+  },
+  "games_played": 1,
+  "minutes_total": 1.0,
+  "minutes_per_game": 1.0,
+  "usage_pct": 0.0,
+  "true_shooting_pct": null,
+  "effective_fg_pct": null,
+  "ast_tov_ratio": 0.0,
+  "per_100_possessions": {
+    "points": 0.0,
+    "rebounds": 0.0,
+    "assists": 0.0,
+    "turnovers": 0.0,
+    "steals": 48.6,
+    "blocks": 0.0
+  },
+  "effective_plus_minus": {
+    "offensive_epm": 0.02,
+    "defensive_epm": 0.18,
+    "net_epm": 0.19
+  },
+  "relative_plus_minus": {
+    "stint_possessions": null,
+    "actual_net_margin_per_100": null,
+    "expected_net_margin_per_100": null,
+    "relative_plus_minus": null
+  },
+  "oliver_floor_rates": {
+    "true_ast_pct": 0.0,
+    "true_orb_pct": 0.0,
+    "true_dreb_pct": 0.0,
+    "stock_rate_per_100": 48.65,
+    "foul_drawing_premium": 0.0
+  },
+  "hustle_tracking": {
+    "minutes_evaluated": 1.0,
+    "deflections_total": 1,
+    "deflections_per_100": 48.6,
+    "screen_assists_total": 0,
+    "screen_assists_per_100": 0.0,
+    "screen_assist_points_total": 0,
+    "screen_assist_pts_per_100": 0.0,
+    "charges_drawn_total": 0,
+    "charges_drawn_per_100": 0.0,
+    "loose_balls_recovered_per_100": 0.0,
+    "box_outs_per_100": 0.0
+  },
+  "archetype": null,
+  "similar_players": [],
+  "assist_network_profile": {
+    "passer_profile": {},
+    "finisher_profile": {}
+  },
+  "shot_making_and_creation": {
+    "fga": 0,
+    "shot_quality_xefg": null,
+    "smoe_total": null,
+    "smoe_per_100": null,
+    "creation_profile": {},
+    "rim_pressure": {},
+    "corner_3_specialist_premium": null,
+    "hot_cold_zones": {},
+    "shot_density_bins": []
+  },
+  "game_flow_and_clutch": {
+    "quarter_splits": {},
+    "clutch_execution": {}
+  },
+  "consistency_and_schedule": {
+    "volatility_profile": {
+      "scoring_volatility_index_svi": null,
+      "scoring_floor_pts_100": null,
+      "scoring_ceiling_pts_100": null,
+      "sub_zero_game_rate": null,
+      "sub_zero_games_count": 0,
+      "explosion_game_rate": null,
+      "explosion_games_count": 0
+    },
+    "schedule_rest_splits": {
+      "b2b_degradation_ts": null,
+      "splits": {
+        "b2b_zero_rest": null,
+        "one_day_rest": null,
+        "well_rested": {
+          "games": 1,
+          "minutes_per_game": 1.0,
+          "true_shooting_pct": null,
+          "pts_per_100": 0.0
+        }
+      }
+    },
+    "venue_splits": {
+      "road_dropoff_ts": null,
+      "home": null,
+      "away": {
+        "games": 1,
+        "minutes_per_game": 1.0,
+        "true_shooting_pct": null,
+        "pts_per_100": 0.0
+      }
+    }
+  },
+  "percentile_ranks": {
+    "league_wide": {
+      "true_shooting": null,
+      "usage": null,
+      "ast_tov_ratio": null,
+      "true_ast_pct": null,
+      "true_dreb_pct": null,
+      "stock_rate": null,
+      "net_epm": null,
+      "relative_plus_minus": null,
+      "deflections": null,
+      "screen_assist_points": null,
+      "smoe_per_100": null,
+      "shot_quality": null,
+      "self_creation_rate": null,
+      "rim_pressure_rate": null,
+      "points_per_100": null
+    },
+    "positional_peer": {
+      "position_group": "Forward",
+      "true_shooting": null,
+      "net_epm": null,
+      "rim_pressure": null,
+      "playmaking_load": null,
+      "rebound_dominance": null,
+      "usage_to_efficiency_ratio": null
+    }
+  }
+}

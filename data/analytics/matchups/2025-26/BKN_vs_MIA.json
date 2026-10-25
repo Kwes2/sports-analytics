@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BKN_vs_MIA",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 926.8
+  },
+  "away_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1009.3
+  },
+  "predicted_pace": 99.6,
+  "home_win_probability": 0.3835,
+  "away_win_probability": 0.6165,
+  "predicted_score": {
+    "home": 108.6,
+    "away": 121.7,
+    "margin": -13.1,
+    "total_points": 230.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2938,
+      "away_rim_denial_efficiency": 0.0083,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4546,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.1,
+      "away_poss_margin_per_game": 1.63,
+      "edge": "away"
+    }
+  }
+}

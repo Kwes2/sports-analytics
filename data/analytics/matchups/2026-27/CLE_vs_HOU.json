@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CLE_vs_HOU",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612739,
+    "team_name": "Cleveland Cavaliers",
+    "team_abbrev": "CLE",
+    "overall_elo": 1013.2
+  },
+  "away_team": {
+    "team_id": 1610612745,
+    "team_name": "Houston Rockets",
+    "team_abbrev": "HOU",
+    "overall_elo": 1023.8
+  },
+  "predicted_pace": 102.3,
+  "home_win_probability": 0.4848,
+  "away_win_probability": 0.5152,
+  "predicted_score": {
+    "home": 95.4,
+    "away": 118.4,
+    "margin": -23.0,
+    "total_points": 213.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2874,
+      "away_rim_denial_efficiency": 0.1698,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3333,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -3.0,
+      "away_poss_margin_per_game": 6.5,
+      "edge": "away"
+    }
+  }
+}

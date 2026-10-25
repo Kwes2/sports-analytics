@@ -1,0 +1,41 @@
+{
+  "matchup_id": "ATL_vs_ORL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1023.9
+  },
+  "away_team": {
+    "team_id": 1610612753,
+    "team_name": "Orlando Magic",
+    "team_abbrev": "ORL",
+    "overall_elo": 1004.2
+  },
+  "predicted_pace": 101.1,
+  "home_win_probability": 0.5283,
+  "away_win_probability": 0.4717,
+  "predicted_score": {
+    "home": 118.1,
+    "away": 115.8,
+    "margin": 2.3,
+    "total_points": 233.9
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2878,
+      "away_rim_denial_efficiency": 0.0039,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4293,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.72,
+      "away_poss_margin_per_game": 1.21,
+      "edge": "even"
+    }
+  }
+}

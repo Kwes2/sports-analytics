@@ -1,0 +1,41 @@
+{
+  "matchup_id": "WAS_vs_MIA",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 920.1
+  },
+  "away_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1009.3
+  },
+  "predicted_pace": 103.9,
+  "home_win_probability": 0.3744,
+  "away_win_probability": 0.6256,
+  "predicted_score": {
+    "home": 115.8,
+    "away": 130.8,
+    "margin": -15.0,
+    "total_points": 246.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2735,
+      "away_rim_denial_efficiency": 0.0083,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4026,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -4.02,
+      "away_poss_margin_per_game": 1.63,
+      "edge": "away"
+    }
+  }
+}

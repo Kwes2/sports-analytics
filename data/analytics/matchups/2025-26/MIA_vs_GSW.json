@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIA_vs_GSW",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1009.3
+  },
+  "away_team": {
+    "team_id": 1610612744,
+    "team_name": "Golden State Warriors",
+    "team_abbrev": "GSW",
+    "overall_elo": 982.4
+  },
+  "predicted_pace": 101.6,
+  "home_win_probability": 0.5386,
+  "away_win_probability": 0.4614,
+  "predicted_score": {
+    "home": 120.6,
+    "away": 117.3,
+    "margin": 3.3,
+    "total_points": 237.9
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2884,
+      "away_rim_denial_efficiency": 0.0228,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4062,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.63,
+      "away_poss_margin_per_game": 0.1,
+      "edge": "home"
+    }
+  }
+}

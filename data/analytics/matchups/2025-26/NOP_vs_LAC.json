@@ -1,0 +1,41 @@
+{
+  "matchup_id": "NOP_vs_LAC",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 978.7
+  },
+  "away_team": {
+    "team_id": 1610612746,
+    "team_name": "LA Clippers",
+    "team_abbrev": "LAC",
+    "overall_elo": 1011.7
+  },
+  "predicted_pace": 96.0,
+  "home_win_probability": 0.4527,
+  "away_win_probability": 0.5473,
+  "predicted_score": {
+    "home": 111.5,
+    "away": 117.5,
+    "margin": -6.0,
+    "total_points": 229.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3841,
+      "away_rim_denial_efficiency": 0.0201,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3551,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.17,
+      "away_poss_margin_per_game": -2.0,
+      "edge": "home"
+    }
+  }
+}

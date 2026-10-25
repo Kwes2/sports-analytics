@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MEM_vs_DEN",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612763,
+    "team_name": "Memphis Grizzlies",
+    "team_abbrev": "MEM",
+    "overall_elo": 961.7
+  },
+  "away_team": {
+    "team_id": 1610612743,
+    "team_name": "Denver Nuggets",
+    "team_abbrev": "DEN",
+    "overall_elo": 1026.0
+  },
+  "predicted_pace": 93.7,
+  "home_win_probability": 0.4085,
+  "away_win_probability": 0.5915,
+  "predicted_score": {
+    "home": 95.3,
+    "away": 80.0,
+    "margin": 15.3,
+    "total_points": 175.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3226,
+      "away_rim_denial_efficiency": -0.0531,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4078,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 2.5,
+      "away_poss_margin_per_game": -7.0,
+      "edge": "home"
+    }
+  }
+}

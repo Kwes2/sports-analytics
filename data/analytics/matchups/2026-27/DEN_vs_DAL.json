@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DEN_vs_DAL",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612743,
+    "team_name": "Denver Nuggets",
+    "team_abbrev": "DEN",
+    "overall_elo": 1026.0
+  },
+  "away_team": {
+    "team_id": 1610612742,
+    "team_name": "Dallas Mavericks",
+    "team_abbrev": "DAL",
+    "overall_elo": 972.3
+  },
+  "predicted_pace": 91.7,
+  "home_win_probability": 0.5767,
+  "away_win_probability": 0.4233,
+  "predicted_score": {
+    "home": 85.1,
+    "away": 94.2,
+    "margin": -9.1,
+    "total_points": 179.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3049,
+      "away_rim_denial_efficiency": 0.0151,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3659,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -7.0,
+      "away_poss_margin_per_game": -5.0,
+      "edge": "away"
+    }
+  }
+}

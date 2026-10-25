@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CLE_vs_WAS",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612739,
+    "team_name": "Cleveland Cavaliers",
+    "team_abbrev": "CLE",
+    "overall_elo": 1020.0
+  },
+  "away_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 920.1
+  },
+  "predicted_pace": 100.4,
+  "home_win_probability": 0.6399,
+  "away_win_probability": 0.3601,
+  "predicted_score": {
+    "home": 128.8,
+    "away": 112.3,
+    "margin": 16.5,
+    "total_points": 241.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2879,
+      "away_rim_denial_efficiency": -0.0487,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4418,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.51,
+      "away_poss_margin_per_game": -4.02,
+      "edge": "home"
+    }
+  }
+}

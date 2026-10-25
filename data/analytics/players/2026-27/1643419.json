@@ -1,0 +1,325 @@
+{
+  "player_id": 1643419,
+  "player_name": "Hannes Steinbach",
+  "team_id": 1610612766,
+  "team_abbrev": "CHA",
+  "position": "Forward",
+  "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1643419.png",
+  "bio": {
+    "raw_position": "F",
+    "height": "6-10",
+    "weight": "248",
+    "age": 20.0
+  },
+  "games_played": 1,
+  "minutes_total": 12.0,
+  "minutes_per_game": 12.0,
+  "usage_pct": 18.14,
+  "true_shooting_pct": 0.5515,
+  "effective_fg_pct": 0.6,
+  "ast_tov_ratio": 0.0,
+  "per_100_possessions": {
+    "points": 24.3,
+    "rebounds": 20.2,
+    "assists": 0.0,
+    "turnovers": 0.0,
+    "steals": 0.0,
+    "blocks": 0.0
+  },
+  "effective_plus_minus": {
+    "offensive_epm": -5.02,
+    "defensive_epm": 7.86,
+    "net_epm": 2.83
+  },
+  "relative_plus_minus": {
+    "stint_possessions": 25.6,
+    "actual_net_margin_per_100": 183.81,
+    "expected_net_margin_per_100": 14.84,
+    "relative_plus_minus": 168.97
+  },
+  "oliver_floor_rates": {
+    "true_ast_pct": 0.0,
+    "true_orb_pct": 16.49,
+    "true_dreb_pct": 29.63,
+    "stock_rate_per_100": 0.0,
+    "foul_drawing_premium": 1.0
+  },
+  "hustle_tracking": {
+    "minutes_evaluated": 12.0,
+    "deflections_total": 1,
+    "deflections_per_100": 4.0,
+    "screen_assists_total": 0,
+    "screen_assists_per_100": 0.0,
+    "screen_assist_points_total": 0,
+    "screen_assist_pts_per_100": 0.0,
+    "charges_drawn_total": 0,
+    "charges_drawn_per_100": 0.0,
+    "loose_balls_recovered_per_100": 0.0,
+    "box_outs_per_100": 4.0
+  },
+  "archetype": {
+    "offensive_role": "Slashing Role Player",
+    "offensive_description": "Opportunistic off-ball finisher attacking second-side rotations and offensive boards.",
+    "defensive_role": "Point-of-Attack Disruptor",
+    "defensive_description": "Aggressive perimeter defender generating deflections, blowing up screens, and forcing turnovers."
+  },
+  "similar_players": [
+    {
+      "player_id": 203497,
+      "player_name": "Rudy Gobert",
+      "team_abbrev": "MIN",
+      "similarity_score_pct": 96.8,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/203497.png"
+    },
+    {
+      "player_id": 1643516,
+      "player_name": "Morez Johnson Jr.",
+      "team_abbrev": "DAL",
+      "similarity_score_pct": 90.9,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1643516.png"
+    },
+    {
+      "player_id": 1629048,
+      "player_name": "Goga Bitadze",
+      "team_abbrev": "ORL",
+      "similarity_score_pct": 90.9,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1629048.png"
+    },
+    {
+      "player_id": 1629028,
+      "player_name": "Deandre Ayton",
+      "team_abbrev": "WAS",
+      "similarity_score_pct": 90.4,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1629028.png"
+    },
+    {
+      "player_id": 1626172,
+      "player_name": "Kevon Looney",
+      "team_abbrev": "LAL",
+      "similarity_score_pct": 89.5,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1626172.png"
+    }
+  ],
+  "assist_network_profile": {
+    "passer_profile": {
+      "assists_delivered": 0,
+      "assisted_points_created": 0,
+      "points_per_assist": null,
+      "three_pt_assist_share": null,
+      "rim_assist_share": null,
+      "top_assisted_targets": []
+    },
+    "finisher_profile": {
+      "assisted_baskets_finished": 1,
+      "points_from_assists": 2,
+      "primary_feeders": [
+        {
+          "feeder_id": 1641790,
+          "feeder_name": "PJ Hall",
+          "feeds_delivered": 1
+        }
+      ]
+    }
+  },
+  "shot_making_and_creation": {
+    "fga": 5,
+    "shot_quality_xefg": 0.6268,
+    "smoe_total": -0.27,
+    "smoe_per_100": -5.37,
+    "creation_profile": {
+      "self_created_fga": 2,
+      "self_creation_rate": 0.4,
+      "self_created_efg": 0.5,
+      "self_created_smoe_per_100": -11.74,
+      "assisted_fga": 3,
+      "assisted_efg": 0.6667,
+      "assisted_smoe_per_100": -1.12,
+      "creation_efficiency_tax": 0.1667
+    },
+    "rim_pressure": {
+      "rim_attempts": 4,
+      "rim_pressure_rate": 0.8,
+      "rim_fg_pct": 0.75,
+      "rim_finishing_premium": 0.0777
+    },
+    "corner_3_specialist_premium": null,
+    "hot_cold_zones": {
+      "Restricted Area": {
+        "attempts": 4,
+        "made": 3,
+        "fg_pct": 0.75,
+        "baseline_fg_pct": 0.6723,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "In The Paint (Non-RA)": {
+        "attempts": 1,
+        "made": 0,
+        "fg_pct": 0.0,
+        "baseline_fg_pct": 0.4451,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Mid-Range": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.4185,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Left Corner 3": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.3892,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Right Corner 3": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.3843,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Above the Break 3": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.3491,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Backcourt": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.4783,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      }
+    },
+    "shot_density_bins": [
+      {
+        "x": 60,
+        "y": 60,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 20,
+        "y": 0,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": -20,
+        "y": 0,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 0,
+        "y": 20,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      }
+    ]
+  },
+  "game_flow_and_clutch": {
+    "quarter_splits": {
+      "q1_fga": 0,
+      "q1_efg": null,
+      "q1_jumpstart_rating": null,
+      "q4_fga": 5,
+      "q4_efg": 0.6,
+      "q4_production_rating": null
+    },
+    "clutch_execution": {
+      "clutch_fga": 2,
+      "clutch_efg": 1.0,
+      "non_clutch_efg": 0.3333,
+      "clutch_execution_gap": 0.6667
+    }
+  },
+  "consistency_and_schedule": {
+    "volatility_profile": {
+      "scoring_volatility_index_svi": null,
+      "scoring_floor_pts_100": null,
+      "scoring_ceiling_pts_100": null,
+      "sub_zero_game_rate": null,
+      "sub_zero_games_count": 0,
+      "explosion_game_rate": null,
+      "explosion_games_count": 0
+    },
+    "schedule_rest_splits": {
+      "b2b_degradation_ts": null,
+      "splits": {
+        "b2b_zero_rest": null,
+        "one_day_rest": null,
+        "well_rested": {
+          "games": 1,
+          "minutes_per_game": 12.0,
+          "true_shooting_pct": 0.5515,
+          "pts_per_100": 24.9
+        }
+      }
+    },
+    "venue_splits": {
+      "road_dropoff_ts": null,
+      "home": {
+        "games": 1,
+        "minutes_per_game": 12.0,
+        "true_shooting_pct": 0.5515,
+        "pts_per_100": 24.9
+      },
+      "away": null
+    }
+  },
+  "percentile_ranks": {
+    "league_wide": {
+      "true_shooting": null,
+      "usage": null,
+      "ast_tov_ratio": null,
+      "true_ast_pct": null,
+      "true_dreb_pct": null,
+      "stock_rate": null,
+      "net_epm": null,
+      "relative_plus_minus": null,
+      "deflections": null,
+      "screen_assist_points": null,
+      "smoe_per_100": null,
+      "shot_quality": null,
+      "self_creation_rate": null,
+      "rim_pressure_rate": null,
+      "points_per_100": null
+    },
+    "positional_peer": {
+      "position_group": "Forward",
+      "true_shooting": null,
+      "net_epm": null,
+      "rim_pressure": null,
+      "playmaking_load": null,
+      "rebound_dominance": null,
+      "usage_to_efficiency_ratio": null
+    }
+  }
+}

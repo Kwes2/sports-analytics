@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BOS_vs_BKN",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1051.2
+  },
+  "away_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 926.8
+  },
+  "predicted_pace": 92.2,
+  "home_win_probability": 0.6717,
+  "away_win_probability": 0.3283,
+  "predicted_score": {
+    "home": 115.4,
+    "away": 98.8,
+    "margin": 16.6,
+    "total_points": 214.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2102,
+      "away_rim_denial_efficiency": -0.0424,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4672,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.7,
+      "away_poss_margin_per_game": -1.1,
+      "edge": "home"
+    }
+  }
+}

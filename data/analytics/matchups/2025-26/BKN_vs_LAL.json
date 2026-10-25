@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BKN_vs_LAL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 926.8
+  },
+  "away_team": {
+    "team_id": 1610612747,
+    "team_name": "Los Angeles Lakers",
+    "team_abbrev": "LAL",
+    "overall_elo": 1016.6
+  },
+  "predicted_pace": 94.4,
+  "home_win_probability": 0.3736,
+  "away_win_probability": 0.6264,
+  "predicted_score": {
+    "home": 104.7,
+    "away": 117.1,
+    "margin": -12.4,
+    "total_points": 221.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2938,
+      "away_rim_denial_efficiency": -0.0003,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4546,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.1,
+      "away_poss_margin_per_game": -1.33,
+      "edge": "even"
+    }
+  }
+}

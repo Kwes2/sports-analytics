@@ -1,0 +1,41 @@
+{
+  "matchup_id": "TOR_vs_SAS",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1025.6
+  },
+  "away_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1043.6
+  },
+  "predicted_pace": 110.7,
+  "home_win_probability": 0.4741,
+  "away_win_probability": 0.5259,
+  "predicted_score": {
+    "home": 127.2,
+    "away": 86.8,
+    "margin": 40.4,
+    "total_points": 214.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3216,
+      "away_rim_denial_efficiency": 0.0521,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3266,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 15.0,
+      "away_poss_margin_per_game": 0.5,
+      "edge": "home"
+    }
+  }
+}

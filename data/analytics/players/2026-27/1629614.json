@@ -1,0 +1,473 @@
+{
+  "player_id": 1629614,
+  "player_name": "Andrew Nembhard",
+  "team_id": 1610612754,
+  "team_abbrev": "IND",
+  "position": "Forward",
+  "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1629614.png",
+  "bio": {
+    "raw_position": "F",
+    "height": "6-4",
+    "weight": "191",
+    "age": 26.0
+  },
+  "games_played": 2,
+  "minutes_total": 66.0,
+  "minutes_per_game": 33.0,
+  "usage_pct": 17.96,
+  "true_shooting_pct": 0.6469,
+  "effective_fg_pct": 0.5476,
+  "ast_tov_ratio": 4.67,
+  "per_100_possessions": {
+    "points": 24.0,
+    "rebounds": 2.8,
+    "assists": 9.9,
+    "turnovers": 2.1,
+    "steals": 1.4,
+    "blocks": 0.0
+  },
+  "effective_plus_minus": {
+    "offensive_epm": 12.97,
+    "defensive_epm": -12.88,
+    "net_epm": 0.1
+  },
+  "relative_plus_minus": {
+    "stint_possessions": 130.3,
+    "actual_net_margin_per_100": -3.07,
+    "expected_net_margin_per_100": -4.25,
+    "relative_plus_minus": 1.18
+  },
+  "oliver_floor_rates": {
+    "true_ast_pct": 29.09,
+    "true_orb_pct": 0.0,
+    "true_dreb_pct": 6.61,
+    "stock_rate_per_100": 1.41,
+    "foul_drawing_premium": 2.4
+  },
+  "hustle_tracking": {
+    "minutes_evaluated": 66.0,
+    "deflections_total": 3,
+    "deflections_per_100": 2.1,
+    "screen_assists_total": 0,
+    "screen_assists_per_100": 0.0,
+    "screen_assist_points_total": 0,
+    "screen_assist_pts_per_100": 0.0,
+    "charges_drawn_total": 0,
+    "charges_drawn_per_100": 0.0,
+    "loose_balls_recovered_per_100": 0.0,
+    "box_outs_per_100": 0.0
+  },
+  "archetype": {
+    "offensive_role": "Connector / Secondary Playmaker",
+    "offensive_description": "High-IQ ball mover sustaining offensive flow through rapid swing passes and quick attacks.",
+    "defensive_role": "Positional Team Defender",
+    "defensive_description": "Solid system defender executing standard drop and rotation schemes."
+  },
+  "similar_players": [
+    {
+      "player_id": 1629027,
+      "player_name": "Trae Young",
+      "team_abbrev": "WAS",
+      "similarity_score_pct": 91.4,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1629027.png"
+    },
+    {
+      "player_id": 1630200,
+      "player_name": "Tre Jones",
+      "team_abbrev": "CHI",
+      "similarity_score_pct": 90.6,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1630200.png"
+    },
+    {
+      "player_id": 201935,
+      "player_name": "James Harden",
+      "team_abbrev": "CLE",
+      "similarity_score_pct": 89.9,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/201935.png"
+    },
+    {
+      "player_id": 1643414,
+      "player_name": "Mikel Brown Jr.",
+      "team_abbrev": "BKN",
+      "similarity_score_pct": 89.1,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1643414.png"
+    },
+    {
+      "player_id": 1630230,
+      "player_name": "Naji Marshall",
+      "team_abbrev": "DAL",
+      "similarity_score_pct": 88.6,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1630230.png"
+    }
+  ],
+  "assist_network_profile": {
+    "passer_profile": {
+      "assists_delivered": 14,
+      "assisted_points_created": 31,
+      "points_per_assist": 2.21,
+      "three_pt_assist_share": 0.2143,
+      "rim_assist_share": 0.5714,
+      "top_assisted_targets": [
+        {
+          "target_id": 1630167,
+          "target_name": "Obi Toppin",
+          "assists_received": 5
+        },
+        {
+          "target_id": 1627783,
+          "target_name": "Pascal Siakam",
+          "assists_received": 4
+        },
+        {
+          "target_id": 1630169,
+          "target_name": "Tyrese Haliburton",
+          "assists_received": 2
+        }
+      ]
+    },
+    "finisher_profile": {
+      "assisted_baskets_finished": 6,
+      "points_from_assists": 13,
+      "primary_feeders": [
+        {
+          "feeder_id": 1630169,
+          "feeder_name": "Tyrese Haliburton",
+          "feeds_delivered": 2
+        },
+        {
+          "feeder_id": 1641716,
+          "feeder_name": "Jarace Walker",
+          "feeds_delivered": 1
+        },
+        {
+          "feeder_id": 1626162,
+          "feeder_name": "Kelly Oubre Jr.",
+          "feeds_delivered": 1
+        }
+      ]
+    }
+  },
+  "shot_making_and_creation": {
+    "fga": 21,
+    "shot_quality_xefg": 0.5262,
+    "smoe_total": 0.9,
+    "smoe_per_100": 4.29,
+    "creation_profile": {
+      "self_created_fga": 17,
+      "self_creation_rate": 0.8095,
+      "self_created_efg": 0.4706,
+      "self_created_smoe_per_100": -7.12,
+      "assisted_fga": 4,
+      "assisted_efg": 0.875,
+      "assisted_smoe_per_100": 52.77,
+      "creation_efficiency_tax": 0.4044
+    },
+    "rim_pressure": {
+      "rim_attempts": 6,
+      "rim_pressure_rate": 0.2857,
+      "rim_fg_pct": 0.8333,
+      "rim_finishing_premium": 0.161
+    },
+    "corner_3_specialist_premium": 1.5,
+    "hot_cold_zones": {
+      "Restricted Area": {
+        "attempts": 6,
+        "made": 5,
+        "fg_pct": 0.8333,
+        "baseline_fg_pct": 0.6723,
+        "delta_fg_pct": 0.161,
+        "status": "HOT"
+      },
+      "In The Paint (Non-RA)": {
+        "attempts": 6,
+        "made": 3,
+        "fg_pct": 0.5,
+        "baseline_fg_pct": 0.4451,
+        "delta_fg_pct": 0.0549,
+        "status": "HOT"
+      },
+      "Mid-Range": {
+        "attempts": 4,
+        "made": 2,
+        "fg_pct": 0.5,
+        "baseline_fg_pct": 0.4185,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Left Corner 3": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.3892,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Right Corner 3": {
+        "attempts": 1,
+        "made": 1,
+        "fg_pct": 1.0,
+        "baseline_fg_pct": 0.3843,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Above the Break 3": {
+        "attempts": 4,
+        "made": 0,
+        "fg_pct": 0.0,
+        "baseline_fg_pct": 0.3491,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Backcourt": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.4783,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      }
+    },
+    "shot_density_bins": [
+      {
+        "x": 0,
+        "y": 20,
+        "fga": 3,
+        "fgm": 2,
+        "fg_pct": 0.667,
+        "efg_pct": 0.667
+      },
+      {
+        "x": 120,
+        "y": 0,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 60,
+        "y": 260,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 0,
+        "y": 40,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": -160,
+        "y": 180,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 20,
+        "y": 0,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 60,
+        "y": 40,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -100,
+        "y": 220,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 40,
+        "y": 0,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 80,
+        "y": 80,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 240,
+        "y": 0,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": -80,
+        "y": 140,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -20,
+        "y": 20,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": -120,
+        "y": 160,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": -20,
+        "y": 100,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 140,
+        "y": 20,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 20,
+        "y": 80,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 40,
+        "y": 240,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      }
+    ]
+  },
+  "game_flow_and_clutch": {
+    "quarter_splits": {
+      "q1_fga": 8,
+      "q1_efg": 0.8125,
+      "q1_jumpstart_rating": 0.2649,
+      "q4_fga": 5,
+      "q4_efg": 0.4,
+      "q4_production_rating": -0.1937
+    },
+    "clutch_execution": {
+      "clutch_fga": 2,
+      "clutch_efg": 0.5,
+      "non_clutch_efg": 0.5526,
+      "clutch_execution_gap": -0.0526
+    }
+  },
+  "consistency_and_schedule": {
+    "volatility_profile": {
+      "scoring_volatility_index_svi": 1.21,
+      "scoring_floor_pts_100": 23.3,
+      "scoring_ceiling_pts_100": 24.6,
+      "sub_zero_game_rate": 0.0,
+      "sub_zero_games_count": 0,
+      "explosion_game_rate": 0.0,
+      "explosion_games_count": 0
+    },
+    "schedule_rest_splits": {
+      "b2b_degradation_ts": null,
+      "splits": {
+        "b2b_zero_rest": null,
+        "one_day_rest": {
+          "games": 1,
+          "minutes_per_game": 32.0,
+          "true_shooting_pct": 0.6061,
+          "pts_per_100": 23.1
+        },
+        "well_rested": {
+          "games": 1,
+          "minutes_per_game": 34.0,
+          "true_shooting_pct": 0.6881,
+          "pts_per_100": 24.8
+        }
+      }
+    },
+    "venue_splits": {
+      "road_dropoff_ts": 0.082,
+      "home": {
+        "games": 1,
+        "minutes_per_game": 32.0,
+        "true_shooting_pct": 0.6061,
+        "pts_per_100": 23.1
+      },
+      "away": {
+        "games": 1,
+        "minutes_per_game": 34.0,
+        "true_shooting_pct": 0.6881,
+        "pts_per_100": 24.8
+      }
+    }
+  },
+  "percentile_ranks": {
+    "league_wide": {
+      "true_shooting": 74.0,
+      "usage": 40.0,
+      "ast_tov_ratio": 90.6,
+      "true_ast_pct": 85.7,
+      "true_dreb_pct": 17.0,
+      "stock_rate": 23.4,
+      "net_epm": 53.0,
+      "relative_plus_minus": 52.6,
+      "deflections": 34.5,
+      "screen_assist_points": 30.4,
+      "smoe_per_100": 60.7,
+      "shot_quality": 30.3,
+      "self_creation_rate": 91.0,
+      "rim_pressure_rate": 54.1,
+      "points_per_100": 57.7
+    },
+    "positional_peer": {
+      "position_group": "Forward",
+      "true_shooting": 74.0,
+      "net_epm": 53.0,
+      "rim_pressure": 54.1,
+      "playmaking_load": 85.7,
+      "rebound_dominance": 17.0,
+      "usage_to_efficiency_ratio": 56.6
+    }
+  }
+}

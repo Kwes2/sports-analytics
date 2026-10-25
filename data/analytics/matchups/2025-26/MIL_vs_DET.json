@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIL_vs_DET",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612749,
+    "team_name": "Milwaukee Bucks",
+    "team_abbrev": "MIL",
+    "overall_elo": 949.7
+  },
+  "away_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1050.5
+  },
+  "predicted_pace": 96.4,
+  "home_win_probability": 0.3589,
+  "away_win_probability": 0.6411,
+  "predicted_score": {
+    "home": 104.8,
+    "away": 118.6,
+    "margin": -13.8,
+    "total_points": 223.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2548,
+      "away_rim_denial_efficiency": 0.0307,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4571,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -4.33,
+      "away_poss_margin_per_game": 3.57,
+      "edge": "away"
+    }
+  }
+}

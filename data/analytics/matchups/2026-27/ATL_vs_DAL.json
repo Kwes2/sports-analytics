@@ -1,0 +1,41 @@
+{
+  "matchup_id": "ATL_vs_DAL",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1028.0
+  },
+  "away_team": {
+    "team_id": 1610612742,
+    "team_name": "Dallas Mavericks",
+    "team_abbrev": "DAL",
+    "overall_elo": 972.3
+  },
+  "predicted_pace": 105.4,
+  "home_win_probability": 0.5795,
+  "away_win_probability": 0.4205,
+  "predicted_score": {
+    "home": 131.6,
+    "away": 105.7,
+    "margin": 25.9,
+    "total_points": 237.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3189,
+      "away_rim_denial_efficiency": 0.0151,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4378,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 6.0,
+      "away_poss_margin_per_game": -5.0,
+      "edge": "home"
+    }
+  }
+}

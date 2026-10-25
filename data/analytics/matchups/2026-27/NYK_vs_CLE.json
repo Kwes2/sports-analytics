@@ -1,0 +1,41 @@
+{
+  "matchup_id": "NYK_vs_CLE",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612752,
+    "team_name": "New York Knicks",
+    "team_abbrev": "NYK",
+    "overall_elo": 1028.9
+  },
+  "away_team": {
+    "team_id": 1610612739,
+    "team_name": "Cleveland Cavaliers",
+    "team_abbrev": "CLE",
+    "overall_elo": 1013.2
+  },
+  "predicted_pace": 105.1,
+  "home_win_probability": 0.5226,
+  "away_win_probability": 0.4774,
+  "predicted_score": {
+    "home": 96.9,
+    "away": 97.4,
+    "margin": -0.5,
+    "total_points": 194.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2743,
+      "away_rim_denial_efficiency": -0.1402,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4195,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.0,
+      "away_poss_margin_per_game": -3.0,
+      "edge": "home"
+    }
+  }
+}

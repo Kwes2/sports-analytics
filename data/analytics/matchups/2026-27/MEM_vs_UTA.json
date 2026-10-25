@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MEM_vs_UTA",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612763,
+    "team_name": "Memphis Grizzlies",
+    "team_abbrev": "MEM",
+    "overall_elo": 961.7
+  },
+  "away_team": {
+    "team_id": 1610612762,
+    "team_name": "Utah Jazz",
+    "team_abbrev": "UTA",
+    "overall_elo": 958.5
+  },
+  "predicted_pace": 101.5,
+  "home_win_probability": 0.5046,
+  "away_win_probability": 0.4954,
+  "predicted_score": {
+    "home": 120.4,
+    "away": 107.8,
+    "margin": 12.6,
+    "total_points": 228.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3226,
+      "away_rim_denial_efficiency": -0.0389,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4078,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 2.5,
+      "away_poss_margin_per_game": -5.5,
+      "edge": "home"
+    }
+  }
+}

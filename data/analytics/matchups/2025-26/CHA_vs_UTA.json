@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CHA_vs_UTA",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1045.8
+  },
+  "away_team": {
+    "team_id": 1610612762,
+    "team_name": "Utah Jazz",
+    "team_abbrev": "UTA",
+    "overall_elo": 948.5
+  },
+  "predicted_pace": 99.6,
+  "home_win_probability": 0.6365,
+  "away_win_probability": 0.3635,
+  "predicted_score": {
+    "home": 126.0,
+    "away": 114.7,
+    "margin": 11.3,
+    "total_points": 240.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2606,
+      "away_rim_denial_efficiency": 0.035,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4867,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.12,
+      "away_poss_margin_per_game": -0.76,
+      "edge": "even"
+    }
+  }
+}

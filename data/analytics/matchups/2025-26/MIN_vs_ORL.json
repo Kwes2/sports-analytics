@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIN_vs_ORL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1016.1
+  },
+  "away_team": {
+    "team_id": 1610612753,
+    "team_name": "Orlando Magic",
+    "team_abbrev": "ORL",
+    "overall_elo": 1004.2
+  },
+  "predicted_pace": 99.8,
+  "home_win_probability": 0.5171,
+  "away_win_probability": 0.4829,
+  "predicted_score": {
+    "home": 117.5,
+    "away": 113.5,
+    "margin": 4.0,
+    "total_points": 231.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2953,
+      "away_rim_denial_efficiency": 0.0039,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.42,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.48,
+      "away_poss_margin_per_game": 1.21,
+      "edge": "away"
+    }
+  }
+}

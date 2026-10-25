@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DET_vs_HOU",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1050.5
+  },
+  "away_team": {
+    "team_id": 1610612745,
+    "team_name": "Houston Rockets",
+    "team_abbrev": "HOU",
+    "overall_elo": 1027.4
+  },
+  "predicted_pace": 95.8,
+  "home_win_probability": 0.5332,
+  "away_win_probability": 0.4668,
+  "predicted_score": {
+    "home": 111.6,
+    "away": 108.6,
+    "margin": 3.0,
+    "total_points": 220.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3401,
+      "away_rim_denial_efficiency": 0.0138,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3452,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.57,
+      "away_poss_margin_per_game": 1.78,
+      "edge": "home"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "NYK_vs_PHI",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612752,
+    "team_name": "New York Knicks",
+    "team_abbrev": "NYK",
+    "overall_elo": 1028.9
+  },
+  "away_team": {
+    "team_id": 1610612755,
+    "team_name": "Philadelphia 76ers",
+    "team_abbrev": "PHI",
+    "overall_elo": 1002.7
+  },
+  "predicted_pace": 104.8,
+  "home_win_probability": 0.5376,
+  "away_win_probability": 0.4624,
+  "predicted_score": {
+    "home": 90.3,
+    "away": 101.4,
+    "margin": -11.1,
+    "total_points": 191.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2743,
+      "away_rim_denial_efficiency": -0.0146,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4195,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.0,
+      "away_poss_margin_per_game": -1.0,
+      "edge": "home"
+    }
+  }
+}

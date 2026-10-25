@@ -1,0 +1,41 @@
+{
+  "matchup_id": "NYK_vs_NOP",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612752,
+    "team_name": "New York Knicks",
+    "team_abbrev": "NYK",
+    "overall_elo": 1028.9
+  },
+  "away_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 982.3
+  },
+  "predicted_pace": 100.6,
+  "home_win_probability": 0.5667,
+  "away_win_probability": 0.4333,
+  "predicted_score": {
+    "home": 108.9,
+    "away": 111.1,
+    "margin": -2.2,
+    "total_points": 220.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2743,
+      "away_rim_denial_efficiency": -0.083,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4195,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.0,
+      "away_poss_margin_per_game": 0.5,
+      "edge": "even"
+    }
+  }
+}

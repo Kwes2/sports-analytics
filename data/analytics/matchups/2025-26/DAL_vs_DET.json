@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DAL_vs_DET",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612742,
+    "team_name": "Dallas Mavericks",
+    "team_abbrev": "DAL",
+    "overall_elo": 961.3
+  },
+  "away_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1050.5
+  },
+  "predicted_pace": 100.7,
+  "home_win_probability": 0.3744,
+  "away_win_probability": 0.6256,
+  "predicted_score": {
+    "home": 107.5,
+    "away": 121.1,
+    "margin": -13.6,
+    "total_points": 228.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2884,
+      "away_rim_denial_efficiency": 0.0307,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.355,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.61,
+      "away_poss_margin_per_game": 3.57,
+      "edge": "away"
+    }
+  }
+}

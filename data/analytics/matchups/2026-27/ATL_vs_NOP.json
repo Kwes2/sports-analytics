@@ -1,0 +1,41 @@
+{
+  "matchup_id": "ATL_vs_NOP",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1028.0
+  },
+  "away_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 982.3
+  },
+  "predicted_pace": 108.3,
+  "home_win_probability": 0.5654,
+  "away_win_probability": 0.4346,
+  "predicted_score": {
+    "home": 138.7,
+    "away": 109.5,
+    "margin": 29.2,
+    "total_points": 248.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3189,
+      "away_rim_denial_efficiency": -0.083,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4378,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 6.0,
+      "away_poss_margin_per_game": 0.5,
+      "edge": "home"
+    }
+  }
+}

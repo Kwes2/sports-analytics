@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DET_vs_IND",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1041.4
+  },
+  "away_team": {
+    "team_id": 1610612754,
+    "team_name": "Indiana Pacers",
+    "team_abbrev": "IND",
+    "overall_elo": 967.9
+  },
+  "predicted_pace": 105.9,
+  "home_win_probability": 0.6042,
+  "away_win_probability": 0.3958,
+  "predicted_score": {
+    "home": 134.8,
+    "away": 111.7,
+    "margin": 23.1,
+    "total_points": 246.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.1628,
+      "away_rim_denial_efficiency": -0.0553,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4457,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -7.5,
+      "away_poss_margin_per_game": -3.5,
+      "edge": "away"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "WAS_vs_MIL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 920.1
+  },
+  "away_team": {
+    "team_id": 1610612749,
+    "team_name": "Milwaukee Bucks",
+    "team_abbrev": "MIL",
+    "overall_elo": 949.7
+  },
+  "predicted_pace": 97.8,
+  "home_win_probability": 0.4575,
+  "away_win_probability": 0.5425,
+  "predicted_score": {
+    "home": 114.1,
+    "away": 119.6,
+    "margin": -5.5,
+    "total_points": 233.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2735,
+      "away_rim_denial_efficiency": 0.0082,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4026,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -4.02,
+      "away_poss_margin_per_game": -4.33,
+      "edge": "even"
+    }
+  }
+}

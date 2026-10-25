@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BKN_vs_SAS",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 926.8
+  },
+  "away_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1062.9
+  },
+  "predicted_pace": 96.3,
+  "home_win_probability": 0.3136,
+  "away_win_probability": 0.6864,
+  "predicted_score": {
+    "home": 102.1,
+    "away": 120.5,
+    "margin": -18.4,
+    "total_points": 222.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2938,
+      "away_rim_denial_efficiency": 0.021,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4546,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.1,
+      "away_poss_margin_per_game": 0.49,
+      "edge": "away"
+    }
+  }
+}

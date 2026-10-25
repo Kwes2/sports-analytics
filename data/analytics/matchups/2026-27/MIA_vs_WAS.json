@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIA_vs_WAS",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1000.5
+  },
+  "away_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 943.5
+  },
+  "predicted_pace": 110.1,
+  "home_win_probability": 0.5813,
+  "away_win_probability": 0.4187,
+  "predicted_score": {
+    "home": 109.3,
+    "away": 130.5,
+    "margin": -21.2,
+    "total_points": 239.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.1852,
+      "away_rim_denial_efficiency": -0.008,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.459,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.0,
+      "away_poss_margin_per_game": -8.5,
+      "edge": "home"
+    }
+  }
+}

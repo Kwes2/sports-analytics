@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAC_vs_BOS",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612758,
+    "team_name": "Sacramento Kings",
+    "team_abbrev": "SAC",
+    "overall_elo": 956.0
+  },
+  "away_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1037.5
+  },
+  "predicted_pace": 96.6,
+  "home_win_probability": 0.3848,
+  "away_win_probability": 0.6152,
+  "predicted_score": {
+    "home": 102.9,
+    "away": 120.1,
+    "margin": -17.2,
+    "total_points": 223.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3412,
+      "away_rim_denial_efficiency": 0.0861,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3352,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.5,
+      "away_poss_margin_per_game": 3.0,
+      "edge": "away"
+    }
+  }
+}

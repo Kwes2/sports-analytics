@@ -1,0 +1,36 @@
+name: Update NBA Analytics Pipeline
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Runs daily at 08:00 UTC (~4 AM ET / 1 AM PT)
+  workflow_dispatch:      # Manual trigger button in GitHub UI
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run NBA Analytics Incremental Pipeline
+        run: python scripts/run_pipeline.py --sync
+
+      - name: Commit and push updated analytics stores
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/analytics/ data/processed/league_baselines.json
+          git commit -m "Automated NBA analytics update: $(date -u)" || exit 0
+          git push

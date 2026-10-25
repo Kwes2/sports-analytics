@@ -1,0 +1,41 @@
+{
+  "matchup_id": "TOR_vs_BOS",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1025.6
+  },
+  "away_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1037.5
+  },
+  "predicted_pace": 101.4,
+  "home_win_probability": 0.4829,
+  "away_win_probability": 0.5171,
+  "predicted_score": {
+    "home": 118.1,
+    "away": 92.5,
+    "margin": 25.6,
+    "total_points": 210.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3216,
+      "away_rim_denial_efficiency": 0.0861,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3266,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 15.0,
+      "away_poss_margin_per_game": 3.0,
+      "edge": "home"
+    }
+  }
+}

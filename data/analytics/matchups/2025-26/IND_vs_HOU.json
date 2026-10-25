@@ -1,0 +1,41 @@
+{
+  "matchup_id": "IND_vs_HOU",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612754,
+    "team_name": "Indiana Pacers",
+    "team_abbrev": "IND",
+    "overall_elo": 960.2
+  },
+  "away_team": {
+    "team_id": 1610612745,
+    "team_name": "Houston Rockets",
+    "team_abbrev": "HOU",
+    "overall_elo": 1027.4
+  },
+  "predicted_pace": 96.6,
+  "home_win_probability": 0.4045,
+  "away_win_probability": 0.5955,
+  "predicted_score": {
+    "home": 106.7,
+    "away": 118.7,
+    "margin": -12.0,
+    "total_points": 225.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2707,
+      "away_rim_denial_efficiency": 0.0138,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4222,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.43,
+      "away_poss_margin_per_game": 1.78,
+      "edge": "away"
+    }
+  }
+}

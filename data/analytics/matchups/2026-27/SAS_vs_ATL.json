@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAS_vs_ATL",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1043.6
+  },
+  "away_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1028.0
+  },
+  "predicted_pace": 108.7,
+  "home_win_probability": 0.5224,
+  "away_win_probability": 0.4776,
+  "predicted_score": {
+    "home": 96.1,
+    "away": 134.0,
+    "margin": -37.9,
+    "total_points": 230.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3118,
+      "away_rim_denial_efficiency": 0.0221,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4111,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.5,
+      "away_poss_margin_per_game": 6.0,
+      "edge": "away"
+    }
+  }
+}

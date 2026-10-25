@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DET_vs_MEM",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1050.5
+  },
+  "away_team": {
+    "team_id": 1610612763,
+    "team_name": "Memphis Grizzlies",
+    "team_abbrev": "MEM",
+    "overall_elo": 942.4
+  },
+  "predicted_pace": 100.7,
+  "home_win_probability": 0.6507,
+  "away_win_probability": 0.3493,
+  "predicted_score": {
+    "home": 123.2,
+    "away": 108.8,
+    "margin": 14.4,
+    "total_points": 232.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3401,
+      "away_rim_denial_efficiency": -0.0154,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3452,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.57,
+      "away_poss_margin_per_game": -1.12,
+      "edge": "home"
+    }
+  }
+}

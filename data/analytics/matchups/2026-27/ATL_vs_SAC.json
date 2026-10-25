@@ -1,0 +1,41 @@
+{
+  "matchup_id": "ATL_vs_SAC",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1028.0
+  },
+  "away_team": {
+    "team_id": 1610612758,
+    "team_name": "Sacramento Kings",
+    "team_abbrev": "SAC",
+    "overall_elo": 956.0
+  },
+  "predicted_pace": 108.2,
+  "home_win_probability": 0.6022,
+  "away_win_probability": 0.3978,
+  "predicted_score": {
+    "home": 141.6,
+    "away": 96.7,
+    "margin": 44.9,
+    "total_points": 238.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3189,
+      "away_rim_denial_efficiency": 0.052,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4378,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 6.0,
+      "away_poss_margin_per_game": -2.5,
+      "edge": "home"
+    }
+  }
+}

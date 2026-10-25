@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DET_vs_OKC",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1050.5
+  },
+  "away_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1063.7
+  },
+  "predicted_pace": 97.9,
+  "home_win_probability": 0.481,
+  "away_win_probability": 0.519,
+  "predicted_score": {
+    "home": 108.6,
+    "away": 112.5,
+    "margin": -3.9,
+    "total_points": 221.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3401,
+      "away_rim_denial_efficiency": 0.0292,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3452,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.57,
+      "away_poss_margin_per_game": 1.85,
+      "edge": "home"
+    }
+  }
+}

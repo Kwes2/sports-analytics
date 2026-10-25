@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BOS_vs_LAC",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1051.2
+  },
+  "away_team": {
+    "team_id": 1610612746,
+    "team_name": "LA Clippers",
+    "team_abbrev": "LAC",
+    "overall_elo": 1011.7
+  },
+  "predicted_pace": 91.3,
+  "home_win_probability": 0.5566,
+  "away_win_probability": 0.4434,
+  "predicted_score": {
+    "home": 111.3,
+    "away": 106.2,
+    "margin": 5.1,
+    "total_points": 217.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2102,
+      "away_rim_denial_efficiency": 0.0201,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4672,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.7,
+      "away_poss_margin_per_game": -2.0,
+      "edge": "home"
+    }
+  }
+}

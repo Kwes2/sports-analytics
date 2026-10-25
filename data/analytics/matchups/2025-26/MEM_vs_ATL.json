@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MEM_vs_ATL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612763,
+    "team_name": "Memphis Grizzlies",
+    "team_abbrev": "MEM",
+    "overall_elo": 942.4
+  },
+  "away_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1023.9
+  },
+  "predicted_pace": 102.5,
+  "home_win_probability": 0.3848,
+  "away_win_probability": 0.6152,
+  "predicted_score": {
+    "home": 115.3,
+    "away": 124.3,
+    "margin": -9.0,
+    "total_points": 239.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2525,
+      "away_rim_denial_efficiency": -0.0314,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4361,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.12,
+      "away_poss_margin_per_game": 1.72,
+      "edge": "away"
+    }
+  }
+}

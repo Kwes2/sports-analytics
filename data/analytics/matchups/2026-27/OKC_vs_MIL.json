@@ -1,0 +1,41 @@
+{
+  "matchup_id": "OKC_vs_MIL",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1051.3
+  },
+  "away_team": {
+    "team_id": 1610612749,
+    "team_name": "Milwaukee Bucks",
+    "team_abbrev": "MIL",
+    "overall_elo": 958.2
+  },
+  "predicted_pace": 104.1,
+  "home_win_probability": 0.6309,
+  "away_win_probability": 0.3691,
+  "predicted_score": {
+    "home": 119.8,
+    "away": 99.7,
+    "margin": 20.1,
+    "total_points": 219.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2842,
+      "away_rim_denial_efficiency": -0.1129,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3895,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.5,
+      "away_poss_margin_per_game": -4.5,
+      "edge": "home"
+    }
+  }
+}

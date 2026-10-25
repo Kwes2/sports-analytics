@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIN_vs_TOR",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1016.1
+  },
+  "away_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1026.6
+  },
+  "predicted_pace": 97.9,
+  "home_win_probability": 0.4849,
+  "away_win_probability": 0.5151,
+  "predicted_score": {
+    "home": 113.8,
+    "away": 112.7,
+    "margin": 1.1,
+    "total_points": 226.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2953,
+      "away_rim_denial_efficiency": -0.0183,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.42,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.48,
+      "away_poss_margin_per_game": 2.37,
+      "edge": "away"
+    }
+  }
+}

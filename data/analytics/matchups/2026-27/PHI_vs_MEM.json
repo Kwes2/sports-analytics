@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHI_vs_MEM",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612755,
+    "team_name": "Philadelphia 76ers",
+    "team_abbrev": "PHI",
+    "overall_elo": 1002.7
+  },
+  "away_team": {
+    "team_id": 1610612763,
+    "team_name": "Memphis Grizzlies",
+    "team_abbrev": "MEM",
+    "overall_elo": 961.7
+  },
+  "predicted_pace": 108.9,
+  "home_win_probability": 0.5587,
+  "away_win_probability": 0.4413,
+  "predicted_score": {
+    "home": 105.8,
+    "away": 106.3,
+    "margin": -0.5,
+    "total_points": 212.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3591,
+      "away_rim_denial_efficiency": -0.023,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3757,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.0,
+      "away_poss_margin_per_game": 2.5,
+      "edge": "away"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+# Ignore raw scraping archives and heavy Play-by-Play files from Vercel deployment
+data/raw/
+data/processed/
+scripts/
+.venv/
+__pycache__/
+*.tmp

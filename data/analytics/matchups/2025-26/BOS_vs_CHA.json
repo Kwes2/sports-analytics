@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BOS_vs_CHA",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1051.2
+  },
+  "away_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1045.8
+  },
+  "predicted_pace": 93.1,
+  "home_win_probability": 0.5078,
+  "away_win_probability": 0.4922,
+  "predicted_score": {
+    "home": 112.6,
+    "away": 108.5,
+    "margin": 4.1,
+    "total_points": 221.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2102,
+      "away_rim_denial_efficiency": -0.006,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4672,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.7,
+      "away_poss_margin_per_game": -0.12,
+      "edge": "home"
+    }
+  }
+}

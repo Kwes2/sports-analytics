@@ -1,0 +1,41 @@
+{
+  "matchup_id": "GSW_vs_SAS",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612744,
+    "team_name": "Golden State Warriors",
+    "team_abbrev": "GSW",
+    "overall_elo": 982.4
+  },
+  "away_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1062.9
+  },
+  "predicted_pace": 98.3,
+  "home_win_probability": 0.3862,
+  "away_win_probability": 0.6138,
+  "predicted_score": {
+    "home": 110.4,
+    "away": 119.4,
+    "margin": -9.0,
+    "total_points": 229.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2571,
+      "away_rim_denial_efficiency": 0.021,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4967,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.1,
+      "away_poss_margin_per_game": 0.49,
+      "edge": "even"
+    }
+  }
+}

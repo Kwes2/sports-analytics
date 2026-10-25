@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIA_vs_ATL",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1000.5
+  },
+  "away_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1028.0
+  },
+  "predicted_pace": 110.6,
+  "home_win_probability": 0.4605,
+  "away_win_probability": 0.5395,
+  "predicted_score": {
+    "home": 97.3,
+    "away": 146.4,
+    "margin": -49.1,
+    "total_points": 243.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.1852,
+      "away_rim_denial_efficiency": 0.0221,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.459,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.0,
+      "away_poss_margin_per_game": 6.0,
+      "edge": "away"
+    }
+  }
+}

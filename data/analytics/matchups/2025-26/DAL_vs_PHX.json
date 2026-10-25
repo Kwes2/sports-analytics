@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DAL_vs_PHX",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612742,
+    "team_name": "Dallas Mavericks",
+    "team_abbrev": "DAL",
+    "overall_elo": 961.3
+  },
+  "away_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1010.7
+  },
+  "predicted_pace": 98.5,
+  "home_win_probability": 0.4294,
+  "away_win_probability": 0.5706,
+  "predicted_score": {
+    "home": 109.3,
+    "away": 116.1,
+    "margin": -6.8,
+    "total_points": 225.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2884,
+      "away_rim_denial_efficiency": 0.0021,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.355,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.61,
+      "away_poss_margin_per_game": 2.95,
+      "edge": "away"
+    }
+  }
+}

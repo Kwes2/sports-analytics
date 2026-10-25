@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAS_vs_BOS",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1062.9
+  },
+  "away_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1051.2
+  },
+  "predicted_pace": 94.8,
+  "home_win_probability": 0.5168,
+  "away_win_probability": 0.4832,
+  "predicted_score": {
+    "home": 112.2,
+    "away": 111.3,
+    "margin": 0.9,
+    "total_points": 223.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.312,
+      "away_rim_denial_efficiency": 0.0723,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4217,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.49,
+      "away_poss_margin_per_game": 1.7,
+      "edge": "away"
+    }
+  }
+}

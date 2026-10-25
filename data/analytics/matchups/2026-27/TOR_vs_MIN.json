@@ -1,0 +1,41 @@
+{
+  "matchup_id": "TOR_vs_MIN",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1025.6
+  },
+  "away_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1020.2
+  },
+  "predicted_pace": 110.1,
+  "home_win_probability": 0.5078,
+  "away_win_probability": 0.4922,
+  "predicted_score": {
+    "home": 108.6,
+    "away": 104.3,
+    "margin": 4.3,
+    "total_points": 212.9
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3216,
+      "away_rim_denial_efficiency": 0.0534,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3266,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 15.0,
+      "away_poss_margin_per_game": 17.0,
+      "edge": "away"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAS_vs_PHX",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1043.6
+  },
+  "away_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1000.6
+  },
+  "predicted_pace": 97.1,
+  "home_win_probability": 0.5616,
+  "away_win_probability": 0.4384,
+  "predicted_score": {
+    "home": 110.0,
+    "away": 85.2,
+    "margin": 24.8,
+    "total_points": 195.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3118,
+      "away_rim_denial_efficiency": 0.0177,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4111,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.5,
+      "away_poss_margin_per_game": -2.0,
+      "edge": "home"
+    }
+  }
+}

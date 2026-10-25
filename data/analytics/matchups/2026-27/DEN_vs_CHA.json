@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DEN_vs_CHA",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612743,
+    "team_name": "Denver Nuggets",
+    "team_abbrev": "DEN",
+    "overall_elo": 1026.0
+  },
+  "away_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1024.1
+  },
+  "predicted_pace": 91.9,
+  "home_win_probability": 0.5027,
+  "away_win_probability": 0.4973,
+  "predicted_score": {
+    "home": 83.6,
+    "away": 75.6,
+    "margin": 8.0,
+    "total_points": 159.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3049,
+      "away_rim_denial_efficiency": -0.0249,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3659,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -7.0,
+      "away_poss_margin_per_game": -1.0,
+      "edge": "away"
+    }
+  }
+}

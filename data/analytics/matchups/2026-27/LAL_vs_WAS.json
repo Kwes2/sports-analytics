@@ -1,0 +1,41 @@
+{
+  "matchup_id": "LAL_vs_WAS",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612747,
+    "team_name": "Los Angeles Lakers",
+    "team_abbrev": "LAL",
+    "overall_elo": 1017.0
+  },
+  "away_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 943.5
+  },
+  "predicted_pace": 104.0,
+  "home_win_probability": 0.6042,
+  "away_win_probability": 0.3958,
+  "predicted_score": {
+    "home": 128.2,
+    "away": 105.6,
+    "margin": 22.6,
+    "total_points": 233.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.4198,
+      "away_rim_denial_efficiency": -0.008,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.375,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.5,
+      "away_poss_margin_per_game": -8.5,
+      "edge": "home"
+    }
+  }
+}

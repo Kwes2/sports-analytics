@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BOS_vs_PHI",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1037.5
+  },
+  "away_team": {
+    "team_id": 1610612755,
+    "team_name": "Philadelphia 76ers",
+    "team_abbrev": "PHI",
+    "overall_elo": 1002.7
+  },
+  "predicted_pace": 100.8,
+  "home_win_probability": 0.5499,
+  "away_win_probability": 0.4501,
+  "predicted_score": {
+    "home": 100.2,
+    "away": 105.3,
+    "margin": -5.1,
+    "total_points": 205.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2,
+      "away_rim_denial_efficiency": -0.0146,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4629,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.0,
+      "away_poss_margin_per_game": -1.0,
+      "edge": "home"
+    }
+  }
+}

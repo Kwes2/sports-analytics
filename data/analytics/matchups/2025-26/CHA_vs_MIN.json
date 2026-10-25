@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CHA_vs_MIN",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1045.8
+  },
+  "away_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1016.1
+  },
+  "predicted_pace": 97.7,
+  "home_win_probability": 0.5426,
+  "away_win_probability": 0.4574,
+  "predicted_score": {
+    "home": 114.3,
+    "away": 115.4,
+    "margin": -1.1,
+    "total_points": 229.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2606,
+      "away_rim_denial_efficiency": -0.0283,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4867,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.12,
+      "away_poss_margin_per_game": -0.48,
+      "edge": "even"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "POR_vs_MIA",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612757,
+    "team_name": "Portland Trail Blazers",
+    "team_abbrev": "POR",
+    "overall_elo": 1015.3
+  },
+  "away_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1000.5
+  },
+  "predicted_pace": 106.8,
+  "home_win_probability": 0.5213,
+  "away_win_probability": 0.4787,
+  "predicted_score": {
+    "home": 141.9,
+    "away": 96.3,
+    "margin": 45.6,
+    "total_points": 238.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.266,
+      "away_rim_denial_efficiency": 0.1919,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.5,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 4.0,
+      "away_poss_margin_per_game": -1.0,
+      "edge": "home"
+    }
+  }
+}

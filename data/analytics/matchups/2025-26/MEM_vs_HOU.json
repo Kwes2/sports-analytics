@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MEM_vs_HOU",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612763,
+    "team_name": "Memphis Grizzlies",
+    "team_abbrev": "MEM",
+    "overall_elo": 942.4
+  },
+  "away_team": {
+    "team_id": 1610612745,
+    "team_name": "Houston Rockets",
+    "team_abbrev": "HOU",
+    "overall_elo": 1027.4
+  },
+  "predicted_pace": 97.6,
+  "home_win_probability": 0.3801,
+  "away_win_probability": 0.6199,
+  "predicted_score": {
+    "home": 109.0,
+    "away": 119.9,
+    "margin": -10.9,
+    "total_points": 228.9
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2525,
+      "away_rim_denial_efficiency": 0.0138,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4361,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.12,
+      "away_poss_margin_per_game": 1.78,
+      "edge": "away"
+    }
+  }
+}

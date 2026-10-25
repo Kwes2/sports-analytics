@@ -1,0 +1,41 @@
+{
+  "matchup_id": "TOR_vs_CLE",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1025.6
+  },
+  "away_team": {
+    "team_id": 1610612739,
+    "team_name": "Cleveland Cavaliers",
+    "team_abbrev": "CLE",
+    "overall_elo": 1013.2
+  },
+  "predicted_pace": 115.2,
+  "home_win_probability": 0.5178,
+  "away_win_probability": 0.4822,
+  "predicted_score": {
+    "home": 119.5,
+    "away": 84.5,
+    "margin": 35.0,
+    "total_points": 204.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3216,
+      "away_rim_denial_efficiency": -0.1402,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3266,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 15.0,
+      "away_poss_margin_per_game": -3.0,
+      "edge": "home"
+    }
+  }
+}

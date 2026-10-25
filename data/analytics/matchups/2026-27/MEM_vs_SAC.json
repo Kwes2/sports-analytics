@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MEM_vs_SAC",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612763,
+    "team_name": "Memphis Grizzlies",
+    "team_abbrev": "MEM",
+    "overall_elo": 961.7
+  },
+  "away_team": {
+    "team_id": 1610612758,
+    "team_name": "Sacramento Kings",
+    "team_abbrev": "SAC",
+    "overall_elo": 956.0
+  },
+  "predicted_pace": 104.5,
+  "home_win_probability": 0.5082,
+  "away_win_probability": 0.4918,
+  "predicted_score": {
+    "home": 127.8,
+    "away": 103.5,
+    "margin": 24.3,
+    "total_points": 231.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3226,
+      "away_rim_denial_efficiency": 0.052,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4078,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 2.5,
+      "away_poss_margin_per_game": -2.5,
+      "edge": "home"
+    }
+  }
+}

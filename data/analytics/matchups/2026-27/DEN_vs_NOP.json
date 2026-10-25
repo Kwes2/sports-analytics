@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DEN_vs_NOP",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612743,
+    "team_name": "Denver Nuggets",
+    "team_abbrev": "DEN",
+    "overall_elo": 1026.0
+  },
+  "away_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 982.3
+  },
+  "predicted_pace": 94.2,
+  "home_win_probability": 0.5626,
+  "away_win_probability": 0.4374,
+  "predicted_score": {
+    "home": 90.5,
+    "away": 97.5,
+    "margin": -7.0,
+    "total_points": 188.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3049,
+      "away_rim_denial_efficiency": -0.083,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3659,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -7.0,
+      "away_poss_margin_per_game": 0.5,
+      "edge": "away"
+    }
+  }
+}

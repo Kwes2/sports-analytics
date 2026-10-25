@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHX_vs_HOU",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1010.7
+  },
+  "away_team": {
+    "team_id": 1610612745,
+    "team_name": "Houston Rockets",
+    "team_abbrev": "HOU",
+    "overall_elo": 1027.4
+  },
+  "predicted_pace": 93.7,
+  "home_win_probability": 0.476,
+  "away_win_probability": 0.524,
+  "predicted_score": {
+    "home": 107.0,
+    "away": 110.2,
+    "margin": -3.2,
+    "total_points": 217.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2337,
+      "away_rim_denial_efficiency": 0.0138,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4531,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 2.95,
+      "away_poss_margin_per_game": 1.78,
+      "edge": "home"
+    }
+  }
+}

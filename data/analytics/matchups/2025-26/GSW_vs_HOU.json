@@ -1,0 +1,41 @@
+{
+  "matchup_id": "GSW_vs_HOU",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612744,
+    "team_name": "Golden State Warriors",
+    "team_abbrev": "GSW",
+    "overall_elo": 982.4
+  },
+  "away_team": {
+    "team_id": 1610612745,
+    "team_name": "Houston Rockets",
+    "team_abbrev": "HOU",
+    "overall_elo": 1027.4
+  },
+  "predicted_pace": 95.2,
+  "home_win_probability": 0.4356,
+  "away_win_probability": 0.5644,
+  "predicted_score": {
+    "home": 108.6,
+    "away": 113.8,
+    "margin": -5.2,
+    "total_points": 222.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2571,
+      "away_rim_denial_efficiency": 0.0138,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4967,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.1,
+      "away_poss_margin_per_game": 1.78,
+      "edge": "away"
+    }
+  }
+}

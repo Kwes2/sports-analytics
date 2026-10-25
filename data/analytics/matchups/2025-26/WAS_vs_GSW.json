@@ -1,0 +1,41 @@
+{
+  "matchup_id": "WAS_vs_GSW",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 920.1
+  },
+  "away_team": {
+    "team_id": 1610612744,
+    "team_name": "Golden State Warriors",
+    "team_abbrev": "GSW",
+    "overall_elo": 982.4
+  },
+  "predicted_pace": 99.7,
+  "home_win_probability": 0.4113,
+  "away_win_probability": 0.5887,
+  "predicted_score": {
+    "home": 112.3,
+    "away": 123.5,
+    "margin": -11.2,
+    "total_points": 235.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2735,
+      "away_rim_denial_efficiency": 0.0228,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4026,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -4.02,
+      "away_poss_margin_per_game": 0.1,
+      "edge": "away"
+    }
+  }
+}

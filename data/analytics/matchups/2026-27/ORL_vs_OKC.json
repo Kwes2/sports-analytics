@@ -1,0 +1,41 @@
+{
+  "matchup_id": "ORL_vs_OKC",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612753,
+    "team_name": "Orlando Magic",
+    "team_abbrev": "ORL",
+    "overall_elo": 998.5
+  },
+  "away_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1051.3
+  },
+  "predicted_pace": 103.1,
+  "home_win_probability": 0.4246,
+  "away_win_probability": 0.5754,
+  "predicted_score": {
+    "home": 88.3,
+    "away": 114.7,
+    "margin": -26.4,
+    "total_points": 203.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2959,
+      "away_rim_denial_efficiency": -0.0249,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4675,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -11.5,
+      "away_poss_margin_per_game": 3.5,
+      "edge": "away"
+    }
+  }
+}

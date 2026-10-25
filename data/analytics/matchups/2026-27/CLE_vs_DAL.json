@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CLE_vs_DAL",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612739,
+    "team_name": "Cleveland Cavaliers",
+    "team_abbrev": "CLE",
+    "overall_elo": 1013.2
+  },
+  "away_team": {
+    "team_id": 1610612742,
+    "team_name": "Dallas Mavericks",
+    "team_abbrev": "DAL",
+    "overall_elo": 972.3
+  },
+  "predicted_pace": 106.9,
+  "home_win_probability": 0.5586,
+  "away_win_probability": 0.4414,
+  "predicted_score": {
+    "home": 107.3,
+    "away": 111.9,
+    "margin": -4.6,
+    "total_points": 219.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2874,
+      "away_rim_denial_efficiency": 0.0151,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3333,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -3.0,
+      "away_poss_margin_per_game": -5.0,
+      "edge": "home"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "NOP_vs_ORL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 978.7
+  },
+  "away_team": {
+    "team_id": 1610612753,
+    "team_name": "Orlando Magic",
+    "team_abbrev": "ORL",
+    "overall_elo": 1004.2
+  },
+  "predicted_pace": 100.0,
+  "home_win_probability": 0.4634,
+  "away_win_probability": 0.5366,
+  "predicted_score": {
+    "home": 114.9,
+    "away": 119.3,
+    "margin": -4.4,
+    "total_points": 234.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3841,
+      "away_rim_denial_efficiency": 0.0039,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3551,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.17,
+      "away_poss_margin_per_game": 1.21,
+      "edge": "away"
+    }
+  }
+}

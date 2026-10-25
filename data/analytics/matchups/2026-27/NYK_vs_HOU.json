@@ -1,0 +1,41 @@
+{
+  "matchup_id": "NYK_vs_HOU",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612752,
+    "team_name": "New York Knicks",
+    "team_abbrev": "NYK",
+    "overall_elo": 1028.9
+  },
+  "away_team": {
+    "team_id": 1610612745,
+    "team_name": "Houston Rockets",
+    "team_abbrev": "HOU",
+    "overall_elo": 1023.8
+  },
+  "predicted_pace": 93.7,
+  "home_win_probability": 0.5073,
+  "away_win_probability": 0.4927,
+  "predicted_score": {
+    "home": 91.6,
+    "away": 113.1,
+    "margin": -21.5,
+    "total_points": 204.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2743,
+      "away_rim_denial_efficiency": 0.1698,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4195,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.0,
+      "away_poss_margin_per_game": 6.5,
+      "edge": "away"
+    }
+  }
+}

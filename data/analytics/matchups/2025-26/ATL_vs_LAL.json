@@ -1,0 +1,41 @@
+{
+  "matchup_id": "ATL_vs_LAL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1023.9
+  },
+  "away_team": {
+    "team_id": 1610612747,
+    "team_name": "Los Angeles Lakers",
+    "team_abbrev": "LAL",
+    "overall_elo": 1016.6
+  },
+  "predicted_pace": 98.6,
+  "home_win_probability": 0.5105,
+  "away_win_probability": 0.4895,
+  "predicted_score": {
+    "home": 117.1,
+    "away": 117.2,
+    "margin": -0.1,
+    "total_points": 234.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2878,
+      "away_rim_denial_efficiency": -0.0003,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4293,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.72,
+      "away_poss_margin_per_game": -1.33,
+      "edge": "home"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "NYK_vs_CHA",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612752,
+    "team_name": "New York Knicks",
+    "team_abbrev": "NYK",
+    "overall_elo": 1028.9
+  },
+  "away_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1024.1
+  },
+  "predicted_pace": 98.1,
+  "home_win_probability": 0.5069,
+  "away_win_probability": 0.4931,
+  "predicted_score": {
+    "home": 101.2,
+    "away": 87.5,
+    "margin": 13.7,
+    "total_points": 188.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2743,
+      "away_rim_denial_efficiency": -0.0249,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4195,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.0,
+      "away_poss_margin_per_game": -1.0,
+      "edge": "home"
+    }
+  }
+}

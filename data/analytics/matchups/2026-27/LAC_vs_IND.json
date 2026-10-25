@@ -1,0 +1,41 @@
+{
+  "matchup_id": "LAC_vs_IND",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612746,
+    "team_name": "LA Clippers",
+    "team_abbrev": "LAC",
+    "overall_elo": 1010.6
+  },
+  "away_team": {
+    "team_id": 1610612754,
+    "team_name": "Indiana Pacers",
+    "team_abbrev": "IND",
+    "overall_elo": 967.9
+  },
+  "predicted_pace": 107.3,
+  "home_win_probability": 0.5611,
+  "away_win_probability": 0.4389,
+  "predicted_score": {
+    "home": 129.1,
+    "away": 112.3,
+    "margin": 16.8,
+    "total_points": 241.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2317,
+      "away_rim_denial_efficiency": -0.0553,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4364,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.5,
+      "away_poss_margin_per_game": -3.5,
+      "edge": "home"
+    }
+  }
+}

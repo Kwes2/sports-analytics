@@ -1,0 +1,606 @@
+{
+  "player_id": 1631451,
+  "player_name": "Javonte Cooke",
+  "team_id": 1610612757,
+  "team_abbrev": "POR",
+  "position": "Forward",
+  "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1631451.png",
+  "bio": {
+    "raw_position": "F",
+    "height": "6-6",
+    "weight": "185",
+    "age": 26.0
+  },
+  "games_played": 19,
+  "minutes_total": 94.0,
+  "minutes_per_game": 4.9,
+  "usage_pct": 22.01,
+  "true_shooting_pct": 0.2746,
+  "effective_fg_pct": 0.2561,
+  "ast_tov_ratio": 0.78,
+  "per_100_possessions": {
+    "points": 11.8,
+    "rebounds": 9.7,
+    "assists": 3.6,
+    "turnovers": 4.6,
+    "steals": 3.1,
+    "blocks": 0.0
+  },
+  "effective_plus_minus": {
+    "offensive_epm": 3.94,
+    "defensive_epm": -3.11,
+    "net_epm": 0.83
+  },
+  "relative_plus_minus": {
+    "stint_possessions": 186.8,
+    "actual_net_margin_per_100": -4.82,
+    "expected_net_margin_per_100": -12.32,
+    "relative_plus_minus": 7.51
+  },
+  "oliver_floor_rates": {
+    "true_ast_pct": 9.9,
+    "true_orb_pct": 4.55,
+    "true_dreb_pct": 17.53,
+    "stock_rate_per_100": 3.07,
+    "foul_drawing_premium": 0.33
+  },
+  "hustle_tracking": {
+    "minutes_evaluated": 73.0,
+    "deflections_total": 7,
+    "deflections_per_100": 4.6,
+    "screen_assists_total": 0,
+    "screen_assists_per_100": 0.0,
+    "screen_assist_points_total": 0,
+    "screen_assist_pts_per_100": 0.0,
+    "charges_drawn_total": 0,
+    "charges_drawn_per_100": 0.0,
+    "loose_balls_recovered_per_100": 1.3,
+    "box_outs_per_100": 0.7
+  },
+  "archetype": {
+    "offensive_role": "Shot-Creating Wing",
+    "offensive_description": "Three-level scoring threat capable of generating efficient looks off the dribble.",
+    "defensive_role": "Point-of-Attack Disruptor",
+    "defensive_description": "Aggressive perimeter defender generating deflections, blowing up screens, and forcing turnovers."
+  },
+  "similar_players": [
+    {
+      "player_id": 1630548,
+      "player_name": "Johnny Juzang",
+      "team_abbrev": "MIN",
+      "similarity_score_pct": 85.3,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1630548.png"
+    },
+    {
+      "player_id": 1631211,
+      "player_name": "Trevor Keels",
+      "team_abbrev": "MIA",
+      "similarity_score_pct": 83.7,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1631211.png"
+    },
+    {
+      "player_id": 1631174,
+      "player_name": "Tyler Burton",
+      "team_abbrev": "MEM",
+      "similarity_score_pct": 82.5,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1631174.png"
+    },
+    {
+      "player_id": 202331,
+      "player_name": "Paul George",
+      "team_abbrev": "PHI",
+      "similarity_score_pct": 80.7,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/202331.png"
+    },
+    {
+      "player_id": 1629675,
+      "player_name": "Naz Reid",
+      "team_abbrev": "MIN",
+      "similarity_score_pct": 80.7,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1629675.png"
+    }
+  ],
+  "assist_network_profile": {
+    "passer_profile": {
+      "assists_delivered": 7,
+      "assisted_points_created": 14,
+      "points_per_assist": 2.0,
+      "three_pt_assist_share": 0.0,
+      "rim_assist_share": 0.7143,
+      "top_assisted_targets": [
+        {
+          "target_id": 1641871,
+          "target_name": "Duop Reath",
+          "assists_received": 2
+        },
+        {
+          "target_id": 1631126,
+          "target_name": "Caleb Love",
+          "assists_received": 2
+        },
+        {
+          "target_id": 1631200,
+          "target_name": "Kris Murray",
+          "assists_received": 1
+        }
+      ]
+    },
+    "finisher_profile": {
+      "assisted_baskets_finished": 5,
+      "points_from_assists": 12,
+      "primary_feeders": [
+        {
+          "feeder_id": 1631126,
+          "feeder_name": "Caleb Love",
+          "feeds_delivered": 3
+        },
+        {
+          "feeder_id": 203924,
+          "feeder_name": "Jerami Grant",
+          "feeds_delivered": 1
+        },
+        {
+          "feeder_id": 1642905,
+          "feeder_name": "Yang Hansen",
+          "feeds_delivered": 1
+        }
+      ]
+    }
+  },
+  "shot_making_and_creation": {
+    "fga": 41,
+    "shot_quality_xefg": 0.5343,
+    "smoe_total": -22.81,
+    "smoe_per_100": -55.64,
+    "creation_profile": {
+      "self_created_fga": 17,
+      "self_creation_rate": 0.4146,
+      "self_created_efg": 0.2941,
+      "self_created_smoe_per_100": -44.37,
+      "assisted_fga": 24,
+      "assisted_efg": 0.2292,
+      "assisted_smoe_per_100": -63.62,
+      "creation_efficiency_tax": -0.065
+    },
+    "rim_pressure": {
+      "rim_attempts": 7,
+      "rim_pressure_rate": 0.1707,
+      "rim_fg_pct": 0.2857,
+      "rim_finishing_premium": -0.3866
+    },
+    "corner_3_specialist_premium": -0.25,
+    "hot_cold_zones": {
+      "Restricted Area": {
+        "attempts": 7,
+        "made": 2,
+        "fg_pct": 0.2857,
+        "baseline_fg_pct": 0.6723,
+        "delta_fg_pct": -0.3866,
+        "status": "COLD"
+      },
+      "In The Paint (Non-RA)": {
+        "attempts": 10,
+        "made": 4,
+        "fg_pct": 0.4,
+        "baseline_fg_pct": 0.4451,
+        "delta_fg_pct": -0.0451,
+        "status": "COLD"
+      },
+      "Mid-Range": {
+        "attempts": 1,
+        "made": 0,
+        "fg_pct": 0.0,
+        "baseline_fg_pct": 0.4185,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Left Corner 3": {
+        "attempts": 3,
+        "made": 0,
+        "fg_pct": 0.0,
+        "baseline_fg_pct": 0.3892,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Right Corner 3": {
+        "attempts": 2,
+        "made": 0,
+        "fg_pct": 0.0,
+        "baseline_fg_pct": 0.3843,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      },
+      "Above the Break 3": {
+        "attempts": 18,
+        "made": 3,
+        "fg_pct": 0.1667,
+        "baseline_fg_pct": 0.3491,
+        "delta_fg_pct": -0.1824,
+        "status": "COLD"
+      },
+      "Backcourt": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.4783,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      }
+    },
+    "shot_density_bins": [
+      {
+        "x": -180,
+        "y": 180,
+        "fga": 3,
+        "fgm": 2,
+        "fg_pct": 0.667,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 0,
+        "y": 0,
+        "fga": 3,
+        "fgm": 1,
+        "fg_pct": 0.333,
+        "efg_pct": 0.333
+      },
+      {
+        "x": -240,
+        "y": 60,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 20,
+        "y": 0,
+        "fga": 2,
+        "fgm": 1,
+        "fg_pct": 0.5,
+        "efg_pct": 0.5
+      },
+      {
+        "x": 200,
+        "y": 180,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 60,
+        "y": 60,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 0,
+        "y": 40,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 20,
+        "y": 20,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 40,
+        "y": 20,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 20,
+        "y": 60,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -20,
+        "y": 260,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 160,
+        "y": 220,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 240,
+        "y": 40,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 60,
+        "y": 40,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 0,
+        "y": 260,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -200,
+        "y": 160,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 0,
+        "y": 60,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 0,
+        "y": 280,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -220,
+        "y": 180,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -40,
+        "y": 40,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": -120,
+        "y": 220,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -200,
+        "y": 180,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": 60,
+        "y": 260,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 60,
+        "y": 20,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -240,
+        "y": 80,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -20,
+        "y": 40,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 240,
+        "y": 0,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 40,
+        "y": 40,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 180,
+        "y": 200,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -200,
+        "y": 140,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -100,
+        "y": 120,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -80,
+        "y": 260,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -120,
+        "y": 240,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -40,
+        "y": 240,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 0,
+        "y": 20,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      }
+    ]
+  },
+  "game_flow_and_clutch": {
+    "quarter_splits": {
+      "q1_fga": 6,
+      "q1_efg": 0.1667,
+      "q1_jumpstart_rating": -0.0894,
+      "q4_fga": 22,
+      "q4_efg": 0.2273,
+      "q4_production_rating": -0.0622
+    },
+    "clutch_execution": {
+      "clutch_fga": 17,
+      "clutch_efg": 0.2059,
+      "non_clutch_efg": 0.2917,
+      "clutch_execution_gap": -0.0858
+    }
+  },
+  "consistency_and_schedule": {
+    "volatility_profile": {
+      "scoring_volatility_index_svi": 0.17,
+      "scoring_floor_pts_100": 11.1,
+      "scoring_ceiling_pts_100": 11.3,
+      "sub_zero_game_rate": null,
+      "sub_zero_games_count": 0,
+      "explosion_game_rate": null,
+      "explosion_games_count": 0
+    },
+    "schedule_rest_splits": {
+      "b2b_degradation_ts": -0.163,
+      "splits": {
+        "b2b_zero_rest": {
+          "games": 3,
+          "minutes_per_game": 4.0,
+          "true_shooting_pct": 0.1429,
+          "pts_per_100": 4.7
+        },
+        "one_day_rest": {
+          "games": 5,
+          "minutes_per_game": 5.6,
+          "true_shooting_pct": 0.2917,
+          "pts_per_100": 12.1
+        },
+        "well_rested": {
+          "games": 11,
+          "minutes_per_game": 4.9,
+          "true_shooting_pct": 0.3059,
+          "pts_per_100": 7.5
+        }
+      }
+    },
+    "venue_splits": {
+      "road_dropoff_ts": -0.1517,
+      "home": {
+        "games": 7,
+        "minutes_per_game": 4.7,
+        "true_shooting_pct": 0.3611,
+        "pts_per_100": 13.7
+      },
+      "away": {
+        "games": 12,
+        "minutes_per_game": 5.1,
+        "true_shooting_pct": 0.2094,
+        "pts_per_100": 5.1
+      }
+    }
+  },
+  "percentile_ranks": {
+    "league_wide": {
+      "true_shooting": null,
+      "usage": null,
+      "ast_tov_ratio": null,
+      "true_ast_pct": null,
+      "true_dreb_pct": null,
+      "stock_rate": null,
+      "net_epm": null,
+      "relative_plus_minus": null,
+      "deflections": null,
+      "screen_assist_points": null,
+      "smoe_per_100": null,
+      "shot_quality": null,
+      "self_creation_rate": null,
+      "rim_pressure_rate": null,
+      "points_per_100": null
+    },
+    "positional_peer": {
+      "position_group": "Forward",
+      "true_shooting": null,
+      "net_epm": null,
+      "rim_pressure": null,
+      "playmaking_load": null,
+      "rebound_dominance": null,
+      "usage_to_efficiency_ratio": null
+    }
+  }
+}

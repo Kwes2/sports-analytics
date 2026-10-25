@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAC_vs_LAC",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612758,
+    "team_name": "Sacramento Kings",
+    "team_abbrev": "SAC",
+    "overall_elo": 945.5
+  },
+  "away_team": {
+    "team_id": 1610612746,
+    "team_name": "LA Clippers",
+    "team_abbrev": "LAC",
+    "overall_elo": 1011.7
+  },
+  "predicted_pace": 94.5,
+  "home_win_probability": 0.4059,
+  "away_win_probability": 0.5941,
+  "predicted_score": {
+    "home": 107.4,
+    "away": 118.1,
+    "margin": -10.7,
+    "total_points": 225.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2258,
+      "away_rim_denial_efficiency": 0.0201,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3392,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.05,
+      "away_poss_margin_per_game": -2.0,
+      "edge": "home"
+    }
+  }
+}

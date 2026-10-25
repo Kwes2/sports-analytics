@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHI_vs_OKC",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612755,
+    "team_name": "Philadelphia 76ers",
+    "team_abbrev": "PHI",
+    "overall_elo": 1002.7
+  },
+  "away_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1051.3
+  },
+  "predicted_pace": 106.3,
+  "home_win_probability": 0.4305,
+  "away_win_probability": 0.5695,
+  "predicted_score": {
+    "home": 88.7,
+    "away": 94.9,
+    "margin": -6.2,
+    "total_points": 183.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3591,
+      "away_rim_denial_efficiency": -0.0249,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3757,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.0,
+      "away_poss_margin_per_game": 3.5,
+      "edge": "away"
+    }
+  }
+}

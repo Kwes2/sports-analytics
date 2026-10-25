@@ -1,0 +1,148 @@
+{
+  "player_id": 1631255,
+  "player_name": "Karlo Matković",
+  "team_id": 1610612740,
+  "team_abbrev": "NOP",
+  "position": "Forward",
+  "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1631255.png",
+  "bio": {
+    "raw_position": "F",
+    "height": null,
+    "weight": null,
+    "age": null
+  },
+  "games_played": 1,
+  "minutes_total": 9.0,
+  "minutes_per_game": 9.0,
+  "usage_pct": 17.67,
+  "true_shooting_pct": 0.9021,
+  "effective_fg_pct": 1.0,
+  "ast_tov_ratio": 1.0,
+  "per_100_possessions": {
+    "points": 36.8,
+    "rebounds": 21.0,
+    "assists": 5.3,
+    "turnovers": 0.0,
+    "steals": 10.5,
+    "blocks": 0.0
+  },
+  "effective_plus_minus": {
+    "offensive_epm": -5.69,
+    "defensive_epm": 5.78,
+    "net_epm": 0.09
+  },
+  "relative_plus_minus": {
+    "stint_possessions": 25.2,
+    "actual_net_margin_per_100": -3.97,
+    "expected_net_margin_per_100": -9.56,
+    "relative_plus_minus": 5.59
+  },
+  "oliver_floor_rates": {
+    "true_ast_pct": 21.33,
+    "true_orb_pct": 25.1,
+    "true_dreb_pct": 24.81,
+    "stock_rate_per_100": 10.52,
+    "foul_drawing_premium": 2.0
+  },
+  "hustle_tracking": {},
+  "archetype": null,
+  "similar_players": [],
+  "assist_network_profile": {
+    "passer_profile": {
+      "assists_delivered": 0,
+      "assisted_points_created": 0,
+      "points_per_assist": null,
+      "three_pt_assist_share": null,
+      "rim_assist_share": null,
+      "top_assisted_targets": []
+    },
+    "finisher_profile": {
+      "assisted_baskets_finished": 1,
+      "points_from_assists": 2,
+      "primary_feeders": [
+        {
+          "feeder_id": 1627749,
+          "feeder_name": "Dejounte Murray",
+          "feeds_delivered": 1
+        }
+      ]
+    }
+  },
+  "shot_making_and_creation": {
+    "fga": 3,
+    "shot_quality_xefg": null,
+    "smoe_total": null,
+    "smoe_per_100": null,
+    "creation_profile": {},
+    "rim_pressure": {},
+    "corner_3_specialist_premium": null,
+    "hot_cold_zones": {},
+    "shot_density_bins": []
+  },
+  "game_flow_and_clutch": {
+    "quarter_splits": {},
+    "clutch_execution": {}
+  },
+  "consistency_and_schedule": {
+    "volatility_profile": {
+      "scoring_volatility_index_svi": null,
+      "scoring_floor_pts_100": null,
+      "scoring_ceiling_pts_100": null,
+      "sub_zero_game_rate": null,
+      "sub_zero_games_count": 0,
+      "explosion_game_rate": null,
+      "explosion_games_count": 0
+    },
+    "schedule_rest_splits": {
+      "b2b_degradation_ts": null,
+      "splits": {
+        "b2b_zero_rest": null,
+        "one_day_rest": null,
+        "well_rested": {
+          "games": 1,
+          "minutes_per_game": 9.0,
+          "true_shooting_pct": 0.9021,
+          "pts_per_100": 37.1
+        }
+      }
+    },
+    "venue_splits": {
+      "road_dropoff_ts": null,
+      "home": null,
+      "away": {
+        "games": 1,
+        "minutes_per_game": 9.0,
+        "true_shooting_pct": 0.9021,
+        "pts_per_100": 37.1
+      }
+    }
+  },
+  "percentile_ranks": {
+    "league_wide": {
+      "true_shooting": null,
+      "usage": null,
+      "ast_tov_ratio": null,
+      "true_ast_pct": null,
+      "true_dreb_pct": null,
+      "stock_rate": null,
+      "net_epm": null,
+      "relative_plus_minus": null,
+      "deflections": null,
+      "screen_assist_points": null,
+      "smoe_per_100": null,
+      "shot_quality": null,
+      "self_creation_rate": null,
+      "rim_pressure_rate": null,
+      "points_per_100": null
+    },
+    "positional_peer": {
+      "position_group": "Forward",
+      "true_shooting": null,
+      "net_epm": null,
+      "rim_pressure": null,
+      "playmaking_load": null,
+      "rebound_dominance": null,
+      "usage_to_efficiency_ratio": null
+    }
+  }
+}

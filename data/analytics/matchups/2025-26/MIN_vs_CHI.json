@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIN_vs_CHI",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1016.1
+  },
+  "away_team": {
+    "team_id": 1610612741,
+    "team_name": "Chicago Bulls",
+    "team_abbrev": "CHI",
+    "overall_elo": 956.2
+  },
+  "predicted_pace": 101.6,
+  "home_win_probability": 0.5854,
+  "away_win_probability": 0.4146,
+  "predicted_score": {
+    "home": 123.5,
+    "away": 114.5,
+    "margin": 9.0,
+    "total_points": 238.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2953,
+      "away_rim_denial_efficiency": -0.0406,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.42,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.48,
+      "away_poss_margin_per_game": -3.29,
+      "edge": "home"
+    }
+  }
+}

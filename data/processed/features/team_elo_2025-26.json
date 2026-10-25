@@ -1,0 +1,285 @@
+{
+  "season": "2025-26",
+  "anchor_elo": 1000.0,
+  "k_factor": 20.0,
+  "offseason_reversion_pct": 25.0,
+  "backtest_evaluation": {
+    "games_evaluated": 1230,
+    "straight_up_accuracy_pct": 66.91,
+    "brier_score": 0.2322,
+    "log_loss": 0.6571
+  },
+  "team_count": 30,
+  "teams": {
+    "1610612745": {
+      "team_id": 1610612745,
+      "team_name": "Houston Rockets",
+      "team_abbrev": "HOU",
+      "games_played": 82,
+      "offensive_elo": 1010.7,
+      "defensive_elo": 1023.1,
+      "overall_elo": 1027.4
+    },
+    "1610612760": {
+      "team_id": 1610612760,
+      "team_name": "Oklahoma City Thunder",
+      "team_abbrev": "OKC",
+      "games_played": 82,
+      "offensive_elo": 1038.5,
+      "defensive_elo": 1034.9,
+      "overall_elo": 1063.7
+    },
+    "1610612744": {
+      "team_id": 1610612744,
+      "team_name": "Golden State Warriors",
+      "team_abbrev": "GSW",
+      "games_played": 82,
+      "offensive_elo": 1002.5,
+      "defensive_elo": 977.7,
+      "overall_elo": 982.4
+    },
+    "1610612747": {
+      "team_id": 1610612747,
+      "team_name": "Los Angeles Lakers",
+      "team_abbrev": "LAL",
+      "games_played": 82,
+      "offensive_elo": 1021.8,
+      "defensive_elo": 998.5,
+      "overall_elo": 1016.6
+    },
+    "1610612738": {
+      "team_id": 1610612738,
+      "team_name": "Boston Celtics",
+      "team_abbrev": "BOS",
+      "games_played": 82,
+      "offensive_elo": 1013.8,
+      "defensive_elo": 1049.7,
+      "overall_elo": 1051.2
+    },
+    "1610612755": {
+      "team_id": 1610612755,
+      "team_name": "Philadelphia 76ers",
+      "team_abbrev": "PHI",
+      "games_played": 82,
+      "offensive_elo": 1013.9,
+      "defensive_elo": 983.0,
+      "overall_elo": 998.7
+    },
+    "1610612756": {
+      "team_id": 1610612756,
+      "team_name": "Phoenix Suns",
+      "team_abbrev": "PHX",
+      "games_played": 82,
+      "offensive_elo": 991.6,
+      "defensive_elo": 1019.7,
+      "overall_elo": 1010.7
+    },
+    "1610612758": {
+      "team_id": 1610612758,
+      "team_name": "Sacramento Kings",
+      "team_abbrev": "SAC",
+      "games_played": 82,
+      "offensive_elo": 988.9,
+      "defensive_elo": 943.6,
+      "overall_elo": 945.5
+    },
+    "1610612750": {
+      "team_id": 1610612750,
+      "team_name": "Minnesota Timberwolves",
+      "team_abbrev": "MIN",
+      "games_played": 82,
+      "offensive_elo": 1029.9,
+      "defensive_elo": 989.3,
+      "overall_elo": 1016.1
+    },
+    "1610612757": {
+      "team_id": 1610612757,
+      "team_name": "Portland Trail Blazers",
+      "team_abbrev": "POR",
+      "games_played": 82,
+      "offensive_elo": 1008.7,
+      "defensive_elo": 1001.8,
+      "overall_elo": 1010.3
+    },
+    "1610612748": {
+      "team_id": 1610612748,
+      "team_name": "Miami Heat",
+      "team_abbrev": "MIA",
+      "games_played": 82,
+      "offensive_elo": 1060.5,
+      "defensive_elo": 951.1,
+      "overall_elo": 1009.3
+    },
+    "1610612753": {
+      "team_id": 1610612753,
+      "team_name": "Orlando Magic",
+      "team_abbrev": "ORL",
+      "games_played": 82,
+      "offensive_elo": 1020.5,
+      "defensive_elo": 983.4,
+      "overall_elo": 1004.2
+    },
+    "1610612746": {
+      "team_id": 1610612746,
+      "team_name": "LA Clippers",
+      "team_abbrev": "LAC",
+      "games_played": 82,
+      "offensive_elo": 1009.2,
+      "defensive_elo": 1005.5,
+      "overall_elo": 1011.7
+    },
+    "1610612762": {
+      "team_id": 1610612762,
+      "team_name": "Utah Jazz",
+      "team_abbrev": "UTA",
+      "games_played": 82,
+      "offensive_elo": 1027.2,
+      "defensive_elo": 906.9,
+      "overall_elo": 948.5
+    },
+    "1610612742": {
+      "team_id": 1610612742,
+      "team_name": "Dallas Mavericks",
+      "team_abbrev": "DAL",
+      "games_played": 82,
+      "offensive_elo": 1014.6,
+      "defensive_elo": 940.6,
+      "overall_elo": 961.3
+    },
+    "1610612759": {
+      "team_id": 1610612759,
+      "team_name": "San Antonio Spurs",
+      "team_abbrev": "SAS",
+      "games_played": 82,
+      "offensive_elo": 1057.1,
+      "defensive_elo": 1015.9,
+      "overall_elo": 1062.9
+    },
+    "1610612740": {
+      "team_id": 1610612740,
+      "team_name": "New Orleans Pelicans",
+      "team_abbrev": "NOP",
+      "games_played": 82,
+      "offensive_elo": 1024.1,
+      "defensive_elo": 952.5,
+      "overall_elo": 978.7
+    },
+    "1610612763": {
+      "team_id": 1610612763,
+      "team_name": "Memphis Grizzlies",
+      "team_abbrev": "MEM",
+      "games_played": 82,
+      "offensive_elo": 1003.8,
+      "defensive_elo": 923.6,
+      "overall_elo": 942.4
+    },
+    "1610612739": {
+      "team_id": 1610612739,
+      "team_name": "Cleveland Cavaliers",
+      "team_abbrev": "CLE",
+      "games_played": 82,
+      "offensive_elo": 1040.9,
+      "defensive_elo": 985.4,
+      "overall_elo": 1020.0
+    },
+    "1610612752": {
+      "team_id": 1610612752,
+      "team_name": "New York Knicks",
+      "team_abbrev": "NYK",
+      "games_played": 82,
+      "offensive_elo": 1015.4,
+      "defensive_elo": 1033.7,
+      "overall_elo": 1041.7
+    },
+    "1610612737": {
+      "team_id": 1610612737,
+      "team_name": "Atlanta Hawks",
+      "team_abbrev": "ATL",
+      "games_played": 82,
+      "offensive_elo": 1043.4,
+      "defensive_elo": 988.2,
+      "overall_elo": 1023.9
+    },
+    "1610612761": {
+      "team_id": 1610612761,
+      "team_name": "Toronto Raptors",
+      "team_abbrev": "TOR",
+      "games_played": 82,
+      "offensive_elo": 1014.4,
+      "defensive_elo": 1014.5,
+      "overall_elo": 1026.6
+    },
+    "1610612766": {
+      "team_id": 1610612766,
+      "team_name": "Charlotte Hornets",
+      "team_abbrev": "CHA",
+      "games_played": 82,
+      "offensive_elo": 1023.4,
+      "defensive_elo": 1034.2,
+      "overall_elo": 1045.8
+    },
+    "1610612751": {
+      "team_id": 1610612751,
+      "team_name": "Brooklyn Nets",
+      "team_abbrev": "BKN",
+      "games_played": 82,
+      "offensive_elo": 936.4,
+      "defensive_elo": 975.6,
+      "overall_elo": 926.8
+    },
+    "1610612765": {
+      "team_id": 1610612765,
+      "team_name": "Detroit Pistons",
+      "team_abbrev": "DET",
+      "games_played": 82,
+      "offensive_elo": 1035.3,
+      "defensive_elo": 1028.1,
+      "overall_elo": 1050.5
+    },
+    "1610612741": {
+      "team_id": 1610612741,
+      "team_name": "Chicago Bulls",
+      "team_abbrev": "CHI",
+      "games_played": 82,
+      "offensive_elo": 1018.7,
+      "defensive_elo": 930.6,
+      "overall_elo": 956.2
+    },
+    "1610612764": {
+      "team_id": 1610612764,
+      "team_name": "Washington Wizards",
+      "team_abbrev": "WAS",
+      "games_played": 82,
+      "offensive_elo": 999.6,
+      "defensive_elo": 907.6,
+      "overall_elo": 920.1
+    },
+    "1610612749": {
+      "team_id": 1610612749,
+      "team_name": "Milwaukee Bucks",
+      "team_abbrev": "MIL",
+      "games_played": 82,
+      "offensive_elo": 975.2,
+      "defensive_elo": 964.7,
+      "overall_elo": 949.7
+    },
+    "1610612754": {
+      "team_id": 1610612754,
+      "team_name": "Indiana Pacers",
+      "team_abbrev": "IND",
+      "games_played": 82,
+      "offensive_elo": 1008.3,
+      "defensive_elo": 942.4,
+      "overall_elo": 960.2
+    },
+    "1610612743": {
+      "team_id": 1610612743,
+      "team_name": "Denver Nuggets",
+      "team_abbrev": "DEN",
+      "games_played": 82,
+      "offensive_elo": 1073.7,
+      "defensive_elo": 972.1,
+      "overall_elo": 1036.6
+    }
+  }
+}

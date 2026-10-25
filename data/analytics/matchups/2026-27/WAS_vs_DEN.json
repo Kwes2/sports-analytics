@@ -1,0 +1,41 @@
+{
+  "matchup_id": "WAS_vs_DEN",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 943.5
+  },
+  "away_team": {
+    "team_id": 1610612743,
+    "team_name": "Denver Nuggets",
+    "team_abbrev": "DEN",
+    "overall_elo": 1026.0
+  },
+  "predicted_pace": 96.6,
+  "home_win_probability": 0.3835,
+  "away_win_probability": 0.6165,
+  "predicted_score": {
+    "home": 93.0,
+    "away": 84.0,
+    "margin": 9.0,
+    "total_points": 177.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.297,
+      "away_rim_denial_efficiency": -0.0531,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3939,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -8.5,
+      "away_poss_margin_per_game": -7.0,
+      "edge": "away"
+    }
+  }
+}

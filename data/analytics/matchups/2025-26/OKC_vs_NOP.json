@@ -1,0 +1,41 @@
+{
+  "matchup_id": "OKC_vs_NOP",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1063.7
+  },
+  "away_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 978.7
+  },
+  "predicted_pace": 98.6,
+  "home_win_probability": 0.6199,
+  "away_win_probability": 0.3801,
+  "predicted_score": {
+    "home": 122.4,
+    "away": 106.4,
+    "margin": 16.0,
+    "total_points": 228.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2797,
+      "away_rim_denial_efficiency": -0.0253,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4258,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.85,
+      "away_poss_margin_per_game": -0.17,
+      "edge": "home"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHI_vs_DET",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612755,
+    "team_name": "Philadelphia 76ers",
+    "team_abbrev": "PHI",
+    "overall_elo": 1002.7
+  },
+  "away_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1041.4
+  },
+  "predicted_pace": 108.3,
+  "home_win_probability": 0.4445,
+  "away_win_probability": 0.5555,
+  "predicted_score": {
+    "home": 107.5,
+    "away": 114.5,
+    "margin": -7.0,
+    "total_points": 222.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3591,
+      "away_rim_denial_efficiency": 0.1587,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3757,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.0,
+      "away_poss_margin_per_game": -7.5,
+      "edge": "home"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "TOR_vs_IND",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1026.6
+  },
+  "away_team": {
+    "team_id": 1610612754,
+    "team_name": "Indiana Pacers",
+    "team_abbrev": "IND",
+    "overall_elo": 960.2
+  },
+  "predicted_pace": 98.3,
+  "home_win_probability": 0.5944,
+  "away_win_probability": 0.4056,
+  "predicted_score": {
+    "home": 118.8,
+    "away": 108.4,
+    "margin": 10.4,
+    "total_points": 227.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3019,
+      "away_rim_denial_efficiency": -0.0318,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3632,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 2.37,
+      "away_poss_margin_per_game": -2.43,
+      "edge": "home"
+    }
+  }
+}

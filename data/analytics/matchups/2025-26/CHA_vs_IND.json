@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CHA_vs_IND",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1045.8
+  },
+  "away_team": {
+    "team_id": 1610612754,
+    "team_name": "Indiana Pacers",
+    "team_abbrev": "IND",
+    "overall_elo": 960.2
+  },
+  "predicted_pace": 98.0,
+  "home_win_probability": 0.6208,
+  "away_win_probability": 0.3792,
+  "predicted_score": {
+    "home": 120.4,
+    "away": 110.0,
+    "margin": 10.4,
+    "total_points": 230.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2606,
+      "away_rim_denial_efficiency": -0.0318,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4867,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.12,
+      "away_poss_margin_per_game": -2.43,
+      "edge": "home"
+    }
+  }
+}

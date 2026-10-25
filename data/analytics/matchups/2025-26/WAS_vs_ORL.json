@@ -1,0 +1,41 @@
+{
+  "matchup_id": "WAS_vs_ORL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 920.1
+  },
+  "away_team": {
+    "team_id": 1610612753,
+    "team_name": "Orlando Magic",
+    "team_abbrev": "ORL",
+    "overall_elo": 1004.2
+  },
+  "predicted_pace": 100.8,
+  "home_win_probability": 0.3813,
+  "away_win_probability": 0.6187,
+  "predicted_score": {
+    "home": 112.5,
+    "away": 124.6,
+    "margin": -12.1,
+    "total_points": 237.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2735,
+      "away_rim_denial_efficiency": 0.0039,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4026,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -4.02,
+      "away_poss_margin_per_game": 1.21,
+      "edge": "away"
+    }
+  }
+}

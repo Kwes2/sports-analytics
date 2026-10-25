@@ -1,0 +1,41 @@
+{
+  "matchup_id": "ATL_vs_CLE",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1028.0
+  },
+  "away_team": {
+    "team_id": 1610612739,
+    "team_name": "Cleveland Cavaliers",
+    "team_abbrev": "CLE",
+    "overall_elo": 1013.2
+  },
+  "predicted_pace": 113.1,
+  "home_win_probability": 0.5213,
+  "away_win_probability": 0.4787,
+  "predicted_score": {
+    "home": 126.8,
+    "away": 94.2,
+    "margin": 32.6,
+    "total_points": 221.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3189,
+      "away_rim_denial_efficiency": -0.1402,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4378,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 6.0,
+      "away_poss_margin_per_game": -3.0,
+      "edge": "home"
+    }
+  }
+}

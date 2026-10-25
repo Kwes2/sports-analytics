@@ -1,0 +1,41 @@
+{
+  "matchup_id": "ATL_vs_IND",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1028.0
+  },
+  "away_team": {
+    "team_id": 1610612754,
+    "team_name": "Indiana Pacers",
+    "team_abbrev": "IND",
+    "overall_elo": 967.9
+  },
+  "predicted_pace": 110.3,
+  "home_win_probability": 0.5856,
+  "away_win_probability": 0.4144,
+  "predicted_score": {
+    "home": 140.8,
+    "away": 103.3,
+    "margin": 37.5,
+    "total_points": 244.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3189,
+      "away_rim_denial_efficiency": -0.0553,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4378,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 6.0,
+      "away_poss_margin_per_game": -3.5,
+      "edge": "home"
+    }
+  }
+}

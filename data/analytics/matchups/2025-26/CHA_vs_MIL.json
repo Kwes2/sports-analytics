@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CHA_vs_MIL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1045.8
+  },
+  "away_team": {
+    "team_id": 1610612749,
+    "team_name": "Milwaukee Bucks",
+    "team_abbrev": "MIL",
+    "overall_elo": 949.7
+  },
+  "predicted_pace": 94.8,
+  "home_win_probability": 0.6349,
+  "away_win_probability": 0.3651,
+  "predicted_score": {
+    "home": 117.1,
+    "away": 108.3,
+    "margin": 8.8,
+    "total_points": 225.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2606,
+      "away_rim_denial_efficiency": 0.0082,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4867,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.12,
+      "away_poss_margin_per_game": -4.33,
+      "edge": "home"
+    }
+  }
+}

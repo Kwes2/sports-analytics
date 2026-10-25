@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIN_vs_ATL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1016.1
+  },
+  "away_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1023.9
+  },
+  "predicted_pace": 101.1,
+  "home_win_probability": 0.4888,
+  "away_win_probability": 0.5112,
+  "predicted_score": {
+    "home": 118.4,
+    "away": 116.6,
+    "margin": 1.8,
+    "total_points": 235.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2953,
+      "away_rim_denial_efficiency": -0.0314,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.42,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.48,
+      "away_poss_margin_per_game": 1.72,
+      "edge": "away"
+    }
+  }
+}

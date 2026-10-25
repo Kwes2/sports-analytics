@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIL_vs_BOS",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612749,
+    "team_name": "Milwaukee Bucks",
+    "team_abbrev": "MIL",
+    "overall_elo": 958.2
+  },
+  "away_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1037.5
+  },
+  "predicted_pace": 98.7,
+  "home_win_probability": 0.3878,
+  "away_win_probability": 0.6122,
+  "predicted_score": {
+    "home": 115.3,
+    "away": 123.7,
+    "margin": -8.4,
+    "total_points": 239.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2874,
+      "away_rim_denial_efficiency": 0.0861,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4754,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -4.5,
+      "away_poss_margin_per_game": 3.0,
+      "edge": "away"
+    }
+  }
+}

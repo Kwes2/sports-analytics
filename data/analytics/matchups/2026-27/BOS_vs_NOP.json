@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BOS_vs_NOP",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1037.5
+  },
+  "away_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 982.3
+  },
+  "predicted_pace": 96.7,
+  "home_win_probability": 0.5788,
+  "away_win_probability": 0.4212,
+  "predicted_score": {
+    "home": 117.6,
+    "away": 114.3,
+    "margin": 3.3,
+    "total_points": 231.9
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2,
+      "away_rim_denial_efficiency": -0.083,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4629,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.0,
+      "away_poss_margin_per_game": 0.5,
+      "edge": "home"
+    }
+  }
+}

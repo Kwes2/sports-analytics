@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CHA_vs_LAL",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1024.1
+  },
+  "away_team": {
+    "team_id": 1610612747,
+    "team_name": "Los Angeles Lakers",
+    "team_abbrev": "LAL",
+    "overall_elo": 1017.0
+  },
+  "predicted_pace": 98.9,
+  "home_win_probability": 0.5102,
+  "away_win_probability": 0.4898,
+  "predicted_score": {
+    "home": 86.5,
+    "away": 125.9,
+    "margin": -39.4,
+    "total_points": 212.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2222,
+      "away_rim_denial_efficiency": -0.0424,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.55,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.0,
+      "away_poss_margin_per_game": -2.5,
+      "edge": "home"
+    }
+  }
+}

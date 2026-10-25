@@ -1,0 +1,41 @@
+{
+  "matchup_id": "UTA_vs_ATL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612762,
+    "team_name": "Utah Jazz",
+    "team_abbrev": "UTA",
+    "overall_elo": 948.5
+  },
+  "away_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1023.9
+  },
+  "predicted_pace": 103.1,
+  "home_win_probability": 0.3932,
+  "away_win_probability": 0.6068,
+  "predicted_score": {
+    "home": 117.7,
+    "away": 128.7,
+    "margin": -11.0,
+    "total_points": 246.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2581,
+      "away_rim_denial_efficiency": -0.0314,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4025,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.76,
+      "away_poss_margin_per_game": 1.72,
+      "edge": "away"
+    }
+  }
+}

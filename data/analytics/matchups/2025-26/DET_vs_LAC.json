@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DET_vs_LAC",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1050.5
+  },
+  "away_team": {
+    "team_id": 1610612746,
+    "team_name": "LA Clippers",
+    "team_abbrev": "LAC",
+    "overall_elo": 1011.7
+  },
+  "predicted_pace": 95.4,
+  "home_win_probability": 0.5556,
+  "away_win_probability": 0.4444,
+  "predicted_score": {
+    "home": 113.7,
+    "away": 107.9,
+    "margin": 5.8,
+    "total_points": 221.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3401,
+      "away_rim_denial_efficiency": 0.0201,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3452,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.57,
+      "away_poss_margin_per_game": -2.0,
+      "edge": "home"
+    }
+  }
+}

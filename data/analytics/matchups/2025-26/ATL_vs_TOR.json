@@ -1,0 +1,41 @@
+{
+  "matchup_id": "ATL_vs_TOR",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1023.9
+  },
+  "away_team": {
+    "team_id": 1610612761,
+    "team_name": "Toronto Raptors",
+    "team_abbrev": "TOR",
+    "overall_elo": 1026.6
+  },
+  "predicted_pace": 99.2,
+  "home_win_probability": 0.4961,
+  "away_win_probability": 0.5039,
+  "predicted_score": {
+    "home": 114.3,
+    "away": 115.0,
+    "margin": -0.7,
+    "total_points": 229.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2878,
+      "away_rim_denial_efficiency": -0.0183,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4293,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.72,
+      "away_poss_margin_per_game": 2.37,
+      "edge": "even"
+    }
+  }
+}

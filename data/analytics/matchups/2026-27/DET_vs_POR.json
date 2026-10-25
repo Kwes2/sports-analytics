@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DET_vs_POR",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1041.4
+  },
+  "away_team": {
+    "team_id": 1610612757,
+    "team_name": "Portland Trail Blazers",
+    "team_abbrev": "POR",
+    "overall_elo": 1015.3
+  },
+  "predicted_pace": 103.4,
+  "home_win_probability": 0.5375,
+  "away_win_probability": 0.4625,
+  "predicted_score": {
+    "home": 113.3,
+    "away": 124.2,
+    "margin": -10.9,
+    "total_points": 237.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.1628,
+      "away_rim_denial_efficiency": 0.0575,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4457,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -7.5,
+      "away_poss_margin_per_game": 4.0,
+      "edge": "away"
+    }
+  }
+}

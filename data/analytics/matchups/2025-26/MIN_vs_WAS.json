@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIN_vs_WAS",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1016.1
+  },
+  "away_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 920.1
+  },
+  "predicted_pace": 100.8,
+  "home_win_probability": 0.6347,
+  "away_win_probability": 0.3653,
+  "predicted_score": {
+    "home": 127.2,
+    "away": 111.1,
+    "margin": 16.1,
+    "total_points": 238.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2953,
+      "away_rim_denial_efficiency": -0.0487,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.42,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.48,
+      "away_poss_margin_per_game": -4.02,
+      "edge": "home"
+    }
+  }
+}

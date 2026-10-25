@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIA_vs_NOP",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1000.5
+  },
+  "away_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 982.3
+  },
+  "predicted_pace": 107.4,
+  "home_win_probability": 0.5262,
+  "away_win_probability": 0.4738,
+  "predicted_score": {
+    "home": 116.4,
+    "away": 135.0,
+    "margin": -18.6,
+    "total_points": 251.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.1852,
+      "away_rim_denial_efficiency": -0.083,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.459,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.0,
+      "away_poss_margin_per_game": 0.5,
+      "edge": "away"
+    }
+  }
+}

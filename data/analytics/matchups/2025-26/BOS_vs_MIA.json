@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BOS_vs_MIA",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1051.2
+  },
+  "away_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1009.3
+  },
+  "predicted_pace": 98.0,
+  "home_win_probability": 0.56,
+  "away_win_probability": 0.44,
+  "predicted_score": {
+    "home": 118.0,
+    "away": 113.3,
+    "margin": 4.7,
+    "total_points": 231.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2102,
+      "away_rim_denial_efficiency": 0.0083,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4672,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.7,
+      "away_poss_margin_per_game": 1.63,
+      "edge": "even"
+    }
+  }
+}

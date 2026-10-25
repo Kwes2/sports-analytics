@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIA_vs_SAC",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1009.3
+  },
+  "away_team": {
+    "team_id": 1610612758,
+    "team_name": "Sacramento Kings",
+    "team_abbrev": "SAC",
+    "overall_elo": 945.5
+  },
+  "predicted_pace": 101.4,
+  "home_win_probability": 0.5908,
+  "away_win_probability": 0.4092,
+  "predicted_score": {
+    "home": 126.0,
+    "away": 113.9,
+    "margin": 12.1,
+    "total_points": 239.9
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2884,
+      "away_rim_denial_efficiency": 0.0406,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4062,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.63,
+      "away_poss_margin_per_game": 0.05,
+      "edge": "home"
+    }
+  }
+}

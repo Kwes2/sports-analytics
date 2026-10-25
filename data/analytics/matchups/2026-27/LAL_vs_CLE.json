@@ -1,0 +1,41 @@
+{
+  "matchup_id": "LAL_vs_CLE",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612747,
+    "team_name": "Los Angeles Lakers",
+    "team_abbrev": "LAL",
+    "overall_elo": 1017.0
+  },
+  "away_team": {
+    "team_id": 1610612739,
+    "team_name": "Cleveland Cavaliers",
+    "team_abbrev": "CLE",
+    "overall_elo": 1013.2
+  },
+  "predicted_pace": 106.0,
+  "home_win_probability": 0.5055,
+  "away_win_probability": 0.4945,
+  "predicted_score": {
+    "home": 123.3,
+    "away": 96.4,
+    "margin": 26.9,
+    "total_points": 219.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.4198,
+      "away_rim_denial_efficiency": -0.1402,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.375,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.5,
+      "away_poss_margin_per_game": -3.0,
+      "edge": "even"
+    }
+  }
+}

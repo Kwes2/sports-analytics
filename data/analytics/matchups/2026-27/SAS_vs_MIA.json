@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAS_vs_MIA",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1043.6
+  },
+  "away_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1000.5
+  },
+  "predicted_pace": 107.8,
+  "home_win_probability": 0.5617,
+  "away_win_probability": 0.4383,
+  "predicted_score": {
+    "home": 121.8,
+    "away": 111.6,
+    "margin": 10.2,
+    "total_points": 233.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3118,
+      "away_rim_denial_efficiency": 0.1919,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4111,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.5,
+      "away_poss_margin_per_game": -1.0,
+      "edge": "home"
+    }
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "metadata": {
+    "window_size_games": 1000,
+    "actual_games_found": 1000
+  },
+  "possession_benchmarks": {
+    "games_evaluated": 1000,
+    "total_possessions": 196388.4,
+    "pace_per_48": 97.76,
+    "offensive_rating_baseline": 117.31,
+    "four_factors": {
+      "effective_fg_pct": 0.5456,
+      "turnover_pct": 0.1269,
+      "offensive_rebound_pct": 0.2592,
+      "free_throw_rate": 0.2596
+    }
+  },
+  "spatial_shooting_benchmarks": {
+    "sample_shots_evaluated": 177004,
+    "zones": {
+      "Restricted Area": {
+        "attempts": 50224,
+        "made": 33764,
+        "frequency": 0.2837,
+        "fg_pct": 0.6723,
+        "efg_pct": 0.6723,
+        "xpps": 1.3445
+      },
+      "In The Paint (Non-RA)": {
+        "attempts": 35473,
+        "made": 15790,
+        "frequency": 0.2004,
+        "fg_pct": 0.4451,
+        "efg_pct": 0.4451,
+        "xpps": 0.8903
+      },
+      "Mid-Range": {
+        "attempts": 18006,
+        "made": 7536,
+        "frequency": 0.1017,
+        "fg_pct": 0.4185,
+        "efg_pct": 0.4187,
+        "xpps": 0.8373
+      },
+      "Left Corner 3": {
+        "attempts": 9935,
+        "made": 3867,
+        "frequency": 0.0561,
+        "fg_pct": 0.3892,
+        "efg_pct": 0.5838,
+        "xpps": 1.1677
+      },
+      "Right Corner 3": {
+        "attempts": 9279,
+        "made": 3566,
+        "frequency": 0.0524,
+        "fg_pct": 0.3843,
+        "efg_pct": 0.5765,
+        "xpps": 1.1529
+      },
+      "Above the Break 3": {
+        "attempts": 54064,
+        "made": 18875,
+        "frequency": 0.3054,
+        "fg_pct": 0.3491,
+        "efg_pct": 0.5237,
+        "xpps": 1.0473
+      },
+      "Backcourt": {
+        "attempts": 23,
+        "made": 11,
+        "frequency": 0.0001,
+        "fg_pct": 0.4783,
+        "efg_pct": 0.7174,
+        "xpps": 1.4348
+      }
+    },
+    "distance_bins": {
+      "0-4": {
+        "attempts": 56700,
+        "made": 36706,
+        "frequency": 0.3203,
+        "fg_pct": 0.6474,
+        "xpps": 1.2947
+      },
+      "5-9": {
+        "attempts": 21265,
+        "made": 9264,
+        "frequency": 0.1201,
+        "fg_pct": 0.4356,
+        "xpps": 0.8713
+      },
+      "10-14": {
+        "attempts": 14804,
+        "made": 6665,
+        "frequency": 0.0836,
+        "fg_pct": 0.4502,
+        "xpps": 0.9004
+      },
+      "15-19": {
+        "attempts": 8769,
+        "made": 3656,
+        "frequency": 0.0495,
+        "fg_pct": 0.4169,
+        "xpps": 0.8338
+      },
+      "20-24": {
+        "attempts": 28586,
+        "made": 10942,
+        "frequency": 0.1615,
+        "fg_pct": 0.3828,
+        "xpps": 1.1205
+      },
+      "25-29": {
+        "attempts": 45360,
+        "made": 15754,
+        "frequency": 0.2563,
+        "fg_pct": 0.3473,
+        "xpps": 1.0419
+      },
+      "30+": {
+        "attempts": 1520,
+        "made": 422,
+        "frequency": 0.0086,
+        "fg_pct": 0.2776,
+        "xpps": 0.8329
+      }
+    }
+  }
+}

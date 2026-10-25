@@ -1,0 +1,41 @@
+{
+  "matchup_id": "OKC_vs_BOS",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1051.3
+  },
+  "away_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1037.5
+  },
+  "predicted_pace": 93.8,
+  "home_win_probability": 0.5198,
+  "away_win_probability": 0.4802,
+  "predicted_score": {
+    "home": 101.4,
+    "away": 91.3,
+    "margin": 10.1,
+    "total_points": 192.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2842,
+      "away_rim_denial_efficiency": 0.0861,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3895,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.5,
+      "away_poss_margin_per_game": 3.0,
+      "edge": "even"
+    }
+  }
+}

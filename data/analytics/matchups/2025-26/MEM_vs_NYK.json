@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MEM_vs_NYK",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612763,
+    "team_name": "Memphis Grizzlies",
+    "team_abbrev": "MEM",
+    "overall_elo": 942.4
+  },
+  "away_team": {
+    "team_id": 1610612752,
+    "team_name": "New York Knicks",
+    "team_abbrev": "NYK",
+    "overall_elo": 1041.7
+  },
+  "predicted_pace": 97.6,
+  "home_win_probability": 0.3609,
+  "away_win_probability": 0.6391,
+  "predicted_score": {
+    "home": 109.1,
+    "away": 122.0,
+    "margin": -12.9,
+    "total_points": 231.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2525,
+      "away_rim_denial_efficiency": 0.0044,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4361,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.12,
+      "away_poss_margin_per_game": 3.44,
+      "edge": "away"
+    }
+  }
+}

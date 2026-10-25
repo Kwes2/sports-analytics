@@ -1,0 +1,1414 @@
+{
+  "player_id": 1630572,
+  "player_name": "Sandro Mamukelashvili",
+  "team_id": 1610612761,
+  "team_abbrev": "TOR",
+  "position": "Forward",
+  "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1630572.png",
+  "bio": {
+    "raw_position": "F",
+    "height": "6-9",
+    "weight": "240",
+    "age": 27.0
+  },
+  "games_played": 80,
+  "minutes_total": 1752.0,
+  "minutes_per_game": 21.9,
+  "usage_pct": 18.8,
+  "true_shooting_pct": 0.6374,
+  "effective_fg_pct": 0.6141,
+  "ast_tov_ratio": 2.25,
+  "per_100_possessions": {
+    "points": 25.2,
+    "rebounds": 11.2,
+    "assists": 4.3,
+    "turnovers": 1.9,
+    "steals": 1.8,
+    "blocks": 1.2
+  },
+  "effective_plus_minus": {
+    "offensive_epm": 28.17,
+    "defensive_epm": -28.25,
+    "net_epm": -0.08
+  },
+  "relative_plus_minus": {
+    "stint_possessions": 3441.5,
+    "actual_net_margin_per_100": 1.34,
+    "expected_net_margin_per_100": 1.46,
+    "relative_plus_minus": -0.12
+  },
+  "oliver_floor_rates": {
+    "true_ast_pct": 12.4,
+    "true_orb_pct": 6.94,
+    "true_dreb_pct": 18.76,
+    "stock_rate_per_100": 2.97,
+    "foul_drawing_premium": 1.07
+  },
+  "hustle_tracking": {
+    "minutes_evaluated": 1751.0,
+    "deflections_total": 138,
+    "deflections_per_100": 3.9,
+    "screen_assists_total": 84,
+    "screen_assists_per_100": 2.4,
+    "screen_assist_points_total": 188,
+    "screen_assist_pts_per_100": 5.3,
+    "charges_drawn_total": 0,
+    "charges_drawn_per_100": 0.0,
+    "loose_balls_recovered_per_100": 0.9,
+    "box_outs_per_100": 2.1
+  },
+  "archetype": {
+    "offensive_role": "Pick-and-Pop Spacer",
+    "offensive_description": "Frontcourt perimeter sniper opening driving lanes by drawing opposing shot blockers to the arc.",
+    "defensive_role": "Point-of-Attack Disruptor",
+    "defensive_description": "Aggressive perimeter defender generating deflections, blowing up screens, and forcing turnovers."
+  },
+  "similar_players": [
+    {
+      "player_id": 1628418,
+      "player_name": "Thomas Bryant",
+      "team_abbrev": "CLE",
+      "similarity_score_pct": 93.9,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1628418.png"
+    },
+    {
+      "player_id": 1642270,
+      "player_name": "Donovan Clingan",
+      "team_abbrev": "POR",
+      "similarity_score_pct": 92.7,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1642270.png"
+    },
+    {
+      "player_id": 1631255,
+      "player_name": "Karlo Matković",
+      "team_abbrev": "NOP",
+      "similarity_score_pct": 91.4,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1631255.png"
+    },
+    {
+      "player_id": 1631117,
+      "player_name": "Walker Kessler",
+      "team_abbrev": "UTA",
+      "similarity_score_pct": 90.5,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/1631117.png"
+    },
+    {
+      "player_id": 203083,
+      "player_name": "Andre Drummond",
+      "team_abbrev": "PHI",
+      "similarity_score_pct": 90.0,
+      "headshot_url": "https://cdn.nba.com/headshots/nba/latest/1040x760/203083.png"
+    }
+  ],
+  "assist_network_profile": {
+    "passer_profile": {
+      "assists_delivered": 151,
+      "assisted_points_created": 366,
+      "points_per_assist": 2.42,
+      "three_pt_assist_share": 0.4238,
+      "rim_assist_share": 0.4371,
+      "top_assisted_targets": [
+        {
+          "target_id": 1630567,
+          "target_name": "Scottie Barnes",
+          "assists_received": 28
+        },
+        {
+          "target_id": 1627742,
+          "target_name": "Brandon Ingram",
+          "assists_received": 23
+        },
+        {
+          "target_id": 1642347,
+          "target_name": "Jamal Shead",
+          "assists_received": 19
+        }
+      ]
+    },
+    "finisher_profile": {
+      "assisted_baskets_finished": 278,
+      "points_from_assists": 671,
+      "primary_feeders": [
+        {
+          "feeder_id": 1642347,
+          "feeder_name": "Jamal Shead",
+          "feeds_delivered": 83
+        },
+        {
+          "feeder_id": 1630567,
+          "feeder_name": "Scottie Barnes",
+          "feeds_delivered": 55
+        },
+        {
+          "feeder_id": 1630193,
+          "feeder_name": "Immanuel Quickley",
+          "feeds_delivered": 44
+        }
+      ]
+    }
+  },
+  "shot_making_and_creation": {
+    "fga": 631,
+    "shot_quality_xefg": 0.5731,
+    "smoe_total": 51.74,
+    "smoe_per_100": 8.2,
+    "creation_profile": {
+      "self_created_fga": 183,
+      "self_creation_rate": 0.29,
+      "self_created_efg": 0.5628,
+      "self_created_smoe_per_100": 2.79,
+      "assisted_fga": 448,
+      "assisted_efg": 0.635,
+      "assisted_smoe_per_100": 10.41,
+      "creation_efficiency_tax": 0.0722
+    },
+    "rim_pressure": {
+      "rim_attempts": 237,
+      "rim_pressure_rate": 0.3756,
+      "rim_fg_pct": 0.7131,
+      "rim_finishing_premium": 0.0408
+    },
+    "corner_3_specialist_premium": -0.0616,
+    "hot_cold_zones": {
+      "Restricted Area": {
+        "attempts": 237,
+        "made": 169,
+        "fg_pct": 0.7131,
+        "baseline_fg_pct": 0.6723,
+        "delta_fg_pct": 0.0408,
+        "status": "HOT"
+      },
+      "In The Paint (Non-RA)": {
+        "attempts": 89,
+        "made": 44,
+        "fg_pct": 0.4944,
+        "baseline_fg_pct": 0.4451,
+        "delta_fg_pct": 0.0493,
+        "status": "HOT"
+      },
+      "Mid-Range": {
+        "attempts": 9,
+        "made": 2,
+        "fg_pct": 0.2222,
+        "baseline_fg_pct": 0.4185,
+        "delta_fg_pct": -0.1963,
+        "status": "COLD"
+      },
+      "Left Corner 3": {
+        "attempts": 30,
+        "made": 13,
+        "fg_pct": 0.4333,
+        "baseline_fg_pct": 0.3892,
+        "delta_fg_pct": 0.0441,
+        "status": "HOT"
+      },
+      "Right Corner 3": {
+        "attempts": 40,
+        "made": 12,
+        "fg_pct": 0.3,
+        "baseline_fg_pct": 0.3843,
+        "delta_fg_pct": -0.0843,
+        "status": "COLD"
+      },
+      "Above the Break 3": {
+        "attempts": 226,
+        "made": 90,
+        "fg_pct": 0.3982,
+        "baseline_fg_pct": 0.3491,
+        "delta_fg_pct": 0.0491,
+        "status": "HOT"
+      },
+      "Backcourt": {
+        "attempts": 0,
+        "made": 0,
+        "fg_pct": null,
+        "baseline_fg_pct": 0.4783,
+        "delta_fg_pct": null,
+        "status": "INSUFFICIENT_VOLUME"
+      }
+    },
+    "shot_density_bins": [
+      {
+        "x": 0,
+        "y": 0,
+        "fga": 108,
+        "fgm": 87,
+        "fg_pct": 0.806,
+        "efg_pct": 0.806
+      },
+      {
+        "x": 0,
+        "y": 20,
+        "fga": 41,
+        "fgm": 33,
+        "fg_pct": 0.805,
+        "efg_pct": 0.805
+      },
+      {
+        "x": 20,
+        "y": 0,
+        "fga": 24,
+        "fgm": 15,
+        "fg_pct": 0.625,
+        "efg_pct": 0.625
+      },
+      {
+        "x": -20,
+        "y": 0,
+        "fga": 19,
+        "fgm": 14,
+        "fg_pct": 0.737,
+        "efg_pct": 0.737
+      },
+      {
+        "x": 20,
+        "y": 20,
+        "fga": 16,
+        "fgm": 4,
+        "fg_pct": 0.25,
+        "efg_pct": 0.25
+      },
+      {
+        "x": 160,
+        "y": 200,
+        "fga": 14,
+        "fgm": 8,
+        "fg_pct": 0.571,
+        "efg_pct": 0.857
+      },
+      {
+        "x": -20,
+        "y": 20,
+        "fga": 14,
+        "fgm": 9,
+        "fg_pct": 0.643,
+        "efg_pct": 0.643
+      },
+      {
+        "x": 240,
+        "y": 20,
+        "fga": 12,
+        "fgm": 4,
+        "fg_pct": 0.333,
+        "efg_pct": 0.5
+      },
+      {
+        "x": 0,
+        "y": 60,
+        "fga": 12,
+        "fgm": 5,
+        "fg_pct": 0.417,
+        "efg_pct": 0.417
+      },
+      {
+        "x": -100,
+        "y": 240,
+        "fga": 12,
+        "fgm": 6,
+        "fg_pct": 0.5,
+        "efg_pct": 0.75
+      },
+      {
+        "x": 240,
+        "y": 0,
+        "fga": 10,
+        "fgm": 1,
+        "fg_pct": 0.1,
+        "efg_pct": 0.15
+      },
+      {
+        "x": -40,
+        "y": 40,
+        "fga": 10,
+        "fgm": 7,
+        "fg_pct": 0.7,
+        "efg_pct": 0.7
+      },
+      {
+        "x": -20,
+        "y": 260,
+        "fga": 10,
+        "fgm": 2,
+        "fg_pct": 0.2,
+        "efg_pct": 0.3
+      },
+      {
+        "x": -20,
+        "y": 40,
+        "fga": 9,
+        "fgm": 7,
+        "fg_pct": 0.778,
+        "efg_pct": 0.778
+      },
+      {
+        "x": 0,
+        "y": 260,
+        "fga": 8,
+        "fgm": 3,
+        "fg_pct": 0.375,
+        "efg_pct": 0.562
+      },
+      {
+        "x": -160,
+        "y": 200,
+        "fga": 8,
+        "fgm": 6,
+        "fg_pct": 0.75,
+        "efg_pct": 1.125
+      },
+      {
+        "x": 0,
+        "y": 40,
+        "fga": 8,
+        "fgm": 4,
+        "fg_pct": 0.5,
+        "efg_pct": 0.5
+      },
+      {
+        "x": -220,
+        "y": 20,
+        "fga": 8,
+        "fgm": 3,
+        "fg_pct": 0.375,
+        "efg_pct": 0.562
+      },
+      {
+        "x": 180,
+        "y": 200,
+        "fga": 7,
+        "fgm": 4,
+        "fg_pct": 0.571,
+        "efg_pct": 0.857
+      },
+      {
+        "x": -40,
+        "y": 260,
+        "fga": 7,
+        "fgm": 3,
+        "fg_pct": 0.429,
+        "efg_pct": 0.643
+      },
+      {
+        "x": -140,
+        "y": 220,
+        "fga": 7,
+        "fgm": 4,
+        "fg_pct": 0.571,
+        "efg_pct": 0.857
+      },
+      {
+        "x": -120,
+        "y": 240,
+        "fga": 7,
+        "fgm": 2,
+        "fg_pct": 0.286,
+        "efg_pct": 0.429
+      },
+      {
+        "x": -80,
+        "y": 240,
+        "fga": 7,
+        "fgm": 3,
+        "fg_pct": 0.429,
+        "efg_pct": 0.643
+      },
+      {
+        "x": 220,
+        "y": 0,
+        "fga": 6,
+        "fgm": 3,
+        "fg_pct": 0.5,
+        "efg_pct": 0.75
+      },
+      {
+        "x": 20,
+        "y": 60,
+        "fga": 6,
+        "fgm": 5,
+        "fg_pct": 0.833,
+        "efg_pct": 0.833
+      },
+      {
+        "x": -160,
+        "y": 220,
+        "fga": 6,
+        "fgm": 3,
+        "fg_pct": 0.5,
+        "efg_pct": 0.75
+      },
+      {
+        "x": 60,
+        "y": 260,
+        "fga": 6,
+        "fgm": 1,
+        "fg_pct": 0.167,
+        "efg_pct": 0.25
+      },
+      {
+        "x": -240,
+        "y": 0,
+        "fga": 6,
+        "fgm": 3,
+        "fg_pct": 0.5,
+        "efg_pct": 0.75
+      },
+      {
+        "x": -60,
+        "y": 260,
+        "fga": 6,
+        "fgm": 1,
+        "fg_pct": 0.167,
+        "efg_pct": 0.25
+      },
+      {
+        "x": 180,
+        "y": 180,
+        "fga": 6,
+        "fgm": 2,
+        "fg_pct": 0.333,
+        "efg_pct": 0.5
+      },
+      {
+        "x": -240,
+        "y": 80,
+        "fga": 5,
+        "fgm": 1,
+        "fg_pct": 0.2,
+        "efg_pct": 0.3
+      },
+      {
+        "x": 20,
+        "y": 260,
+        "fga": 5,
+        "fgm": 2,
+        "fg_pct": 0.4,
+        "efg_pct": 0.6
+      },
+      {
+        "x": 80,
+        "y": 240,
+        "fga": 5,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -200,
+        "y": 160,
+        "fga": 5,
+        "fgm": 2,
+        "fg_pct": 0.4,
+        "efg_pct": 0.6
+      },
+      {
+        "x": 220,
+        "y": 140,
+        "fga": 5,
+        "fgm": 3,
+        "fg_pct": 0.6,
+        "efg_pct": 0.9
+      },
+      {
+        "x": 100,
+        "y": 240,
+        "fga": 4,
+        "fgm": 2,
+        "fg_pct": 0.5,
+        "efg_pct": 0.75
+      },
+      {
+        "x": 140,
+        "y": 220,
+        "fga": 4,
+        "fgm": 1,
+        "fg_pct": 0.25,
+        "efg_pct": 0.375
+      },
+      {
+        "x": -220,
+        "y": 100,
+        "fga": 4,
+        "fgm": 2,
+        "fg_pct": 0.5,
+        "efg_pct": 0.75
+      },
+      {
+        "x": 0,
+        "y": 80,
+        "fga": 4,
+        "fgm": 2,
+        "fg_pct": 0.5,
+        "efg_pct": 0.5
+      },
+      {
+        "x": 40,
+        "y": 60,
+        "fga": 4,
+        "fgm": 1,
+        "fg_pct": 0.25,
+        "efg_pct": 0.25
+      },
+      {
+        "x": -240,
+        "y": 40,
+        "fga": 4,
+        "fgm": 3,
+        "fg_pct": 0.75,
+        "efg_pct": 1.125
+      },
+      {
+        "x": 120,
+        "y": 240,
+        "fga": 4,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 200,
+        "y": 160,
+        "fga": 4,
+        "fgm": 2,
+        "fg_pct": 0.5,
+        "efg_pct": 0.75
+      },
+      {
+        "x": -40,
+        "y": 20,
+        "fga": 4,
+        "fgm": 4,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": -40,
+        "y": 0,
+        "fga": 4,
+        "fgm": 2,
+        "fg_pct": 0.5,
+        "efg_pct": 0.5
+      },
+      {
+        "x": -120,
+        "y": 220,
+        "fga": 3,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 40,
+        "y": 80,
+        "fga": 3,
+        "fgm": 1,
+        "fg_pct": 0.333,
+        "efg_pct": 0.333
+      },
+      {
+        "x": -80,
+        "y": 260,
+        "fga": 3,
+        "fgm": 1,
+        "fg_pct": 0.333,
+        "efg_pct": 0.5
+      },
+      {
+        "x": 40,
+        "y": 40,
+        "fga": 3,
+        "fgm": 2,
+        "fg_pct": 0.667,
+        "efg_pct": 0.667
+      },
+      {
+        "x": -20,
+        "y": 80,
+        "fga": 3,
+        "fgm": 1,
+        "fg_pct": 0.333,
+        "efg_pct": 0.333
+      },
+      {
+        "x": 160,
+        "y": 220,
+        "fga": 3,
+        "fgm": 1,
+        "fg_pct": 0.333,
+        "efg_pct": 0.5
+      },
+      {
+        "x": -40,
+        "y": 60,
+        "fga": 3,
+        "fgm": 1,
+        "fg_pct": 0.333,
+        "efg_pct": 0.333
+      },
+      {
+        "x": 220,
+        "y": 20,
+        "fga": 3,
+        "fgm": 2,
+        "fg_pct": 0.667,
+        "efg_pct": 1.0
+      },
+      {
+        "x": -180,
+        "y": 180,
+        "fga": 3,
+        "fgm": 1,
+        "fg_pct": 0.333,
+        "efg_pct": 0.5
+      },
+      {
+        "x": -240,
+        "y": 20,
+        "fga": 3,
+        "fgm": 1,
+        "fg_pct": 0.333,
+        "efg_pct": 0.5
+      },
+      {
+        "x": 40,
+        "y": 100,
+        "fga": 3,
+        "fgm": 1,
+        "fg_pct": 0.333,
+        "efg_pct": 0.333
+      },
+      {
+        "x": 240,
+        "y": 40,
+        "fga": 3,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 0,
+        "y": 280,
+        "fga": 3,
+        "fgm": 1,
+        "fg_pct": 0.333,
+        "efg_pct": 0.5
+      },
+      {
+        "x": 80,
+        "y": 260,
+        "fga": 3,
+        "fgm": 1,
+        "fg_pct": 0.333,
+        "efg_pct": 0.5
+      },
+      {
+        "x": 120,
+        "y": 220,
+        "fga": 3,
+        "fgm": 1,
+        "fg_pct": 0.333,
+        "efg_pct": 0.5
+      },
+      {
+        "x": -200,
+        "y": 200,
+        "fga": 3,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 40,
+        "y": 260,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 40,
+        "y": 240,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -100,
+        "y": 260,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 20,
+        "y": 280,
+        "fga": 2,
+        "fgm": 1,
+        "fg_pct": 0.5,
+        "efg_pct": 0.75
+      },
+      {
+        "x": 80,
+        "y": 280,
+        "fga": 2,
+        "fgm": 2,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": 220,
+        "y": 100,
+        "fga": 2,
+        "fgm": 1,
+        "fg_pct": 0.5,
+        "efg_pct": 0.75
+      },
+      {
+        "x": 60,
+        "y": 40,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 240,
+        "y": 60,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -220,
+        "y": 40,
+        "fga": 2,
+        "fgm": 2,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": -60,
+        "y": 20,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 40,
+        "y": 280,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 200,
+        "y": 140,
+        "fga": 2,
+        "fgm": 1,
+        "fg_pct": 0.5,
+        "efg_pct": 0.75
+      },
+      {
+        "x": -200,
+        "y": 120,
+        "fga": 2,
+        "fgm": 2,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": 80,
+        "y": 40,
+        "fga": 2,
+        "fgm": 1,
+        "fg_pct": 0.5,
+        "efg_pct": 0.5
+      },
+      {
+        "x": 100,
+        "y": 20,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -160,
+        "y": 240,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 20,
+        "y": 40,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -60,
+        "y": 240,
+        "fga": 2,
+        "fgm": 2,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": -220,
+        "y": 140,
+        "fga": 2,
+        "fgm": 2,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": -220,
+        "y": 80,
+        "fga": 2,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 220,
+        "y": 120,
+        "fga": 2,
+        "fgm": 2,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": 0,
+        "y": -20,
+        "fga": 2,
+        "fgm": 1,
+        "fg_pct": 0.5,
+        "efg_pct": 0.5
+      },
+      {
+        "x": -140,
+        "y": 260,
+        "fga": 2,
+        "fgm": 2,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": 100,
+        "y": 260,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 80,
+        "y": 20,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -100,
+        "y": 220,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 40,
+        "y": 20,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 0,
+        "y": 240,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 60,
+        "y": 100,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 20,
+        "y": 140,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -100,
+        "y": 280,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 180,
+        "y": 160,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 240,
+        "y": 100,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": 60,
+        "y": 60,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 0,
+        "y": 100,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -20,
+        "y": 120,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -60,
+        "y": 80,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -180,
+        "y": 220,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -100,
+        "y": 20,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 40,
+        "y": 0,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 120,
+        "y": 160,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 20,
+        "y": 120,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 220,
+        "y": -20,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": -200,
+        "y": 180,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 0,
+        "y": 140,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -220,
+        "y": 120,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -40,
+        "y": -20,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -80,
+        "y": 80,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -40,
+        "y": 240,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 40,
+        "y": -20,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 240,
+        "y": 80,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": 220,
+        "y": 40,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 220,
+        "y": 160,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": 200,
+        "y": 200,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 140,
+        "y": 200,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": 160,
+        "y": 240,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": -20,
+        "y": 60,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": -180,
+        "y": 200,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": -100,
+        "y": 0,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 140,
+        "y": 240,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": -20,
+        "y": 280,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -240,
+        "y": 60,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -60,
+        "y": 280,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -120,
+        "y": 260,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 20,
+        "y": 100,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -20,
+        "y": 240,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.5
+      },
+      {
+        "x": 80,
+        "y": 60,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -20,
+        "y": 100,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 80,
+        "y": 0,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 60,
+        "y": 120,
+        "fga": 1,
+        "fgm": 1,
+        "fg_pct": 1.0,
+        "efg_pct": 1.0
+      },
+      {
+        "x": 220,
+        "y": 80,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 100,
+        "y": 40,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": -140,
+        "y": 200,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 120,
+        "y": 40,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      },
+      {
+        "x": 20,
+        "y": 240,
+        "fga": 1,
+        "fgm": 0,
+        "fg_pct": 0.0,
+        "efg_pct": 0.0
+      }
+    ]
+  },
+  "game_flow_and_clutch": {
+    "quarter_splits": {
+      "q1_fga": 203,
+      "q1_efg": 0.6084,
+      "q1_jumpstart_rating": -0.0057,
+      "q4_fga": 131,
+      "q4_efg": 0.6527,
+      "q4_production_rating": 0.0487
+    },
+    "clutch_execution": {
+      "clutch_fga": 37,
+      "clutch_efg": 0.6486,
+      "non_clutch_efg": 0.612,
+      "clutch_execution_gap": 0.0367
+    }
+  },
+  "consistency_and_schedule": {
+    "volatility_profile": {
+      "scoring_volatility_index_svi": 10.68,
+      "scoring_floor_pts_100": 11.8,
+      "scoring_ceiling_pts_100": 37.2,
+      "sub_zero_game_rate": 0.1277,
+      "sub_zero_games_count": 6,
+      "explosion_game_rate": 0.3289,
+      "explosion_games_count": 25
+    },
+    "schedule_rest_splits": {
+      "b2b_degradation_ts": -0.0021,
+      "splits": {
+        "b2b_zero_rest": {
+          "games": 15,
+          "minutes_per_game": 22.8,
+          "true_shooting_pct": 0.6487,
+          "pts_per_100": 23.2
+        },
+        "one_day_rest": {
+          "games": 46,
+          "minutes_per_game": 21.4,
+          "true_shooting_pct": 0.6279,
+          "pts_per_100": 24.3
+        },
+        "well_rested": {
+          "games": 19,
+          "minutes_per_game": 22.4,
+          "true_shooting_pct": 0.6508,
+          "pts_per_100": 26.2
+        }
+      }
+    },
+    "venue_splits": {
+      "road_dropoff_ts": 0.0647,
+      "home": {
+        "games": 41,
+        "minutes_per_game": 20.9,
+        "true_shooting_pct": 0.6052,
+        "pts_per_100": 23.3
+      },
+      "away": {
+        "games": 39,
+        "minutes_per_game": 22.9,
+        "true_shooting_pct": 0.6699,
+        "pts_per_100": 25.9
+      }
+    }
+  },
+  "percentile_ranks": {
+    "league_wide": {
+      "true_shooting": 89.1,
+      "usage": 55.7,
+      "ast_tov_ratio": 71.2,
+      "true_ast_pct": 50.7,
+      "true_dreb_pct": 78.6,
+      "stock_rate": 65.8,
+      "net_epm": 48.8,
+      "relative_plus_minus": 48.8,
+      "deflections": 66.4,
+      "screen_assist_points": 77.6,
+      "smoe_per_100": 84.5,
+      "shot_quality": 79.2,
+      "self_creation_rate": 19.2,
+      "rim_pressure_rate": 73.8,
+      "points_per_100": 72.9
+    },
+    "positional_peer": {
+      "position_group": "Forward",
+      "true_shooting": 89.1,
+      "net_epm": 48.8,
+      "rim_pressure": 73.8,
+      "playmaking_load": 50.7,
+      "rebound_dominance": 78.6,
+      "usage_to_efficiency_ratio": 68.6
+    }
+  }
+}

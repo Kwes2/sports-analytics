@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHX_vs_DET",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1000.6
+  },
+  "away_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1041.4
+  },
+  "predicted_pace": 95.6,
+  "home_win_probability": 0.4416,
+  "away_win_probability": 0.5584,
+  "predicted_score": {
+    "home": 80.4,
+    "away": 126.6,
+    "margin": -46.2,
+    "total_points": 207.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2262,
+      "away_rim_denial_efficiency": 0.1587,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.381,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.0,
+      "away_poss_margin_per_game": -7.5,
+      "edge": "home"
+    }
+  }
+}

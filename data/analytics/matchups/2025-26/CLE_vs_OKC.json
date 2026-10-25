@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CLE_vs_OKC",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612739,
+    "team_name": "Cleveland Cavaliers",
+    "team_abbrev": "CLE",
+    "overall_elo": 1020.0
+  },
+  "away_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1063.7
+  },
+  "predicted_pace": 97.9,
+  "home_win_probability": 0.4374,
+  "away_win_probability": 0.5626,
+  "predicted_score": {
+    "home": 110.7,
+    "away": 117.9,
+    "margin": -7.2,
+    "total_points": 228.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2879,
+      "away_rim_denial_efficiency": 0.0292,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4418,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.51,
+      "away_poss_margin_per_game": 1.85,
+      "edge": "even"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DAL_vs_ORL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612742,
+    "team_name": "Dallas Mavericks",
+    "team_abbrev": "DAL",
+    "overall_elo": 961.3
+  },
+  "away_team": {
+    "team_id": 1610612753,
+    "team_name": "Orlando Magic",
+    "team_abbrev": "ORL",
+    "overall_elo": 1004.2
+  },
+  "predicted_pace": 101.1,
+  "home_win_probability": 0.4386,
+  "away_win_probability": 0.5614,
+  "predicted_score": {
+    "home": 113.2,
+    "away": 118.9,
+    "margin": -5.7,
+    "total_points": 232.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2884,
+      "away_rim_denial_efficiency": 0.0039,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.355,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.61,
+      "away_poss_margin_per_game": 1.21,
+      "edge": "away"
+    }
+  }
+}

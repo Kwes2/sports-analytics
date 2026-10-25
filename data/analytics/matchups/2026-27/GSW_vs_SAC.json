@@ -1,0 +1,41 @@
+{
+  "matchup_id": "GSW_vs_SAC",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612744,
+    "team_name": "Golden State Warriors",
+    "team_abbrev": "GSW",
+    "overall_elo": 982.5
+  },
+  "away_team": {
+    "team_id": 1610612758,
+    "team_name": "Sacramento Kings",
+    "team_abbrev": "SAC",
+    "overall_elo": 956.0
+  },
+  "predicted_pace": 100.3,
+  "home_win_probability": 0.5381,
+  "away_win_probability": 0.4619,
+  "predicted_score": {
+    "home": 116.7,
+    "away": 109.7,
+    "margin": 7.0,
+    "total_points": 226.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3261,
+      "away_rim_denial_efficiency": 0.052,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.44,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 7.5,
+      "away_poss_margin_per_game": -2.5,
+      "edge": "home"
+    }
+  }
+}

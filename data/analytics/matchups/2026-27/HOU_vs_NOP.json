@@ -1,0 +1,41 @@
+{
+  "matchup_id": "HOU_vs_NOP",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612745,
+    "team_name": "Houston Rockets",
+    "team_abbrev": "HOU",
+    "overall_elo": 1023.8
+  },
+  "away_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 982.3
+  },
+  "predicted_pace": 97.9,
+  "home_win_probability": 0.5594,
+  "away_win_probability": 0.4406,
+  "predicted_score": {
+    "home": 129.0,
+    "away": 108.7,
+    "margin": 20.3,
+    "total_points": 237.7
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.25,
+      "away_rim_denial_efficiency": -0.083,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3675,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 6.5,
+      "away_poss_margin_per_game": 0.5,
+      "edge": "home"
+    }
+  }
+}

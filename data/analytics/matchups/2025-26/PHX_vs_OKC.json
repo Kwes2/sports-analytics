@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHX_vs_OKC",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1010.7
+  },
+  "away_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1063.7
+  },
+  "predicted_pace": 95.8,
+  "home_win_probability": 0.4243,
+  "away_win_probability": 0.5757,
+  "predicted_score": {
+    "home": 104.0,
+    "away": 114.1,
+    "margin": -10.1,
+    "total_points": 218.1
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2337,
+      "away_rim_denial_efficiency": 0.0292,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4531,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 2.95,
+      "away_poss_margin_per_game": 1.85,
+      "edge": "home"
+    }
+  }
+}

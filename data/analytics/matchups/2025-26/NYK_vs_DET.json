@@ -1,0 +1,41 @@
+{
+  "matchup_id": "NYK_vs_DET",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612752,
+    "team_name": "New York Knicks",
+    "team_abbrev": "NYK",
+    "overall_elo": 1041.7
+  },
+  "away_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1050.5
+  },
+  "predicted_pace": 95.9,
+  "home_win_probability": 0.4873,
+  "away_win_probability": 0.5127,
+  "predicted_score": {
+    "home": 110.7,
+    "away": 111.7,
+    "margin": -1.0,
+    "total_points": 222.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2817,
+      "away_rim_denial_efficiency": 0.0307,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4275,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.44,
+      "away_poss_margin_per_game": 3.57,
+      "edge": "even"
+    }
+  }
+}

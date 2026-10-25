@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAC_vs_NYK",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612758,
+    "team_name": "Sacramento Kings",
+    "team_abbrev": "SAC",
+    "overall_elo": 945.5
+  },
+  "away_team": {
+    "team_id": 1610612752,
+    "team_name": "New York Knicks",
+    "team_abbrev": "NYK",
+    "overall_elo": 1041.7
+  },
+  "predicted_pace": 95.0,
+  "home_win_probability": 0.365,
+  "away_win_probability": 0.635,
+  "predicted_score": {
+    "home": 105.5,
+    "away": 120.9,
+    "margin": -15.4,
+    "total_points": 226.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2258,
+      "away_rim_denial_efficiency": 0.0044,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3392,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.05,
+      "away_poss_margin_per_game": 3.44,
+      "edge": "away"
+    }
+  }
+}

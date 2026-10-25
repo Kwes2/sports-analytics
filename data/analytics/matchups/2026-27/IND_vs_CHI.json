@@ -1,0 +1,41 @@
+{
+  "matchup_id": "IND_vs_CHI",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612754,
+    "team_name": "Indiana Pacers",
+    "team_abbrev": "IND",
+    "overall_elo": 967.9
+  },
+  "away_team": {
+    "team_id": 1610612741,
+    "team_name": "Chicago Bulls",
+    "team_abbrev": "CHI",
+    "overall_elo": 962.2
+  },
+  "predicted_pace": 113.5,
+  "home_win_probability": 0.5082,
+  "away_win_probability": 0.4918,
+  "predicted_score": {
+    "home": 129.0,
+    "away": 121.8,
+    "margin": 7.2,
+    "total_points": 250.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3277,
+      "away_rim_denial_efficiency": -0.0367,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3483,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -3.5,
+      "away_poss_margin_per_game": -2.0,
+      "edge": "away"
+    }
+  }
+}

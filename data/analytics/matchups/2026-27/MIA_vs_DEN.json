@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIA_vs_DEN",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1000.5
+  },
+  "away_team": {
+    "team_id": 1610612743,
+    "team_name": "Denver Nuggets",
+    "team_abbrev": "DEN",
+    "overall_elo": 1026.0
+  },
+  "predicted_pace": 96.3,
+  "home_win_probability": 0.4634,
+  "away_win_probability": 0.5366,
+  "predicted_score": {
+    "home": 87.0,
+    "away": 96.5,
+    "margin": -9.5,
+    "total_points": 183.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.1852,
+      "away_rim_denial_efficiency": -0.0531,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.459,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.0,
+      "away_poss_margin_per_game": -7.0,
+      "edge": "home"
+    }
+  }
+}

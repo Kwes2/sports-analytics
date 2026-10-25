@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAS_vs_CHA",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1043.6
+  },
+  "away_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1024.1
+  },
+  "predicted_pace": 102.9,
+  "home_win_probability": 0.528,
+  "away_win_probability": 0.472,
+  "predicted_score": {
+    "home": 106.7,
+    "away": 98.1,
+    "margin": 8.6,
+    "total_points": 204.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3118,
+      "away_rim_denial_efficiency": -0.0249,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4111,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.5,
+      "away_poss_margin_per_game": -1.0,
+      "edge": "home"
+    }
+  }
+}

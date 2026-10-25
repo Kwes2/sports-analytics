@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAS_vs_DAL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1062.9
+  },
+  "away_team": {
+    "team_id": 1610612742,
+    "team_name": "Dallas Mavericks",
+    "team_abbrev": "DAL",
+    "overall_elo": 961.3
+  },
+  "predicted_pace": 100.7,
+  "home_win_probability": 0.6422,
+  "away_win_probability": 0.3578,
+  "predicted_score": {
+    "home": 123.7,
+    "away": 109.6,
+    "margin": 14.1,
+    "total_points": 233.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.312,
+      "away_rim_denial_efficiency": -0.0203,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4217,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.49,
+      "away_poss_margin_per_game": -2.61,
+      "edge": "home"
+    }
+  }
+}

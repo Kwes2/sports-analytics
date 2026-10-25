@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAS_vs_WAS",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612759,
+    "team_name": "San Antonio Spurs",
+    "team_abbrev": "SAS",
+    "overall_elo": 1062.9
+  },
+  "away_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 920.1
+  },
+  "predicted_pace": 100.5,
+  "home_win_probability": 0.6947,
+  "away_win_probability": 0.3053,
+  "predicted_score": {
+    "home": 129.3,
+    "away": 108.9,
+    "margin": 20.4,
+    "total_points": 238.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.312,
+      "away_rim_denial_efficiency": -0.0487,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4217,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.49,
+      "away_poss_margin_per_game": -4.02,
+      "edge": "home"
+    }
+  }
+}

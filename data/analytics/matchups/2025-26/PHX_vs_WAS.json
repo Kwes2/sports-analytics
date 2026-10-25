@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHX_vs_WAS",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1010.7
+  },
+  "away_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 920.1
+  },
+  "predicted_pace": 98.2,
+  "home_win_probability": 0.6275,
+  "away_win_probability": 0.3725,
+  "predicted_score": {
+    "home": 121.6,
+    "away": 108.7,
+    "margin": 12.9,
+    "total_points": 230.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2337,
+      "away_rim_denial_efficiency": -0.0487,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4531,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 2.95,
+      "away_poss_margin_per_game": -4.02,
+      "edge": "home"
+    }
+  }
+}

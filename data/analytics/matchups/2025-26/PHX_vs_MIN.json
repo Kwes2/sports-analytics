@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHX_vs_MIN",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1010.7
+  },
+  "away_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1016.1
+  },
+  "predicted_pace": 97.1,
+  "home_win_probability": 0.4922,
+  "away_win_probability": 0.5078,
+  "predicted_score": {
+    "home": 110.8,
+    "away": 113.6,
+    "margin": -2.8,
+    "total_points": 224.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2337,
+      "away_rim_denial_efficiency": -0.0283,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4531,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 2.95,
+      "away_poss_margin_per_game": -0.48,
+      "edge": "home"
+    }
+  }
+}

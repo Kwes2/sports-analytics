@@ -1,0 +1,41 @@
+{
+  "matchup_id": "ORL_vs_PHI",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612753,
+    "team_name": "Orlando Magic",
+    "team_abbrev": "ORL",
+    "overall_elo": 1004.2
+  },
+  "away_team": {
+    "team_id": 1610612755,
+    "team_name": "Philadelphia 76ers",
+    "team_abbrev": "PHI",
+    "overall_elo": 998.7
+  },
+  "predicted_pace": 98.9,
+  "home_win_probability": 0.5079,
+  "away_win_probability": 0.4921,
+  "predicted_score": {
+    "home": 114.4,
+    "away": 114.8,
+    "margin": -0.4,
+    "total_points": 229.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3127,
+      "away_rim_denial_efficiency": -0.0308,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3864,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.21,
+      "away_poss_margin_per_game": 1.51,
+      "edge": "even"
+    }
+  }
+}

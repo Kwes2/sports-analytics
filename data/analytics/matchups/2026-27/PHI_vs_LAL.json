@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHI_vs_LAL",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612755,
+    "team_name": "Philadelphia 76ers",
+    "team_abbrev": "PHI",
+    "overall_elo": 1002.7
+  },
+  "away_team": {
+    "team_id": 1610612747,
+    "team_name": "Los Angeles Lakers",
+    "team_abbrev": "LAL",
+    "overall_elo": 1017.0
+  },
+  "predicted_pace": 105.7,
+  "home_win_probability": 0.4794,
+  "away_win_probability": 0.5206,
+  "predicted_score": {
+    "home": 100.4,
+    "away": 116.6,
+    "margin": -16.2,
+    "total_points": 217.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3591,
+      "away_rim_denial_efficiency": -0.0424,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3757,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.0,
+      "away_poss_margin_per_game": -2.5,
+      "edge": "home"
+    }
+  }
+}

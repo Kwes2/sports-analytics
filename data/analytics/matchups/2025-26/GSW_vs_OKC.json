@@ -1,0 +1,41 @@
+{
+  "matchup_id": "GSW_vs_OKC",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612744,
+    "team_name": "Golden State Warriors",
+    "team_abbrev": "GSW",
+    "overall_elo": 982.4
+  },
+  "away_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1063.7
+  },
+  "predicted_pace": 97.3,
+  "home_win_probability": 0.3851,
+  "away_win_probability": 0.6149,
+  "predicted_score": {
+    "home": 105.6,
+    "away": 117.8,
+    "margin": -12.2,
+    "total_points": 223.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2571,
+      "away_rim_denial_efficiency": 0.0292,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4967,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.1,
+      "away_poss_margin_per_game": 1.85,
+      "edge": "away"
+    }
+  }
+}

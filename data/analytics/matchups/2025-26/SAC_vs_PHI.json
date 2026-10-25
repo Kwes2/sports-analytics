@@ -1,0 +1,41 @@
+{
+  "matchup_id": "SAC_vs_PHI",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612758,
+    "team_name": "Sacramento Kings",
+    "team_abbrev": "SAC",
+    "overall_elo": 945.5
+  },
+  "away_team": {
+    "team_id": 1610612755,
+    "team_name": "Philadelphia 76ers",
+    "team_abbrev": "PHI",
+    "overall_elo": 998.7
+  },
+  "predicted_pace": 97.6,
+  "home_win_probability": 0.424,
+  "away_win_probability": 0.576,
+  "predicted_score": {
+    "home": 110.1,
+    "away": 119.8,
+    "margin": -9.7,
+    "total_points": 229.9
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2258,
+      "away_rim_denial_efficiency": -0.0308,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3392,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 0.05,
+      "away_poss_margin_per_game": 1.51,
+      "edge": "away"
+    }
+  }
+}

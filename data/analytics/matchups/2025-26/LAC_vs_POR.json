@@ -1,0 +1,41 @@
+{
+  "matchup_id": "LAC_vs_POR",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612746,
+    "team_name": "LA Clippers",
+    "team_abbrev": "LAC",
+    "overall_elo": 1011.7
+  },
+  "away_team": {
+    "team_id": 1610612757,
+    "team_name": "Portland Trail Blazers",
+    "team_abbrev": "POR",
+    "overall_elo": 1010.3
+  },
+  "predicted_pace": 96.8,
+  "home_win_probability": 0.502,
+  "away_win_probability": 0.498,
+  "predicted_score": {
+    "home": 114.7,
+    "away": 111.8,
+    "margin": 2.9,
+    "total_points": 226.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2691,
+      "away_rim_denial_efficiency": -0.0014,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4043,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.0,
+      "away_poss_margin_per_game": 0.46,
+      "edge": "away"
+    }
+  }
+}

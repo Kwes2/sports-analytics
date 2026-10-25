@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIA_vs_CHI",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1009.3
+  },
+  "away_team": {
+    "team_id": 1610612741,
+    "team_name": "Chicago Bulls",
+    "team_abbrev": "CHI",
+    "overall_elo": 956.2
+  },
+  "predicted_pace": 104.7,
+  "home_win_probability": 0.5758,
+  "away_win_probability": 0.4242,
+  "predicted_score": {
+    "home": 127.0,
+    "away": 119.3,
+    "margin": 7.7,
+    "total_points": 246.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2884,
+      "away_rim_denial_efficiency": -0.0406,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4062,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.63,
+      "away_poss_margin_per_game": -3.29,
+      "edge": "home"
+    }
+  }
+}

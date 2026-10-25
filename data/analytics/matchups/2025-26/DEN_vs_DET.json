@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DEN_vs_DET",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612743,
+    "team_name": "Denver Nuggets",
+    "team_abbrev": "DEN",
+    "overall_elo": 1036.6
+  },
+  "away_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1050.5
+  },
+  "predicted_pace": 97.5,
+  "home_win_probability": 0.48,
+  "away_win_probability": 0.52,
+  "predicted_score": {
+    "home": 115.1,
+    "away": 118.1,
+    "margin": -3.0,
+    "total_points": 233.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2686,
+      "away_rim_denial_efficiency": 0.0307,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4077,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.59,
+      "away_poss_margin_per_game": 3.57,
+      "edge": "away"
+    }
+  }
+}

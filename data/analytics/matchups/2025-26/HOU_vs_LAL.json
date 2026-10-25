@@ -1,0 +1,41 @@
+{
+  "matchup_id": "HOU_vs_LAL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612745,
+    "team_name": "Houston Rockets",
+    "team_abbrev": "HOU",
+    "overall_elo": 1027.4
+  },
+  "away_team": {
+    "team_id": 1610612747,
+    "team_name": "Los Angeles Lakers",
+    "team_abbrev": "LAL",
+    "overall_elo": 1016.6
+  },
+  "predicted_pace": 93.9,
+  "home_win_probability": 0.5155,
+  "away_win_probability": 0.4845,
+  "predicted_score": {
+    "home": 113.0,
+    "away": 110.9,
+    "margin": 2.1,
+    "total_points": 223.9
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2729,
+      "away_rim_denial_efficiency": -0.0003,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3505,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.78,
+      "away_poss_margin_per_game": -1.33,
+      "edge": "home"
+    }
+  }
+}

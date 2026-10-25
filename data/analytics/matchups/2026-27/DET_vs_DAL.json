@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DET_vs_DAL",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1041.4
+  },
+  "away_team": {
+    "team_id": 1610612742,
+    "team_name": "Dallas Mavericks",
+    "team_abbrev": "DAL",
+    "overall_elo": 972.3
+  },
+  "predicted_pace": 101.2,
+  "home_win_probability": 0.5982,
+  "away_win_probability": 0.4018,
+  "predicted_score": {
+    "home": 126.0,
+    "away": 113.5,
+    "margin": 12.5,
+    "total_points": 239.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.1628,
+      "away_rim_denial_efficiency": 0.0151,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4457,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -7.5,
+      "away_poss_margin_per_game": -5.0,
+      "edge": "away"
+    }
+  }
+}

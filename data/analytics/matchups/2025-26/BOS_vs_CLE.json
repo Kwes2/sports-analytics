@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BOS_vs_CLE",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1051.2
+  },
+  "away_team": {
+    "team_id": 1610612739,
+    "team_name": "Cleveland Cavaliers",
+    "team_abbrev": "CLE",
+    "overall_elo": 1020.0
+  },
+  "predicted_pace": 94.7,
+  "home_win_probability": 0.5448,
+  "away_win_probability": 0.4552,
+  "predicted_score": {
+    "home": 114.5,
+    "away": 111.8,
+    "margin": 2.7,
+    "total_points": 226.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2102,
+      "away_rim_denial_efficiency": 0.0009,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4672,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.7,
+      "away_poss_margin_per_game": 1.51,
+      "edge": "even"
+    }
+  }
+}

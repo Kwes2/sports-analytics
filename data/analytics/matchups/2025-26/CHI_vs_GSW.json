@@ -1,0 +1,41 @@
+{
+  "matchup_id": "CHI_vs_GSW",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612741,
+    "team_name": "Chicago Bulls",
+    "team_abbrev": "CHI",
+    "overall_elo": 956.2
+  },
+  "away_team": {
+    "team_id": 1610612744,
+    "team_name": "Golden State Warriors",
+    "team_abbrev": "GSW",
+    "overall_elo": 982.4
+  },
+  "predicted_pace": 100.5,
+  "home_win_probability": 0.4624,
+  "away_win_probability": 0.5376,
+  "predicted_score": {
+    "home": 115.7,
+    "away": 119.9,
+    "margin": -4.2,
+    "total_points": 235.6
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3522,
+      "away_rim_denial_efficiency": 0.0228,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4432,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -3.29,
+      "away_poss_margin_per_game": 0.1,
+      "edge": "away"
+    }
+  }
+}

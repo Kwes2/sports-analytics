@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DEN_vs_ATL",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612743,
+    "team_name": "Denver Nuggets",
+    "team_abbrev": "DEN",
+    "overall_elo": 1026.0
+  },
+  "away_team": {
+    "team_id": 1610612737,
+    "team_name": "Atlanta Hawks",
+    "team_abbrev": "ATL",
+    "overall_elo": 1028.0
+  },
+  "predicted_pace": 97.1,
+  "home_win_probability": 0.4971,
+  "away_win_probability": 0.5029,
+  "predicted_score": {
+    "home": 73.4,
+    "away": 106.9,
+    "margin": -33.5,
+    "total_points": 180.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3049,
+      "away_rim_denial_efficiency": 0.0221,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3659,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -7.0,
+      "away_poss_margin_per_game": 6.0,
+      "edge": "away"
+    }
+  }
+}

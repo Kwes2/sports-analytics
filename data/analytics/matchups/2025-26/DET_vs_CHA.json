@@ -1,0 +1,41 @@
+{
+  "matchup_id": "DET_vs_CHA",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612765,
+    "team_name": "Detroit Pistons",
+    "team_abbrev": "DET",
+    "overall_elo": 1050.5
+  },
+  "away_team": {
+    "team_id": 1610612766,
+    "team_name": "Charlotte Hornets",
+    "team_abbrev": "CHA",
+    "overall_elo": 1045.8
+  },
+  "predicted_pace": 97.3,
+  "home_win_probability": 0.5068,
+  "away_win_probability": 0.4932,
+  "predicted_score": {
+    "home": 115.0,
+    "away": 110.2,
+    "margin": 4.8,
+    "total_points": 225.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3401,
+      "away_rim_denial_efficiency": -0.006,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3452,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.57,
+      "away_poss_margin_per_game": -0.12,
+      "edge": "home"
+    }
+  }
+}

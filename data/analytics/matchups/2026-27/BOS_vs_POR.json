@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BOS_vs_POR",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612738,
+    "team_name": "Boston Celtics",
+    "team_abbrev": "BOS",
+    "overall_elo": 1037.5
+  },
+  "away_team": {
+    "team_id": 1610612757,
+    "team_name": "Portland Trail Blazers",
+    "team_abbrev": "POR",
+    "overall_elo": 1015.3
+  },
+  "predicted_pace": 96.2,
+  "home_win_probability": 0.5319,
+  "away_win_probability": 0.4681,
+  "predicted_score": {
+    "home": 99.4,
+    "away": 120.5,
+    "margin": -21.1,
+    "total_points": 219.9
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2,
+      "away_rim_denial_efficiency": 0.0575,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4629,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.0,
+      "away_poss_margin_per_game": 4.0,
+      "edge": "away"
+    }
+  }
+}

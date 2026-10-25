@@ -1,0 +1,41 @@
+{
+  "matchup_id": "MIN_vs_NOP",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612750,
+    "team_name": "Minnesota Timberwolves",
+    "team_abbrev": "MIN",
+    "overall_elo": 1016.1
+  },
+  "away_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 978.7
+  },
+  "predicted_pace": 100.0,
+  "home_win_probability": 0.5536,
+  "away_win_probability": 0.4464,
+  "predicted_score": {
+    "home": 121.9,
+    "away": 113.4,
+    "margin": 8.5,
+    "total_points": 235.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2953,
+      "away_rim_denial_efficiency": -0.0253,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.42,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.48,
+      "away_poss_margin_per_game": -0.17,
+      "edge": "even"
+    }
+  }
+}

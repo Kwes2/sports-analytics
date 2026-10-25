@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHX_vs_LAL",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1000.6
+  },
+  "away_team": {
+    "team_id": 1610612747,
+    "team_name": "Los Angeles Lakers",
+    "team_abbrev": "LAL",
+    "overall_elo": 1017.0
+  },
+  "predicted_pace": 93.3,
+  "home_win_probability": 0.4764,
+  "away_win_probability": 0.5236,
+  "predicted_score": {
+    "home": 74.5,
+    "away": 127.8,
+    "margin": -53.3,
+    "total_points": 202.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2262,
+      "away_rim_denial_efficiency": -0.0424,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.381,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.0,
+      "away_poss_margin_per_game": -2.5,
+      "edge": "even"
+    }
+  }
+}

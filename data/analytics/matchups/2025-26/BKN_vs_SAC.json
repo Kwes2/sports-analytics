@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BKN_vs_SAC",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 926.8
+  },
+  "away_team": {
+    "team_id": 1610612758,
+    "team_name": "Sacramento Kings",
+    "team_abbrev": "SAC",
+    "overall_elo": 945.5
+  },
+  "predicted_pace": 95.4,
+  "home_win_probability": 0.4731,
+  "away_win_probability": 0.5269,
+  "predicted_score": {
+    "home": 110.5,
+    "away": 111.7,
+    "margin": -1.2,
+    "total_points": 222.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2938,
+      "away_rim_denial_efficiency": 0.0406,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4546,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.1,
+      "away_poss_margin_per_game": 0.05,
+      "edge": "away"
+    }
+  }
+}

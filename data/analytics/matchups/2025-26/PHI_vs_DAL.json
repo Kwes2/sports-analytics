@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHI_vs_DAL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612755,
+    "team_name": "Philadelphia 76ers",
+    "team_abbrev": "PHI",
+    "overall_elo": 998.7
+  },
+  "away_team": {
+    "team_id": 1610612742,
+    "team_name": "Dallas Mavericks",
+    "team_abbrev": "DAL",
+    "overall_elo": 961.3
+  },
+  "predicted_pace": 100.3,
+  "home_win_probability": 0.5536,
+  "away_win_probability": 0.4464,
+  "predicted_score": {
+    "home": 118.7,
+    "away": 112.7,
+    "margin": 6.0,
+    "total_points": 231.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3183,
+      "away_rim_denial_efficiency": -0.0203,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3911,
+      "edge": "home"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.51,
+      "away_poss_margin_per_game": -2.61,
+      "edge": "home"
+    }
+  }
+}

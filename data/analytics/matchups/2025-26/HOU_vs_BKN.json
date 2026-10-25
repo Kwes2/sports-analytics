@@ -1,0 +1,41 @@
+{
+  "matchup_id": "HOU_vs_BKN",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612745,
+    "team_name": "Houston Rockets",
+    "team_abbrev": "HOU",
+    "overall_elo": 1027.4
+  },
+  "away_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 926.8
+  },
+  "predicted_pace": 93.3,
+  "home_win_probability": 0.6409,
+  "away_win_probability": 0.3591,
+  "predicted_score": {
+    "home": 114.9,
+    "away": 100.5,
+    "margin": 14.4,
+    "total_points": 215.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2729,
+      "away_rim_denial_efficiency": -0.0424,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3505,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.78,
+      "away_poss_margin_per_game": -1.1,
+      "edge": "home"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "NOP_vs_MEM",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 978.7
+  },
+  "away_team": {
+    "team_id": 1610612763,
+    "team_name": "Memphis Grizzlies",
+    "team_abbrev": "MEM",
+    "overall_elo": 942.4
+  },
+  "predicted_pace": 101.3,
+  "home_win_probability": 0.5521,
+  "away_win_probability": 0.4479,
+  "predicted_score": {
+    "home": 120.9,
+    "away": 118.9,
+    "margin": 2.0,
+    "total_points": 239.8
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3841,
+      "away_rim_denial_efficiency": -0.0154,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3551,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.17,
+      "away_poss_margin_per_game": -1.12,
+      "edge": "even"
+    }
+  }
+}

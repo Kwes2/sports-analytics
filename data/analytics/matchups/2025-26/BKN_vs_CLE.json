@@ -1,0 +1,41 @@
+{
+  "matchup_id": "BKN_vs_CLE",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 926.8
+  },
+  "away_team": {
+    "team_id": 1610612739,
+    "team_name": "Cleveland Cavaliers",
+    "team_abbrev": "CLE",
+    "overall_elo": 1020.0
+  },
+  "predicted_pace": 96.3,
+  "home_win_probability": 0.369,
+  "away_win_probability": 0.631,
+  "predicted_score": {
+    "home": 105.4,
+    "away": 120.0,
+    "margin": -14.6,
+    "total_points": 225.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2938,
+      "away_rim_denial_efficiency": 0.0009,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4546,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.1,
+      "away_poss_margin_per_game": 1.51,
+      "edge": "away"
+    }
+  }
+}

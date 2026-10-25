@@ -1,0 +1,5 @@
+[x] 1. backtest elo (Implemented in scripts/features/team_elo.py & scripts/testing/backtest_elo.py with 25% offseason reversion; 66.7% straight-up accuracy, 0.2322 Brier score across 1,258 games)
+[x] 2. fix passer matricies (Deprecated fragile teamdashptpass in scripts/ingest_auxiliary_data.py; superseded by robust PBP graph extraction in scripts/features/assist_network.py)
+[x] 3. add gitignore (Added comprehensive .gitignore covering .venv, caches, data/raw, and temporary files)
+[x] 4. fix pbp key normalization in sync_active_season.py
+[x] 5. fix 2-team pace baseline calculation in build_baselines.py (normalized to single-team 48m ~97.8)

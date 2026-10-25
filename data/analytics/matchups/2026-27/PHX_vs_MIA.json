@@ -1,0 +1,41 @@
+{
+  "matchup_id": "PHX_vs_MIA",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612756,
+    "team_name": "Phoenix Suns",
+    "team_abbrev": "PHX",
+    "overall_elo": 1000.6
+  },
+  "away_team": {
+    "team_id": 1610612748,
+    "team_name": "Miami Heat",
+    "team_abbrev": "MIA",
+    "overall_elo": 1000.5
+  },
+  "predicted_pace": 98.8,
+  "home_win_probability": 0.5001,
+  "away_win_probability": 0.4999,
+  "predicted_score": {
+    "home": 95.7,
+    "away": 111.6,
+    "margin": -15.9,
+    "total_points": 207.3
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2262,
+      "away_rim_denial_efficiency": 0.1919,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.381,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.0,
+      "away_poss_margin_per_game": -1.0,
+      "edge": "away"
+    }
+  }
+}

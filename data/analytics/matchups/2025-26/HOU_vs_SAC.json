@@ -1,0 +1,41 @@
+{
+  "matchup_id": "HOU_vs_SAC",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612745,
+    "team_name": "Houston Rockets",
+    "team_abbrev": "HOU",
+    "overall_elo": 1027.4
+  },
+  "away_team": {
+    "team_id": 1610612758,
+    "team_name": "Sacramento Kings",
+    "team_abbrev": "SAC",
+    "overall_elo": 945.5
+  },
+  "predicted_pace": 95.0,
+  "home_win_probability": 0.6157,
+  "away_win_probability": 0.3843,
+  "predicted_score": {
+    "home": 118.8,
+    "away": 105.4,
+    "margin": 13.4,
+    "total_points": 224.2
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2729,
+      "away_rim_denial_efficiency": 0.0406,
+      "edge": "away"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3505,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 1.78,
+      "away_poss_margin_per_game": 0.05,
+      "edge": "home"
+    }
+  }
+}

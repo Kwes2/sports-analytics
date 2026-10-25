@@ -1,0 +1,41 @@
+{
+  "matchup_id": "LAC_vs_CHI",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612746,
+    "team_name": "LA Clippers",
+    "team_abbrev": "LAC",
+    "overall_elo": 1010.6
+  },
+  "away_team": {
+    "team_id": 1610612741,
+    "team_name": "Chicago Bulls",
+    "team_abbrev": "CHI",
+    "overall_elo": 962.2
+  },
+  "predicted_pace": 111.7,
+  "home_win_probability": 0.5692,
+  "away_win_probability": 0.4308,
+  "predicted_score": {
+    "home": 134.4,
+    "away": 110.0,
+    "margin": 24.4,
+    "total_points": 244.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2317,
+      "away_rim_denial_efficiency": -0.0367,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4364,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -1.5,
+      "away_poss_margin_per_game": -2.0,
+      "edge": "even"
+    }
+  }
+}

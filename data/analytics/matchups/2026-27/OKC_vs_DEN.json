@@ -1,0 +1,41 @@
+{
+  "matchup_id": "OKC_vs_DEN",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1051.3
+  },
+  "away_team": {
+    "team_id": 1610612743,
+    "team_name": "Denver Nuggets",
+    "team_abbrev": "DEN",
+    "overall_elo": 1026.0
+  },
+  "predicted_pace": 91.5,
+  "home_win_probability": 0.5363,
+  "away_win_probability": 0.4637,
+  "predicted_score": {
+    "home": 85.4,
+    "away": 65.6,
+    "margin": 19.8,
+    "total_points": 151.0
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2842,
+      "away_rim_denial_efficiency": -0.0531,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3895,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": 3.5,
+      "away_poss_margin_per_game": -7.0,
+      "edge": "home"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "matchup_id": "LAL_vs_OKC",
+  "season": "2026-27",
+  "home_team": {
+    "team_id": 1610612747,
+    "team_name": "Los Angeles Lakers",
+    "team_abbrev": "LAL",
+    "overall_elo": 1017.0
+  },
+  "away_team": {
+    "team_id": 1610612760,
+    "team_name": "Oklahoma City Thunder",
+    "team_abbrev": "OKC",
+    "overall_elo": 1051.3
+  },
+  "predicted_pace": 98.5,
+  "home_win_probability": 0.4508,
+  "away_win_probability": 0.5492,
+  "predicted_score": {
+    "home": 106.4,
+    "away": 97.1,
+    "margin": 9.3,
+    "total_points": 203.5
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.4198,
+      "away_rim_denial_efficiency": -0.0249,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.375,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -2.5,
+      "away_poss_margin_per_game": 3.5,
+      "edge": "away"
+    }
+  }
+}

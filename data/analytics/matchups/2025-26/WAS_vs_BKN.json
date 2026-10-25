@@ -1,0 +1,41 @@
+{
+  "matchup_id": "WAS_vs_BKN",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612764,
+    "team_name": "Washington Wizards",
+    "team_abbrev": "WAS",
+    "overall_elo": 920.1
+  },
+  "away_team": {
+    "team_id": 1610612751,
+    "team_name": "Brooklyn Nets",
+    "team_abbrev": "BKN",
+    "overall_elo": 926.8
+  },
+  "predicted_pace": 97.7,
+  "home_win_probability": 0.4904,
+  "away_win_probability": 0.5096,
+  "predicted_score": {
+    "home": 113.6,
+    "away": 114.8,
+    "margin": -1.2,
+    "total_points": 228.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.2735,
+      "away_rim_denial_efficiency": -0.0424,
+      "edge": "even"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.4026,
+      "edge": "away"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -4.02,
+      "away_poss_margin_per_game": -1.1,
+      "edge": "away"
+    }
+  }
+}

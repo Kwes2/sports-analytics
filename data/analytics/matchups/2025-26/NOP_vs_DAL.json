@@ -1,0 +1,41 @@
+{
+  "matchup_id": "NOP_vs_DAL",
+  "season": "2025-26",
+  "home_team": {
+    "team_id": 1610612740,
+    "team_name": "New Orleans Pelicans",
+    "team_abbrev": "NOP",
+    "overall_elo": 978.7
+  },
+  "away_team": {
+    "team_id": 1610612742,
+    "team_name": "Dallas Mavericks",
+    "team_abbrev": "DAL",
+    "overall_elo": 961.3
+  },
+  "predicted_pace": 101.3,
+  "home_win_probability": 0.525,
+  "away_win_probability": 0.475,
+  "predicted_score": {
+    "home": 118.8,
+    "away": 117.6,
+    "margin": 1.2,
+    "total_points": 236.4
+  },
+  "tactical_clashes": {
+    "rim_pressure_vs_denial": {
+      "home_rim_pressure_rate": 0.3841,
+      "away_rim_denial_efficiency": -0.0203,
+      "edge": "home"
+    },
+    "perimeter_spacing_clash": {
+      "home_three_point_rate": 0.3551,
+      "edge": "even"
+    },
+    "possession_turnover_war": {
+      "home_poss_margin_per_game": -0.17,
+      "away_poss_margin_per_game": -2.61,
+      "edge": "home"
+    }
+  }
+}
