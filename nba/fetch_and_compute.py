@@ -101,7 +101,6 @@ def main():
                 team_season_shots[tid][z]["fga"] += team_shots[tid][z]["fga"]
                 team_season_shots[tid][z]["fgm"] += team_shots[tid][z]["fgm"]
 
-        # Track full team box stats for Pace & Four Factors
         def sum_team_stat(t_id, key):
             rows = game_team_rows.get(t_id, {}).get("rows", [])
             return sum(r.get(key, 0) for r in rows)
@@ -174,7 +173,6 @@ def main():
             p["tot_pf"] += ev["pf"]
             p["game_logs"].append(ev["log"])
 
-        # Calculate Four Factors for this specific game
         game_four_factors = [
             {"team": home_name, **compute_team_advanced_metrics(home_name, [team_game_stats_ledger[home_id][-1]])},
             {"team": away_name, **compute_team_advanced_metrics(away_name, [team_game_stats_ledger[away_id][-1]])}
@@ -226,10 +224,6 @@ def main():
         to_pg = round(p["tot_to"] / gp, 1)
         fg_pct = round((p["tot_fgm"] / p["tot_fga"]) * 100, 1) if p["tot_fga"] > 0 else 0.0
 
-        custom_impact = round(
-            pts_pg + (1.2 * reb_pg) + (1.5 * ast_pg) + (2.0 * stl_pg) + (2.0 * blk_pg) - (1.0 * to_pg), 1
-        )
-
         p["game_logs"].sort(key=lambda x: x["date"], reverse=True)
         adv = compute_player_advanced_metrics(p)
 
@@ -238,16 +232,15 @@ def main():
             "team_abbrev": p["team_abbrev"], "pos": p["pos"],
             "averages": {
                 "gp": gp, "min": min_pg, "pts": pts_pg, "reb": reb_pg, "ast": ast_pg,
-                "stl": stl_pg, "blk": blk_pg, "to": to_pg, "fg_pct": fg_pct,
-                "custom_impact": custom_impact
+                "stl": stl_pg, "blk": blk_pg, "to": to_pg, "fg_pct": fg_pct
             },
             "advanced": adv,
             "zone_shots": p["zone_shots"],
             "game_logs": p["game_logs"]
         }
 
-    # 5. Distribution Pools (Including Advanced Stats)
-    stat_keys = ["min", "pts", "reb", "ast", "stl", "blk", "to", "fg_pct", "custom_impact", "ts_pct", "efg_pct", "usg_pct", "gmsc_avg"]
+    # 5. Distribution Pools (No Custom Impact)
+    stat_keys = ["min", "pts", "reb", "ast", "stl", "blk", "to", "fg_pct", "ts_pct", "efg_pct", "usg_pct", "gmsc_avg"]
     league_pools, pos_pools = build_stat_pools(active_players, stat_keys)
     vol_pools, eff_pools = build_shot_pools(active_players, ZONES)
 
@@ -342,15 +335,15 @@ def main():
         leader_rows.append({
             "player_id": aid, "player": p["name"], "team": p["team_abbrev"], "team_id": p["team_id"], "pos": p["pos"],
             "gp": avg["gp"], "min_pg": avg["min"], "pts_pg": avg["pts"], "reb_pg": avg["reb"],
-            "ast_pg": avg["ast"], "stl_pg": avg["stl"], "blk_pg": avg["blk"], "ts_pct": adv["ts_pct"],
-            "usg_pct": adv["usg_pct"], "gmsc_avg": adv["gmsc_avg"], "custom_impact": avg["custom_impact"]
+            "ast_pg": avg["ast"], "stl_pg": avg["stl"], "blk_pg": avg["blk"], "to_pg": avg["to"], "fg_pct": avg["fg_pct"],
+            "ts_pct": adv["ts_pct"], "efg_pct": adv["efg_pct"], "usg_pct": adv["usg_pct"], "gmsc_avg": adv["gmsc_avg"]
         })
 
     leader_rows.sort(key=lambda x: x["pts_pg"], reverse=True)
     with open(DATA_DIR / "player_stats.json", "w") as f:
         json.dump({"meta_keys": ["player", "team", "pos"], "rows": leader_rows}, f, indent=2)
 
-    # 7. Assemble Team Payloads (With Pace & Four Factors)
+    # 7. Assemble Team Payloads
     for t_row in team_rows:
         t_id = t_row["team_id"]
         t_name = t_row["team"]
@@ -367,8 +360,7 @@ def main():
                 "ast_pg": p["averages"]["ast"],
                 "ts_pct": p["advanced"]["ts_pct"],
                 "usg_pct": p["advanced"]["usg_pct"],
-                "gmsc_avg": p["advanced"]["gmsc_avg"],
-                "custom_rating": p["averages"]["custom_impact"]
+                "gmsc_avg": p["advanced"]["gmsc_avg"]
             }
             for p in active_players.values() if p["team_id"] == t_id or p["team"] == t_name
         ]
@@ -457,7 +449,7 @@ def main():
         with open(TEAM_DIR / f"{t_id}.json", "w") as f:
             json.dump(team_payload, f, indent=2)
 
-    # 8. Enrich Main Standings Table with Team Advanced Metrics
+    # 8. Main Standings Table
     enriched_standings = []
     for t in team_rows:
         adv = compute_team_advanced_metrics(t["team"], team_game_stats_ledger.get(t["team_id"], []))
@@ -480,7 +472,7 @@ def main():
     with open(DATA_DIR / "team_stats.json", "w") as f:
         json.dump({"meta_keys": ["team"], "rows": enriched_standings}, f, indent=2)
 
-    print("Pipeline Complete: Advanced metrics populated across all players, teams, and box scores.")
+    print("Pipeline Complete: Custom impact removed, advanced metrics populated.")
 
 
 if __name__ == "__main__":

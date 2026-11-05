@@ -6,7 +6,6 @@ def parse_int(val):
 
 
 def parse_split(val_str):
-    """Parses 'made-attempted' strings like '10-18' into (made, attempted)."""
     if not val_str:
         return 0, 0
     if "-" in str(val_str):
@@ -78,7 +77,6 @@ def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score,
                 player_name = ath.get("displayName", "Unknown")
                 pos_str = ath.get("position", {}).get("abbreviation", "-")
 
-                # Single-game Hollinger Game Score
                 gmsc = round(
                     pts + 0.4 * fgm - 0.7 * fga - 0.4 * (fta - ftm) + 0.7 * oreb + 0.3 * dreb + stl + 0.7 * ast + 0.7 * blk - 0.4 * pf - to,
                     1
@@ -163,7 +161,6 @@ def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score,
 
 
 def compute_player_advanced_metrics(p):
-    """Calculates TS%, eFG%, 3PAr, FTr, PPSA, AST/TO, TOV%, USG%, GmSc, and Stocks."""
     gp = p["gp"]
     fga = p["tot_fga"]
     fgm = p["tot_fgm"]
@@ -190,11 +187,8 @@ def compute_player_advanced_metrics(p):
     tov_pct = round(to / (fga + 0.44 * fta + to) * 100, 1) if (fga + 0.44 * fta + to) > 0 else 0.0
     stocks_pg = round((stl + blk) / gp, 1) if gp > 0 else 0.0
 
-    # Total Hollinger Game Score / GP
     tot_gmsc = pts + 0.4 * fgm - 0.7 * fga - 0.4 * (fta - ftm) + 0.7 * oreb + 0.3 * dreb + stl + 0.7 * ast + 0.7 * blk - 0.4 * pf - to
     gmsc_avg = round(tot_gmsc / gp, 1) if gp > 0 else 0.0
-
-    # Estimated Usage Rate
     used_plays = fga + 0.44 * fta + to
     usg_pct = round((used_plays / (tot_min / 48.0 * 100.0)), 1) if tot_min > 0 else 0.0
 
@@ -235,7 +229,6 @@ def compute_team_standings(standings_data):
             pts_for = round(get_stat("avgPointsFor", 0.0), 1)
             pts_against = round(get_stat("avgPointsAgainst", 0.0), 1)
             diff = round(pts_for - pts_against, 1)
-            custom_power = round((diff * 1.5) + (win_pct * 0.5), 2)
 
             team_rows.append({
                 "team_id": team_id,
@@ -246,8 +239,7 @@ def compute_team_standings(standings_data):
                 "win_pct": win_pct,
                 "pts_pg": pts_for,
                 "opp_pts_pg": pts_against,
-                "diff": diff,
-                "custom_power_rating": custom_power
+                "diff": diff
             })
 
     team_rows.sort(key=lambda x: x["w"], reverse=True)
@@ -255,7 +247,6 @@ def compute_team_standings(standings_data):
 
 
 def compute_team_advanced_metrics(team_name, team_games):
-    """Computes Pace, ORtg, DRtg, NetRtg, and Four Factors for both Offense and Defense."""
     gp = len(team_games)
     if gp == 0:
         return {}
@@ -278,7 +269,6 @@ def compute_team_advanced_metrics(team_name, team_games):
     opp_oreb = sum(g["opp_oreb"] for g in team_games)
     opp_dreb = sum(g["opp_dreb"] for g in team_games)
 
-    # Possession Estimation
     poss = 0.96 * (tot_fga + tot_to + 0.44 * tot_fta - tot_oreb)
     opp_poss = 0.96 * (opp_fga + opp_to + 0.44 * opp_fta - opp_oreb)
     avg_poss = (poss + opp_poss) / 2.0
@@ -288,13 +278,11 @@ def compute_team_advanced_metrics(team_name, team_games):
     drtg = round(tot_opp_pts / opp_poss * 100, 1) if opp_poss > 0 else 0.0
     net_rtg = round(ortg - drtg, 1)
 
-    # Four Factors: Offense
     efg_pct = round((tot_fgm + 0.5 * tot_3pm) / tot_fga * 100, 1) if tot_fga > 0 else 0.0
     tov_pct = round(tot_to / (tot_fga + 0.44 * tot_fta + tot_to) * 100, 1) if (tot_fga + 0.44 * tot_fta + tot_to) > 0 else 0.0
     orb_pct = round(tot_oreb / (tot_oreb + opp_dreb) * 100, 1) if (tot_oreb + opp_dreb) > 0 else 0.0
     ftr = round(tot_fta / tot_fga * 100, 1) if tot_fga > 0 else 0.0
 
-    # Four Factors: Defense
     opp_efg_pct = round((opp_fgm + 0.5 * opp_3pm) / opp_fga * 100, 1) if opp_fga > 0 else 0.0
     opp_tov_pct = round(opp_to / (opp_fga + 0.44 * opp_fta + opp_to) * 100, 1) if (opp_fga + 0.44 * opp_fta + opp_to) > 0 else 0.0
     drb_pct = round(tot_dreb / (tot_dreb + opp_oreb) * 100, 1) if (tot_dreb + opp_oreb) > 0 else 0.0

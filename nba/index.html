@@ -67,6 +67,78 @@
             margin: 15px 0 10px 0;
         }
 
+        /* Filter Tool Builder Styles */
+        .filter-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            max-width: 1100px;
+            font-size: 13px;
+        }
+
+        .filter-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .filter-rules-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .filter-rule-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #eee;
+            border: 1px solid #888;
+            padding: 3px 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .filter-btn:hover {
+            background: #e2e2e2;
+        }
+
+        .remove-rule-btn {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #f87171;
+            padding: 2px 6px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-left: auto;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: #fafafa;
+            padding: 4px 8px;
+            border: 1px solid #ccc;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+        }
+
         table {
             border-collapse: collapse;
             width: 100%;
@@ -135,13 +207,17 @@
         </div>
         <div class="sub-nav">
             <button class="active-sub" onclick="loadView('Team Stats', 'data/team_stats.json', this)">Team Stats</button>
-            <button onclick="loadView('Player Leaders', 'data/player_stats.json', this)">Player Leaders</button>
+            <button onclick="loadView('Player Stats', 'data/player_stats.json', this)">Player Stats</button>
             <button onclick="loadView('Completed Games', 'data/completed_games.json', this)">Completed Games</button>
             <button onclick="loadView('Upcoming Schedule', 'data/upcoming_games.json', this)">Upcoming Schedule</button>
         </div>
     </header>
 
     <h2 id="table-title">NBA - Team Stats</h2>
+
+    <!-- Dynamic Filter Tool (Active on Player Stats) -->
+    <div id="filter-panel-container"></div>
+
     <div id="table-container">Loading data...</div>
 
     <script>
@@ -155,18 +231,27 @@
             "DRTG": "Defensive Rating: Points allowed per 100 possessions",
             "NET_RTG": "Net Rating: Point differential per 100 possessions (ORtg - DRtg)",
             "PTS_PG": "Points Per Game",
-            "OPP_PTS_PG": "Opponent Points Per Game",
-            "DIFF": "Point Differential Per Game",
+            "REB_PG": "Rebounds Per Game",
+            "AST_PG": "Assists Per Game",
+            "STL_PG": "Steals Per Game",
+            "BLK_PG": "Blocks Per Game",
+            "TO_PG": "Turnovers Per Game",
+            "FG_PCT": "Field Goal Percentage",
             "TS_PCT": "True Shooting Percentage",
+            "EFG_PCT": "Effective Field Goal Percentage",
             "USG_PCT": "Usage Rate Percentage",
-            "GMSC_AVG": "Average Hollinger Game Score",
-            "CUSTOM_IMPACT": "Weighted Player Impact Index"
+            "GMSC_AVG": "Average Hollinger Game Score"
         };
 
-        let currentRows = [];
+        let rawRows = [];
+        let filteredRows = [];
         let currentMetaKeys = [];
         let currentSortColumn = null;
         let isAscending = false;
+        let activeViewTitle = "";
+
+        // Dynamic Query Rules
+        let activeFilterRules = [];
 
         window.onload = () => {
             loadView('Team Stats', 'data/team_stats.json', document.querySelector('.sub-nav button.active-sub'));
@@ -176,22 +261,29 @@
             document.querySelectorAll('.sub-nav button').forEach(b => b.classList.remove('active-sub'));
             if (el) el.classList.add('active-sub');
 
+            activeViewTitle = title;
             document.getElementById('table-title').innerText = `NBA - ${title}`;
             const container = document.getElementById('table-container');
             container.innerHTML = "Loading...";
 
+            // Reset filters on view change
+            activeFilterRules = [];
+            renderFilterPanel();
+
             fetch(filePath)
                 .then(res => res.json())
                 .then(payload => {
-                    currentRows = payload.rows || [];
+                    rawRows = payload.rows || [];
+                    filteredRows = [...rawRows];
                     currentMetaKeys = payload.meta_keys || [];
 
-                    if (currentRows.length === 0) {
+                    if (rawRows.length === 0) {
                         container.innerHTML = "<p>No data recorded yet.</p>";
                         return;
                     }
 
                     currentSortColumn = null;
+                    renderFilterPanel();
                     renderTable();
                 })
                 .catch(err => {
@@ -199,11 +291,180 @@
                 });
         }
 
+        // ====================================================
+        // STATHEAD DYNAMIC FILTER TOOL
+        // ====================================================
+        function renderFilterPanel() {
+            const container = document.getElementById('filter-panel-container');
+            // Only show filtering tool on Player Stats view
+            if (activeViewTitle !== "Player Stats" || rawRows.length === 0) {
+                container.innerHTML = "";
+                return;
+            }
+
+            const sample = rawRows[0];
+            const allKeys = Object.keys(sample).filter(k => k !== "player_id" && k !== "team_id");
+
+            let rulesHtml = "";
+            activeFilterRules.forEach((rule, rIdx) => {
+                const isNumeric = typeof sample[rule.column] === 'number';
+
+                rulesHtml += `<div class="filter-rule-row">`;
+                rulesHtml += `<strong>Rule ${rIdx + 1}:</strong> `;
+
+                // Column selector
+                rulesHtml += `<select onchange="updateRuleColumn(${rIdx}, this.value)">`;
+                allKeys.forEach(k => {
+                    rulesHtml += `<option value="${k}" ${k === rule.column ? 'selected' : ''}>${k.replace(/_/g, ' ').toUpperCase()}</option>`;
+                });
+                rulesHtml += `</select>`;
+
+                if (isNumeric) {
+                    // Numeric operator & value input
+                    rulesHtml += `
+                        <select onchange="updateRuleOperator(${rIdx}, this.value)">
+                            <option value=">=" ${rule.op === '>=' ? 'selected' : ''}>&gt;=</option>
+                            <option value="<=" ${rule.op === '<=' ? 'selected' : ''}>&lt;=</option>
+                            <option value=">" ${rule.op === '>' ? 'selected' : ''}>&gt;</option>
+                            <option value="<" ${rule.op === '<' ? 'selected' : ''}>&lt;</option>
+                            <option value="=" ${rule.op === '=' ? 'selected' : ''}>=</option>
+                        </select>
+                        <input type="number" step="any" style="width: 70px;" value="${rule.val}" oninput="updateRuleValue(${rIdx}, this.value)" placeholder="Value" />
+                    `;
+                } else {
+                    // Categorical: Multi-Select Checkboxes
+                    const distinctVals = [...new Set(rawRows.map(r => r[rule.column]))].sort();
+                    rulesHtml += `<span style="font-size:12px; color:#555;">Select values:</span> <div class="checkbox-group">`;
+                    distinctVals.forEach(val => {
+                        const checked = (rule.selectedVals || []).includes(val);
+                        rulesHtml += `
+                            <label>
+                                <input type="checkbox" value="${val}" ${checked ? 'checked' : ''} onchange="toggleRuleCatVal(${rIdx}, '${val}')">
+                                ${val}
+                            </label>
+                        `;
+                    });
+                    rulesHtml += `</div>`;
+                }
+
+                rulesHtml += `<button class="remove-rule-btn" onclick="removeRule(${rIdx})">✕ Remove</button>`;
+                rulesHtml += `</div>`;
+            });
+
+            container.innerHTML = `
+                <div class="filter-panel">
+                    <div class="filter-panel-header">
+                        <div>
+                            <strong>Filter Tool:</strong> Showing <strong>${filteredRows.length}</strong> of <strong>${rawRows.length}</strong> players
+                        </div>
+                        <div>
+                            <button class="filter-btn" onclick="addRule()">+ Add Filter Rule</button>
+                            ${activeFilterRules.length > 0 ? `<button class="filter-btn" onclick="clearAllRules()">Clear All Rules</button>` : ''}
+                        </div>
+                    </div>
+                    <div class="filter-rules-list">${rulesHtml}</div>
+                </div>
+            `;
+        }
+
+        function addRule() {
+            const sample = rawRows[0];
+            const allKeys = Object.keys(sample).filter(k => k !== "player_id" && k !== "team_id");
+            const defaultCol = allKeys.includes("min_pg") ? "min_pg" : allKeys[0];
+            const isNum = typeof sample[defaultCol] === 'number';
+
+            activeFilterRules.push({
+                column: defaultCol,
+                op: ">=",
+                val: isNum ? 20 : "",
+                selectedVals: isNum ? [] : [...new Set(rawRows.map(r => r[defaultCol]))]
+            });
+
+            applyFilterRules();
+        }
+
+        function removeRule(index) {
+            activeFilterRules.splice(index, 1);
+            applyFilterRules();
+        }
+
+        function clearAllRules() {
+            activeFilterRules = [];
+            applyFilterRules();
+        }
+
+        function updateRuleColumn(rIdx, col) {
+            const isNum = typeof rawRows[0][col] === 'number';
+            activeFilterRules[rIdx].column = col;
+            activeFilterRules[rIdx].op = isNum ? ">=" : "in";
+            activeFilterRules[rIdx].val = isNum ? 0 : "";
+            activeFilterRules[rIdx].selectedVals = isNum ? [] : [...new Set(rawRows.map(r => r[col]))];
+            applyFilterRules();
+        }
+
+        function updateRuleOperator(rIdx, op) {
+            activeFilterRules[rIdx].op = op;
+            applyFilterRules();
+        }
+
+        function updateRuleValue(rIdx, val) {
+            activeFilterRules[rIdx].val = val !== "" ? parseFloat(val) : "";
+            applyFilterRules();
+        }
+
+        function toggleRuleCatVal(rIdx, val) {
+            const rule = activeFilterRules[rIdx];
+            if (!rule.selectedVals) rule.selectedVals = [];
+            const idx = rule.selectedVals.indexOf(val);
+            if (idx > -1) {
+                rule.selectedVals.splice(idx, 1);
+            } else {
+                rule.selectedVals.push(val);
+            }
+            applyFilterRules();
+        }
+
+        function applyFilterRules() {
+            filteredRows = rawRows.filter(row => {
+                for (const rule of activeFilterRules) {
+                    const rowVal = row[rule.column];
+                    const isNum = typeof rowVal === 'number';
+
+                    if (isNum) {
+                        if (rule.val === "" || isNaN(rule.val)) continue;
+                        if (rule.op === ">=" && !(rowVal >= rule.val)) return false;
+                        if (rule.op === "<=" && !(rowVal <= rule.val)) return false;
+                        if (rule.op === ">" && !(rowVal > rule.val)) return false;
+                        if (rule.op === "<" && !(rowVal < rule.val)) return false;
+                        if (rule.op === "=" && !(rowVal === rule.val)) return false;
+                    } else {
+                        if (rule.selectedVals && rule.selectedVals.length > 0) {
+                            if (!rule.selectedVals.includes(rowVal)) return false;
+                        }
+                    }
+                }
+                return true;
+            });
+
+            if (currentSortColumn) {
+                sortArray(filteredRows, currentSortColumn, isAscending);
+            }
+
+            renderFilterPanel();
+            renderTable();
+        }
+
+        // ====================================================
+        // TABLE RENDERING
+        // ====================================================
         function renderTable() {
             const container = document.getElementById('table-container');
-            if (currentRows.length === 0) return;
+            if (filteredRows.length === 0) {
+                container.innerHTML = "<p>No matching records found for active filters.</p>";
+                return;
+            }
 
-            const sample = currentRows[0];
+            const sample = filteredRows[0];
             const allKeys = Object.keys(sample);
             const visibleKeys = allKeys.filter(k => k !== "player_id" && k !== "team_id");
 
@@ -234,7 +495,7 @@
 
             html += `</tr></thead><tbody>`;
 
-            currentRows.forEach(row => {
+            filteredRows.forEach(row => {
                 html += `<tr>`;
                 orderedCols.forEach(col => {
                     const val = row[col];
@@ -264,30 +525,33 @@
                 isAscending = !isAscending;
             } else {
                 currentSortColumn = column;
-                const isNumeric = typeof currentRows[0][column] === 'number';
+                const isNumeric = typeof filteredRows[0][column] === 'number';
                 isAscending = !isNumeric;
             }
 
-            currentRows.sort((a, b) => {
-                let valA = a[column];
-                let valB = b[column];
+            sortArray(filteredRows, column, isAscending);
+            renderTable();
+        }
+
+        function sortArray(arr, col, asc) {
+            arr.sort((a, b) => {
+                let valA = a[col];
+                let valB = b[col];
 
                 if (valA === null || valA === undefined) return 1;
                 if (valB === null || valB === undefined) return -1;
 
                 if (typeof valA === 'number' && typeof valB === 'number') {
-                    return isAscending ? valA - valB : valB - valA;
+                    return asc ? valA - valB : valB - valA;
                 }
 
                 valA = valA.toString().toLowerCase();
                 valB = valB.toString().toLowerCase();
 
-                if (valA < valB) return isAscending ? -1 : 1;
-                if (valA > valB) return isAscending ? 1 : -1;
+                if (valA < valB) return asc ? -1 : 1;
+                if (valA > valB) return asc ? 1 : -1;
                 return 0;
             });
-
-            renderTable();
         }
 
         function formatHeader(header) {

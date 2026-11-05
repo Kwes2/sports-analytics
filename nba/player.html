@@ -194,7 +194,7 @@
         </div>
     </header>
 
-    <a href="./" class="back-link">← Back to NBA Leaders & Schedule</a>
+    <a href="./" class="back-link">← Back to NBA Stats & Schedule</a>
 
     <div id="player-content">Loading player profile...</div>
 
@@ -242,8 +242,7 @@
             "SHOT_SHARE": "Percentage of total attempts taken in this distance zone",
             "LEAGUE_AVG_FG": "NBA League Average Field Goal % in this distance zone",
             "EFF_PERCENTILE": "Efficiency Percentile: Player FG% rank compared to league (0-100)",
-            "VOL_PERCENTILE": "Volume Percentile: Shot attempts rank compared to league (0-100)",
-            "CUSTOM_IMPACT": "Custom Player Rating: Weighted multi-category impact index"
+            "VOL_PERCENTILE": "Volume Percentile: Shot attempts rank compared to league (0-100)"
         };
 
         const tableState = {};
@@ -300,25 +299,21 @@
 
             return `
                 <svg class="half-court" viewBox="0 0 500 470" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Zone 3: 14+ ft -->
                     <rect class="court-zone" x="0" y="0" width="500" height="470" fill="${getPercentileColor(z14_plus)}" stroke="#333" stroke-width="4"
                         onmouseenter="showZoneHover('14+ ft')" onmouseleave="clearZoneHover()">
                         <title>${getTooltipText('14+ ft')}</title>
                     </rect>
 
-                    <!-- Zone 2: 4-14 ft -->
                     <path class="court-zone" d="M 110,0 L 110,52.5 A 140,140 0 0,0 390,52.5 L 390,0 Z" fill="${getPercentileColor(z4_14)}" stroke="#555" stroke-width="2"
                         onmouseenter="showZoneHover('4-14 ft')" onmouseleave="clearZoneHover()">
                         <title>${getTooltipText('4-14 ft')}</title>
                     </path>
 
-                    <!-- Zone 1: 0-4 ft -->
                     <path class="court-zone" d="M 210,0 L 210,52.5 A 40,40 0 0,0 290,52.5 L 290,0 Z" fill="${getPercentileColor(z0_4)}" stroke="#555" stroke-width="2"
                         onmouseenter="showZoneHover('0-4 ft')" onmouseleave="clearZoneHover()">
                         <title>${getTooltipText('0-4 ft')}</title>
                     </path>
 
-                    <!-- Overlays -->
                     <rect x="170" y="0" width="160" height="190" fill="none" stroke="#222" stroke-width="2" pointer-events="none"/>
                     <circle cx="250" cy="190" r="60" fill="none" stroke="#222" stroke-width="2" pointer-events="none"/>
                     <line x1="220" y1="40" x2="280" y2="40" stroke="#000" stroke-width="4" pointer-events="none"/>
