@@ -1,0 +1,190 @@
+{
+  "player_id": "4066993",
+  "name": "Dru Smith",
+  "team": "Miami Heat",
+  "position": "G",
+  "sections": [
+    {
+      "type": "table",
+      "title": "Season Averages",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 5,
+            "min": 10.0,
+            "pts": 3.0,
+            "reb": 1.2,
+            "ast": 1.6,
+            "stl": 0.6,
+            "blk": 0.0,
+            "to": 1.0,
+            "fg_pct": 0.0,
+            "custom_impact": 7.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Percentile Ranks (0\u2013100)",
+      "data": {
+        "meta_keys": [
+          "scope"
+        ],
+        "rows": [
+          {
+            "scope": "League Percentile",
+            "min": 25.9,
+            "pts": 24.7,
+            "reb": 21.6,
+            "ast": 54.4,
+            "stl": 53.1,
+            "blk": 15.0,
+            "to": 51.0,
+            "fg_pct": 50.0,
+            "custom_impact": 25.0
+          },
+          {
+            "scope": "Position Percentile (G)",
+            "min": 23.6,
+            "pts": 24.0,
+            "reb": 24.8,
+            "ast": 40.5,
+            "stl": 44.8,
+            "blk": 16.7,
+            "to": 47.4,
+            "fg_pct": 50.0,
+            "custom_impact": 25.2
+          }
+        ]
+      }
+    },
+    {
+      "type": "shot_chart",
+      "title": "Shooting Splits (Distance Zones)",
+      "data": {
+        "meta_keys": [
+          "zone"
+        ],
+        "rows": [
+          {
+            "zone": "0-4 ft",
+            "fgm": 0,
+            "fga": 0,
+            "fg_pct": 0.0,
+            "shot_share": 0.0,
+            "league_avg_fg": 53.7,
+            "eff_percentile": 50.0,
+            "vol_percentile": 6.6
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 1,
+            "fga": 3,
+            "fg_pct": 33.3,
+            "shot_share": 20.0,
+            "league_avg_fg": 55.9,
+            "eff_percentile": 8.4,
+            "vol_percentile": 23.8
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 7,
+            "fga": 12,
+            "fg_pct": 58.3,
+            "shot_share": 80.0,
+            "league_avg_fg": 50.8,
+            "eff_percentile": 78.2,
+            "vol_percentile": 33.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Season Game Logs",
+      "data": {
+        "meta_keys": [
+          "date",
+          "opponent",
+          "result"
+        ],
+        "rows": [
+          {
+            "date": "2026-11-03",
+            "opponent": "@ LAL",
+            "result": "L 117-138",
+            "min": 11,
+            "pts": 3,
+            "reb": 3,
+            "ast": 2,
+            "stl": 2,
+            "blk": 0,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-31",
+            "opponent": "vs IND",
+            "result": "W 145-125",
+            "min": 4,
+            "pts": 0,
+            "reb": 0,
+            "ast": 1,
+            "stl": 0,
+            "blk": 0,
+            "to": 2,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-28",
+            "opponent": "@ ATL",
+            "result": "W 129-117",
+            "min": 14,
+            "pts": 3,
+            "reb": 1,
+            "ast": 3,
+            "stl": 0,
+            "blk": 0,
+            "to": 2,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-26",
+            "opponent": "vs DAL",
+            "result": "L 109-113",
+            "min": 15,
+            "pts": 6,
+            "reb": 2,
+            "ast": 1,
+            "stl": 1,
+            "blk": 0,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-24",
+            "opponent": "vs DET",
+            "result": "L 111-128",
+            "min": 6,
+            "pts": 3,
+            "reb": 0,
+            "ast": 1,
+            "stl": 0,
+            "blk": 0,
+            "to": 1,
+            "fgm": 0,
+            "fga": 0
+          }
+        ]
+      }
+    }
+  ]
+}

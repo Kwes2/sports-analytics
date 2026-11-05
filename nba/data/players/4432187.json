@@ -1,0 +1,134 @@
+{
+  "player_id": "4432187",
+  "name": "Reece Beekman",
+  "team": "Washington Wizards",
+  "position": "G",
+  "sections": [
+    {
+      "type": "table",
+      "title": "Season Averages",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 1,
+            "min": 1.0,
+            "pts": 0.0,
+            "reb": 0.0,
+            "ast": 0.0,
+            "stl": 0.0,
+            "blk": 0.0,
+            "to": 0.0,
+            "fg_pct": 0.0,
+            "custom_impact": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Percentile Ranks (0\u2013100)",
+      "data": {
+        "meta_keys": [
+          "scope"
+        ],
+        "rows": [
+          {
+            "scope": "League Percentile",
+            "min": 0.8,
+            "pts": 2.2,
+            "reb": 2.4,
+            "ast": 6.1,
+            "stl": 9.3,
+            "blk": 15.0,
+            "to": 7.0,
+            "fg_pct": 50.0,
+            "custom_impact": 0.9
+          },
+          {
+            "scope": "Position Percentile (G)",
+            "min": 0.7,
+            "pts": 2.1,
+            "reb": 3.6,
+            "ast": 5.5,
+            "stl": 7.4,
+            "blk": 16.7,
+            "to": 5.5,
+            "fg_pct": 50.0,
+            "custom_impact": 1.2
+          }
+        ]
+      }
+    },
+    {
+      "type": "shot_chart",
+      "title": "Shooting Splits (Distance Zones)",
+      "data": {
+        "meta_keys": [
+          "zone"
+        ],
+        "rows": [
+          {
+            "zone": "0-4 ft",
+            "fgm": 0,
+            "fga": 0,
+            "fg_pct": 0.0,
+            "shot_share": 0.0,
+            "league_avg_fg": 53.7,
+            "eff_percentile": 50.0,
+            "vol_percentile": 6.6
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 0,
+            "fga": 0,
+            "fg_pct": 0.0,
+            "shot_share": 0.0,
+            "league_avg_fg": 55.9,
+            "eff_percentile": 50.0,
+            "vol_percentile": 3.9
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 0,
+            "fga": 0,
+            "fg_pct": 0.0,
+            "shot_share": 0.0,
+            "league_avg_fg": 50.8,
+            "eff_percentile": 50.0,
+            "vol_percentile": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Season Game Logs",
+      "data": {
+        "meta_keys": [
+          "date",
+          "opponent",
+          "result"
+        ],
+        "rows": [
+          {
+            "date": "2026-10-23",
+            "opponent": "vs TOR",
+            "result": "L 102-112",
+            "min": 1,
+            "pts": 0,
+            "reb": 0,
+            "ast": 0,
+            "stl": 0,
+            "blk": 0,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          }
+        ]
+      }
+    }
+  ]
+}

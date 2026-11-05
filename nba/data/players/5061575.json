@@ -1,0 +1,134 @@
+{
+  "player_id": "5061575",
+  "name": "Kon Knueppel",
+  "team": "Charlotte Hornets",
+  "position": "G",
+  "sections": [
+    {
+      "type": "table",
+      "title": "Season Averages",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 1,
+            "min": 6.0,
+            "pts": 3.0,
+            "reb": 0.0,
+            "ast": 0.0,
+            "stl": 0.0,
+            "blk": 0.0,
+            "to": 2.0,
+            "fg_pct": 0.0,
+            "custom_impact": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Percentile Ranks (0\u2013100)",
+      "data": {
+        "meta_keys": [
+          "scope"
+        ],
+        "rows": [
+          {
+            "scope": "League Percentile",
+            "min": 15.5,
+            "pts": 24.7,
+            "reb": 2.4,
+            "ast": 6.1,
+            "stl": 9.3,
+            "blk": 15.0,
+            "to": 80.6,
+            "fg_pct": 50.0,
+            "custom_impact": 2.9
+          },
+          {
+            "scope": "Position Percentile (G)",
+            "min": 14.8,
+            "pts": 24.0,
+            "reb": 3.6,
+            "ast": 5.5,
+            "stl": 7.4,
+            "blk": 16.7,
+            "to": 76.9,
+            "fg_pct": 50.0,
+            "custom_impact": 3.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "shot_chart",
+      "title": "Shooting Splits (Distance Zones)",
+      "data": {
+        "meta_keys": [
+          "zone"
+        ],
+        "rows": [
+          {
+            "zone": "0-4 ft",
+            "fgm": 0,
+            "fga": 0,
+            "fg_pct": 0.0,
+            "shot_share": 0.0,
+            "league_avg_fg": 53.7,
+            "eff_percentile": 50.0,
+            "vol_percentile": 6.6
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 0,
+            "fga": 0,
+            "fg_pct": 0.0,
+            "shot_share": 0.0,
+            "league_avg_fg": 55.9,
+            "eff_percentile": 50.0,
+            "vol_percentile": 3.9
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 3,
+            "fga": 4,
+            "fg_pct": 75.0,
+            "shot_share": 100.0,
+            "league_avg_fg": 50.8,
+            "eff_percentile": 94.9,
+            "vol_percentile": 16.4
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Season Game Logs",
+      "data": {
+        "meta_keys": [
+          "date",
+          "opponent",
+          "result"
+        ],
+        "rows": [
+          {
+            "date": "2026-11-05",
+            "opponent": "@ BKN",
+            "result": "L 104-114",
+            "min": 6,
+            "pts": 3,
+            "reb": 0,
+            "ast": 0,
+            "stl": 0,
+            "blk": 0,
+            "to": 2,
+            "fgm": 0,
+            "fga": 0
+          }
+        ]
+      }
+    }
+  ]
+}

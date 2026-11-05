@@ -1,0 +1,134 @@
+{
+  "player_id": "4431687",
+  "name": "Patrick Williams",
+  "team": "Chicago Bulls",
+  "position": "F",
+  "sections": [
+    {
+      "type": "table",
+      "title": "Season Averages",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 1,
+            "min": 20.0,
+            "pts": 4.0,
+            "reb": 0.0,
+            "ast": 2.0,
+            "stl": 0.0,
+            "blk": 1.0,
+            "to": 0.0,
+            "fg_pct": 0.0,
+            "custom_impact": 9.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Percentile Ranks (0\u2013100)",
+      "data": {
+        "meta_keys": [
+          "scope"
+        ],
+        "rows": [
+          {
+            "scope": "League Percentile",
+            "min": 52.8,
+            "pts": 30.5,
+            "reb": 2.4,
+            "ast": 62.3,
+            "stl": 9.3,
+            "blk": 89.9,
+            "to": 7.0,
+            "fg_pct": 50.0,
+            "custom_impact": 30.8
+          },
+          {
+            "scope": "Position Percentile (F)",
+            "min": 52.3,
+            "pts": 33.6,
+            "reb": 2.0,
+            "ast": 71.0,
+            "stl": 9.8,
+            "blk": 90.8,
+            "to": 9.5,
+            "fg_pct": 50.0,
+            "custom_impact": 33.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "shot_chart",
+      "title": "Shooting Splits (Distance Zones)",
+      "data": {
+        "meta_keys": [
+          "zone"
+        ],
+        "rows": [
+          {
+            "zone": "0-4 ft",
+            "fgm": 1,
+            "fga": 2,
+            "fg_pct": 50.0,
+            "shot_share": 25.0,
+            "league_avg_fg": 53.7,
+            "eff_percentile": 43.2,
+            "vol_percentile": 31.7
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 0,
+            "fga": 1,
+            "fg_pct": 0.0,
+            "shot_share": 12.5,
+            "league_avg_fg": 55.9,
+            "eff_percentile": 50.0,
+            "vol_percentile": 11.9
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 2,
+            "fga": 5,
+            "fg_pct": 40.0,
+            "shot_share": 62.5,
+            "league_avg_fg": 50.8,
+            "eff_percentile": 25.4,
+            "vol_percentile": 19.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Season Game Logs",
+      "data": {
+        "meta_keys": [
+          "date",
+          "opponent",
+          "result"
+        ],
+        "rows": [
+          {
+            "date": "2026-11-05",
+            "opponent": "@ NY",
+            "result": "L 105-135",
+            "min": 20,
+            "pts": 4,
+            "reb": 0,
+            "ast": 2,
+            "stl": 0,
+            "blk": 1,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          }
+        ]
+      }
+    }
+  ]
+}

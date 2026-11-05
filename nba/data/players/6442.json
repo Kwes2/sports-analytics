@@ -1,0 +1,204 @@
+{
+  "player_id": "6442",
+  "name": "Kyrie Irving",
+  "team": "Dallas Mavericks",
+  "position": "G",
+  "sections": [
+    {
+      "type": "table",
+      "title": "Season Averages",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 6,
+            "min": 30.0,
+            "pts": 22.7,
+            "reb": 4.0,
+            "ast": 4.8,
+            "stl": 1.2,
+            "blk": 0.5,
+            "to": 2.0,
+            "fg_pct": 0.0,
+            "custom_impact": 36.1
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Percentile Ranks (0\u2013100)",
+      "data": {
+        "meta_keys": [
+          "scope"
+        ],
+        "rows": [
+          {
+            "scope": "League Percentile",
+            "min": 80.0,
+            "pts": 95.0,
+            "reb": 65.2,
+            "ast": 88.8,
+            "stl": 85.0,
+            "blk": 69.4,
+            "to": 80.6,
+            "fg_pct": 50.0,
+            "custom_impact": 92.1
+          },
+          {
+            "scope": "Position Percentile (G)",
+            "min": 79.3,
+            "pts": 93.6,
+            "reb": 79.8,
+            "ast": 84.0,
+            "stl": 81.7,
+            "blk": 84.0,
+            "to": 76.9,
+            "fg_pct": 50.0,
+            "custom_impact": 92.6
+          }
+        ]
+      }
+    },
+    {
+      "type": "shot_chart",
+      "title": "Shooting Splits (Distance Zones)",
+      "data": {
+        "meta_keys": [
+          "zone"
+        ],
+        "rows": [
+          {
+            "zone": "0-4 ft",
+            "fgm": 7,
+            "fga": 11,
+            "fg_pct": 63.6,
+            "shot_share": 9.0,
+            "league_avg_fg": 53.7,
+            "eff_percentile": 67.3,
+            "vol_percentile": 74.4
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 18,
+            "fga": 30,
+            "fg_pct": 60.0,
+            "shot_share": 24.6,
+            "league_avg_fg": 55.9,
+            "eff_percentile": 61.1,
+            "vol_percentile": 79.2
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 42,
+            "fga": 81,
+            "fg_pct": 51.9,
+            "shot_share": 66.4,
+            "league_avg_fg": 50.8,
+            "eff_percentile": 61.7,
+            "vol_percentile": 88.5
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Season Game Logs",
+      "data": {
+        "meta_keys": [
+          "date",
+          "opponent",
+          "result"
+        ],
+        "rows": [
+          {
+            "date": "2026-11-05",
+            "opponent": "@ SA",
+            "result": "L 111-112",
+            "min": 36,
+            "pts": 29,
+            "reb": 7,
+            "ast": 5,
+            "stl": 1,
+            "blk": 0,
+            "to": 1,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-31",
+            "opponent": "vs HOU",
+            "result": "W 116-111",
+            "min": 35,
+            "pts": 35,
+            "reb": 4,
+            "ast": 9,
+            "stl": 0,
+            "blk": 0,
+            "to": 2,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-29",
+            "opponent": "vs OKC",
+            "result": "W 120-96",
+            "min": 27,
+            "pts": 15,
+            "reb": 2,
+            "ast": 4,
+            "stl": 2,
+            "blk": 2,
+            "to": 1,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-26",
+            "opponent": "@ MIA",
+            "result": "W 113-109",
+            "min": 33,
+            "pts": 18,
+            "reb": 6,
+            "ast": 6,
+            "stl": 2,
+            "blk": 0,
+            "to": 2,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-23",
+            "opponent": "@ IND",
+            "result": "W 121-105",
+            "min": 25,
+            "pts": 24,
+            "reb": 1,
+            "ast": 3,
+            "stl": 1,
+            "blk": 1,
+            "to": 2,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-22",
+            "opponent": "@ HOU",
+            "result": "L 110-128",
+            "min": 24,
+            "pts": 15,
+            "reb": 4,
+            "ast": 2,
+            "stl": 1,
+            "blk": 0,
+            "to": 4,
+            "fgm": 0,
+            "fga": 0
+          }
+        ]
+      }
+    }
+  ]
+}

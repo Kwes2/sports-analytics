@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Box Score</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #222;
+        }
+
+        header {
+            border-bottom: 2px solid #333;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .sport-nav {
+            display: flex;
+            gap: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .sport-nav a {
+            color: #333;
+            text-decoration: none;
+            padding: 3px 6px;
+        }
+
+        .sport-nav a:hover, .sport-nav a.active {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .back-link {
+            font-size: 13px;
+            color: #0056b3;
+            text-decoration: underline;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .game-summary {
+            margin-bottom: 20px;
+            padding: 10px 14px;
+            background-color: #f7f7f7;
+            border: 1px solid #ccc;
+            max-width: 950px;
+        }
+
+        .game-summary h1 {
+            font-size: 20px;
+            margin: 0 0 6px 0;
+        }
+
+        .game-summary .meta {
+            font-size: 13px;
+            color: #555;
+        }
+
+        h3 {
+            font-size: 16px;
+            margin: 24px 0 8px 0;
+        }
+
+        h4 {
+            font-size: 14px;
+            margin: 12px 0 6px 0;
+            color: #444;
+        }
+
+        .team-splits-container {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            margin-bottom: 25px;
+            max-width: 950px;
+        }
+
+        .court-wrapper {
+            border: 1px solid #888;
+            background-color: #fafafa;
+            padding: 8px;
+            width: 200px;
+        }
+
+        svg.half-court {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 950px;
+            font-size: 13px;
+            border: 1px solid #888;
+            margin-bottom: 25px;
+        }
+
+        .team-splits-container table {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        th, td {
+            padding: 4px 8px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #eee;
+            font-weight: bold;
+            text-align: left;
+            border-bottom: 2px solid #888;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th:hover {
+            background-color: #e2e2e2;
+        }
+
+        th.num, td.num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #ffffcc;
+        }
+
+        a.table-link {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="sport-nav">
+            <a href="../afl/">AFL</a>
+            <a href="../nfl/">NFL</a>
+            <a href="./" class="active">NBA</a>
+            <a href="../nhl/">NHL</a>
+            <a href="../f1/">F1</a>
+        </div>
+    </header>
+
+    <a href="./" class="back-link">← Back to NBA Schedule & Stats</a>
+
+    <div id="boxscore-content">Loading box score...</div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const gameId = urlParams.get('id');
+
+        window.onload = () => {
+            if (!gameId) {
+                document.getElementById('boxscore-content').innerHTML = "<p style='color:red;'>No Game ID provided in URL.</p>";
+                return;
+            }
+
+            fetch(`data/boxscores/${gameId}.json`)
+                .then(res => res.json())
+                .then(data => renderBoxScore(data))
+                .catch(err => {
+                    document.getElementById('boxscore-content').innerHTML = `<p style="color:red">Failed to load box score for game ID ${gameId}.</p>`;
+                });
+        };
+
+        function getGameFGColor(pct) {
+            if (!pct || isNaN(pct)) return '#f0f0f0';
+            if (pct < 45) {
+                return '#93c5fd';
+            } else if (pct < 55) {
+                return '#f1f5f9';
+            } else {
+                return '#fca5a5';
+            }
+        }
+
+        function createTeamCourtSVG(splitsRows) {
+            let z0_4 = 0, z4_14 = 0, z14_plus = 0;
+            if (splitsRows) {
+                splitsRows.forEach(r => {
+                    if (r.zone === "0-4 ft") z0_4 = r.fg_pct;
+                    if (r.zone === "4-14 ft") z4_14 = r.fg_pct;
+                    if (r.zone === "14+ ft") z14_plus = r.fg_pct;
+                });
+            }
+
+            return `
+                <svg class="half-court" viewBox="0 0 500 470" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="0" y="0" width="500" height="470" fill="${getGameFGColor(z14_plus)}" stroke="#333" stroke-width="4"/>
+                    <path d="M 110,0 L 110,52.5 A 140,140 0 0,0 390,52.5 L 390,0 Z" fill="${getGameFGColor(z4_14)}" stroke="#555" stroke-width="2"/>
+                    <path d="M 210,0 L 210,52.5 A 40,40 0 0,0 290,52.5 L 290,0 Z" fill="${getGameFGColor(z0_4)}" stroke="#555" stroke-width="2"/>
+
+                    <!-- Court lines -->
+                    <rect x="170" y="0" width="160" height="190" fill="none" stroke="#222" stroke-width="2"/>
+                    <circle cx="250" cy="190" r="60" fill="none" stroke="#222" stroke-width="2"/>
+                    <line x1="220" y1="40" x2="280" y2="40" stroke="#000" stroke-width="4"/>
+                    <circle cx="250" cy="52.5" r="9" fill="none" stroke="#d97706" stroke-width="3"/>
+                    <path d="M 30,0 L 30,140 A 237.5,237.5 0 0,0 470,140 L 470,0" fill="none" stroke="#222" stroke-width="2"/>
+                </svg>
+            `;
+        }
+
+        function renderBoxScore(game) {
+            const container = document.getElementById('boxscore-content');
+
+            let html = `
+                <div class="game-summary">
+                    <h1>${game.away_team} ${game.away_score} &ndash; ${game.home_score} ${game.home_team}</h1>
+                    <div class="meta">${game.date} | ${game.venue}</div>
+                </div>
+            `;
+
+            game.teams.forEach(team => {
+                html += `<h3>${team.team_name} Box Score</h3>`;
+                html += renderTable(team.rows, team.meta_keys);
+
+                if (team.shooting_splits && team.shooting_splits.rows) {
+                    html += `<h4>${team.team_name} Shooting Splits</h4>`;
+                    html += `
+                        <div class="team-splits-container">
+                            <div class="court-wrapper">
+                                ${createTeamCourtSVG(team.shooting_splits.rows)}
+                            </div>
+                            ${renderTable(team.shooting_splits.rows, team.shooting_splits.meta_keys)}
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = html;
+        }
+
+        function renderTable(rows, metaKeys) {
+            if (!rows || rows.length === 0) return "<p>No stats recorded.</p>";
+
+            const sample = rows[0];
+            const allKeys = Object.keys(sample);
+            const visibleKeys = allKeys.filter(k => k !== "player_id");
+            const metaCols = metaKeys.filter(k => visibleKeys.includes(k));
+            const statCols = visibleKeys.filter(k => !metaKeys.includes(k));
+            const orderedCols = [...metaCols, ...statCols];
+
+            let html = `<table><thead><tr>`;
+            orderedCols.forEach(col => {
+                const isMeta = metaCols.includes(col);
+                const isNumeric = typeof sample[col] === 'number';
+                html += `<th class="${isNumeric && !isMeta ? 'num' : ''}">${col.replace(/_/g, ' ').toUpperCase()}</th>`;
+            });
+            html += `</tr></thead><tbody>`;
+
+            rows.forEach(row => {
+                html += `<tr>`;
+                orderedCols.forEach(col => {
+                    const val = row[col];
+                    const isMeta = metaCols.includes(col);
+                    const isNumeric = typeof val === 'number';
+
+                    let cellContent = val !== null ? val : '';
+                    if (col === 'player' && row.player_id) {
+                        cellContent = `<a class="table-link" href="player.html?id=${row.player_id}">${val}</a>`;
+                    }
+
+                    html += `<td class="${isNumeric && !isMeta ? 'num' : ''}">${cellContent}</td>`;
+                });
+                html += `</tr>`;
+            });
+
+            html += `</tbody></table>`;
+            return html;
+        }
+    </script>
+</body>
+</html>

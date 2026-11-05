@@ -1,0 +1,148 @@
+{
+  "player_id": "5105841",
+  "name": "Felix Okpara",
+  "team": "Washington Wizards",
+  "position": "F",
+  "sections": [
+    {
+      "type": "table",
+      "title": "Season Averages",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 2,
+            "min": 2.0,
+            "pts": 0.5,
+            "reb": 0.5,
+            "ast": 0.0,
+            "stl": 0.0,
+            "blk": 0.0,
+            "to": 0.0,
+            "fg_pct": 0.0,
+            "custom_impact": 1.1
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Percentile Ranks (0\u2013100)",
+      "data": {
+        "meta_keys": [
+          "scope"
+        ],
+        "rows": [
+          {
+            "scope": "League Percentile",
+            "min": 2.5,
+            "pts": 4.6,
+            "reb": 9.4,
+            "ast": 6.1,
+            "stl": 9.3,
+            "blk": 15.0,
+            "to": 7.0,
+            "fg_pct": 50.0,
+            "custom_impact": 3.3
+          },
+          {
+            "scope": "Position Percentile (F)",
+            "min": 2.9,
+            "pts": 5.2,
+            "reb": 9.8,
+            "ast": 6.6,
+            "stl": 9.8,
+            "blk": 16.7,
+            "to": 9.5,
+            "fg_pct": 50.0,
+            "custom_impact": 3.2
+          }
+        ]
+      }
+    },
+    {
+      "type": "shot_chart",
+      "title": "Shooting Splits (Distance Zones)",
+      "data": {
+        "meta_keys": [
+          "zone"
+        ],
+        "rows": [
+          {
+            "zone": "0-4 ft",
+            "fgm": 0,
+            "fga": 1,
+            "fg_pct": 0.0,
+            "shot_share": 33.3,
+            "league_avg_fg": 53.7,
+            "eff_percentile": 50.0,
+            "vol_percentile": 19.9
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 0,
+            "fga": 0,
+            "fg_pct": 0.0,
+            "shot_share": 0.0,
+            "league_avg_fg": 55.9,
+            "eff_percentile": 50.0,
+            "vol_percentile": 3.9
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 1,
+            "fga": 2,
+            "fg_pct": 50.0,
+            "shot_share": 66.7,
+            "league_avg_fg": 50.8,
+            "eff_percentile": 52.5,
+            "vol_percentile": 9.8
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Season Game Logs",
+      "data": {
+        "meta_keys": [
+          "date",
+          "opponent",
+          "result"
+        ],
+        "rows": [
+          {
+            "date": "2026-11-05",
+            "opponent": "vs ATL",
+            "result": "L 105-120",
+            "min": 3,
+            "pts": 0,
+            "reb": 1,
+            "ast": 0,
+            "stl": 0,
+            "blk": 0,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-23",
+            "opponent": "vs TOR",
+            "result": "L 102-112",
+            "min": 1,
+            "pts": 1,
+            "reb": 0,
+            "ast": 0,
+            "stl": 0,
+            "blk": 0,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          }
+        ]
+      }
+    }
+  ]
+}

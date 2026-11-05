@@ -1,0 +1,134 @@
+{
+  "player_id": "4897943",
+  "name": "Dalton Knecht",
+  "team": "New York Knicks",
+  "position": "F",
+  "sections": [
+    {
+      "type": "table",
+      "title": "Season Averages",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 1,
+            "min": 16.0,
+            "pts": 10.0,
+            "reb": 7.0,
+            "ast": 1.0,
+            "stl": 0.0,
+            "blk": 1.0,
+            "to": 0.0,
+            "fg_pct": 0.0,
+            "custom_impact": 21.9
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Percentile Ranks (0\u2013100)",
+      "data": {
+        "meta_keys": [
+          "scope"
+        ],
+        "rows": [
+          {
+            "scope": "League Percentile",
+            "min": 39.2,
+            "pts": 66.7,
+            "reb": 89.5,
+            "ast": 37.2,
+            "stl": 9.3,
+            "blk": 89.9,
+            "to": 7.0,
+            "fg_pct": 50.0,
+            "custom_impact": 68.9
+          },
+          {
+            "scope": "Position Percentile (F)",
+            "min": 41.7,
+            "pts": 67.5,
+            "reb": 88.5,
+            "ast": 44.5,
+            "stl": 9.8,
+            "blk": 90.8,
+            "to": 9.5,
+            "fg_pct": 50.0,
+            "custom_impact": 69.8
+          }
+        ]
+      }
+    },
+    {
+      "type": "shot_chart",
+      "title": "Shooting Splits (Distance Zones)",
+      "data": {
+        "meta_keys": [
+          "zone"
+        ],
+        "rows": [
+          {
+            "zone": "0-4 ft",
+            "fgm": 1,
+            "fga": 1,
+            "fg_pct": 100.0,
+            "shot_share": 16.7,
+            "league_avg_fg": 53.7,
+            "eff_percentile": 50.0,
+            "vol_percentile": 19.9
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 1,
+            "fga": 1,
+            "fg_pct": 100.0,
+            "shot_share": 16.7,
+            "league_avg_fg": 55.9,
+            "eff_percentile": 50.0,
+            "vol_percentile": 11.9
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 2,
+            "fga": 4,
+            "fg_pct": 50.0,
+            "shot_share": 66.7,
+            "league_avg_fg": 50.8,
+            "eff_percentile": 52.5,
+            "vol_percentile": 16.4
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Season Game Logs",
+      "data": {
+        "meta_keys": [
+          "date",
+          "opponent",
+          "result"
+        ],
+        "rows": [
+          {
+            "date": "2026-11-05",
+            "opponent": "vs CHI",
+            "result": "W 135-105",
+            "min": 16,
+            "pts": 10,
+            "reb": 7,
+            "ast": 1,
+            "stl": 0,
+            "blk": 1,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          }
+        ]
+      }
+    }
+  ]
+}

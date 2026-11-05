@@ -1,0 +1,134 @@
+{
+  "player_id": "5105337",
+  "name": "Maliq Brown",
+  "team": "San Antonio Spurs",
+  "position": "F",
+  "sections": [
+    {
+      "type": "table",
+      "title": "Season Averages",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 1,
+            "min": 1.0,
+            "pts": 0.0,
+            "reb": 0.0,
+            "ast": 1.0,
+            "stl": 0.0,
+            "blk": 0.0,
+            "to": 0.0,
+            "fg_pct": 0.0,
+            "custom_impact": 1.5
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Percentile Ranks (0\u2013100)",
+      "data": {
+        "meta_keys": [
+          "scope"
+        ],
+        "rows": [
+          {
+            "scope": "League Percentile",
+            "min": 0.8,
+            "pts": 2.2,
+            "reb": 2.4,
+            "ast": 37.2,
+            "stl": 9.3,
+            "blk": 15.0,
+            "to": 7.0,
+            "fg_pct": 50.0,
+            "custom_impact": 4.3
+          },
+          {
+            "scope": "Position Percentile (F)",
+            "min": 0.9,
+            "pts": 2.3,
+            "reb": 2.0,
+            "ast": 44.5,
+            "stl": 9.8,
+            "blk": 16.7,
+            "to": 9.5,
+            "fg_pct": 50.0,
+            "custom_impact": 4.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "shot_chart",
+      "title": "Shooting Splits (Distance Zones)",
+      "data": {
+        "meta_keys": [
+          "zone"
+        ],
+        "rows": [
+          {
+            "zone": "0-4 ft",
+            "fgm": 0,
+            "fga": 0,
+            "fg_pct": 0.0,
+            "shot_share": 0.0,
+            "league_avg_fg": 53.7,
+            "eff_percentile": 50.0,
+            "vol_percentile": 6.6
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 0,
+            "fga": 0,
+            "fg_pct": 0.0,
+            "shot_share": 0.0,
+            "league_avg_fg": 55.9,
+            "eff_percentile": 50.0,
+            "vol_percentile": 3.9
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 0,
+            "fga": 0,
+            "fg_pct": 0.0,
+            "shot_share": 0.0,
+            "league_avg_fg": 50.8,
+            "eff_percentile": 50.0,
+            "vol_percentile": 2.4
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Season Game Logs",
+      "data": {
+        "meta_keys": [
+          "date",
+          "opponent",
+          "result"
+        ],
+        "rows": [
+          {
+            "date": "2026-10-21",
+            "opponent": "vs OKC",
+            "result": "L 104-116",
+            "min": 1,
+            "pts": 0,
+            "reb": 0,
+            "ast": 1,
+            "stl": 0,
+            "blk": 0,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          }
+        ]
+      }
+    }
+  ]
+}

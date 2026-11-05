@@ -1,0 +1,162 @@
+{
+  "player_id": "4433629",
+  "name": "Ryan Nembhard",
+  "team": "Denver Nuggets",
+  "position": "G",
+  "sections": [
+    {
+      "type": "table",
+      "title": "Season Averages",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 3,
+            "min": 3.3,
+            "pts": 3.0,
+            "reb": 0.3,
+            "ast": 0.7,
+            "stl": 0.0,
+            "blk": 0.0,
+            "to": 0.3,
+            "fg_pct": 0.0,
+            "custom_impact": 4.1
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Percentile Ranks (0\u2013100)",
+      "data": {
+        "meta_keys": [
+          "scope"
+        ],
+        "rows": [
+          {
+            "scope": "League Percentile",
+            "min": 6.7,
+            "pts": 24.7,
+            "reb": 6.7,
+            "ast": 26.9,
+            "stl": 9.3,
+            "blk": 15.0,
+            "to": 21.2,
+            "fg_pct": 50.0,
+            "custom_impact": 14.8
+          },
+          {
+            "scope": "Position Percentile (G)",
+            "min": 6.2,
+            "pts": 24.0,
+            "reb": 8.6,
+            "ast": 20.0,
+            "stl": 7.4,
+            "blk": 16.7,
+            "to": 19.8,
+            "fg_pct": 50.0,
+            "custom_impact": 14.5
+          }
+        ]
+      }
+    },
+    {
+      "type": "shot_chart",
+      "title": "Shooting Splits (Distance Zones)",
+      "data": {
+        "meta_keys": [
+          "zone"
+        ],
+        "rows": [
+          {
+            "zone": "0-4 ft",
+            "fgm": 0,
+            "fga": 0,
+            "fg_pct": 0.0,
+            "shot_share": 0.0,
+            "league_avg_fg": 53.7,
+            "eff_percentile": 50.0,
+            "vol_percentile": 6.6
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 2,
+            "fga": 4,
+            "fg_pct": 50.0,
+            "shot_share": 57.1,
+            "league_avg_fg": 55.9,
+            "eff_percentile": 34.0,
+            "vol_percentile": 29.0
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 3,
+            "fga": 3,
+            "fg_pct": 100.0,
+            "shot_share": 42.9,
+            "league_avg_fg": 50.8,
+            "eff_percentile": 98.8,
+            "vol_percentile": 13.6
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Season Game Logs",
+      "data": {
+        "meta_keys": [
+          "date",
+          "opponent",
+          "result"
+        ],
+        "rows": [
+          {
+            "date": "2026-11-05",
+            "opponent": "vs TOR",
+            "result": "W 128-109",
+            "min": 4,
+            "pts": 0,
+            "reb": 0,
+            "ast": 0,
+            "stl": 0,
+            "blk": 0,
+            "to": 1,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-27",
+            "opponent": "vs GS",
+            "result": "L 114-134",
+            "min": 4,
+            "pts": 4,
+            "reb": 0,
+            "ast": 1,
+            "stl": 0,
+            "blk": 0,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-23",
+            "opponent": "@ OKC",
+            "result": "L 84-96",
+            "min": 2,
+            "pts": 5,
+            "reb": 1,
+            "ast": 1,
+            "stl": 0,
+            "blk": 0,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          }
+        ]
+      }
+    }
+  ]
+}

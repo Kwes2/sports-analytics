@@ -1,0 +1,148 @@
+{
+  "player_id": "3442",
+  "name": "DeAndre Jordan",
+  "team": "New Orleans Pelicans",
+  "position": "C",
+  "sections": [
+    {
+      "type": "table",
+      "title": "Season Averages",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 2,
+            "min": 16.5,
+            "pts": 6.0,
+            "reb": 6.5,
+            "ast": 1.0,
+            "stl": 0.0,
+            "blk": 1.0,
+            "to": 0.5,
+            "fg_pct": 0.0,
+            "custom_impact": 16.8
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Percentile Ranks (0\u2013100)",
+      "data": {
+        "meta_keys": [
+          "scope"
+        ],
+        "rows": [
+          {
+            "scope": "League Percentile",
+            "min": 41.3,
+            "pts": 42.3,
+            "reb": 86.7,
+            "ast": 37.2,
+            "stl": 9.3,
+            "blk": 89.9,
+            "to": 29.0,
+            "fg_pct": 50.0,
+            "custom_impact": 55.2
+          },
+          {
+            "scope": "Position Percentile (C)",
+            "min": 45.6,
+            "pts": 43.4,
+            "reb": 64.0,
+            "ast": 44.9,
+            "stl": 14.0,
+            "blk": 68.4,
+            "to": 22.1,
+            "fg_pct": 50.0,
+            "custom_impact": 52.2
+          }
+        ]
+      }
+    },
+    {
+      "type": "shot_chart",
+      "title": "Shooting Splits (Distance Zones)",
+      "data": {
+        "meta_keys": [
+          "zone"
+        ],
+        "rows": [
+          {
+            "zone": "0-4 ft",
+            "fgm": 1,
+            "fga": 1,
+            "fg_pct": 100.0,
+            "shot_share": 10.0,
+            "league_avg_fg": 53.7,
+            "eff_percentile": 50.0,
+            "vol_percentile": 19.9
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 3,
+            "fga": 3,
+            "fg_pct": 100.0,
+            "shot_share": 30.0,
+            "league_avg_fg": 55.9,
+            "eff_percentile": 97.9,
+            "vol_percentile": 23.8
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 4,
+            "fga": 6,
+            "fg_pct": 66.7,
+            "shot_share": 60.0,
+            "league_avg_fg": 50.8,
+            "eff_percentile": 89.7,
+            "vol_percentile": 21.6
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Season Game Logs",
+      "data": {
+        "meta_keys": [
+          "date",
+          "opponent",
+          "result"
+        ],
+        "rows": [
+          {
+            "date": "2026-10-29",
+            "opponent": "vs DEN",
+            "result": "L 91-104",
+            "min": 13,
+            "pts": 3,
+            "reb": 4,
+            "ast": 0,
+            "stl": 0,
+            "blk": 1,
+            "to": 1,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-25",
+            "opponent": "@ DEN",
+            "result": "L 135-141",
+            "min": 20,
+            "pts": 9,
+            "reb": 9,
+            "ast": 2,
+            "stl": 0,
+            "blk": 1,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          }
+        ]
+      }
+    }
+  ]
+}

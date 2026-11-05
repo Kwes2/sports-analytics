@@ -1,0 +1,204 @@
+{
+  "player_id": "3213",
+  "name": "Al Horford",
+  "team": "Golden State Warriors",
+  "position": "C",
+  "sections": [
+    {
+      "type": "table",
+      "title": "Season Averages",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 6,
+            "min": 18.7,
+            "pts": 5.0,
+            "reb": 4.0,
+            "ast": 1.0,
+            "stl": 0.3,
+            "blk": 0.7,
+            "to": 1.0,
+            "fg_pct": 0.0,
+            "custom_impact": 12.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Percentile Ranks (0\u2013100)",
+      "data": {
+        "meta_keys": [
+          "scope"
+        ],
+        "rows": [
+          {
+            "scope": "League Percentile",
+            "min": 48.5,
+            "pts": 35.7,
+            "reb": 65.2,
+            "ast": 37.2,
+            "stl": 32.3,
+            "blk": 79.8,
+            "to": 51.0,
+            "fg_pct": 50.0,
+            "custom_impact": 41.8
+          },
+          {
+            "scope": "Position Percentile (C)",
+            "min": 52.2,
+            "pts": 36.0,
+            "reb": 39.7,
+            "ast": 44.9,
+            "stl": 50.7,
+            "blk": 52.2,
+            "to": 54.4,
+            "fg_pct": 50.0,
+            "custom_impact": 34.6
+          }
+        ]
+      }
+    },
+    {
+      "type": "shot_chart",
+      "title": "Shooting Splits (Distance Zones)",
+      "data": {
+        "meta_keys": [
+          "zone"
+        ],
+        "rows": [
+          {
+            "zone": "0-4 ft",
+            "fgm": 0,
+            "fga": 2,
+            "fg_pct": 0.0,
+            "shot_share": 7.1,
+            "league_avg_fg": 53.7,
+            "eff_percentile": 1.8,
+            "vol_percentile": 31.7
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 2,
+            "fga": 2,
+            "fg_pct": 100.0,
+            "shot_share": 7.1,
+            "league_avg_fg": 55.9,
+            "eff_percentile": 97.9,
+            "vol_percentile": 18.7
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 9,
+            "fga": 24,
+            "fg_pct": 37.5,
+            "shot_share": 85.7,
+            "league_avg_fg": 50.8,
+            "eff_percentile": 20.5,
+            "vol_percentile": 45.6
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Season Game Logs",
+      "data": {
+        "meta_keys": [
+          "date",
+          "opponent",
+          "result"
+        ],
+        "rows": [
+          {
+            "date": "2026-11-02",
+            "opponent": "vs LAC",
+            "result": "W 124-112",
+            "min": 22,
+            "pts": 9,
+            "reb": 5,
+            "ast": 2,
+            "stl": 0,
+            "blk": 1,
+            "to": 3,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-31",
+            "opponent": "vs LAL",
+            "result": "W 112-95",
+            "min": 17,
+            "pts": 3,
+            "reb": 2,
+            "ast": 0,
+            "stl": 0,
+            "blk": 0,
+            "to": 1,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-29",
+            "opponent": "@ MIN",
+            "result": "W 119-114",
+            "min": 18,
+            "pts": 4,
+            "reb": 5,
+            "ast": 2,
+            "stl": 1,
+            "blk": 1,
+            "to": 1,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-27",
+            "opponent": "@ DEN",
+            "result": "W 134-114",
+            "min": 19,
+            "pts": 11,
+            "reb": 3,
+            "ast": 0,
+            "stl": 0,
+            "blk": 0,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-24",
+            "opponent": "vs MEM",
+            "result": "L 108-111",
+            "min": 19,
+            "pts": 3,
+            "reb": 5,
+            "ast": 0,
+            "stl": 0,
+            "blk": 2,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-22",
+            "opponent": "@ LAL",
+            "result": "L 105-127",
+            "min": 17,
+            "pts": 0,
+            "reb": 4,
+            "ast": 2,
+            "stl": 1,
+            "blk": 0,
+            "to": 1,
+            "fgm": 0,
+            "fga": 0
+          }
+        ]
+      }
+    }
+  ]
+}

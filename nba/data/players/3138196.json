@@ -1,0 +1,176 @@
+{
+  "player_id": "3138196",
+  "name": "Cameron Johnson",
+  "team": "Denver Nuggets",
+  "position": "F",
+  "sections": [
+    {
+      "type": "table",
+      "title": "Season Averages",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 4,
+            "min": 27.2,
+            "pts": 9.0,
+            "reb": 4.2,
+            "ast": 2.0,
+            "stl": 1.0,
+            "blk": 0.0,
+            "to": 1.5,
+            "fg_pct": 0.0,
+            "custom_impact": 17.5
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Percentile Ranks (0\u2013100)",
+      "data": {
+        "meta_keys": [
+          "scope"
+        ],
+        "rows": [
+          {
+            "scope": "League Percentile",
+            "min": 74.1,
+            "pts": 61.6,
+            "reb": 68.0,
+            "ast": 62.3,
+            "stl": 73.9,
+            "blk": 15.0,
+            "to": 69.6,
+            "fg_pct": 50.0,
+            "custom_impact": 57.0
+          },
+          {
+            "scope": "Position Percentile (F)",
+            "min": 72.7,
+            "pts": 61.8,
+            "reb": 59.2,
+            "ast": 71.0,
+            "stl": 77.0,
+            "blk": 16.7,
+            "to": 74.1,
+            "fg_pct": 50.0,
+            "custom_impact": 57.2
+          }
+        ]
+      }
+    },
+    {
+      "type": "shot_chart",
+      "title": "Shooting Splits (Distance Zones)",
+      "data": {
+        "meta_keys": [
+          "zone"
+        ],
+        "rows": [
+          {
+            "zone": "0-4 ft",
+            "fgm": 2,
+            "fga": 3,
+            "fg_pct": 66.7,
+            "shot_share": 8.6,
+            "league_avg_fg": 53.7,
+            "eff_percentile": 73.8,
+            "vol_percentile": 40.6
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 2,
+            "fga": 6,
+            "fg_pct": 33.3,
+            "shot_share": 17.1,
+            "league_avg_fg": 55.9,
+            "eff_percentile": 8.4,
+            "vol_percentile": 36.8
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 11,
+            "fga": 26,
+            "fg_pct": 42.3,
+            "shot_share": 74.3,
+            "league_avg_fg": 50.8,
+            "eff_percentile": 30.3,
+            "vol_percentile": 47.8
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Season Game Logs",
+      "data": {
+        "meta_keys": [
+          "date",
+          "opponent",
+          "result"
+        ],
+        "rows": [
+          {
+            "date": "2026-11-05",
+            "opponent": "vs TOR",
+            "result": "W 128-109",
+            "min": 30,
+            "pts": 12,
+            "reb": 2,
+            "ast": 2,
+            "stl": 1,
+            "blk": 0,
+            "to": 1,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-11-03",
+            "opponent": "vs POR",
+            "result": "L 110-118",
+            "min": 34,
+            "pts": 7,
+            "reb": 4,
+            "ast": 2,
+            "stl": 2,
+            "blk": 0,
+            "to": 3,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-31",
+            "opponent": "@ PHX",
+            "result": "W 127-120",
+            "min": 34,
+            "pts": 12,
+            "reb": 9,
+            "ast": 3,
+            "stl": 1,
+            "blk": 0,
+            "to": 2,
+            "fgm": 0,
+            "fga": 0
+          },
+          {
+            "date": "2026-10-23",
+            "opponent": "@ OKC",
+            "result": "L 84-96",
+            "min": 11,
+            "pts": 5,
+            "reb": 2,
+            "ast": 1,
+            "stl": 0,
+            "blk": 0,
+            "to": 0,
+            "fgm": 0,
+            "fga": 0
+          }
+        ]
+      }
+    }
+  ]
+}
