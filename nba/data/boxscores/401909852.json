@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "Sacramento Kings",
   "home_score": 120,
+  "home_team_id": "23",
   "away_team": "Portland Trail Blazers",
   "away_score": 128,
+  "away_team_id": "22",
   "teams": [
     {
       "team_name": "Portland Trail Blazers",
+      "team_id": "22",
       "team_abbrev": "POR",
       "shooting_splits": {
         "meta_keys": [
@@ -187,6 +190,7 @@
     },
     {
       "team_name": "Sacramento Kings",
+      "team_id": "23",
       "team_abbrev": "SAC",
       "shooting_splits": {
         "meta_keys": [

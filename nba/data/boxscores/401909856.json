@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "Atlanta Hawks",
   "home_score": 114,
+  "home_team_id": "1",
   "away_team": "Houston Rockets",
   "away_score": 121,
+  "away_team_id": "10",
   "teams": [
     {
       "team_name": "Houston Rockets",
+      "team_id": "10",
       "team_abbrev": "HOU",
       "shooting_splits": {
         "meta_keys": [
@@ -201,6 +204,7 @@
     },
     {
       "team_name": "Atlanta Hawks",
+      "team_id": "1",
       "team_abbrev": "ATL",
       "shooting_splits": {
         "meta_keys": [

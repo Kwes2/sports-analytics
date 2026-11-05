@@ -2,6 +2,7 @@
   "player_id": "3917376",
   "name": "Jaylen Brown",
   "team": "Philadelphia 76ers",
+  "team_id": "20",
   "position": "G",
   "sections": [
     {
@@ -58,6 +59,89 @@
             "to": 83.1,
             "fg_pct": 50.0,
             "custom_impact": 94.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Situational Splits",
+      "data": {
+        "meta_keys": [
+          "split"
+        ],
+        "rows": [
+          {
+            "split": "Overall",
+            "gp": 8,
+            "min_pg": 36.2,
+            "pts_pg": 21.8,
+            "reb_pg": 6.9,
+            "ast_pg": 3.9,
+            "stl_pg": 1.2,
+            "blk_pg": 0.5,
+            "to_pg": 2.2,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Home Games",
+            "gp": 4,
+            "min_pg": 36.5,
+            "pts_pg": 22.2,
+            "reb_pg": 6.5,
+            "ast_pg": 4.5,
+            "stl_pg": 1.2,
+            "blk_pg": 0.2,
+            "to_pg": 2.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 4,
+            "min_pg": 36.0,
+            "pts_pg": 21.2,
+            "reb_pg": 7.2,
+            "ast_pg": 3.2,
+            "stl_pg": 1.2,
+            "blk_pg": 0.8,
+            "to_pg": 2.5,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 5,
+            "min_pg": 36.4,
+            "pts_pg": 21.4,
+            "reb_pg": 7.2,
+            "ast_pg": 3.2,
+            "stl_pg": 1.0,
+            "blk_pg": 0.6,
+            "to_pg": 1.8,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Wins",
+            "gp": 7,
+            "min_pg": 35.7,
+            "pts_pg": 22.6,
+            "reb_pg": 7.3,
+            "ast_pg": 3.9,
+            "stl_pg": 1.4,
+            "blk_pg": 0.4,
+            "to_pg": 2.4,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 1,
+            "min_pg": 40.0,
+            "pts_pg": 16.0,
+            "reb_pg": 4.0,
+            "ast_pg": 4.0,
+            "stl_pg": 0.0,
+            "blk_pg": 1.0,
+            "to_pg": 1.0,
+            "fg_pct": 0.0
           }
         ]
       }

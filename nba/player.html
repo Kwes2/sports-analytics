@@ -149,6 +149,11 @@
             margin-left: 4px;
             color: #666;
         }
+
+        a.table-link {
+            color: #0056b3;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -171,7 +176,6 @@
         const urlParams = new URLSearchParams(window.location.search);
         const playerId = urlParams.get('id');
 
-        // State registry for sortable dynamic sections
         const tableState = {};
 
         window.onload = () => {
@@ -231,16 +235,15 @@
             `;
         }
 
-        // ==========================================
-        // DYNAMIC SECTION LAYOUT ENGINE
-        // ==========================================
         function renderPlayerEngine(data) {
             const container = document.getElementById('player-content');
+
+            const teamLink = data.team_id ? `<a class="table-link" href="team.html?id=${data.team_id}">${data.team}</a>` : data.team;
 
             let html = `
                 <div class="player-header">
                     <h1>${data.name}</h1>
-                    <div class="meta">${data.team} | Position: <strong>${data.position}</strong></div>
+                    <div class="meta">${teamLink} | Position: <strong>${data.position}</strong></div>
                 </div>
             `;
 
@@ -248,7 +251,6 @@
                 const sectionId = `section_${idx}`;
                 html += `<h3>${section.title}</h3>`;
 
-                // Register state for interactive sorting
                 tableState[sectionId] = {
                     metaKeys: section.data.meta_keys || [],
                     rows: section.data.rows || [],

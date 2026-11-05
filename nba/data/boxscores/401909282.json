@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "Miami Heat",
   "home_score": 145,
+  "home_team_id": "14",
   "away_team": "Indiana Pacers",
   "away_score": 125,
+  "away_team_id": "11",
   "teams": [
     {
       "team_name": "Indiana Pacers",
+      "team_id": "11",
       "team_abbrev": "IND",
       "shooting_splits": {
         "meta_keys": [
@@ -201,6 +204,7 @@
     },
     {
       "team_name": "Miami Heat",
+      "team_id": "14",
       "team_abbrev": "MIA",
       "shooting_splits": {
         "meta_keys": [

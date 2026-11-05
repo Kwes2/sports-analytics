@@ -221,19 +221,23 @@
         function renderBoxScore(game) {
             const container = document.getElementById('boxscore-content');
 
+            const awayLink = game.away_team_id ? `<a class="table-link" href="team.html?id=${game.away_team_id}">${game.away_team}</a>` : game.away_team;
+            const homeLink = game.home_team_id ? `<a class="table-link" href="team.html?id=${game.home_team_id}">${game.home_team}</a>` : game.home_team;
+
             let html = `
                 <div class="game-summary">
-                    <h1>${game.away_team} ${game.away_score} &ndash; ${game.home_score} ${game.home_team}</h1>
+                    <h1>${awayLink} ${game.away_score} &ndash; ${game.home_score} ${homeLink}</h1>
                     <div class="meta">${game.date} | ${game.venue}</div>
                 </div>
             `;
 
             game.teams.forEach(team => {
-                html += `<h3>${team.team_name} Box Score</h3>`;
+                const teamTitleLink = team.team_id ? `<a class="table-link" href="team.html?id=${team.team_id}">${team.team_name}</a>` : team.team_name;
+                html += `<h3>${teamTitleLink} Box Score</h3>`;
                 html += renderTable(team.rows, team.meta_keys);
 
                 if (team.shooting_splits && team.shooting_splits.rows) {
-                    html += `<h4>${team.team_name} Shooting Splits</h4>`;
+                    html += `<h4>${teamTitleLink} Shooting Splits</h4>`;
                     html += `
                         <div class="team-splits-container">
                             <div class="court-wrapper">
@@ -253,7 +257,7 @@
 
             const sample = rows[0];
             const allKeys = Object.keys(sample);
-            const visibleKeys = allKeys.filter(k => k !== "player_id");
+            const visibleKeys = allKeys.filter(k => k !== "player_id" && k !== "team_id");
             const metaCols = metaKeys.filter(k => visibleKeys.includes(k));
             const statCols = visibleKeys.filter(k => !metaKeys.includes(k));
             const orderedCols = [...metaCols, ...statCols];

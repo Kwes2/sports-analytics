@@ -79,6 +79,7 @@ def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score,
                     "player_id": aid,
                     "player": player_name,
                     "team": team_display,
+                    "team_id": team_id,
                     "team_abbrev": team_abbrev,
                     "pos": pos_str,
                     "minutes": minutes,
@@ -119,7 +120,9 @@ def compute_team_standings(standings_data):
     team_rows = []
     for group in standings_data.get("children", []):
         for entry in group.get("standings", {}).get("entries", []):
-            team_name = entry["team"]["displayName"]
+            team_obj = entry.get("team", {})
+            team_name = team_obj.get("displayName", "")
+            team_id = str(team_obj.get("id", ""))
             stats_list = entry.get("stats", [])
 
             def get_stat(name, default=0.0):
@@ -139,6 +142,7 @@ def compute_team_standings(standings_data):
             custom_power = round((diff * 1.5) + (win_pct * 0.5), 2)
 
             team_rows.append({
+                "team_id": team_id,
                 "team": team_name,
                 "gp": gp,
                 "w": wins,
@@ -152,3 +156,99 @@ def compute_team_standings(standings_data):
 
     team_rows.sort(key=lambda x: x["w"], reverse=True)
     return team_rows
+
+
+def compute_player_situational_splits(game_logs):
+    """Slices a player's logs into Overall, Home, Away, Last 5, Wins, and Losses."""
+    splits = {
+        "Overall": game_logs,
+        "Home Games": [g for g in game_logs if not g["opponent"].startswith("@")],
+        "Away Games": [g for g in game_logs if g["opponent"].startswith("@")],
+        "Last 5 Games": game_logs[:5],
+        "In Team Wins": [g for g in game_logs if g["result"].startswith("W")],
+        "In Team Losses": [g for g in game_logs if g["result"].startswith("L")]
+    }
+
+    rows = []
+    for label, subset in splits.items():
+        gp = len(subset)
+        if gp == 0:
+            continue
+        tot_min = sum(g["min"] for g in subset)
+        tot_pts = sum(g["pts"] for g in subset)
+        tot_reb = sum(g["reb"] for g in subset)
+        tot_ast = sum(g["ast"] for g in subset)
+        tot_stl = sum(g["stl"] for g in subset)
+        tot_blk = sum(g["blk"] for g in subset)
+        tot_to = sum(g["to"] for g in subset)
+        tot_fgm = sum(g["fgm"] for g in subset)
+        tot_fga = sum(g["fga"] for g in subset)
+
+        rows.append({
+            "split": label,
+            "gp": gp,
+            "min_pg": round(tot_min / gp, 1),
+            "pts_pg": round(tot_pts / gp, 1),
+            "reb_pg": round(tot_reb / gp, 1),
+            "ast_pg": round(tot_ast / gp, 1),
+            "stl_pg": round(tot_stl / gp, 1),
+            "blk_pg": round(tot_blk / gp, 1),
+            "to_pg": round(tot_to / gp, 1),
+            "fg_pct": round(tot_fgm / tot_fga * 100, 1) if tot_fga > 0 else 0.0
+        })
+
+    return rows
+
+
+def compute_team_situational_splits(team_name, completed_games):
+    """Slices team schedule into Overall, Home, Away, and Last 5 games."""
+    team_games = []
+    for g in completed_games:
+        is_home = (g["home_team"] == team_name)
+        is_away = (g["away_team"] == team_name)
+        if not is_home and not is_away:
+            continue
+
+        team_pts = g["home_score"] if is_home else g["away_score"]
+        opp_pts = g["away_score"] if is_home else g["home_score"]
+        is_win = (team_pts > opp_pts)
+
+        team_games.append({
+            "date": g["date"],
+            "is_home": is_home,
+            "is_win": is_win,
+            "pts_for": team_pts,
+            "pts_against": opp_pts
+        })
+
+    splits = {
+        "Overall": team_games,
+        "Home": [g for g in team_games if g["is_home"]],
+        "Away": [g for g in team_games if not g["is_home"]],
+        "Last 5 Games": team_games[:5]
+    }
+
+    rows = []
+    for label, subset in splits.items():
+        gp = len(subset)
+        if gp == 0:
+            continue
+        wins = sum(1 for g in subset if g["is_win"])
+        losses = gp - wins
+        pct = round(wins / gp * 100, 1)
+        pts_for = round(sum(g["pts_for"] for g in subset) / gp, 1)
+        pts_against = round(sum(g["pts_against"] for g in subset) / gp, 1)
+        diff = round(pts_for - pts_against, 1)
+
+        rows.append({
+            "split": label,
+            "gp": gp,
+            "w": wins,
+            "l": losses,
+            "win_pct": pct,
+            "pts_pg": pts_for,
+            "opp_pts_pg": pts_against,
+            "diff": diff
+        })
+
+    return rows

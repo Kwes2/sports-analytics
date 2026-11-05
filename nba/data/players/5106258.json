@@ -2,6 +2,7 @@
   "player_id": "5106258",
   "name": "Gradey Dick",
   "team": "LA Clippers",
+  "team_id": "12",
   "position": "G",
   "sections": [
     {
@@ -58,6 +59,89 @@
             "to": 47.4,
             "fg_pct": 50.0,
             "custom_impact": 35.5
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Situational Splits",
+      "data": {
+        "meta_keys": [
+          "split"
+        ],
+        "rows": [
+          {
+            "split": "Overall",
+            "gp": 8,
+            "min_pg": 14.9,
+            "pts_pg": 6.0,
+            "reb_pg": 2.9,
+            "ast_pg": 0.6,
+            "stl_pg": 0.5,
+            "blk_pg": 0.2,
+            "to_pg": 1.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Home Games",
+            "gp": 4,
+            "min_pg": 18.5,
+            "pts_pg": 8.2,
+            "reb_pg": 3.8,
+            "ast_pg": 1.0,
+            "stl_pg": 0.5,
+            "blk_pg": 0.2,
+            "to_pg": 1.5,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 4,
+            "min_pg": 11.2,
+            "pts_pg": 3.8,
+            "reb_pg": 2.0,
+            "ast_pg": 0.2,
+            "stl_pg": 0.5,
+            "blk_pg": 0.2,
+            "to_pg": 0.5,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 5,
+            "min_pg": 14.0,
+            "pts_pg": 4.8,
+            "reb_pg": 2.4,
+            "ast_pg": 1.0,
+            "stl_pg": 0.4,
+            "blk_pg": 0.2,
+            "to_pg": 0.8,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Wins",
+            "gp": 1,
+            "min_pg": 19.0,
+            "pts_pg": 12.0,
+            "reb_pg": 4.0,
+            "ast_pg": 0.0,
+            "stl_pg": 0.0,
+            "blk_pg": 1.0,
+            "to_pg": 2.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 7,
+            "min_pg": 14.3,
+            "pts_pg": 5.1,
+            "reb_pg": 2.7,
+            "ast_pg": 0.7,
+            "stl_pg": 0.6,
+            "blk_pg": 0.1,
+            "to_pg": 0.9,
+            "fg_pct": 0.0
           }
         ]
       }

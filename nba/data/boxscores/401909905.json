@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "Golden State Warriors",
   "home_score": 124,
+  "home_team_id": "9",
   "away_team": "LA Clippers",
   "away_score": 112,
+  "away_team_id": "12",
   "teams": [
     {
       "team_name": "LA Clippers",
+      "team_id": "12",
       "team_abbrev": "LAC",
       "shooting_splits": {
         "meta_keys": [
@@ -243,6 +246,7 @@
     },
     {
       "team_name": "Golden State Warriors",
+      "team_id": "9",
       "team_abbrev": "GS",
       "shooting_splits": {
         "meta_keys": [

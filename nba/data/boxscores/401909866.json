@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "Philadelphia 76ers",
   "home_score": 93,
+  "home_team_id": "20",
   "away_team": "Detroit Pistons",
   "away_score": 106,
+  "away_team_id": "8",
   "teams": [
     {
       "team_name": "Detroit Pistons",
+      "team_id": "8",
       "team_abbrev": "DET",
       "shooting_splits": {
         "meta_keys": [
@@ -201,6 +204,7 @@
     },
     {
       "team_name": "Philadelphia 76ers",
+      "team_id": "20",
       "team_abbrev": "PHI",
       "shooting_splits": {
         "meta_keys": [

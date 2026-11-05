@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "Utah Jazz",
   "home_score": 123,
+  "home_team_id": "26",
   "away_team": "Los Angeles Lakers",
   "away_score": 132,
+  "away_team_id": "13",
   "teams": [
     {
       "team_name": "Los Angeles Lakers",
+      "team_id": "13",
       "team_abbrev": "LAL",
       "shooting_splits": {
         "meta_keys": [
@@ -187,6 +190,7 @@
     },
     {
       "team_name": "Utah Jazz",
+      "team_id": "26",
       "team_abbrev": "UTAH",
       "shooting_splits": {
         "meta_keys": [

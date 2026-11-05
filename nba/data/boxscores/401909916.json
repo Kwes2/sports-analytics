@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "Houston Rockets",
   "home_score": 109,
+  "home_team_id": "10",
   "away_team": "Boston Celtics",
   "away_score": 93,
+  "away_team_id": "2",
   "teams": [
     {
       "team_name": "Boston Celtics",
+      "team_id": "2",
       "team_abbrev": "BOS",
       "shooting_splits": {
         "meta_keys": [
@@ -243,6 +246,7 @@
     },
     {
       "team_name": "Houston Rockets",
+      "team_id": "10",
       "team_abbrev": "HOU",
       "shooting_splits": {
         "meta_keys": [

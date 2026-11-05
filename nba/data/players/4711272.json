@@ -2,6 +2,7 @@
   "player_id": "4711272",
   "name": "Reed Sheppard",
   "team": "Houston Rockets",
+  "team_id": "10",
   "position": "G",
   "sections": [
     {
@@ -58,6 +59,89 @@
             "to": 57.1,
             "fg_pct": 50.0,
             "custom_impact": 66.4
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Situational Splits",
+      "data": {
+        "meta_keys": [
+          "split"
+        ],
+        "rows": [
+          {
+            "split": "Overall",
+            "gp": 6,
+            "min_pg": 21.8,
+            "pts_pg": 10.7,
+            "reb_pg": 2.3,
+            "ast_pg": 3.7,
+            "stl_pg": 1.7,
+            "blk_pg": 0.0,
+            "to_pg": 1.3,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Home Games",
+            "gp": 4,
+            "min_pg": 19.5,
+            "pts_pg": 9.5,
+            "reb_pg": 1.2,
+            "ast_pg": 2.8,
+            "stl_pg": 1.8,
+            "blk_pg": 0.0,
+            "to_pg": 1.2,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 2,
+            "min_pg": 26.5,
+            "pts_pg": 13.0,
+            "reb_pg": 4.5,
+            "ast_pg": 5.5,
+            "stl_pg": 1.5,
+            "blk_pg": 0.0,
+            "to_pg": 1.5,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 5,
+            "min_pg": 23.0,
+            "pts_pg": 12.2,
+            "reb_pg": 2.4,
+            "ast_pg": 3.6,
+            "stl_pg": 1.6,
+            "blk_pg": 0.0,
+            "to_pg": 1.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Wins",
+            "gp": 5,
+            "min_pg": 22.0,
+            "pts_pg": 10.0,
+            "reb_pg": 2.4,
+            "ast_pg": 4.0,
+            "stl_pg": 1.4,
+            "blk_pg": 0.0,
+            "to_pg": 1.6,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 1,
+            "min_pg": 21.0,
+            "pts_pg": 14.0,
+            "reb_pg": 2.0,
+            "ast_pg": 2.0,
+            "stl_pg": 3.0,
+            "blk_pg": 0.0,
+            "to_pg": 0.0,
+            "fg_pct": 0.0
           }
         ]
       }

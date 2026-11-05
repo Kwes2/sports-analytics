@@ -2,6 +2,7 @@
   "player_id": "3912848",
   "name": "Dean Wade",
   "team": "Philadelphia 76ers",
+  "team_id": "20",
   "position": "F",
   "sections": [
     {
@@ -58,6 +59,89 @@
             "to": 26.4,
             "fg_pct": 50.0,
             "custom_impact": 52.6
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Situational Splits",
+      "data": {
+        "meta_keys": [
+          "split"
+        ],
+        "rows": [
+          {
+            "split": "Overall",
+            "gp": 7,
+            "min_pg": 26.3,
+            "pts_pg": 4.1,
+            "reb_pg": 3.1,
+            "ast_pg": 2.1,
+            "stl_pg": 1.9,
+            "blk_pg": 0.6,
+            "to_pg": 0.3,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Home Games",
+            "gp": 4,
+            "min_pg": 28.8,
+            "pts_pg": 5.5,
+            "reb_pg": 2.8,
+            "ast_pg": 0.8,
+            "stl_pg": 2.5,
+            "blk_pg": 0.8,
+            "to_pg": 0.2,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 3,
+            "min_pg": 23.0,
+            "pts_pg": 2.3,
+            "reb_pg": 3.7,
+            "ast_pg": 4.0,
+            "stl_pg": 1.0,
+            "blk_pg": 0.3,
+            "to_pg": 0.3,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 5,
+            "min_pg": 23.8,
+            "pts_pg": 3.0,
+            "reb_pg": 3.0,
+            "ast_pg": 2.8,
+            "stl_pg": 1.6,
+            "blk_pg": 0.4,
+            "to_pg": 0.4,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Wins",
+            "gp": 6,
+            "min_pg": 24.5,
+            "pts_pg": 3.7,
+            "reb_pg": 2.8,
+            "ast_pg": 2.3,
+            "stl_pg": 1.8,
+            "blk_pg": 0.5,
+            "to_pg": 0.3,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 1,
+            "min_pg": 37.0,
+            "pts_pg": 7.0,
+            "reb_pg": 5.0,
+            "ast_pg": 1.0,
+            "stl_pg": 2.0,
+            "blk_pg": 1.0,
+            "to_pg": 0.0,
+            "fg_pct": 0.0
           }
         ]
       }

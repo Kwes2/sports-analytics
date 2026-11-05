@@ -2,6 +2,7 @@
   "player_id": "3992",
   "name": "James Harden",
   "team": "Cleveland Cavaliers",
+  "team_id": "5",
   "position": "G",
   "sections": [
     {
@@ -58,6 +59,89 @@
             "to": 94.0,
             "fg_pct": 50.0,
             "custom_impact": 89.5
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Situational Splits",
+      "data": {
+        "meta_keys": [
+          "split"
+        ],
+        "rows": [
+          {
+            "split": "Overall",
+            "gp": 8,
+            "min_pg": 33.6,
+            "pts_pg": 16.6,
+            "reb_pg": 5.2,
+            "ast_pg": 6.2,
+            "stl_pg": 0.8,
+            "blk_pg": 0.5,
+            "to_pg": 3.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Home Games",
+            "gp": 4,
+            "min_pg": 34.8,
+            "pts_pg": 15.2,
+            "reb_pg": 4.8,
+            "ast_pg": 7.0,
+            "stl_pg": 1.0,
+            "blk_pg": 0.5,
+            "to_pg": 2.5,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 4,
+            "min_pg": 32.5,
+            "pts_pg": 18.0,
+            "reb_pg": 5.8,
+            "ast_pg": 5.5,
+            "stl_pg": 0.5,
+            "blk_pg": 0.5,
+            "to_pg": 3.5,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 5,
+            "min_pg": 32.8,
+            "pts_pg": 17.2,
+            "reb_pg": 5.2,
+            "ast_pg": 5.8,
+            "stl_pg": 0.6,
+            "blk_pg": 0.4,
+            "to_pg": 2.2,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Wins",
+            "gp": 4,
+            "min_pg": 33.0,
+            "pts_pg": 15.0,
+            "reb_pg": 5.2,
+            "ast_pg": 7.2,
+            "stl_pg": 1.0,
+            "blk_pg": 0.5,
+            "to_pg": 2.8,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 4,
+            "min_pg": 34.2,
+            "pts_pg": 18.2,
+            "reb_pg": 5.2,
+            "ast_pg": 5.2,
+            "stl_pg": 0.5,
+            "blk_pg": 0.5,
+            "to_pg": 3.2,
+            "fg_pct": 0.0
           }
         ]
       }

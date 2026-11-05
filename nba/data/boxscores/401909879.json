@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "San Antonio Spurs",
   "home_score": 130,
+  "home_team_id": "24",
   "away_team": "Sacramento Kings",
   "away_score": 103,
+  "away_team_id": "23",
   "teams": [
     {
       "team_name": "Sacramento Kings",
+      "team_id": "23",
       "team_abbrev": "SAC",
       "shooting_splits": {
         "meta_keys": [
@@ -215,6 +218,7 @@
     },
     {
       "team_name": "San Antonio Spurs",
+      "team_id": "24",
       "team_abbrev": "SA",
       "shooting_splits": {
         "meta_keys": [

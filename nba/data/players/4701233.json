@@ -2,6 +2,7 @@
   "player_id": "4701233",
   "name": "Craig Porter Jr.",
   "team": "Cleveland Cavaliers",
+  "team_id": "5",
   "position": "G",
   "sections": [
     {
@@ -58,6 +59,89 @@
             "to": 39.3,
             "fg_pct": 50.0,
             "custom_impact": 19.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Situational Splits",
+      "data": {
+        "meta_keys": [
+          "split"
+        ],
+        "rows": [
+          {
+            "split": "Overall",
+            "gp": 6,
+            "min_pg": 9.2,
+            "pts_pg": 0.8,
+            "reb_pg": 2.0,
+            "ast_pg": 1.2,
+            "stl_pg": 0.2,
+            "blk_pg": 0.3,
+            "to_pg": 0.8,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Home Games",
+            "gp": 2,
+            "min_pg": 6.5,
+            "pts_pg": 1.5,
+            "reb_pg": 2.5,
+            "ast_pg": 1.0,
+            "stl_pg": 0.0,
+            "blk_pg": 0.5,
+            "to_pg": 1.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 4,
+            "min_pg": 10.5,
+            "pts_pg": 0.5,
+            "reb_pg": 1.8,
+            "ast_pg": 1.2,
+            "stl_pg": 0.2,
+            "blk_pg": 0.2,
+            "to_pg": 0.8,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 5,
+            "min_pg": 9.4,
+            "pts_pg": 1.0,
+            "reb_pg": 1.8,
+            "ast_pg": 1.4,
+            "stl_pg": 0.0,
+            "blk_pg": 0.4,
+            "to_pg": 0.8,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Wins",
+            "gp": 2,
+            "min_pg": 10.5,
+            "pts_pg": 2.5,
+            "reb_pg": 1.5,
+            "ast_pg": 2.5,
+            "stl_pg": 0.0,
+            "blk_pg": 0.5,
+            "to_pg": 1.5,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 4,
+            "min_pg": 8.5,
+            "pts_pg": 0.0,
+            "reb_pg": 2.2,
+            "ast_pg": 0.5,
+            "stl_pg": 0.2,
+            "blk_pg": 0.2,
+            "to_pg": 0.5,
+            "fg_pct": 0.0
           }
         ]
       }

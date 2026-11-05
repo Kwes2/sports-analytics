@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "LA Clippers",
   "home_score": 121,
+  "home_team_id": "12",
   "away_team": "Sacramento Kings",
   "away_score": 96,
+  "away_team_id": "23",
   "teams": [
     {
       "team_name": "Sacramento Kings",
+      "team_id": "23",
       "team_abbrev": "SAC",
       "shooting_splits": {
         "meta_keys": [
@@ -201,6 +204,7 @@
     },
     {
       "team_name": "LA Clippers",
+      "team_id": "12",
       "team_abbrev": "LAC",
       "shooting_splits": {
         "meta_keys": [

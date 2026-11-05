@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "Boston Celtics",
   "home_score": 107,
+  "home_team_id": "2",
   "away_team": "New York Knicks",
   "away_score": 103,
+  "away_team_id": "18",
   "teams": [
     {
       "team_name": "New York Knicks",
+      "team_id": "18",
       "team_abbrev": "NY",
       "shooting_splits": {
         "meta_keys": [
@@ -201,6 +204,7 @@
     },
     {
       "team_name": "Boston Celtics",
+      "team_id": "2",
       "team_abbrev": "BOS",
       "shooting_splits": {
         "meta_keys": [

@@ -2,6 +2,7 @@
   "player_id": "4395625",
   "name": "RJ Barrett",
   "team": "Toronto Raptors",
+  "team_id": "28",
   "position": "F",
   "sections": [
     {
@@ -58,6 +59,89 @@
             "to": 74.1,
             "fg_pct": 50.0,
             "custom_impact": 88.8
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Situational Splits",
+      "data": {
+        "meta_keys": [
+          "split"
+        ],
+        "rows": [
+          {
+            "split": "Overall",
+            "gp": 8,
+            "min_pg": 32.5,
+            "pts_pg": 20.9,
+            "reb_pg": 6.0,
+            "ast_pg": 3.9,
+            "stl_pg": 0.5,
+            "blk_pg": 0.5,
+            "to_pg": 1.5,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Home Games",
+            "gp": 3,
+            "min_pg": 30.7,
+            "pts_pg": 18.0,
+            "reb_pg": 5.3,
+            "ast_pg": 4.7,
+            "stl_pg": 0.3,
+            "blk_pg": 0.3,
+            "to_pg": 2.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 5,
+            "min_pg": 33.6,
+            "pts_pg": 22.6,
+            "reb_pg": 6.4,
+            "ast_pg": 3.4,
+            "stl_pg": 0.6,
+            "blk_pg": 0.6,
+            "to_pg": 1.2,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 5,
+            "min_pg": 33.6,
+            "pts_pg": 20.8,
+            "reb_pg": 6.6,
+            "ast_pg": 4.4,
+            "stl_pg": 0.2,
+            "blk_pg": 0.6,
+            "to_pg": 2.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Wins",
+            "gp": 4,
+            "min_pg": 32.2,
+            "pts_pg": 23.5,
+            "reb_pg": 7.0,
+            "ast_pg": 4.0,
+            "stl_pg": 0.2,
+            "blk_pg": 0.8,
+            "to_pg": 0.8,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 4,
+            "min_pg": 32.8,
+            "pts_pg": 18.2,
+            "reb_pg": 5.0,
+            "ast_pg": 3.8,
+            "stl_pg": 0.8,
+            "blk_pg": 0.2,
+            "to_pg": 2.2,
+            "fg_pct": 0.0
           }
         ]
       }

@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "Houston Rockets",
   "home_score": 107,
+  "home_team_id": "10",
   "away_team": "Minnesota Timberwolves",
   "away_score": 117,
+  "away_team_id": "16",
   "teams": [
     {
       "team_name": "Minnesota Timberwolves",
+      "team_id": "16",
       "team_abbrev": "MIN",
       "shooting_splits": {
         "meta_keys": [
@@ -173,6 +176,7 @@
     },
     {
       "team_name": "Houston Rockets",
+      "team_id": "10",
       "team_abbrev": "HOU",
       "shooting_splits": {
         "meta_keys": [

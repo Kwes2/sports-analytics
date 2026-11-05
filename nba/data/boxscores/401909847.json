@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "Miami Heat",
   "home_score": 111,
+  "home_team_id": "14",
   "away_team": "Detroit Pistons",
   "away_score": 128,
+  "away_team_id": "8",
   "teams": [
     {
       "team_name": "Detroit Pistons",
+      "team_id": "8",
       "team_abbrev": "DET",
       "shooting_splits": {
         "meta_keys": [
@@ -215,6 +218,7 @@
     },
     {
       "team_name": "Miami Heat",
+      "team_id": "14",
       "team_abbrev": "MIA",
       "shooting_splits": {
         "meta_keys": [

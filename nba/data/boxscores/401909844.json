@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "Indiana Pacers",
   "home_score": 105,
+  "home_team_id": "11",
   "away_team": "Dallas Mavericks",
   "away_score": 121,
+  "away_team_id": "6",
   "teams": [
     {
       "team_name": "Dallas Mavericks",
+      "team_id": "6",
       "team_abbrev": "DAL",
       "shooting_splits": {
         "meta_keys": [
@@ -229,6 +232,7 @@
     },
     {
       "team_name": "Indiana Pacers",
+      "team_id": "11",
       "team_abbrev": "IND",
       "shooting_splits": {
         "meta_keys": [

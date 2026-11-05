@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Reference Stats</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #222;
+        }
+
+        header {
+            border-bottom: 2px solid #333;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .sport-nav {
+            display: flex;
+            gap: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .sport-nav a {
+            color: #333;
+            text-decoration: none;
+            padding: 3px 6px;
+        }
+
+        .sport-nav a:hover, .sport-nav a.active {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .sub-nav {
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+            border-top: 1px solid #ddd;
+            padding-top: 6px;
+        }
+
+        .sub-nav button {
+            background: none;
+            border: none;
+            padding: 0;
+            color: #0056b3;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 13px;
+        }
+
+        .sub-nav button.active-sub {
+            font-weight: bold;
+            color: #000;
+            text-decoration: none;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin: 15px 0 10px 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 1100px;
+            font-size: 13px;
+            border: 1px solid #888;
+        }
+
+        th, td {
+            padding: 4px 8px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #eee;
+            font-weight: bold;
+            text-align: left;
+            border-bottom: 2px solid #888;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        th:hover {
+            background-color: #e2e2e2;
+        }
+
+        th.num, td.num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #ffffcc;
+        }
+
+        .sort-indicator {
+            font-size: 10px;
+            margin-left: 4px;
+            color: #666;
+        }
+
+        a.table-link {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="sport-nav">
+            <a href="../afl/">AFL</a>
+            <a href="../nfl/">NFL</a>
+            <a href="./" class="active">NBA</a>
+            <a href="../nhl/">NHL</a>
+            <a href="../f1/">F1</a>
+        </div>
+        <div class="sub-nav">
+            <button class="active-sub" onclick="loadView('Team Stats', 'data/team_stats.json', this)">Team Stats</button>
+            <button onclick="loadView('Player Leaders', 'data/player_stats.json', this)">Player Leaders</button>
+            <button onclick="loadView('Completed Games', 'data/completed_games.json', this)">Completed Games</button>
+            <button onclick="loadView('Upcoming Schedule', 'data/upcoming_games.json', this)">Upcoming Schedule</button>
+        </div>
+    </header>
+
+    <h2 id="table-title">NBA - Team Stats</h2>
+    <div id="table-container">Loading data...</div>
+
+    <script>
+        let currentRows = [];
+        let currentMetaKeys = [];
+        let currentSortColumn = null;
+        let isAscending = false;
+
+        window.onload = () => {
+            loadView('Team Stats', 'data/team_stats.json', document.querySelector('.sub-nav button.active-sub'));
+        };
+
+        function loadView(title, filePath, el) {
+            document.querySelectorAll('.sub-nav button').forEach(b => b.classList.remove('active-sub'));
+            if (el) el.classList.add('active-sub');
+
+            document.getElementById('table-title').innerText = `NBA - ${title}`;
+            const container = document.getElementById('table-container');
+            container.innerHTML = "Loading...";
+
+            fetch(filePath)
+                .then(res => res.json())
+                .then(payload => {
+                    currentRows = payload.rows || [];
+                    currentMetaKeys = payload.meta_keys || [];
+
+                    if (currentRows.length === 0) {
+                        container.innerHTML = "<p>No data recorded yet.</p>";
+                        return;
+                    }
+
+                    currentSortColumn = null;
+                    renderTable();
+                })
+                .catch(err => {
+                    container.innerHTML = `<p style="color:red">Failed to load ${filePath}. Check that the file exists.</p>`;
+                });
+        }
+
+        function renderTable() {
+            const container = document.getElementById('table-container');
+            if (currentRows.length === 0) return;
+
+            const sample = currentRows[0];
+            const allKeys = Object.keys(sample);
+            // Hide player_id and team_id from direct column display
+            const visibleKeys = allKeys.filter(k => k !== "player_id" && k !== "team_id");
+
+            const metaCols = currentMetaKeys.filter(k => visibleKeys.includes(k));
+            const statCols = visibleKeys.filter(k => !currentMetaKeys.includes(k));
+            const orderedCols = [...metaCols, ...statCols];
+
+            let html = `<table><thead><tr>`;
+
+            orderedCols.forEach(col => {
+                const isMeta = metaCols.includes(col);
+                const isNumeric = typeof sample[col] === 'number';
+                let indicator = '';
+
+                if (currentSortColumn === col) {
+                    indicator = `<span class="sort-indicator">${isAscending ? '▲' : '▼'}</span>`;
+                }
+
+                html += `
+                    <th class="${isNumeric && !isMeta ? 'num' : ''}" onclick="sortTable('${col}')">
+                        ${formatHeader(col)} ${indicator}
+                    </th>`;
+            });
+
+            html += `</tr></thead><tbody>`;
+
+            currentRows.forEach(row => {
+                html += `<tr>`;
+                orderedCols.forEach(col => {
+                    const val = row[col];
+                    const isMeta = metaCols.includes(col);
+                    const isNumeric = typeof val === 'number';
+
+                    let cellContent = val !== null ? val : '';
+                    if (col === 'box_score' && val) {
+                        cellContent = `<a class="table-link" href="${val}">Box Score</a>`;
+                    } else if (col === 'player' && row.player_id) {
+                        cellContent = `<a class="table-link" href="player.html?id=${row.player_id}">${val}</a>`;
+                    } else if (col === 'team' && row.team_id) {
+                        cellContent = `<a class="table-link" href="team.html?id=${row.team_id}">${val}</a>`;
+                    }
+
+                    html += `<td class="${isNumeric && !isMeta ? 'num' : ''}">${cellContent}</td>`;
+                });
+                html += `</tr>`;
+            });
+
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        function sortTable(column) {
+            if (currentSortColumn === column) {
+                isAscending = !isAscending;
+            } else {
+                currentSortColumn = column;
+                const isNumeric = typeof currentRows[0][column] === 'number';
+                isAscending = !isNumeric;
+            }
+
+            currentRows.sort((a, b) => {
+                let valA = a[column];
+                let valB = b[column];
+
+                if (valA === null || valA === undefined) return 1;
+                if (valB === null || valB === undefined) return -1;
+
+                if (typeof valA === 'number' && typeof valB === 'number') {
+                    return isAscending ? valA - valB : valB - valA;
+                }
+
+                valA = valA.toString().toLowerCase();
+                valB = valB.toString().toLowerCase();
+
+                if (valA < valB) return isAscending ? -1 : 1;
+                if (valA > valB) return isAscending ? 1 : -1;
+                return 0;
+            });
+
+            renderTable();
+        }
+
+        function formatHeader(header) {
+            return header.replace(/_/g, ' ').toUpperCase();
+        }
+    </script>
+</body>
+</html>

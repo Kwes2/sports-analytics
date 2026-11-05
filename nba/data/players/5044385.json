@@ -2,6 +2,7 @@
   "player_id": "5044385",
   "name": "Leonard Miller",
   "team": "Chicago Bulls",
+  "team_id": "4",
   "position": "F",
   "sections": [
     {
@@ -58,6 +59,89 @@
             "to": 50.0,
             "fg_pct": 50.0,
             "custom_impact": 50.9
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Situational Splits",
+      "data": {
+        "meta_keys": [
+          "split"
+        ],
+        "rows": [
+          {
+            "split": "Overall",
+            "gp": 8,
+            "min_pg": 17.6,
+            "pts_pg": 7.1,
+            "reb_pg": 4.1,
+            "ast_pg": 1.0,
+            "stl_pg": 0.2,
+            "blk_pg": 0.6,
+            "to_pg": 0.9,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Home Games",
+            "gp": 2,
+            "min_pg": 19.0,
+            "pts_pg": 8.5,
+            "reb_pg": 2.0,
+            "ast_pg": 0.5,
+            "stl_pg": 0.5,
+            "blk_pg": 1.0,
+            "to_pg": 0.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 6,
+            "min_pg": 17.2,
+            "pts_pg": 6.7,
+            "reb_pg": 4.8,
+            "ast_pg": 1.2,
+            "stl_pg": 0.2,
+            "blk_pg": 0.5,
+            "to_pg": 1.2,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 5,
+            "min_pg": 14.0,
+            "pts_pg": 5.4,
+            "reb_pg": 4.0,
+            "ast_pg": 1.0,
+            "stl_pg": 0.0,
+            "blk_pg": 0.8,
+            "to_pg": 0.4,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Wins",
+            "gp": 1,
+            "min_pg": 24.0,
+            "pts_pg": 19.0,
+            "reb_pg": 3.0,
+            "ast_pg": 2.0,
+            "stl_pg": 0.0,
+            "blk_pg": 1.0,
+            "to_pg": 0.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 7,
+            "min_pg": 16.7,
+            "pts_pg": 5.4,
+            "reb_pg": 4.3,
+            "ast_pg": 0.9,
+            "stl_pg": 0.3,
+            "blk_pg": 0.6,
+            "to_pg": 1.0,
+            "fg_pct": 0.0
           }
         ]
       }

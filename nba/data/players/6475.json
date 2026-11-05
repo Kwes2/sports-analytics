@@ -2,6 +2,7 @@
   "player_id": "6475",
   "name": "Klay Thompson",
   "team": "Miami Heat",
+  "team_id": "14",
   "position": "G",
   "sections": [
     {
@@ -58,6 +59,89 @@
             "to": 47.4,
             "fg_pct": 50.0,
             "custom_impact": 59.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Situational Splits",
+      "data": {
+        "meta_keys": [
+          "split"
+        ],
+        "rows": [
+          {
+            "split": "Overall",
+            "gp": 8,
+            "min_pg": 23.4,
+            "pts_pg": 14.1,
+            "reb_pg": 1.8,
+            "ast_pg": 1.5,
+            "stl_pg": 0.1,
+            "blk_pg": 0.2,
+            "to_pg": 1.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Home Games",
+            "gp": 4,
+            "min_pg": 20.2,
+            "pts_pg": 11.8,
+            "reb_pg": 1.0,
+            "ast_pg": 1.5,
+            "stl_pg": 0.0,
+            "blk_pg": 0.0,
+            "to_pg": 1.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 4,
+            "min_pg": 26.5,
+            "pts_pg": 16.5,
+            "reb_pg": 2.5,
+            "ast_pg": 1.5,
+            "stl_pg": 0.2,
+            "blk_pg": 0.5,
+            "to_pg": 1.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 5,
+            "min_pg": 24.0,
+            "pts_pg": 16.6,
+            "reb_pg": 1.6,
+            "ast_pg": 2.0,
+            "stl_pg": 0.0,
+            "blk_pg": 0.4,
+            "to_pg": 1.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Wins",
+            "gp": 3,
+            "min_pg": 26.0,
+            "pts_pg": 19.3,
+            "reb_pg": 2.0,
+            "ast_pg": 2.7,
+            "stl_pg": 0.0,
+            "blk_pg": 0.7,
+            "to_pg": 1.3,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 5,
+            "min_pg": 21.8,
+            "pts_pg": 11.0,
+            "reb_pg": 1.6,
+            "ast_pg": 0.8,
+            "stl_pg": 0.2,
+            "blk_pg": 0.0,
+            "to_pg": 0.8,
+            "fg_pct": 0.0
           }
         ]
       }

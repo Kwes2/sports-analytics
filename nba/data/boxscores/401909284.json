@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "Minnesota Timberwolves",
   "home_score": 127,
+  "home_team_id": "16",
   "away_team": "LA Clippers",
   "away_score": 101,
+  "away_team_id": "12",
   "teams": [
     {
       "team_name": "LA Clippers",
+      "team_id": "12",
       "team_abbrev": "LAC",
       "shooting_splits": {
         "meta_keys": [
@@ -229,6 +232,7 @@
     },
     {
       "team_name": "Minnesota Timberwolves",
+      "team_id": "16",
       "team_abbrev": "MIN",
       "shooting_splits": {
         "meta_keys": [

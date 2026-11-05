@@ -2,6 +2,7 @@
   "player_id": "2990984",
   "name": "Buddy Hield",
   "team": "Chicago Bulls",
+  "team_id": "4",
   "position": "G",
   "sections": [
     {
@@ -58,6 +59,89 @@
             "to": 47.4,
             "fg_pct": 50.0,
             "custom_impact": 34.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Situational Splits",
+      "data": {
+        "meta_keys": [
+          "split"
+        ],
+        "rows": [
+          {
+            "split": "Overall",
+            "gp": 8,
+            "min_pg": 13.0,
+            "pts_pg": 5.6,
+            "reb_pg": 1.8,
+            "ast_pg": 1.6,
+            "stl_pg": 0.5,
+            "blk_pg": 0.1,
+            "to_pg": 1.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Home Games",
+            "gp": 2,
+            "min_pg": 12.5,
+            "pts_pg": 5.5,
+            "reb_pg": 2.5,
+            "ast_pg": 1.5,
+            "stl_pg": 0.0,
+            "blk_pg": 0.0,
+            "to_pg": 0.5,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 6,
+            "min_pg": 13.2,
+            "pts_pg": 5.7,
+            "reb_pg": 1.5,
+            "ast_pg": 1.7,
+            "stl_pg": 0.7,
+            "blk_pg": 0.2,
+            "to_pg": 1.2,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 5,
+            "min_pg": 11.8,
+            "pts_pg": 4.6,
+            "reb_pg": 1.6,
+            "ast_pg": 1.4,
+            "stl_pg": 0.6,
+            "blk_pg": 0.2,
+            "to_pg": 0.6,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Wins",
+            "gp": 1,
+            "min_pg": 15.0,
+            "pts_pg": 13.0,
+            "reb_pg": 2.0,
+            "ast_pg": 2.0,
+            "stl_pg": 1.0,
+            "blk_pg": 0.0,
+            "to_pg": 2.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 7,
+            "min_pg": 12.7,
+            "pts_pg": 4.6,
+            "reb_pg": 1.7,
+            "ast_pg": 1.6,
+            "stl_pg": 0.4,
+            "blk_pg": 0.1,
+            "to_pg": 0.9,
+            "fg_pct": 0.0
           }
         ]
       }

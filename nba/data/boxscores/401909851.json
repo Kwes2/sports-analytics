@@ -4,11 +4,14 @@
   "venue": "Unknown Venue",
   "home_team": "Los Angeles Lakers",
   "home_score": 125,
+  "home_team_id": "13",
   "away_team": "LA Clippers",
   "away_score": 117,
+  "away_team_id": "12",
   "teams": [
     {
       "team_name": "LA Clippers",
+      "team_id": "12",
       "team_abbrev": "LAC",
       "shooting_splits": {
         "meta_keys": [
@@ -173,6 +176,7 @@
     },
     {
       "team_name": "Los Angeles Lakers",
+      "team_id": "13",
       "team_abbrev": "LAL",
       "shooting_splits": {
         "meta_keys": [

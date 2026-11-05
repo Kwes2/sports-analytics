@@ -2,6 +2,7 @@
   "player_id": "4251",
   "name": "Paul George",
   "team": "Boston Celtics",
+  "team_id": "2",
   "position": "F",
   "sections": [
     {
@@ -58,6 +59,89 @@
             "to": 95.7,
             "fg_pct": 50.0,
             "custom_impact": 94.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Situational Splits",
+      "data": {
+        "meta_keys": [
+          "split"
+        ],
+        "rows": [
+          {
+            "split": "Overall",
+            "gp": 7,
+            "min_pg": 31.6,
+            "pts_pg": 21.3,
+            "reb_pg": 5.6,
+            "ast_pg": 5.0,
+            "stl_pg": 2.6,
+            "blk_pg": 0.3,
+            "to_pg": 3.3,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Home Games",
+            "gp": 5,
+            "min_pg": 31.4,
+            "pts_pg": 18.8,
+            "reb_pg": 5.6,
+            "ast_pg": 4.8,
+            "stl_pg": 2.2,
+            "blk_pg": 0.0,
+            "to_pg": 3.2,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 2,
+            "min_pg": 32.0,
+            "pts_pg": 27.5,
+            "reb_pg": 5.5,
+            "ast_pg": 5.5,
+            "stl_pg": 3.5,
+            "blk_pg": 1.0,
+            "to_pg": 3.5,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 5,
+            "min_pg": 31.2,
+            "pts_pg": 19.2,
+            "reb_pg": 5.4,
+            "ast_pg": 6.0,
+            "stl_pg": 2.2,
+            "blk_pg": 0.4,
+            "to_pg": 3.8,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Wins",
+            "gp": 6,
+            "min_pg": 31.7,
+            "pts_pg": 18.5,
+            "reb_pg": 5.7,
+            "ast_pg": 5.3,
+            "stl_pg": 2.2,
+            "blk_pg": 0.3,
+            "to_pg": 3.3,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 1,
+            "min_pg": 31.0,
+            "pts_pg": 38.0,
+            "reb_pg": 5.0,
+            "ast_pg": 3.0,
+            "stl_pg": 5.0,
+            "blk_pg": 0.0,
+            "to_pg": 3.0,
+            "fg_pct": 0.0
           }
         ]
       }

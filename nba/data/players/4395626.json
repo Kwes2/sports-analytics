@@ -2,6 +2,7 @@
   "player_id": "4395626",
   "name": "Tre Jones",
   "team": "Chicago Bulls",
+  "team_id": "4",
   "position": "G",
   "sections": [
     {
@@ -58,6 +59,89 @@
             "to": 42.4,
             "fg_pct": 50.0,
             "custom_impact": 65.2
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Situational Splits",
+      "data": {
+        "meta_keys": [
+          "split"
+        ],
+        "rows": [
+          {
+            "split": "Overall",
+            "gp": 8,
+            "min_pg": 18.1,
+            "pts_pg": 10.9,
+            "reb_pg": 2.9,
+            "ast_pg": 3.1,
+            "stl_pg": 1.1,
+            "blk_pg": 0.1,
+            "to_pg": 0.9,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Home Games",
+            "gp": 2,
+            "min_pg": 18.0,
+            "pts_pg": 10.5,
+            "reb_pg": 3.0,
+            "ast_pg": 3.0,
+            "stl_pg": 1.0,
+            "blk_pg": 0.0,
+            "to_pg": 1.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 6,
+            "min_pg": 18.2,
+            "pts_pg": 11.0,
+            "reb_pg": 2.8,
+            "ast_pg": 3.2,
+            "stl_pg": 1.2,
+            "blk_pg": 0.2,
+            "to_pg": 0.8,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 5,
+            "min_pg": 18.0,
+            "pts_pg": 10.6,
+            "reb_pg": 3.0,
+            "ast_pg": 2.8,
+            "stl_pg": 1.2,
+            "blk_pg": 0.2,
+            "to_pg": 1.2,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Wins",
+            "gp": 1,
+            "min_pg": 24.0,
+            "pts_pg": 11.0,
+            "reb_pg": 3.0,
+            "ast_pg": 8.0,
+            "stl_pg": 2.0,
+            "blk_pg": 0.0,
+            "to_pg": 0.0,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 7,
+            "min_pg": 17.3,
+            "pts_pg": 10.9,
+            "reb_pg": 2.9,
+            "ast_pg": 2.4,
+            "stl_pg": 1.0,
+            "blk_pg": 0.1,
+            "to_pg": 1.0,
+            "fg_pct": 0.0
           }
         ]
       }

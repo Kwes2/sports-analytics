@@ -2,6 +2,7 @@
   "player_id": "5149077",
   "name": "Kingston Flemings",
   "team": "Atlanta Hawks",
+  "team_id": "1",
   "position": "G",
   "sections": [
     {
@@ -58,6 +59,89 @@
             "to": 83.1,
             "fg_pct": 50.0,
             "custom_impact": 60.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Situational Splits",
+      "data": {
+        "meta_keys": [
+          "split"
+        ],
+        "rows": [
+          {
+            "split": "Overall",
+            "gp": 8,
+            "min_pg": 20.6,
+            "pts_pg": 8.0,
+            "reb_pg": 2.9,
+            "ast_pg": 4.6,
+            "stl_pg": 0.8,
+            "blk_pg": 0.2,
+            "to_pg": 2.2,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Home Games",
+            "gp": 3,
+            "min_pg": 19.7,
+            "pts_pg": 9.0,
+            "reb_pg": 2.3,
+            "ast_pg": 4.0,
+            "stl_pg": 0.3,
+            "blk_pg": 0.3,
+            "to_pg": 1.3,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 5,
+            "min_pg": 21.2,
+            "pts_pg": 7.4,
+            "reb_pg": 3.2,
+            "ast_pg": 5.0,
+            "stl_pg": 1.0,
+            "blk_pg": 0.2,
+            "to_pg": 2.8,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 5,
+            "min_pg": 22.0,
+            "pts_pg": 11.4,
+            "reb_pg": 2.4,
+            "ast_pg": 4.8,
+            "stl_pg": 1.0,
+            "blk_pg": 0.2,
+            "to_pg": 2.2,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Wins",
+            "gp": 4,
+            "min_pg": 19.8,
+            "pts_pg": 5.2,
+            "reb_pg": 3.5,
+            "ast_pg": 5.0,
+            "stl_pg": 0.2,
+            "blk_pg": 0.2,
+            "to_pg": 1.8,
+            "fg_pct": 0.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 4,
+            "min_pg": 21.5,
+            "pts_pg": 10.8,
+            "reb_pg": 2.2,
+            "ast_pg": 4.2,
+            "stl_pg": 1.2,
+            "blk_pg": 0.2,
+            "to_pg": 2.8,
+            "fg_pct": 0.0
           }
         ]
       }
