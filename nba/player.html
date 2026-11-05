@@ -92,10 +92,31 @@
             margin-bottom: 6px;
         }
 
+        .court-info-box {
+            margin-top: 8px;
+            padding: 6px;
+            background: #eee;
+            border: 1px solid #ccc;
+            font-size: 11px;
+            min-height: 48px;
+            line-height: 1.4;
+        }
+
         svg.half-court {
             width: 100%;
             height: auto;
             display: block;
+        }
+
+        .court-zone {
+            cursor: pointer;
+            transition: opacity 0.15s, stroke-width 0.15s;
+        }
+
+        .court-zone:hover {
+            opacity: 0.85;
+            stroke: #000 !important;
+            stroke-width: 3 !important;
         }
 
         table {
@@ -129,6 +150,11 @@
 
         th:hover {
             background-color: #e2e2e2;
+        }
+
+        th.has-tip {
+            border-bottom: 1px dotted #666;
+            cursor: help;
         }
 
         th.num, td.num {
@@ -176,7 +202,52 @@
         const urlParams = new URLSearchParams(window.location.search);
         const playerId = urlParams.get('id');
 
+        const STAT_GLOSSARY = {
+            "GP": "Games Played",
+            "MIN": "Minutes Played",
+            "MIN_PG": "Minutes Per Game",
+            "PTS": "Points",
+            "PTS_PG": "Points Per Game",
+            "REB": "Rebounds",
+            "REB_PG": "Rebounds Per Game",
+            "AST": "Assists",
+            "AST_PG": "Assists Per Game",
+            "STL": "Steals",
+            "STL_PG": "Steals Per Game",
+            "BLK": "Blocks",
+            "BLK_PG": "Blocks Per Game",
+            "TO": "Turnovers",
+            "TO_PG": "Turnovers Per Game",
+            "PF": "Personal Fouls",
+            "FGM": "Field Goals Made",
+            "FGA": "Field Goals Attempted",
+            "FG_PCT": "Field Goal Percentage (FGM / FGA)",
+            "FG3M": "3-Point Field Goals Made",
+            "FG3A": "3-Point Field Goals Attempted",
+            "FTM": "Free Throws Made",
+            "FTA": "Free Throws Attempted",
+            "OREB": "Offensive Rebounds",
+            "DREB": "Defensive Rebounds",
+            "TS_PCT": "True Shooting %: Measures scoring efficiency factoring in 2PT, 3PT, and FTs",
+            "EFG_PCT": "Effective FG %: Adjusts field goal percentage to credit 3-pointers for 50% more value",
+            "USG_PCT": "Usage Rate %: Percentage of team plays used while on the court",
+            "TOV_PCT": "Turnover Rate %: Turnovers committed per 100 plays",
+            "AST_TO_RATIO": "Assist-to-Turnover Ratio (AST / TO)",
+            "THREE_PAR": "3-Point Attempt Rate (% of field goal attempts from 3PT range)",
+            "FT_RATE": "Free Throw Attempt Rate (FTA / FGA)",
+            "PPSA": "Points Per Shot Attempt (PTS / FGA)",
+            "GMSC": "Game Score: John Hollinger's comprehensive single-game performance rating",
+            "GMSC_AVG": "Average Game Score per game",
+            "STOCKS_PG": "Stocks: Steals + Blocks per game",
+            "SHOT_SHARE": "Percentage of total attempts taken in this distance zone",
+            "LEAGUE_AVG_FG": "NBA League Average Field Goal % in this distance zone",
+            "EFF_PERCENTILE": "Efficiency Percentile: Player FG% rank compared to league (0-100)",
+            "VOL_PERCENTILE": "Volume Percentile: Shot attempts rank compared to league (0-100)",
+            "CUSTOM_IMPACT": "Custom Player Rating: Weighted multi-category impact index"
+        };
+
         const tableState = {};
+        let zoneStatsMap = {};
 
         window.onload = () => {
             if (!playerId) {
@@ -210,34 +281,72 @@
         }
 
         function createCourtSVG(splitsRows) {
+            zoneStatsMap = {};
             let z0_4 = 50, z4_14 = 50, z14_plus = 50;
             if (splitsRows) {
                 splitsRows.forEach(r => {
+                    zoneStatsMap[r.zone] = r;
                     if (r.zone === "0-4 ft") z0_4 = r.eff_percentile;
                     if (r.zone === "4-14 ft") z4_14 = r.eff_percentile;
                     if (r.zone === "14+ ft") z14_plus = r.eff_percentile;
                 });
             }
 
+            const getTooltipText = (zone) => {
+                const r = zoneStatsMap[zone];
+                if (!r) return zone;
+                return `${zone}: ${r.fgm}/${r.fga} (${r.fg_pct}%) | Share: ${r.shot_share}% | Eff %ile: ${r.eff_percentile}`;
+            };
+
             return `
                 <svg class="half-court" viewBox="0 0 500 470" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="0" y="0" width="500" height="470" fill="${getPercentileColor(z14_plus)}" stroke="#333" stroke-width="4"/>
-                    <path d="M 110,0 L 110,52.5 A 140,140 0 0,0 390,52.5 L 390,0 Z" fill="${getPercentileColor(z4_14)}" stroke="#555" stroke-width="2"/>
-                    <path d="M 210,0 L 210,52.5 A 40,40 0 0,0 290,52.5 L 290,0 Z" fill="${getPercentileColor(z0_4)}" stroke="#555" stroke-width="2"/>
+                    <!-- Zone 3: 14+ ft -->
+                    <rect class="court-zone" x="0" y="0" width="500" height="470" fill="${getPercentileColor(z14_plus)}" stroke="#333" stroke-width="4"
+                        onmouseenter="showZoneHover('14+ ft')" onmouseleave="clearZoneHover()">
+                        <title>${getTooltipText('14+ ft')}</title>
+                    </rect>
 
-                    <!-- Court lines -->
-                    <rect x="170" y="0" width="160" height="190" fill="none" stroke="#222" stroke-width="2"/>
-                    <circle cx="250" cy="190" r="60" fill="none" stroke="#222" stroke-width="2"/>
-                    <line x1="220" y1="40" x2="280" y2="40" stroke="#000" stroke-width="4"/>
-                    <circle cx="250" cy="52.5" r="9" fill="none" stroke="#d97706" stroke-width="3"/>
-                    <path d="M 30,0 L 30,140 A 237.5,237.5 0 0,0 470,140 L 470,0" fill="none" stroke="#222" stroke-width="2"/>
+                    <!-- Zone 2: 4-14 ft -->
+                    <path class="court-zone" d="M 110,0 L 110,52.5 A 140,140 0 0,0 390,52.5 L 390,0 Z" fill="${getPercentileColor(z4_14)}" stroke="#555" stroke-width="2"
+                        onmouseenter="showZoneHover('4-14 ft')" onmouseleave="clearZoneHover()">
+                        <title>${getTooltipText('4-14 ft')}</title>
+                    </path>
+
+                    <!-- Zone 1: 0-4 ft -->
+                    <path class="court-zone" d="M 210,0 L 210,52.5 A 40,40 0 0,0 290,52.5 L 290,0 Z" fill="${getPercentileColor(z0_4)}" stroke="#555" stroke-width="2"
+                        onmouseenter="showZoneHover('0-4 ft')" onmouseleave="clearZoneHover()">
+                        <title>${getTooltipText('0-4 ft')}</title>
+                    </path>
+
+                    <!-- Overlays -->
+                    <rect x="170" y="0" width="160" height="190" fill="none" stroke="#222" stroke-width="2" pointer-events="none"/>
+                    <circle cx="250" cy="190" r="60" fill="none" stroke="#222" stroke-width="2" pointer-events="none"/>
+                    <line x1="220" y1="40" x2="280" y2="40" stroke="#000" stroke-width="4" pointer-events="none"/>
+                    <circle cx="250" cy="52.5" r="9" fill="none" stroke="#d97706" stroke-width="3" pointer-events="none"/>
+                    <path d="M 30,0 L 30,140 A 237.5,237.5 0 0,0 470,140 L 470,0" fill="none" stroke="#222" stroke-width="2" pointer-events="none"/>
                 </svg>
             `;
         }
 
+        function showZoneHover(zone) {
+            const box = document.getElementById('court-info-box');
+            const r = zoneStatsMap[zone];
+            if (!box || !r) return;
+            box.innerHTML = `
+                <strong>Zone: ${r.zone}</strong><br>
+                FGM/FGA: <strong>${r.fgm}/${r.fga}</strong> (${r.fg_pct}%)<br>
+                Shot Share: <strong>${r.shot_share}%</strong> | Lg Avg: ${r.league_avg_fg}%<br>
+                Efficiency Percentile: <strong>${r.eff_percentile}</strong>
+            `;
+        }
+
+        function clearZoneHover() {
+            const box = document.getElementById('court-info-box');
+            if (box) box.innerHTML = "<em>Hover over any court zone to inspect shot volume and efficiency.</em>";
+        }
+
         function renderPlayerEngine(data) {
             const container = document.getElementById('player-content');
-
             const teamLink = data.team_id ? `<a class="table-link" href="team.html?id=${data.team_id}">${data.team}</a>` : data.team;
 
             let html = `
@@ -264,6 +373,9 @@
                             <div class="court-wrapper">
                                 <div class="court-title">Efficiency Heat Map</div>
                                 ${createCourtSVG(section.data.rows)}
+                                <div class="court-info-box" id="court-info-box">
+                                    <em>Hover over any court zone to inspect shot volume and efficiency.</em>
+                                </div>
                             </div>
                             <div id="${sectionId}_box">
                                 ${buildTableHTML(sectionId)}
@@ -298,7 +410,11 @@
                     indicator = `<span class="sort-indicator">${state.isAsc ? '▲' : '▼'}</span>`;
                 }
 
-                html += `<th class="${isNumeric && !isMeta ? 'num' : ''}" onclick="handleSort('${sectionId}', '${col}')">
+                const colUpper = col.toUpperCase();
+                const tip = STAT_GLOSSARY[colUpper] || "";
+                const tipAttr = tip ? `title="${tip}" class="${isNumeric && !isMeta ? 'num' : ''} has-tip"` : `class="${isNumeric && !isMeta ? 'num' : ''}"`;
+
+                html += `<th ${tipAttr} onclick="handleSort('${sectionId}', '${col}')">
                     ${col.replace(/_/g, ' ').toUpperCase()} ${indicator}
                 </th>`;
             });

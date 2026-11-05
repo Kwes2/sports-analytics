@@ -93,6 +93,11 @@
             background-color: #e2e2e2;
         }
 
+        th.has-tip {
+            border-bottom: 1px dotted #666;
+            cursor: help;
+        }
+
         th.num, td.num {
             text-align: right;
             font-variant-numeric: tabular-nums;
@@ -140,6 +145,24 @@
     <div id="table-container">Loading data...</div>
 
     <script>
+        const STAT_GLOSSARY = {
+            "GP": "Games Played",
+            "W": "Wins",
+            "L": "Losses",
+            "WIN_PCT": "Win Percentage",
+            "PACE": "Pace Factor: Estimated team possessions per 48 minutes",
+            "ORTG": "Offensive Rating: Points scored per 100 possessions",
+            "DRTG": "Defensive Rating: Points allowed per 100 possessions",
+            "NET_RTG": "Net Rating: Point differential per 100 possessions (ORtg - DRtg)",
+            "PTS_PG": "Points Per Game",
+            "OPP_PTS_PG": "Opponent Points Per Game",
+            "DIFF": "Point Differential Per Game",
+            "TS_PCT": "True Shooting Percentage",
+            "USG_PCT": "Usage Rate Percentage",
+            "GMSC_AVG": "Average Hollinger Game Score",
+            "CUSTOM_IMPACT": "Weighted Player Impact Index"
+        };
+
         let currentRows = [];
         let currentMetaKeys = [];
         let currentSortColumn = null;
@@ -182,7 +205,6 @@
 
             const sample = currentRows[0];
             const allKeys = Object.keys(sample);
-            // Hide player_id and team_id from direct column display
             const visibleKeys = allKeys.filter(k => k !== "player_id" && k !== "team_id");
 
             const metaCols = currentMetaKeys.filter(k => visibleKeys.includes(k));
@@ -200,8 +222,12 @@
                     indicator = `<span class="sort-indicator">${isAscending ? '▲' : '▼'}</span>`;
                 }
 
+                const colUpper = col.toUpperCase();
+                const tip = STAT_GLOSSARY[colUpper] || "";
+                const tipAttr = tip ? `title="${tip}" class="${isNumeric && !isMeta ? 'num' : ''} has-tip"` : `class="${isNumeric && !isMeta ? 'num' : ''}"`;
+
                 html += `
-                    <th class="${isNumeric && !isMeta ? 'num' : ''}" onclick="sortTable('${col}')">
+                    <th ${tipAttr} onclick="sortTable('${col}')">
                         ${formatHeader(col)} ${indicator}
                     </th>`;
             });

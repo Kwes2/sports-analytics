@@ -96,6 +96,17 @@
             display: block;
         }
 
+        .court-zone {
+            cursor: pointer;
+            transition: opacity 0.15s, stroke-width 0.15s;
+        }
+
+        .court-zone:hover {
+            opacity: 0.85;
+            stroke: #000 !important;
+            stroke-width: 3 !important;
+        }
+
         table {
             border-collapse: collapse;
             width: 100%;
@@ -128,6 +139,11 @@
             background-color: #e2e2e2;
         }
 
+        th.has-tip {
+            border-bottom: 1px dotted #666;
+            cursor: help;
+        }
+
         th.num, td.num {
             text-align: right;
             font-variant-numeric: tabular-nums;
@@ -139,6 +155,12 @@
 
         tr:hover {
             background-color: #ffffcc;
+        }
+
+        .sort-indicator {
+            font-size: 10px;
+            margin-left: 4px;
+            color: #666;
         }
 
         a.table-link {
@@ -167,6 +189,37 @@
         const urlParams = new URLSearchParams(window.location.search);
         const gameId = urlParams.get('id');
 
+        const STAT_GLOSSARY = {
+            "MIN": "Minutes Played",
+            "PTS": "Points",
+            "REB": "Rebounds",
+            "AST": "Assists",
+            "STL": "Steals",
+            "BLK": "Blocks",
+            "TO": "Turnovers",
+            "PF": "Personal Fouls",
+            "FGM": "Field Goals Made",
+            "FGA": "Field Goals Attempted",
+            "FG3M": "3-Point Field Goals Made",
+            "FG3A": "3-Point Field Goals Attempted",
+            "FTM": "Free Throws Made",
+            "FTA": "Free Throws Attempted",
+            "OREB": "Offensive Rebounds",
+            "DREB": "Defensive Rebounds",
+            "GMSC": "John Hollinger's Game Score Rating",
+            "PACE": "Possessions per 48 minutes",
+            "ORTG": "Offensive Rating (Points per 100 possessions)",
+            "DRTG": "Defensive Rating (Points allowed per 100 possessions)",
+            "NET_RTG": "Net Rating (ORtg - DRtg)",
+            "EFG_PCT": "Effective FG %",
+            "TOV_PCT": "Turnover %",
+            "ORB_PCT": "Offensive Rebound %",
+            "FT_RATE": "Free Throw Attempt Rate (FTA / FGA)",
+            "SHOT_SHARE": "Percentage of team attempts in this zone"
+        };
+
+        const boxTableState = {};
+
         window.onload = () => {
             if (!gameId) {
                 document.getElementById('boxscore-content').innerHTML = "<p style='color:red;'>No Game ID provided in URL.</p>";
@@ -183,44 +236,51 @@
 
         function getGameFGColor(pct) {
             if (!pct || isNaN(pct)) return '#f0f0f0';
-            if (pct < 45) {
-                return '#93c5fd';
-            } else if (pct < 55) {
-                return '#f1f5f9';
-            } else {
-                return '#fca5a5';
-            }
+            if (pct < 45) return '#93c5fd';
+            if (pct < 55) return '#f1f5f9';
+            return '#fca5a5';
         }
 
-        function createTeamCourtSVG(splitsRows) {
+        function createTeamCourtSVG(splitsRows, teamKey) {
             let z0_4 = 0, z4_14 = 0, z14_plus = 0;
+            const sMap = {};
             if (splitsRows) {
                 splitsRows.forEach(r => {
+                    sMap[r.zone] = r;
                     if (r.zone === "0-4 ft") z0_4 = r.fg_pct;
                     if (r.zone === "4-14 ft") z4_14 = r.fg_pct;
                     if (r.zone === "14+ ft") z14_plus = r.fg_pct;
                 });
             }
 
+            const getTip = (zone) => {
+                const r = sMap[zone];
+                return r ? `${zone}: ${r.fgm}/${r.fga} (${r.fg_pct}%) | Share: ${r.shot_share}%` : zone;
+            };
+
             return `
                 <svg class="half-court" viewBox="0 0 500 470" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="0" y="0" width="500" height="470" fill="${getGameFGColor(z14_plus)}" stroke="#333" stroke-width="4"/>
-                    <path d="M 110,0 L 110,52.5 A 140,140 0 0,0 390,52.5 L 390,0 Z" fill="${getGameFGColor(z4_14)}" stroke="#555" stroke-width="2"/>
-                    <path d="M 210,0 L 210,52.5 A 40,40 0 0,0 290,52.5 L 290,0 Z" fill="${getGameFGColor(z0_4)}" stroke="#555" stroke-width="2"/>
+                    <rect class="court-zone" x="0" y="0" width="500" height="470" fill="${getGameFGColor(z14_plus)}" stroke="#333" stroke-width="4">
+                        <title>${getTip('14+ ft')}</title>
+                    </rect>
+                    <path class="court-zone" d="M 110,0 L 110,52.5 A 140,140 0 0,0 390,52.5 L 390,0 Z" fill="${getGameFGColor(z4_14)}" stroke="#555" stroke-width="2">
+                        <title>${getTip('4-14 ft')}</title>
+                    </path>
+                    <path class="court-zone" d="M 210,0 L 210,52.5 A 40,40 0 0,0 290,52.5 L 290,0 Z" fill="${getGameFGColor(z0_4)}" stroke="#555" stroke-width="2">
+                        <title>${getTip('0-4 ft')}</title>
+                    </path>
 
-                    <!-- Court lines -->
-                    <rect x="170" y="0" width="160" height="190" fill="none" stroke="#222" stroke-width="2"/>
-                    <circle cx="250" cy="190" r="60" fill="none" stroke="#222" stroke-width="2"/>
-                    <line x1="220" y1="40" x2="280" y2="40" stroke="#000" stroke-width="4"/>
-                    <circle cx="250" cy="52.5" r="9" fill="none" stroke="#d97706" stroke-width="3"/>
-                    <path d="M 30,0 L 30,140 A 237.5,237.5 0 0,0 470,140 L 470,0" fill="none" stroke="#222" stroke-width="2"/>
+                    <rect x="170" y="0" width="160" height="190" fill="none" stroke="#222" stroke-width="2" pointer-events="none"/>
+                    <circle cx="250" cy="190" r="60" fill="none" stroke="#222" stroke-width="2" pointer-events="none"/>
+                    <line x1="220" y1="40" x2="280" y2="40" stroke="#000" stroke-width="4" pointer-events="none"/>
+                    <circle cx="250" cy="52.5" r="9" fill="none" stroke="#d97706" stroke-width="3" pointer-events="none"/>
+                    <path d="M 30,0 L 30,140 A 237.5,237.5 0 0,0 470,140 L 470,0" fill="none" stroke="#222" stroke-width="2" pointer-events="none"/>
                 </svg>
             `;
         }
 
         function renderBoxScore(game) {
             const container = document.getElementById('boxscore-content');
-
             const awayLink = game.away_team_id ? `<a class="table-link" href="team.html?id=${game.away_team_id}">${game.away_team}</a>` : game.away_team;
             const homeLink = game.home_team_id ? `<a class="table-link" href="team.html?id=${game.home_team_id}">${game.home_team}</a>` : game.home_team;
 
@@ -233,22 +293,46 @@
 
             if (game.four_factors && game.four_factors.rows) {
                 html += `<h3>Four Factors Comparison</h3>`;
-                html += renderTable(game.four_factors.rows, game.four_factors.meta_keys);
+                const ffId = "table_four_factors";
+                boxTableState[ffId] = {
+                    metaKeys: game.four_factors.meta_keys || ["team"],
+                    rows: game.four_factors.rows || [],
+                    sortCol: null,
+                    isAsc: false
+                };
+                html += `<div id="${ffId}_box">${renderSortableBoxTable(ffId)}</div>`;
             }
 
-            game.teams.forEach(team => {
+            (game.teams || []).forEach((team, tIdx) => {
                 const teamTitleLink = team.team_id ? `<a class="table-link" href="team.html?id=${team.team_id}">${team.team_name}</a>` : team.team_name;
                 html += `<h3>${teamTitleLink} Box Score</h3>`;
-                html += renderTable(team.rows, team.meta_keys);
+
+                const boxId = `table_team_${tIdx}_players`;
+                boxTableState[boxId] = {
+                    metaKeys: team.meta_keys || ["player", "pos"],
+                    rows: team.rows || [],
+                    sortCol: null,
+                    isAsc: false
+                };
+                html += `<div id="${boxId}_box">${renderSortableBoxTable(boxId)}</div>`;
 
                 if (team.shooting_splits && team.shooting_splits.rows) {
                     html += `<h4>${teamTitleLink} Shooting Splits</h4>`;
+                    const splitId = `table_team_${tIdx}_splits`;
+                    boxTableState[splitId] = {
+                        metaKeys: team.shooting_splits.meta_keys || ["zone"],
+                        rows: team.shooting_splits.rows || [],
+                        sortCol: null,
+                        isAsc: false
+                    };
                     html += `
                         <div class="team-splits-container">
                             <div class="court-wrapper">
-                                ${createTeamCourtSVG(team.shooting_splits.rows)}
+                                ${createTeamCourtSVG(team.shooting_splits.rows, `team_${tIdx}`)}
                             </div>
-                            ${renderTable(team.shooting_splits.rows, team.shooting_splits.meta_keys)}
+                            <div id="${splitId}_box">
+                                ${renderSortableBoxTable(splitId)}
+                            </div>
                         </div>
                     `;
                 }
@@ -257,25 +341,38 @@
             container.innerHTML = html;
         }
 
-        function renderTable(rows, metaKeys) {
-            if (!rows || rows.length === 0) return "<p>No stats recorded.</p>";
+        function renderSortableBoxTable(tblId) {
+            const state = boxTableState[tblId];
+            if (!state || state.rows.length === 0) return "<p>No stats recorded.</p>";
 
-            const sample = rows[0];
+            const sample = state.rows[0];
             const allKeys = Object.keys(sample);
             const visibleKeys = allKeys.filter(k => k !== "player_id" && k !== "team_id");
-            const metaCols = metaKeys.filter(k => visibleKeys.includes(k));
-            const statCols = visibleKeys.filter(k => !metaKeys.includes(k));
+            const metaCols = state.metaKeys.filter(k => visibleKeys.includes(k));
+            const statCols = visibleKeys.filter(k => !state.metaKeys.includes(k));
             const orderedCols = [...metaCols, ...statCols];
 
             let html = `<table><thead><tr>`;
             orderedCols.forEach(col => {
                 const isMeta = metaCols.includes(col);
                 const isNumeric = typeof sample[col] === 'number';
-                html += `<th class="${isNumeric && !isMeta ? 'num' : ''}">${col.replace(/_/g, ' ').toUpperCase()}</th>`;
+                let indicator = '';
+
+                if (state.sortCol === col) {
+                    indicator = `<span class="sort-indicator">${state.isAsc ? '▲' : '▼'}</span>`;
+                }
+
+                const colUpper = col.toUpperCase();
+                const tip = STAT_GLOSSARY[colUpper] || "";
+                const tipAttr = tip ? `title="${tip}" class="${isNumeric && !isMeta ? 'num' : ''} has-tip"` : `class="${isNumeric && !isMeta ? 'num' : ''}"`;
+
+                html += `<th ${tipAttr} onclick="handleBoxSort('${tblId}', '${col}')">
+                    ${col.replace(/_/g, ' ').toUpperCase()} ${indicator}
+                </th>`;
             });
             html += `</tr></thead><tbody>`;
 
-            rows.forEach(row => {
+            state.rows.forEach(row => {
                 html += `<tr>`;
                 orderedCols.forEach(col => {
                     const val = row[col];
@@ -294,6 +391,37 @@
 
             html += `</tbody></table>`;
             return html;
+        }
+
+        function handleBoxSort(tblId, col) {
+            const state = boxTableState[tblId];
+            if (!state || state.rows.length === 0) return;
+
+            if (state.sortCol === col) {
+                state.isAsc = !state.isAsc;
+            } else {
+                state.sortCol = col;
+                const isNumeric = typeof state.rows[0][col] === 'number';
+                state.isAsc = !isNumeric;
+            }
+
+            state.rows.sort((a, b) => {
+                let valA = a[col];
+                let valB = b[col];
+                if (valA === null || valA === undefined) return 1;
+                if (valB === null || valB === undefined) return -1;
+
+                if (typeof valA === 'number' && typeof valB === 'number') {
+                    return state.isAsc ? valA - valB : valB - valA;
+                }
+                valA = valA.toString().toLowerCase();
+                valB = valB.toString().toLowerCase();
+                if (valA < valB) return state.isAsc ? -1 : 1;
+                if (valA > valB) return state.isAsc ? 1 : -1;
+                return 0;
+            });
+
+            document.getElementById(`${tblId}_box`).innerHTML = renderSortableBoxTable(tblId);
         }
     </script>
 </body>
