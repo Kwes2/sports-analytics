@@ -8,6 +8,43 @@
   "away_team": "Chicago Bulls",
   "away_score": 92,
   "away_team_id": "4",
+  "four_factors": {
+    "meta_keys": [
+      "team"
+    ],
+    "rows": [
+      {
+        "team": "Toronto Raptors",
+        "pace": 107.5,
+        "ortg": 125.3,
+        "drtg": 85.8,
+        "net_rtg": 39.5,
+        "efg_pct": 50.0,
+        "tov_pct": 7.8,
+        "orb_pct": 30.8,
+        "ft_rate": 46.9,
+        "opp_efg_pct": 34.1,
+        "opp_tov_pct": 20.3,
+        "drb_pct": 62.5,
+        "opp_ft_rate": 55.3
+      },
+      {
+        "team": "Chicago Bulls",
+        "pace": 107.5,
+        "ortg": 85.8,
+        "drtg": 125.3,
+        "net_rtg": -39.5,
+        "efg_pct": 34.1,
+        "tov_pct": 20.3,
+        "orb_pct": 37.5,
+        "ft_rate": 55.3,
+        "opp_efg_pct": 50.0,
+        "opp_tov_pct": 7.8,
+        "drb_pct": 69.2,
+        "opp_ft_rate": 46.9
+      }
+    ]
+  },
   "teams": [
     {
       "team_name": "Chicago Bulls",
@@ -57,8 +94,16 @@
           "stl": 0,
           "blk": 1,
           "to": 0,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 5,
+          "fga": 10,
+          "fg3m": 0,
+          "fg3a": 3,
+          "ftm": 5,
+          "fta": 6,
+          "oreb": 4,
+          "dreb": 4,
+          "pf": 3,
+          "gmsc": 13.8
         },
         {
           "player_id": "4711294",
@@ -71,8 +116,16 @@
           "stl": 0,
           "blk": 2,
           "to": 3,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 2,
+          "fga": 8,
+          "fg3m": 0,
+          "fg3a": 4,
+          "ftm": 13,
+          "fta": 16,
+          "oreb": 1,
+          "dreb": 5,
+          "pf": 2,
+          "gmsc": 10.8
         },
         {
           "player_id": "5095151",
@@ -85,8 +138,16 @@
           "stl": 3,
           "blk": 1,
           "to": 9,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 7,
+          "fga": 21,
+          "fg3m": 1,
+          "fg3a": 8,
+          "ftm": 1,
+          "fta": 2,
+          "oreb": 3,
+          "dreb": 1,
+          "pf": 4,
+          "gmsc": -0.8
         },
         {
           "player_id": "2595516",
@@ -99,8 +160,16 @@
           "stl": 2,
           "blk": 0,
           "to": 1,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 3,
+          "fga": 9,
+          "fg3m": 2,
+          "fg3a": 6,
+          "ftm": 7,
+          "fta": 11,
+          "oreb": 0,
+          "dreb": 5,
+          "pf": 4,
+          "gmsc": 9.9
         },
         {
           "player_id": "4871145",
@@ -113,8 +182,16 @@
           "stl": 0,
           "blk": 0,
           "to": 5,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 1,
+          "fga": 10,
+          "fg3m": 0,
+          "fg3a": 4,
+          "ftm": 0,
+          "fta": 2,
+          "oreb": 2,
+          "dreb": 5,
+          "pf": 2,
+          "gmsc": -4.1
         },
         {
           "player_id": "4066650",
@@ -128,7 +205,15 @@
           "blk": 0,
           "to": 0,
           "fgm": 0,
-          "fga": 0
+          "fga": 0,
+          "fg3m": 0,
+          "fg3a": 0,
+          "ftm": 0,
+          "fta": 0,
+          "oreb": 1,
+          "dreb": 4,
+          "pf": 0,
+          "gmsc": 1.9
         },
         {
           "player_id": "4432822",
@@ -142,7 +227,15 @@
           "blk": 0,
           "to": 0,
           "fgm": 0,
-          "fga": 0
+          "fga": 1,
+          "fg3m": 0,
+          "fg3a": 1,
+          "ftm": 4,
+          "fta": 4,
+          "oreb": 0,
+          "dreb": 0,
+          "pf": 4,
+          "gmsc": 2.4
         },
         {
           "player_id": "5044385",
@@ -155,8 +248,16 @@
           "stl": 1,
           "blk": 0,
           "to": 5,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 2,
+          "fga": 9,
+          "fg3m": 0,
+          "fg3a": 4,
+          "ftm": 0,
+          "fta": 0,
+          "oreb": 2,
+          "dreb": 4,
+          "pf": 5,
+          "gmsc": -4.2
         },
         {
           "player_id": "5105555",
@@ -169,8 +270,16 @@
           "stl": 0,
           "blk": 1,
           "to": 0,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 1,
+          "fga": 1,
+          "fg3m": 0,
+          "fg3a": 0,
+          "ftm": 0,
+          "fta": 0,
+          "oreb": 6,
+          "dreb": 1,
+          "pf": 2,
+          "gmsc": 7.5
         },
         {
           "player_id": "5242496",
@@ -184,7 +293,15 @@
           "blk": 0,
           "to": 1,
           "fgm": 0,
-          "fga": 0
+          "fga": 0,
+          "fg3m": 0,
+          "fg3a": 0,
+          "ftm": 1,
+          "fta": 2,
+          "oreb": 1,
+          "dreb": 2,
+          "pf": 2,
+          "gmsc": 0.1
         },
         {
           "player_id": "2990984",
@@ -198,7 +315,15 @@
           "blk": 0,
           "to": 2,
           "fgm": 0,
-          "fga": 0
+          "fga": 4,
+          "fg3m": 0,
+          "fg3a": 3,
+          "ftm": 0,
+          "fta": 0,
+          "oreb": 1,
+          "dreb": 1,
+          "pf": 3,
+          "gmsc": -3.6
         },
         {
           "player_id": "4395626",
@@ -211,8 +336,16 @@
           "stl": 0,
           "blk": 0,
           "to": 0,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 5,
+          "fga": 8,
+          "fg3m": 0,
+          "fg3a": 1,
+          "ftm": 3,
+          "fta": 4,
+          "oreb": 0,
+          "dreb": 3,
+          "pf": 0,
+          "gmsc": 9.9
         },
         {
           "player_id": "4898010",
@@ -225,8 +358,16 @@
           "stl": 0,
           "blk": 0,
           "to": 1,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 1,
+          "fga": 4,
+          "fg3m": 1,
+          "fg3a": 2,
+          "ftm": 0,
+          "fta": 0,
+          "oreb": 0,
+          "dreb": 1,
+          "pf": 3,
+          "gmsc": 0.1
         }
       ]
     },
@@ -278,8 +419,16 @@
           "stl": 4,
           "blk": 1,
           "to": 0,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 5,
+          "fga": 17,
+          "fg3m": 2,
+          "fg3a": 6,
+          "ftm": 11,
+          "fta": 11,
+          "oreb": 1,
+          "dreb": 5,
+          "pf": 3,
+          "gmsc": 20.2
         },
         {
           "player_id": "4395625",
@@ -292,8 +441,16 @@
           "stl": 0,
           "blk": 0,
           "to": 1,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 8,
+          "fga": 14,
+          "fg3m": 0,
+          "fg3a": 3,
+          "ftm": 4,
+          "fta": 7,
+          "oreb": 1,
+          "dreb": 3,
+          "pf": 3,
+          "gmsc": 13.7
         },
         {
           "player_id": "4433134",
@@ -306,8 +463,16 @@
           "stl": 0,
           "blk": 0,
           "to": 1,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 8,
+          "fga": 19,
+          "fg3m": 1,
+          "fg3a": 3,
+          "ftm": 6,
+          "fta": 6,
+          "oreb": 2,
+          "dreb": 4,
+          "pf": 2,
+          "gmsc": 17.2
         },
         {
           "player_id": "3134908",
@@ -320,8 +485,16 @@
           "stl": 1,
           "blk": 1,
           "to": 0,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 1,
+          "fga": 1,
+          "fg3m": 0,
+          "fg3a": 0,
+          "ftm": 1,
+          "fta": 3,
+          "oreb": 0,
+          "dreb": 6,
+          "pf": 4,
+          "gmsc": 3.8
         },
         {
           "player_id": "4395724",
@@ -334,8 +507,16 @@
           "stl": 2,
           "blk": 0,
           "to": 0,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 6,
+          "fga": 13,
+          "fg3m": 4,
+          "fg3a": 9,
+          "ftm": 7,
+          "fta": 8,
+          "oreb": 2,
+          "dreb": 2,
+          "pf": 2,
+          "gmsc": 24.0
         },
         {
           "player_id": "2993874",
@@ -349,7 +530,15 @@
           "blk": 0,
           "to": 0,
           "fgm": 0,
-          "fga": 0
+          "fga": 1,
+          "fg3m": 0,
+          "fg3a": 0,
+          "ftm": 0,
+          "fta": 0,
+          "oreb": 0,
+          "dreb": 1,
+          "pf": 0,
+          "gmsc": 2.0
         },
         {
           "player_id": "4431684",
@@ -362,8 +551,16 @@
           "stl": 0,
           "blk": 0,
           "to": 0,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 4,
+          "fga": 5,
+          "fg3m": 0,
+          "fg3a": 0,
+          "ftm": 1,
+          "fta": 1,
+          "oreb": 1,
+          "dreb": 0,
+          "pf": 0,
+          "gmsc": 7.8
         },
         {
           "player_id": "4431893",
@@ -376,8 +573,16 @@
           "stl": 1,
           "blk": 0,
           "to": 0,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 3,
+          "fga": 4,
+          "fg3m": 2,
+          "fg3a": 2,
+          "ftm": 0,
+          "fta": 0,
+          "oreb": 2,
+          "dreb": 3,
+          "pf": 2,
+          "gmsc": 8.9
         },
         {
           "player_id": "5093267",
@@ -390,8 +595,16 @@
           "stl": 1,
           "blk": 1,
           "to": 0,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 2,
+          "fga": 7,
+          "fg3m": 0,
+          "fg3a": 1,
+          "ftm": 2,
+          "fta": 2,
+          "oreb": 3,
+          "dreb": 5,
+          "pf": 2,
+          "gmsc": 8.5
         },
         {
           "player_id": "5149115",
@@ -404,8 +617,16 @@
           "stl": 1,
           "blk": 3,
           "to": 0,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 2,
+          "fga": 5,
+          "fg3m": 0,
+          "fg3a": 2,
+          "ftm": 1,
+          "fta": 2,
+          "oreb": 4,
+          "dreb": 1,
+          "pf": 1,
+          "gmsc": 7.7
         },
         {
           "player_id": "4432241",
@@ -419,7 +640,15 @@
           "blk": 0,
           "to": 4,
           "fgm": 0,
-          "fga": 0
+          "fga": 2,
+          "fg3m": 0,
+          "fg3a": 0,
+          "ftm": 2,
+          "fta": 2,
+          "oreb": 0,
+          "dreb": 2,
+          "pf": 2,
+          "gmsc": 0.9
         },
         {
           "player_id": "4432737",
@@ -433,7 +662,15 @@
           "blk": 0,
           "to": 1,
           "fgm": 0,
-          "fga": 0
+          "fga": 1,
+          "fg3m": 0,
+          "fg3a": 0,
+          "ftm": 0,
+          "fta": 0,
+          "oreb": 0,
+          "dreb": 0,
+          "pf": 2,
+          "gmsc": -2.5
         },
         {
           "player_id": "4684272",
@@ -446,8 +683,16 @@
           "stl": 3,
           "blk": 0,
           "to": 1,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 4,
+          "fga": 8,
+          "fg3m": 1,
+          "fg3a": 5,
+          "ftm": 1,
+          "fta": 2,
+          "oreb": 0,
+          "dreb": 3,
+          "pf": 4,
+          "gmsc": 9.7
         },
         {
           "player_id": "4702656",
@@ -460,8 +705,16 @@
           "stl": 0,
           "blk": 0,
           "to": 2,
-          "fgm": 0,
-          "fga": 0
+          "fgm": 1,
+          "fga": 1,
+          "fg3m": 0,
+          "fg3a": 0,
+          "ftm": 1,
+          "fta": 2,
+          "oreb": 0,
+          "dreb": 0,
+          "pf": 2,
+          "gmsc": -0.5
         }
       ]
     }

@@ -30,6 +30,30 @@
     },
     {
       "type": "table",
+      "title": "Advanced Statistics",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 4,
+            "ts_pct": 0.0,
+            "efg_pct": 0.0,
+            "usg_pct": 0.0,
+            "tov_pct": 0.0,
+            "ast_to_ratio": 1.0,
+            "three_par": 0.0,
+            "ft_rate": 0.0,
+            "ppsa": 0.0,
+            "gmsc_avg": 0.2,
+            "stocks_pg": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
       "title": "Percentile Ranks (0\u2013100)",
       "data": {
         "meta_keys": [
@@ -45,8 +69,12 @@
             "stl": 9.3,
             "blk": 15.0,
             "to": 7.0,
-            "fg_pct": 50.0,
-            "custom_impact": 2.5
+            "fg_pct": 3.0,
+            "custom_impact": 2.5,
+            "ts_pct": 2.2,
+            "efg_pct": 3.0,
+            "usg_pct": 1.1,
+            "gmsc_avg": 6.6
           },
           {
             "scope": "Position Percentile (C)",
@@ -57,8 +85,12 @@
             "stl": 14.0,
             "blk": 5.9,
             "to": 5.1,
-            "fg_pct": 50.0,
-            "custom_impact": 0.7
+            "fg_pct": 2.9,
+            "custom_impact": 0.7,
+            "ts_pct": 2.2,
+            "efg_pct": 2.9,
+            "usg_pct": 1.5,
+            "gmsc_avg": 1.5
           }
         ]
       }
@@ -197,7 +229,13 @@
             "blk": 0,
             "to": 0,
             "fgm": 0,
-            "fga": 0
+            "fga": 0,
+            "fg3m": 0,
+            "fg3a": 0,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 0.0,
+            "ts_pct": 0.0
           },
           {
             "date": "2026-11-03",
@@ -211,7 +249,13 @@
             "blk": 0,
             "to": 0,
             "fgm": 0,
-            "fga": 0
+            "fga": 0,
+            "fg3m": 0,
+            "fg3a": 0,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 0.9,
+            "ts_pct": 0.0
           },
           {
             "date": "2026-10-29",
@@ -225,7 +269,13 @@
             "blk": 0,
             "to": 0,
             "fgm": 0,
-            "fga": 0
+            "fga": 0,
+            "fg3m": 0,
+            "fg3a": 0,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 0.0,
+            "ts_pct": 0.0
           },
           {
             "date": "2026-10-21",
@@ -239,7 +289,13 @@
             "blk": 0,
             "to": 0,
             "fgm": 0,
-            "fga": 0
+            "fga": 0,
+            "fg3m": 0,
+            "fg3a": 0,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 0.0,
+            "ts_pct": 0.0
           }
         ]
       }

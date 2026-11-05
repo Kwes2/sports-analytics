@@ -231,6 +231,11 @@
                 </div>
             `;
 
+            if (game.four_factors && game.four_factors.rows) {
+                html += `<h3>Four Factors Comparison</h3>`;
+                html += renderTable(game.four_factors.rows, game.four_factors.meta_keys);
+            }
+
             game.teams.forEach(team => {
                 const teamTitleLink = team.team_id ? `<a class="table-link" href="team.html?id=${team.team_id}">${team.team_name}</a>` : team.team_name;
                 html += `<h3>${teamTitleLink} Box Score</h3>`;

@@ -9,7 +9,7 @@ def compute_percentile(val, all_vals):
 
 
 def build_stat_pools(players_dict, stat_keys):
-    """Builds distribution arrays for league-wide and position-specific stats."""
+    """Builds distribution arrays for league-wide and position-specific metrics."""
     league_pools = {k: [] for k in stat_keys}
     pos_pools = {}
 
@@ -18,8 +18,10 @@ def build_stat_pools(players_dict, stat_keys):
         if pos not in pos_pools:
             pos_pools[pos] = {k: [] for k in stat_keys}
 
+        combined_stats = {**p["averages"], **p["advanced"]}
+
         for k in stat_keys:
-            val = p["averages"][k]
+            val = combined_stats.get(k, 0.0)
             league_pools[k].append(val)
             pos_pools[pos][k].append(val)
 

@@ -14,7 +14,9 @@ from shots import (
 )
 from stats import (
     process_boxscore_players,
+    compute_player_advanced_metrics,
     compute_team_standings,
+    compute_team_advanced_metrics,
     compute_player_situational_splits,
     compute_team_situational_splits
 )
@@ -55,20 +57,12 @@ def main():
     standings_raw = crawl_team_standings()
     team_rows = compute_team_standings(standings_raw)
 
-    with open(DATA_DIR / "team_stats.json", "w") as f:
-        json.dump({
-            "meta_keys": ["team"],
-            "rows": team_rows
-        }, f, indent=2)
-
-    # Map team names to team IDs
-    team_id_map = {t["team"]: t["team_id"] for t in team_rows}
-
-    # 3. Crawl Summaries
+    # 3. Crawl Game Summaries
     summaries = crawl_game_summaries(completed_ids)
 
     players = {}
     team_season_shots = {}
+    team_game_stats_ledger = {}
     saved_boxes = 0
 
     for event_id, data in summaries.items():
@@ -100,7 +94,6 @@ def main():
             game_players, home_abbrev, away_abbrev, home_score, away_score, date_str
         )
 
-        # Track team cumulative shots
         for tid in [home_id, away_id]:
             if tid not in team_season_shots:
                 team_season_shots[tid] = init_zone_dict()
@@ -108,13 +101,39 @@ def main():
                 team_season_shots[tid][z]["fga"] += team_shots[tid][z]["fga"]
                 team_season_shots[tid][z]["fgm"] += team_shots[tid][z]["fgm"]
 
+        # Track full team box stats for Pace & Four Factors
+        def sum_team_stat(t_id, key):
+            rows = game_team_rows.get(t_id, {}).get("rows", [])
+            return sum(r.get(key, 0) for r in rows)
+
+        h_fga, h_fgm, h_fg3m, h_fta, h_to, h_oreb, h_dreb = (
+            sum_team_stat(home_id, "fga"), sum_team_stat(home_id, "fgm"), sum_team_stat(home_id, "fg3m"),
+            sum_team_stat(home_id, "fta"), sum_team_stat(home_id, "to"), sum_team_stat(home_id, "oreb"), sum_team_stat(home_id, "dreb")
+        )
+        a_fga, a_fgm, a_fg3m, a_fta, a_to, a_oreb, a_dreb = (
+            sum_team_stat(away_id, "fga"), sum_team_stat(away_id, "fgm"), sum_team_stat(away_id, "fg3m"),
+            sum_team_stat(away_id, "fta"), sum_team_stat(away_id, "to"), sum_team_stat(away_id, "oreb"), sum_team_stat(away_id, "dreb")
+        )
+
+        for tid, name, pts, fga, fgm, fg3m, fta, to, oreb, dreb, opp_pts, o_fga, o_fgm, o_fg3m, o_fta, o_to, o_oreb, o_dreb in [
+            (home_id, home_name, home_score, h_fga, h_fgm, h_fg3m, h_fta, h_to, h_oreb, h_dreb, away_score, a_fga, a_fgm, a_fg3m, a_fta, a_to, a_oreb, a_dreb),
+            (away_id, away_name, away_score, a_fga, a_fgm, a_fg3m, a_fta, a_to, a_oreb, a_dreb, home_score, h_fga, h_fgm, h_fg3m, h_fta, h_to, h_oreb, h_dreb)
+        ]:
+            if tid not in team_game_stats_ledger:
+                team_game_stats_ledger[tid] = []
+            team_game_stats_ledger[tid].append({
+                "date": date_str, "pts": pts, "opp_pts": opp_pts, "fga": fga, "fgm": fgm, "fg3m": fg3m,
+                "fta": fta, "to": to, "oreb": oreb, "dreb": dreb, "opp_fga": o_fga, "opp_fgm": o_fgm,
+                "opp_fg3m": o_fg3m, "opp_fta": o_fta, "opp_to": o_to, "opp_oreb": o_oreb, "opp_dreb": o_dreb
+            })
+
         for aid, s_zones in game_player_shots.items():
             if aid not in players:
                 players[aid] = {
                     "player_id": aid, "player": "Unknown", "team": "", "team_id": "", "team_abbrev": "", "pos": "-",
-                    "gp": 0, "tot_min": 0.0, "tot_pts": 0, "tot_reb": 0, "tot_ast": 0, "tot_stl": 0,
-                    "tot_blk": 0, "tot_to": 0, "tot_fgm": 0, "tot_fga": 0,
-                    "game_logs": [], "zone_shots": init_zone_dict()
+                    "gp": 0, "tot_min": 0.0, "tot_pts": 0, "tot_reb": 0, "tot_ast": 0, "tot_stl": 0, "tot_blk": 0,
+                    "tot_to": 0, "tot_fgm": 0, "tot_fga": 0, "tot_fg3m": 0, "tot_fg3a": 0, "tot_ftm": 0, "tot_fta": 0,
+                    "tot_oreb": 0, "tot_dreb": 0, "tot_pf": 0, "game_logs": [], "zone_shots": init_zone_dict()
                 }
             for z in ZONES:
                 players[aid]["zone_shots"][z]["fga"] += s_zones[z]["fga"]
@@ -124,9 +143,10 @@ def main():
             if aid not in players:
                 players[aid] = {
                     "player_id": aid, "player": ev["player"], "team": ev["team"], "team_id": ev["team_id"],
-                    "team_abbrev": ev["team_abbrev"], "pos": ev["pos"], "gp": 0, "tot_min": 0.0,
-                    "tot_pts": 0, "tot_reb": 0, "tot_ast": 0, "tot_stl": 0, "tot_blk": 0, "tot_to": 0,
-                    "tot_fgm": 0, "tot_fga": 0, "game_logs": [], "zone_shots": init_zone_dict()
+                    "team_abbrev": ev["team_abbrev"], "pos": ev["pos"], "gp": 0, "tot_min": 0.0, "tot_pts": 0,
+                    "tot_reb": 0, "tot_ast": 0, "tot_stl": 0, "tot_blk": 0, "tot_to": 0, "tot_fgm": 0, "tot_fga": 0,
+                    "tot_fg3m": 0, "tot_fg3a": 0, "tot_ftm": 0, "tot_fta": 0, "tot_oreb": 0, "tot_dreb": 0, "tot_pf": 0,
+                    "game_logs": [], "zone_shots": init_zone_dict()
                 }
 
             p = players[aid]
@@ -145,7 +165,20 @@ def main():
             p["tot_to"] += ev["to"]
             p["tot_fgm"] += ev["fgm"]
             p["tot_fga"] += ev["fga"]
+            p["tot_fg3m"] += ev["fg3m"]
+            p["tot_fg3a"] += ev["fg3a"]
+            p["tot_ftm"] += ev["ftm"]
+            p["tot_fta"] += ev["fta"]
+            p["tot_oreb"] += ev["oreb"]
+            p["tot_dreb"] += ev["dreb"]
+            p["tot_pf"] += ev["pf"]
             p["game_logs"].append(ev["log"])
+
+        # Calculate Four Factors for this specific game
+        game_four_factors = [
+            {"team": home_name, **compute_team_advanced_metrics(home_name, [team_game_stats_ledger[home_id][-1]])},
+            {"team": away_name, **compute_team_advanced_metrics(away_name, [team_game_stats_ledger[away_id][-1]])}
+        ]
 
         box_teams = []
         for t_id, t_info in game_team_rows.items():
@@ -171,15 +204,14 @@ def main():
         with open(BOX_DIR / f"{event_id}.json", "w") as f:
             json.dump({
                 "game_id": event_id, "date": date_str, "venue": venue_str,
-                "home_team": home_name, "home_score": home_score,
-                "home_team_id": home_id,
-                "away_team": away_name, "away_score": away_score,
-                "away_team_id": away_id,
+                "home_team": home_name, "home_score": home_score, "home_team_id": home_id,
+                "away_team": away_name, "away_score": away_score, "away_team_id": away_id,
+                "four_factors": {"meta_keys": ["team"], "rows": game_four_factors},
                 "teams": box_teams
             }, f, indent=2)
         saved_boxes += 1
 
-    # 4. Compute Season Averages
+    # 4. Compute Season Averages & Advanced Metrics for Active Players
     active_players = {}
     for aid, p in players.items():
         if p["gp"] == 0:
@@ -199,6 +231,7 @@ def main():
         )
 
         p["game_logs"].sort(key=lambda x: x["date"], reverse=True)
+        adv = compute_player_advanced_metrics(p)
 
         active_players[aid] = {
             "player_id": aid, "name": p["player"], "team": p["team"], "team_id": p["team_id"],
@@ -208,12 +241,13 @@ def main():
                 "stl": stl_pg, "blk": blk_pg, "to": to_pg, "fg_pct": fg_pct,
                 "custom_impact": custom_impact
             },
+            "advanced": adv,
             "zone_shots": p["zone_shots"],
             "game_logs": p["game_logs"]
         }
 
-    # 5. Distribution Pools
-    stat_keys = ["min", "pts", "reb", "ast", "stl", "blk", "to", "fg_pct", "custom_impact"]
+    # 5. Distribution Pools (Including Advanced Stats)
+    stat_keys = ["min", "pts", "reb", "ast", "stl", "blk", "to", "fg_pct", "custom_impact", "ts_pct", "efg_pct", "usg_pct", "gmsc_avg"]
     league_pools, pos_pools = build_stat_pools(active_players, stat_keys)
     vol_pools, eff_pools = build_shot_pools(active_players, ZONES)
 
@@ -228,14 +262,16 @@ def main():
         for z in ZONES
     }
 
-    # 6. Assemble Player Payloads
+    # 6. Assemble Section-Based Player Profile Payloads
     leader_rows = []
     for aid, p in active_players.items():
         pos = p["pos"]
         avg = p["averages"]
+        adv = p["advanced"]
 
-        league_percentiles = {k: compute_percentile(avg[k], league_pools[k]) for k in stat_keys}
-        pos_percentiles = {k: compute_percentile(avg[k], pos_pools[pos][k]) for k in stat_keys}
+        combined = {**avg, **adv}
+        league_percentiles = {k: compute_percentile(combined.get(k, 0), league_pools[k]) for k in stat_keys}
+        pos_percentiles = {k: compute_percentile(combined.get(k, 0), pos_pools[pos][k]) for k in stat_keys}
 
         tot_fga = sum(p["zone_shots"][z]["fga"] for z in ZONES)
         shooting_splits_rows = []
@@ -252,7 +288,6 @@ def main():
                 "league_avg_fg": league_avg_fg[z], "eff_percentile": eff_pctile, "vol_percentile": vol_pctile
             })
 
-        # Calculate Situational Splits
         situational_rows = compute_player_situational_splits(p["game_logs"])
 
         player_payload = {
@@ -266,6 +301,11 @@ def main():
                     "type": "table",
                     "title": "Season Averages",
                     "data": {"meta_keys": ["gp"], "rows": [avg]}
+                },
+                {
+                    "type": "table",
+                    "title": "Advanced Statistics",
+                    "data": {"meta_keys": ["gp"], "rows": [adv]}
                 },
                 {
                     "type": "table",
@@ -302,20 +342,19 @@ def main():
         leader_rows.append({
             "player_id": aid, "player": p["name"], "team": p["team_abbrev"], "team_id": p["team_id"], "pos": p["pos"],
             "gp": avg["gp"], "min_pg": avg["min"], "pts_pg": avg["pts"], "reb_pg": avg["reb"],
-            "ast_pg": avg["ast"], "stl_pg": avg["stl"], "blk_pg": avg["blk"], "to_pg": avg["to"],
-            "fg_pct": avg["fg_pct"], "custom_box_score_rating": avg["custom_impact"]
+            "ast_pg": avg["ast"], "stl_pg": avg["stl"], "blk_pg": avg["blk"], "ts_pct": adv["ts_pct"],
+            "usg_pct": adv["usg_pct"], "gmsc_avg": adv["gmsc_avg"], "custom_impact": avg["custom_impact"]
         })
 
     leader_rows.sort(key=lambda x: x["pts_pg"], reverse=True)
     with open(DATA_DIR / "player_stats.json", "w") as f:
         json.dump({"meta_keys": ["player", "team", "pos"], "rows": leader_rows}, f, indent=2)
 
-    # 7. Assemble Team Payloads
+    # 7. Assemble Team Payloads (With Pace & Four Factors)
     for t_row in team_rows:
         t_id = t_row["team_id"]
         t_name = t_row["team"]
 
-        # Team Roster
         team_roster = [
             {
                 "player_id": p["player_id"],
@@ -326,20 +365,18 @@ def main():
                 "pts_pg": p["averages"]["pts"],
                 "reb_pg": p["averages"]["reb"],
                 "ast_pg": p["averages"]["ast"],
-                "stl_pg": p["averages"]["stl"],
-                "blk_pg": p["averages"]["blk"],
-                "to_pg": p["averages"]["to"],
-                "fg_pct": p["averages"]["fg_pct"],
+                "ts_pct": p["advanced"]["ts_pct"],
+                "usg_pct": p["advanced"]["usg_pct"],
+                "gmsc_avg": p["advanced"]["gmsc_avg"],
                 "custom_rating": p["averages"]["custom_impact"]
             }
             for p in active_players.values() if p["team_id"] == t_id or p["team"] == t_name
         ]
         team_roster.sort(key=lambda x: x["min_pg"], reverse=True)
 
-        # Team Splits
         team_splits = compute_team_situational_splits(t_name, completed_games)
+        team_four_factors = compute_team_advanced_metrics(t_name, team_game_stats_ledger.get(t_id, []))
 
-        # Team Cumulative Shots
         t_shots = team_season_shots.get(t_id, init_zone_dict())
         tot_t_fga = sum(t_shots[z]["fga"] for z in ZONES)
         t_shooting_rows = []
@@ -354,7 +391,6 @@ def main():
                 "eff_percentile": eff_pctile
             })
 
-        # Team Game Logs & Upcoming
         t_game_logs = []
         for g in completed_games:
             if g["home_team"] == t_name:
@@ -387,8 +423,13 @@ def main():
             "sections": [
                 {
                     "type": "table",
-                    "title": "Active Roster & Season Stats",
+                    "title": "Active Roster & Statistics",
                     "data": {"meta_keys": ["player", "pos"], "rows": team_roster}
+                },
+                {
+                    "type": "table",
+                    "title": "Pace & Four Factors",
+                    "data": {"meta_keys": ["pace"], "rows": [team_four_factors]}
                 },
                 {
                     "type": "table",
@@ -416,7 +457,30 @@ def main():
         with open(TEAM_DIR / f"{t_id}.json", "w") as f:
             json.dump(team_payload, f, indent=2)
 
-    print(f"Assembly Complete: 30 Team Pages and {len(active_players)} Player Profiles generated.")
+    # 8. Enrich Main Standings Table with Team Advanced Metrics
+    enriched_standings = []
+    for t in team_rows:
+        adv = compute_team_advanced_metrics(t["team"], team_game_stats_ledger.get(t["team_id"], []))
+        enriched_standings.append({
+            "team_id": t["team_id"],
+            "team": t["team"],
+            "gp": t["gp"],
+            "w": t["w"],
+            "l": t["l"],
+            "win_pct": t["win_pct"],
+            "pace": adv.get("pace", 0.0),
+            "ortg": adv.get("ortg", 0.0),
+            "drtg": adv.get("drtg", 0.0),
+            "net_rtg": adv.get("net_rtg", 0.0),
+            "pts_pg": t["pts_pg"],
+            "opp_pts_pg": t["opp_pts_pg"],
+            "diff": t["diff"]
+        })
+
+    with open(DATA_DIR / "team_stats.json", "w") as f:
+        json.dump({"meta_keys": ["team"], "rows": enriched_standings}, f, indent=2)
+
+    print("Pipeline Complete: Advanced metrics populated across all players, teams, and box scores.")
 
 
 if __name__ == "__main__":

@@ -22,8 +22,32 @@
             "stl": 0.0,
             "blk": 1.0,
             "to": 2.0,
-            "fg_pct": 0.0,
+            "fg_pct": 68.2,
             "custom_impact": 20.7
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Advanced Statistics",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 4,
+            "ts_pct": 65.8,
+            "efg_pct": 68.2,
+            "usg_pct": 0.2,
+            "tov_pct": 24.2,
+            "ast_to_ratio": 2.12,
+            "three_par": 0.0,
+            "ft_rate": 31.8,
+            "ppsa": 1.5,
+            "gmsc_avg": 8.8,
+            "stocks_pg": 1.0
           }
         ]
       }
@@ -45,8 +69,12 @@
             "stl": 9.3,
             "blk": 89.9,
             "to": 80.6,
-            "fg_pct": 50.0,
-            "custom_impact": 65.7
+            "fg_pct": 93.9,
+            "custom_impact": 65.7,
+            "ts_pct": 80.6,
+            "efg_pct": 87.9,
+            "usg_pct": 45.0,
+            "gmsc_avg": 68.4
           },
           {
             "scope": "Position Percentile (F)",
@@ -57,8 +85,12 @@
             "stl": 9.8,
             "blk": 90.8,
             "to": 82.2,
-            "fg_pct": 50.0,
-            "custom_impact": 66.4
+            "fg_pct": 95.1,
+            "custom_impact": 66.4,
+            "ts_pct": 79.6,
+            "efg_pct": 85.9,
+            "usg_pct": 46.8,
+            "gmsc_avg": 67.5
           }
         ]
       }
@@ -81,7 +113,7 @@
             "stl_pg": 0.0,
             "blk_pg": 1.0,
             "to_pg": 2.0,
-            "fg_pct": 0.0
+            "fg_pct": 68.2
           },
           {
             "split": "Home Games",
@@ -93,7 +125,7 @@
             "stl_pg": 0.0,
             "blk_pg": 1.5,
             "to_pg": 2.5,
-            "fg_pct": 0.0
+            "fg_pct": 55.6
           },
           {
             "split": "Away Games",
@@ -105,7 +137,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.5,
             "to_pg": 1.5,
-            "fg_pct": 0.0
+            "fg_pct": 76.9
           },
           {
             "split": "Last 5 Games",
@@ -117,7 +149,7 @@
             "stl_pg": 0.0,
             "blk_pg": 1.0,
             "to_pg": 2.0,
-            "fg_pct": 0.0
+            "fg_pct": 68.2
           },
           {
             "split": "In Team Losses",
@@ -129,7 +161,7 @@
             "stl_pg": 0.0,
             "blk_pg": 1.0,
             "to_pg": 2.0,
-            "fg_pct": 0.0
+            "fg_pct": 68.2
           }
         ]
       }
@@ -196,8 +228,14 @@
             "stl": 0,
             "blk": 3,
             "to": 1,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 4,
+            "fga": 6,
+            "fg3m": 0,
+            "fg3a": 0,
+            "ftm": 1,
+            "fta": 3,
+            "gmsc": 14.5,
+            "ts_pct": 61.5
           },
           {
             "date": "2026-11-03",
@@ -210,8 +248,14 @@
             "stl": 0,
             "blk": 1,
             "to": 3,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 6,
+            "fga": 6,
+            "fg3m": 0,
+            "fg3a": 0,
+            "ftm": 2,
+            "fta": 2,
+            "gmsc": 9.9,
+            "ts_pct": 101.7
           },
           {
             "date": "2026-10-31",
@@ -224,8 +268,14 @@
             "stl": 0,
             "blk": 0,
             "to": 4,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 1,
+            "fga": 3,
+            "fg3m": 0,
+            "fg3a": 0,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 3.7,
+            "ts_pct": 33.3
           },
           {
             "date": "2026-10-22",
@@ -238,8 +288,14 @@
             "stl": 0,
             "blk": 0,
             "to": 0,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 4,
+            "fga": 7,
+            "fg3m": 0,
+            "fg3a": 0,
+            "ftm": 0,
+            "fta": 2,
+            "gmsc": 6.9,
+            "ts_pct": 50.8
           }
         ]
       }

@@ -22,8 +22,32 @@
             "stl": 0.4,
             "blk": 0.1,
             "to": 1.6,
-            "fg_pct": 0.0,
+            "fg_pct": 43.3,
             "custom_impact": 18.9
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Advanced Statistics",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 8,
+            "ts_pct": 56.3,
+            "efg_pct": 52.5,
+            "usg_pct": 0.2,
+            "tov_pct": 16.5,
+            "ast_to_ratio": 2.69,
+            "three_par": 46.7,
+            "ft_rate": 21.7,
+            "ppsa": 1.23,
+            "gmsc_avg": 7.7,
+            "stocks_pg": 0.5
           }
         ]
       }
@@ -45,8 +69,12 @@
             "stl": 38.6,
             "blk": 34.8,
             "to": 72.1,
-            "fg_pct": 50.0,
-            "custom_impact": 61.2
+            "fg_pct": 44.6,
+            "custom_impact": 61.2,
+            "ts_pct": 48.1,
+            "efg_pct": 50.3,
+            "usg_pct": 45.0,
+            "gmsc_avg": 62.7
           },
           {
             "scope": "Position Percentile (G)",
@@ -57,8 +85,12 @@
             "stl": 32.4,
             "blk": 40.2,
             "to": 66.0,
-            "fg_pct": 50.0,
-            "custom_impact": 61.7
+            "fg_pct": 54.0,
+            "custom_impact": 61.7,
+            "ts_pct": 53.6,
+            "efg_pct": 56.9,
+            "usg_pct": 41.7,
+            "gmsc_avg": 63.8
           }
         ]
       }
@@ -81,7 +113,7 @@
             "stl_pg": 0.4,
             "blk_pg": 0.1,
             "to_pg": 1.6,
-            "fg_pct": 0.0
+            "fg_pct": 43.3
           },
           {
             "split": "Home Games",
@@ -93,7 +125,7 @@
             "stl_pg": 0.7,
             "blk_pg": 0.0,
             "to_pg": 1.7,
-            "fg_pct": 0.0
+            "fg_pct": 47.4
           },
           {
             "split": "Away Games",
@@ -105,7 +137,7 @@
             "stl_pg": 0.2,
             "blk_pg": 0.2,
             "to_pg": 1.6,
-            "fg_pct": 0.0
+            "fg_pct": 41.5
           },
           {
             "split": "Last 5 Games",
@@ -117,7 +149,7 @@
             "stl_pg": 0.4,
             "blk_pg": 0.0,
             "to_pg": 1.4,
-            "fg_pct": 0.0
+            "fg_pct": 36.8
           },
           {
             "split": "In Team Wins",
@@ -129,7 +161,7 @@
             "stl_pg": 0.5,
             "blk_pg": 0.2,
             "to_pg": 1.3,
-            "fg_pct": 0.0
+            "fg_pct": 47.7
           },
           {
             "split": "In Team Losses",
@@ -141,7 +173,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 2.5,
-            "fg_pct": 0.0
+            "fg_pct": 31.2
           }
         ]
       }
@@ -208,8 +240,14 @@
             "stl": 0,
             "blk": 0,
             "to": 4,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 2,
+            "fga": 6,
+            "fg3m": 1,
+            "fg3a": 4,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 0.3,
+            "ts_pct": 41.7
           },
           {
             "date": "2026-11-03",
@@ -222,8 +260,14 @@
             "stl": 0,
             "blk": 0,
             "to": 2,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 1,
+            "fga": 4,
+            "fg3m": 0,
+            "fg3a": 2,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 1.6,
+            "ts_pct": 25.0
           },
           {
             "date": "2026-10-30",
@@ -236,8 +280,14 @@
             "stl": 0,
             "blk": 0,
             "to": 0,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 2,
+            "fga": 8,
+            "fg3m": 2,
+            "fg3a": 5,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 5.6,
+            "ts_pct": 37.5
           },
           {
             "date": "2026-10-28",
@@ -250,8 +300,14 @@
             "stl": 0,
             "blk": 0,
             "to": 1,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 3,
+            "fga": 10,
+            "fg3m": 1,
+            "fg3a": 6,
+            "ftm": 4,
+            "fta": 4,
+            "gmsc": 6.5,
+            "ts_pct": 46.8
           },
           {
             "date": "2026-10-28",
@@ -264,8 +320,14 @@
             "stl": 2,
             "blk": 0,
             "to": 0,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 6,
+            "fga": 10,
+            "fg3m": 2,
+            "fg3a": 4,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 12.9,
+            "ts_pct": 70.0
           },
           {
             "date": "2026-10-25",
@@ -278,8 +340,14 @@
             "stl": 0,
             "blk": 1,
             "to": 2,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 6,
+            "fga": 11,
+            "fg3m": 3,
+            "fg3a": 4,
+            "ftm": 3,
+            "fta": 4,
+            "gmsc": 18.8,
+            "ts_pct": 70.5
           },
           {
             "date": "2026-10-24",
@@ -292,8 +360,14 @@
             "stl": 1,
             "blk": 0,
             "to": 3,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 5,
+            "fga": 8,
+            "fg3m": 1,
+            "fg3a": 2,
+            "ftm": 4,
+            "fta": 5,
+            "gmsc": 13.6,
+            "ts_pct": 73.5
           },
           {
             "date": "2026-10-20",
@@ -306,8 +380,14 @@
             "stl": 0,
             "blk": 0,
             "to": 1,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 1,
+            "fga": 3,
+            "fg3m": 1,
+            "fg3a": 1,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 2.2,
+            "ts_pct": 50.0
           }
         ]
       }

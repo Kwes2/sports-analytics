@@ -22,8 +22,32 @@
             "stl": 0.2,
             "blk": 0.0,
             "to": 0.4,
-            "fg_pct": 0.0,
+            "fg_pct": 63.6,
             "custom_impact": 9.2
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Advanced Statistics",
+      "data": {
+        "meta_keys": [
+          "gp"
+        ],
+        "rows": [
+          {
+            "gp": 5,
+            "ts_pct": 85.2,
+            "efg_pct": 84.1,
+            "usg_pct": 0.3,
+            "tov_pct": 8.0,
+            "ast_to_ratio": 1.5,
+            "three_par": 68.2,
+            "ft_rate": 9.1,
+            "ppsa": 1.77,
+            "gmsc_avg": 6.0,
+            "stocks_pg": 0.2
           }
         ]
       }
@@ -45,8 +69,12 @@
             "stl": 25.4,
             "blk": 15.0,
             "to": 24.7,
-            "fg_pct": 50.0,
-            "custom_impact": 31.5
+            "fg_pct": 90.6,
+            "custom_impact": 31.5,
+            "ts_pct": 95.9,
+            "efg_pct": 96.1,
+            "usg_pct": 83.1,
+            "gmsc_avg": 51.5
           },
           {
             "scope": "Position Percentile (F)",
@@ -57,8 +85,12 @@
             "stl": 25.6,
             "blk": 16.7,
             "to": 29.9,
-            "fg_pct": 50.0,
-            "custom_impact": 34.5
+            "fg_pct": 91.1,
+            "custom_impact": 34.5,
+            "ts_pct": 96.8,
+            "efg_pct": 97.4,
+            "usg_pct": 83.9,
+            "gmsc_avg": 52.9
           }
         ]
       }
@@ -81,7 +113,7 @@
             "stl_pg": 0.2,
             "blk_pg": 0.0,
             "to_pg": 0.4,
-            "fg_pct": 0.0
+            "fg_pct": 63.6
           },
           {
             "split": "Away Games",
@@ -93,7 +125,7 @@
             "stl_pg": 0.2,
             "blk_pg": 0.0,
             "to_pg": 0.4,
-            "fg_pct": 0.0
+            "fg_pct": 63.6
           },
           {
             "split": "Last 5 Games",
@@ -105,7 +137,7 @@
             "stl_pg": 0.2,
             "blk_pg": 0.0,
             "to_pg": 0.4,
-            "fg_pct": 0.0
+            "fg_pct": 63.6
           },
           {
             "split": "In Team Wins",
@@ -117,7 +149,7 @@
             "stl_pg": 0.3,
             "blk_pg": 0.0,
             "to_pg": 0.7,
-            "fg_pct": 0.0
+            "fg_pct": 63.2
           },
           {
             "split": "In Team Losses",
@@ -129,7 +161,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
-            "fg_pct": 0.0
+            "fg_pct": 66.7
           }
         ]
       }
@@ -196,8 +228,14 @@
             "stl": 0,
             "blk": 0,
             "to": 0,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 3,
+            "fga": 5,
+            "fg3m": 1,
+            "fg3a": 2,
+            "ftm": 2,
+            "fta": 2,
+            "gmsc": 7.0,
+            "ts_pct": 76.5
           },
           {
             "date": "2026-11-03",
@@ -210,8 +248,14 @@
             "stl": 1,
             "blk": 0,
             "to": 2,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 5,
+            "fga": 9,
+            "fg3m": 4,
+            "fg3a": 7,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 9.0,
+            "ts_pct": 77.8
           },
           {
             "date": "2026-10-31",
@@ -225,7 +269,13 @@
             "blk": 0,
             "to": 0,
             "fgm": 0,
-            "fga": 0
+            "fga": 1,
+            "fg3m": 0,
+            "fg3a": 1,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 0.0,
+            "ts_pct": 0.0
           },
           {
             "date": "2026-10-27",
@@ -238,8 +288,14 @@
             "stl": 0,
             "blk": 0,
             "to": 0,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 2,
+            "fga": 2,
+            "fg3m": 1,
+            "fg3a": 1,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 4.4,
+            "ts_pct": 125.0
           },
           {
             "date": "2026-10-23",
@@ -252,8 +308,14 @@
             "stl": 0,
             "blk": 0,
             "to": 0,
-            "fgm": 0,
-            "fga": 0
+            "fgm": 4,
+            "fga": 5,
+            "fg3m": 3,
+            "fg3a": 4,
+            "ftm": 0,
+            "fta": 0,
+            "gmsc": 9.7,
+            "ts_pct": 110.0
           }
         ]
       }
