@@ -47,7 +47,7 @@
         }
 
         .game-summary {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             padding: 10px 14px;
             background-color: #f7f7f7;
             border: 1px solid #ccc;
@@ -64,15 +64,38 @@
             color: #555;
         }
 
+        /* View Toggle Tabs */
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .view-toggle button {
+            background: #eee;
+            border: 1px solid #888;
+            padding: 4px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .view-toggle button.active {
+            background: #333;
+            color: #fff;
+        }
+
         h3 {
             font-size: 16px;
             margin: 24px 0 8px 0;
         }
 
         h4 {
-            font-size: 14px;
-            margin: 12px 0 6px 0;
-            color: #444;
+            font-size: 13px;
+            margin: 10px 0 4px 0;
+            color: #333;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
         .team-splits-container {
@@ -113,7 +136,7 @@
             max-width: 950px;
             font-size: 13px;
             border: 1px solid #888;
-            margin-bottom: 25px;
+            margin-bottom: 16px;
         }
 
         .team-splits-container table {
@@ -133,6 +156,7 @@
             border-bottom: 2px solid #888;
             cursor: pointer;
             user-select: none;
+            white-space: nowrap;
         }
 
         th:hover {
@@ -198,12 +222,13 @@
             "BLK": "Blocks",
             "TO": "Turnovers",
             "PF": "Personal Fouls",
+            "PLUS_MINUS": "Plus-Minus (+/-): Point differential while on the court",
             "FGM": "Field Goals Made",
             "FGA": "Field Goals Attempted",
-            "FG3M": "3-Point Field Goals Made",
-            "FG3A": "3-Point Field Goals Attempted",
+            "FG3M": "3-Pointers Made",
+            "FG3A": "3-Point Attempts",
             "FTM": "Free Throws Made",
-            "FTA": "Free Throws Attempted",
+            "FTA": "Free Throw Attempts",
             "OREB": "Offensive Rebounds",
             "DREB": "Defensive Rebounds",
             "GMSC": "John Hollinger's Game Score Rating",
@@ -219,6 +244,8 @@
         };
 
         const boxTableState = {};
+        let activeTab = "box"; // "box" or "pbp"
+        let rawGameData = null;
 
         window.onload = () => {
             if (!gameId) {
@@ -228,11 +255,19 @@
 
             fetch(`data/boxscores/${gameId}.json`)
                 .then(res => res.json())
-                .then(data => renderBoxScore(data))
+                .then(data => {
+                    rawGameData = data;
+                    renderMainView();
+                })
                 .catch(err => {
                     document.getElementById('boxscore-content').innerHTML = `<p style="color:red">Failed to load box score for game ID ${gameId}.</p>`;
                 });
         };
+
+        function switchView(tab) {
+            activeTab = tab;
+            renderMainView();
+        }
 
         function getGameFGColor(pct) {
             if (!pct || isNaN(pct)) return '#f0f0f0';
@@ -241,7 +276,7 @@
             return '#fca5a5';
         }
 
-        function createTeamCourtSVG(splitsRows, teamKey) {
+        function createTeamCourtSVG(splitsRows) {
             let z0_4 = 0, z4_14 = 0, z14_plus = 0;
             const sMap = {};
             if (splitsRows) {
@@ -279,8 +314,11 @@
             `;
         }
 
-        function renderBoxScore(game) {
+        function renderMainView() {
             const container = document.getElementById('boxscore-content');
+            const game = rawGameData;
+            if (!game) return;
+
             const awayLink = game.away_team_id ? `<a class="table-link" href="team.html?id=${game.away_team_id}">${game.away_team}</a>` : game.away_team;
             const homeLink = game.home_team_id ? `<a class="table-link" href="team.html?id=${game.home_team_id}">${game.home_team}</a>` : game.home_team;
 
@@ -289,8 +327,28 @@
                     <h1>${awayLink} ${game.away_score} &ndash; ${game.home_score} ${homeLink}</h1>
                     <div class="meta">${game.date} | ${game.venue}</div>
                 </div>
+
+                <div class="view-toggle">
+                    <button class="${activeTab === 'box' ? 'active' : ''}" onclick="switchView('box')">Box Score & Factors</button>
+                    <button class="${activeTab === 'pbp' ? 'active' : ''}" onclick="switchView('pbp')">Full Play-by-Play</button>
+                </div>
             `;
 
+            if (activeTab === "pbp") {
+                html += `<h3>Game Play-by-Play Log</h3>`;
+                const pbpId = "table_pbp";
+                boxTableState[pbpId] = {
+                    metaKeys: game.play_by_play.meta_keys || ["period", "clock", "team"],
+                    rows: game.play_by_play.rows || [],
+                    sortCol: null,
+                    isAsc: false
+                };
+                html += `<div id="${pbpId}_box">${renderSortableBoxTable(pbpId)}</div>`;
+                container.innerHTML = html;
+                return;
+            }
+
+            // Box Score View
             if (game.four_factors && game.four_factors.rows) {
                 html += `<h3>Four Factors Comparison</h3>`;
                 const ffId = "table_four_factors";
@@ -307,20 +365,37 @@
                 const teamTitleLink = team.team_id ? `<a class="table-link" href="team.html?id=${team.team_id}">${team.team_name}</a>` : team.team_name;
                 html += `<h3>${teamTitleLink} Box Score</h3>`;
 
-                const boxId = `table_team_${tIdx}_players`;
-                boxTableState[boxId] = {
-                    metaKeys: team.meta_keys || ["player", "pos"],
-                    rows: team.rows || [],
-                    sortCol: null,
-                    isAsc: false
-                };
-                html += `<div id="${boxId}_box">${renderSortableBoxTable(boxId)}</div>`;
+                // Starters
+                if (team.starters && team.starters.length > 0) {
+                    html += `<h4>Starters</h4>`;
+                    const sId = `table_team_${tIdx}_starters`;
+                    boxTableState[sId] = {
+                        metaKeys: ["player", "pos"],
+                        rows: team.starters,
+                        sortCol: null,
+                        isAsc: false
+                    };
+                    html += `<div id="${sId}_box">${renderSortableBoxTable(sId)}</div>`;
+                }
+
+                // Bench
+                if (team.bench && team.bench.length > 0) {
+                    html += `<h4>Bench</h4>`;
+                    const bId = `table_team_${tIdx}_bench`;
+                    boxTableState[bId] = {
+                        metaKeys: ["player", "pos"],
+                        rows: team.bench,
+                        sortCol: null,
+                        isAsc: false
+                    };
+                    html += `<div id="${bId}_box">${renderSortableBoxTable(bId)}</div>`;
+                }
 
                 if (team.shooting_splits && team.shooting_splits.rows) {
-                    html += `<h4>${teamTitleLink} Shooting Splits</h4>`;
+                    html += `<h4>Shooting Splits (Distance Zones)</h4>`;
                     const splitId = `table_team_${tIdx}_splits`;
                     boxTableState[splitId] = {
-                        metaKeys: team.shooting_splits.meta_keys || ["zone"],
+                        metaKeys: ["zone"],
                         rows: team.shooting_splits.rows || [],
                         sortCol: null,
                         isAsc: false
@@ -328,7 +403,7 @@
                     html += `
                         <div class="team-splits-container">
                             <div class="court-wrapper">
-                                ${createTeamCourtSVG(team.shooting_splits.rows, `team_${tIdx}`)}
+                                ${createTeamCourtSVG(team.shooting_splits.rows)}
                             </div>
                             <div id="${splitId}_box">
                                 ${renderSortableBoxTable(splitId)}
@@ -343,7 +418,7 @@
 
         function renderSortableBoxTable(tblId) {
             const state = boxTableState[tblId];
-            if (!state || state.rows.length === 0) return "<p>No stats recorded.</p>";
+            if (!state || state.rows.length === 0) return "<p>No records.</p>";
 
             const sample = state.rows[0];
             const allKeys = Object.keys(sample);

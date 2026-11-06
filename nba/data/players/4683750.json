@@ -7,23 +7,38 @@
   "sections": [
     {
       "type": "table",
-      "title": "Season Averages",
+      "title": "Season Averages & Output",
       "data": {
         "meta_keys": [
-          "gp"
+          "gp",
+          "gs"
         ],
         "rows": [
           {
             "gp": 4,
-            "min": 5.5,
-            "pts": 2.0,
-            "reb": 0.5,
-            "ast": 0.0,
-            "stl": 0.0,
-            "blk": 0.0,
-            "to": 0.0,
+            "gs": 0,
+            "min_pg": 5.5,
+            "pts_pg": 2.0,
+            "reb_pg": 0.5,
+            "ast_pg": 0.0,
+            "stl_pg": 0.0,
+            "blk_pg": 0.0,
+            "to_pg": 0.0,
+            "pf_pg": 0.0,
+            "plus_minus_pg": 1.0,
+            "fgm_pg": 0.8,
+            "fga_pg": 2.5,
             "fg_pct": 30.0,
-            "custom_impact": 2.6
+            "fg3m_pg": 0.0,
+            "fg3a_pg": 1.5,
+            "fg3_pct": 0.0,
+            "ftm_pg": 0.5,
+            "fta_pg": 0.8,
+            "ft_pct": 66.7,
+            "oreb_pg": 0.0,
+            "dreb_pg": 0.5,
+            "prf_pg": 2.0,
+            "pct_team_prf": 1.8
           }
         ]
       }
@@ -40,7 +55,7 @@
             "gp": 4,
             "ts_pct": 35.3,
             "efg_pct": 30.0,
-            "usg_pct": 0.2,
+            "usg_pct": 25.7,
             "tov_pct": 0.0,
             "ast_to_ratio": 0.0,
             "three_par": 60.0,
@@ -48,6 +63,27 @@
             "ppsa": 0.8,
             "gmsc_avg": 0.6,
             "stocks_pg": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Playmaking & Passing Quality Profile",
+      "data": {
+        "meta_keys": [
+          "ast_recorded"
+        ],
+        "rows": [
+          {
+            "ast_recorded": 0,
+            "pts_created_pg": 0.0,
+            "pts_per_ast": 0.0,
+            "xpts_per_ast": 0.0,
+            "paoe": 0.0,
+            "points_added_pg": 0.0,
+            "rim_ast_pct": 0.0,
+            "three_ast_pct": 0.0
           }
         ]
       }
@@ -62,35 +98,43 @@
         "rows": [
           {
             "scope": "League Percentile",
-            "min": 14.3,
-            "pts": 15.4,
-            "reb": 9.4,
-            "ast": 6.1,
-            "stl": 9.3,
-            "blk": 15.0,
-            "to": 7.0,
+            "min_pg": 14.3,
+            "pts_pg": 15.4,
+            "reb_pg": 9.4,
+            "ast_pg": 6.1,
+            "stl_pg": 9.3,
+            "blk_pg": 15.0,
+            "to_pg": 7.0,
             "fg_pct": 12.1,
-            "custom_impact": 7.7,
             "ts_pct": 9.6,
             "efg_pct": 9.7,
-            "usg_pct": 45.0,
-            "gmsc_avg": 9.5
+            "usg_pct": 69.6,
+            "gmsc_avg": 9.5,
+            "xpts_per_ast": 6.1,
+            "paoe": 6.1,
+            "pts_created_pg": 6.1,
+            "prf_pg": 9.0,
+            "pct_team_prf": 9.5
           },
           {
             "scope": "Position Percentile (G)",
-            "min": 12.9,
-            "pts": 13.8,
-            "reb": 11.4,
-            "ast": 5.5,
-            "stl": 7.4,
-            "blk": 16.7,
-            "to": 5.5,
+            "min_pg": 12.9,
+            "pts_pg": 13.8,
+            "reb_pg": 11.4,
+            "ast_pg": 5.5,
+            "stl_pg": 7.4,
+            "blk_pg": 16.7,
+            "to_pg": 5.5,
             "fg_pct": 14.0,
-            "custom_impact": 8.3,
             "ts_pct": 10.2,
             "efg_pct": 9.8,
-            "usg_pct": 41.7,
-            "gmsc_avg": 10.5
+            "usg_pct": 64.0,
+            "gmsc_avg": 10.5,
+            "xpts_per_ast": 5.5,
+            "paoe": 5.5,
+            "pts_created_pg": 5.5,
+            "prf_pg": 7.9,
+            "pct_team_prf": 8.1
           }
         ]
       }
@@ -113,6 +157,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 1.0,
             "fg_pct": 30.0
           },
           {
@@ -125,6 +170,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 1.0,
             "fg_pct": 30.0
           },
           {
@@ -137,6 +183,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 1.0,
             "fg_pct": 30.0
           },
           {
@@ -149,9 +196,30 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 1.0,
             "fg_pct": 30.0
           }
         ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Delivered (Passes FROM this Player)",
+      "data": {
+        "meta_keys": [
+          "finisher"
+        ],
+        "rows": []
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Received (Passes TO this Player)",
+      "data": {
+        "meta_keys": [
+          "passer"
+        ],
+        "rows": []
       }
     },
     {
@@ -222,6 +290,7 @@
             "fg3a": 2,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 5,
             "gmsc": 0.6,
             "ts_pct": 33.3
           },
@@ -242,6 +311,7 @@
             "fg3a": 2,
             "ftm": 2,
             "fta": 2,
+            "plus_minus": 1,
             "gmsc": 0.6,
             "ts_pct": 34.7
           },
@@ -262,6 +332,7 @@
             "fg3a": 1,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 2,
             "gmsc": -1.4,
             "ts_pct": 0.0
           },
@@ -282,6 +353,7 @@
             "fg3a": 1,
             "ftm": 0,
             "fta": 1,
+            "plus_minus": -4,
             "gmsc": 2.6,
             "ts_pct": 58.1
           }

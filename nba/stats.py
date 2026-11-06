@@ -1,3 +1,8 @@
+import math
+
+ZONES = ["0-4 ft", "4-14 ft", "14+ ft"]
+
+
 def parse_int(val):
     try:
         return int(float(val))
@@ -14,7 +19,17 @@ def parse_split(val_str):
     return parse_int(val_str), 0
 
 
-def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score, away_score, date_str):
+def classify_shot_distance(x, y):
+    dist = math.sqrt((float(x) - 25.0) ** 2 + (float(y) - 5.25) ** 2)
+    if dist <= 4.0:
+        return "0-4 ft"
+    elif dist <= 14.0:
+        return "4-14 ft"
+    else:
+        return "14+ ft"
+
+
+def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score, away_score, date_str, position_map):
     game_team_rows = {}
     player_game_events = {}
 
@@ -30,11 +45,12 @@ def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score,
         else:
             res_str = f"{'W' if away_score > home_score else 'L'} {away_score}-{home_score}"
 
-        team_rows = []
+        starters_rows = []
+        bench_rows = []
 
         for stat_cat in team_entry.get("statistics", []):
             keys = stat_cat.get("names", [])
-            for item in stat_cat.get("athletes", []):
+            for item_idx, item in enumerate(stat_cat.get("athletes", [])):
                 ath = item.get("athlete", {})
                 aid = ath.get("id")
                 if not aid:
@@ -58,6 +74,7 @@ def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score,
                 pf = parse_int(stats.get("PF", 0))
                 oreb = parse_int(stats.get("OREB", stats.get("OR", 0)))
                 dreb = parse_int(stats.get("DREB", stats.get("DR", reb - oreb)))
+                plus_minus = parse_int(stats.get("+/-", stats.get("PLUSMINUS", 0)))
 
                 fgm, fga = parse_split(stats.get("FG", stats.get("FGM", "0-0")))
                 if fga == 0:
@@ -75,7 +92,8 @@ def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score,
                     fta = parse_int(stats.get("FTA", 0))
 
                 player_name = ath.get("displayName", "Unknown")
-                pos_str = ath.get("position", {}).get("abbreviation", "-")
+                pos_str = position_map.get(str(aid), ath.get("position", {}).get("abbreviation", "-"))
+                is_starter = (item_idx < 5)
 
                 gmsc = round(
                     pts + 0.4 * fgm - 0.7 * fga - 0.4 * (fta - ftm) + 0.7 * oreb + 0.3 * dreb + stl + 0.7 * ast + 0.7 * blk - 0.4 * pf - to,
@@ -83,7 +101,7 @@ def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score,
                 )
                 ts_pct = round(pts / (2 * (fga + 0.44 * fta)) * 100, 1) if (fga + 0.44 * fta) > 0 else 0.0
 
-                team_rows.append({
+                row_dict = {
                     "player_id": aid,
                     "player": player_name,
                     "pos": pos_str,
@@ -103,8 +121,14 @@ def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score,
                     "oreb": oreb,
                     "dreb": dreb,
                     "pf": pf,
+                    "plus_minus": plus_minus,
                     "gmsc": gmsc
-                })
+                }
+
+                if is_starter:
+                    starters_rows.append(row_dict)
+                else:
+                    bench_rows.append(row_dict)
 
                 player_game_events[aid] = {
                     "player_id": aid,
@@ -129,6 +153,8 @@ def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score,
                     "oreb": oreb,
                     "dreb": dreb,
                     "pf": pf,
+                    "plus_minus": plus_minus,
+                    "is_starter": is_starter,
                     "log": {
                         "date": date_str,
                         "opponent": opp_str,
@@ -146,6 +172,7 @@ def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score,
                         "fg3a": fg3a,
                         "ftm": ftm,
                         "fta": fta,
+                        "plus_minus": plus_minus,
                         "gmsc": gmsc,
                         "ts_pct": ts_pct
                     }
@@ -154,10 +181,111 @@ def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score,
         game_team_rows[team_id] = {
             "team_name": team_display,
             "team_abbrev": team_abbrev,
-            "rows": team_rows
+            "starters": starters_rows,
+            "bench": bench_rows,
+            "all_rows": starters_rows + bench_rows
         }
 
     return game_team_rows, player_game_events
+
+
+def extract_detailed_assists_from_plays(plays):
+    """
+    Extracts all assisted field goals from plays with exact coordinates and shot values.
+    Returns: List of assisted shot events.
+    """
+    events = []
+
+    for play in plays:
+        if play.get("scoringPlay"):
+            participants = play.get("participants", [])
+            team_id = str(play.get("team", {}).get("id", ""))
+            text = play.get("text", "")
+            text_lower = text.lower()
+
+            if len(participants) >= 2 and "assists" in text_lower:
+                scorer_id = str(participants[0].get("athlete", {}).get("id", ""))
+                passer_id = str(participants[1].get("athlete", {}).get("id", ""))
+
+                if scorer_id and passer_id and team_id:
+                    is_three = "three point" in text_lower or "3pt" in text_lower
+                    shot_val = 3 if is_three else 2
+
+                    coord = play.get("coordinate")
+                    if coord and "x" in coord and "y" in coord:
+                        zone = classify_shot_distance(coord["x"], coord["y"])
+                    else:
+                        zone = "14+ ft" if is_three else "0-4 ft"
+
+                    events.append({
+                        "team_id": team_id,
+                        "passer_id": passer_id,
+                        "scorer_id": scorer_id,
+                        "val": shot_val,
+                        "zone": zone
+                    })
+
+    return events
+
+
+def compute_assist_connection_metrics(assisted_events, league_zone_avg_fg, active_players):
+    """
+    Computes Points Created, xPts/Ast, Finisher xPts/Ast, PAOE, and zone breakdowns
+    for a list of assisted events between a specific duo.
+    """
+    total_ast = len(assisted_events)
+    if total_ast == 0:
+        return {}
+
+    pts_created = sum(e["val"] for e in assisted_events)
+    pts_per_ast = round(pts_created / total_ast, 2)
+
+    two_pt_ast = sum(1 for e in assisted_events if e["val"] == 2)
+    three_pt_ast = sum(1 for e in assisted_events if e["val"] == 3)
+    rim_ast = sum(1 for e in assisted_events if e["zone"] == "0-4 ft")
+    mid_ast = sum(1 for e in assisted_events if e["zone"] == "4-14 ft")
+
+    # League Expected Points (based on zone league-averages)
+    tot_xpts_lg = 0.0
+    for e in assisted_events:
+        lg_pct = league_zone_avg_fg.get(e["zone"], 50.0) / 100.0
+        tot_xpts_lg += (e["val"] * lg_pct)
+
+    xpts_per_ast = round(tot_xpts_lg / total_ast, 2)
+
+    # Finisher Expected Points (based on finisher's personal zone shooting %)
+    scorer_id = assisted_events[0]["scorer_id"]
+    finisher_data = active_players.get(scorer_id, {})
+    finisher_zones = finisher_data.get("zone_shots", {})
+
+    tot_xpts_finisher = 0.0
+    for e in assisted_events:
+        z_stats = finisher_zones.get(e["zone"], {"fgm": 0, "fga": 0})
+        if z_stats["fga"] >= 3:
+            f_pct = (z_stats["fgm"] / z_stats["fga"])
+        else:
+            f_pct = league_zone_avg_fg.get(e["zone"], 50.0) / 100.0
+        tot_xpts_finisher += (e["val"] * f_pct)
+
+    finisher_xpts_per_ast = round(tot_xpts_finisher / total_ast, 2)
+
+    # Points Per Assist Over Expected (PAOE) vs League Baseline
+    paoe = round(pts_per_ast - xpts_per_ast, 2)
+    points_added = round(pts_created - tot_xpts_lg, 1)
+
+    return {
+        "assists": total_ast,
+        "pts_created": pts_created,
+        "pts_per_ast": pts_per_ast,
+        "xpts_per_ast": xpts_per_ast,
+        "finisher_xpts": finisher_xpts_per_ast,
+        "paoe": paoe,
+        "points_added": points_added,
+        "two_pt_ast": two_pt_ast,
+        "three_pt_ast": three_pt_ast,
+        "rim_ast": rim_ast,
+        "mid_ast": mid_ast
+    }
 
 
 def compute_player_advanced_metrics(p):
@@ -189,8 +317,9 @@ def compute_player_advanced_metrics(p):
 
     tot_gmsc = pts + 0.4 * fgm - 0.7 * fga - 0.4 * (fta - ftm) + 0.7 * oreb + 0.3 * dreb + stl + 0.7 * ast + 0.7 * blk - 0.4 * pf - to
     gmsc_avg = round(tot_gmsc / gp, 1) if gp > 0 else 0.0
+
     used_plays = fga + 0.44 * fta + to
-    usg_pct = round((used_plays / (tot_min / 48.0 * 100.0)), 1) if tot_min > 0 else 0.0
+    usg_pct = round((used_plays / (tot_min * 2.0)) * 100.0, 1) if tot_min > 0 else 0.0
 
     return {
         "gp": gp,
@@ -328,6 +457,7 @@ def compute_player_situational_splits(game_logs):
         tot_to = sum(g["to"] for g in subset)
         tot_fgm = sum(g["fgm"] for g in subset)
         tot_fga = sum(g["fga"] for g in subset)
+        tot_pm = sum(g.get("plus_minus", 0) for g in subset)
 
         rows.append({
             "split": label,
@@ -339,6 +469,7 @@ def compute_player_situational_splits(game_logs):
             "stl_pg": round(tot_stl / gp, 1),
             "blk_pg": round(tot_blk / gp, 1),
             "to_pg": round(tot_to / gp, 1),
+            "plus_minus_pg": round(tot_pm / gp, 1),
             "fg_pct": round(tot_fgm / tot_fga * 100, 1) if tot_fga > 0 else 0.0
         })
 

@@ -7,23 +7,38 @@
   "sections": [
     {
       "type": "table",
-      "title": "Season Averages",
+      "title": "Season Averages & Output",
       "data": {
         "meta_keys": [
-          "gp"
+          "gp",
+          "gs"
         ],
         "rows": [
           {
             "gp": 3,
-            "min": 3.0,
-            "pts": 2.3,
-            "reb": 0.0,
-            "ast": 0.0,
-            "stl": 0.0,
-            "blk": 0.0,
-            "to": 0.3,
+            "gs": 0,
+            "min_pg": 3.0,
+            "pts_pg": 2.3,
+            "reb_pg": 0.0,
+            "ast_pg": 0.0,
+            "stl_pg": 0.0,
+            "blk_pg": 0.0,
+            "to_pg": 0.3,
+            "pf_pg": 0.0,
+            "plus_minus_pg": 2.3,
+            "fgm_pg": 1.0,
+            "fga_pg": 1.3,
             "fg_pct": 75.0,
-            "custom_impact": 2.0
+            "fg3m_pg": 0.3,
+            "fg3a_pg": 0.7,
+            "fg3_pct": 50.0,
+            "ftm_pg": 0.0,
+            "fta_pg": 0.0,
+            "ft_pct": 0.0,
+            "oreb_pg": 0.0,
+            "dreb_pg": 0.0,
+            "prf_pg": 2.3,
+            "pct_team_prf": 2.1
           }
         ]
       }
@@ -40,7 +55,7 @@
             "gp": 3,
             "ts_pct": 87.5,
             "efg_pct": 87.5,
-            "usg_pct": 0.3,
+            "usg_pct": 27.8,
             "tov_pct": 20.0,
             "ast_to_ratio": 0.0,
             "three_par": 50.0,
@@ -48,6 +63,27 @@
             "ppsa": 1.75,
             "gmsc_avg": 1.5,
             "stocks_pg": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Playmaking & Passing Quality Profile",
+      "data": {
+        "meta_keys": [
+          "ast_recorded"
+        ],
+        "rows": [
+          {
+            "ast_recorded": 0,
+            "pts_created_pg": 0.0,
+            "pts_per_ast": 0.0,
+            "xpts_per_ast": 0.0,
+            "paoe": 0.0,
+            "points_added_pg": 0.0,
+            "rim_ast_pct": 0.0,
+            "three_ast_pct": 0.0
           }
         ]
       }
@@ -62,35 +98,43 @@
         "rows": [
           {
             "scope": "League Percentile",
-            "min": 5.1,
-            "pts": 18.5,
-            "reb": 2.4,
-            "ast": 6.1,
-            "stl": 9.3,
-            "blk": 15.0,
-            "to": 21.2,
+            "min_pg": 5.1,
+            "pts_pg": 18.5,
+            "reb_pg": 2.4,
+            "ast_pg": 6.1,
+            "stl_pg": 9.3,
+            "blk_pg": 15.0,
+            "to_pg": 21.2,
             "fg_pct": 95.8,
-            "custom_impact": 5.6,
             "ts_pct": 96.6,
             "efg_pct": 96.6,
-            "usg_pct": 83.1,
-            "gmsc_avg": 15.9
+            "usg_pct": 78.7,
+            "gmsc_avg": 15.9,
+            "xpts_per_ast": 6.1,
+            "paoe": 6.1,
+            "pts_created_pg": 6.1,
+            "prf_pg": 11.8,
+            "pct_team_prf": 12.5
           },
           {
             "scope": "Position Percentile (G)",
-            "min": 4.5,
-            "pts": 16.4,
-            "reb": 3.6,
-            "ast": 5.5,
-            "stl": 7.4,
-            "blk": 16.7,
-            "to": 19.8,
+            "min_pg": 4.5,
+            "pts_pg": 16.4,
+            "reb_pg": 3.6,
+            "ast_pg": 5.5,
+            "stl_pg": 7.4,
+            "blk_pg": 16.7,
+            "to_pg": 19.8,
             "fg_pct": 96.9,
-            "custom_impact": 6.0,
             "ts_pct": 96.4,
             "efg_pct": 96.4,
-            "usg_pct": 80.5,
-            "gmsc_avg": 16.4
+            "usg_pct": 76.9,
+            "gmsc_avg": 16.4,
+            "xpts_per_ast": 5.5,
+            "paoe": 5.5,
+            "pts_created_pg": 5.5,
+            "prf_pg": 10.2,
+            "pct_team_prf": 10.7
           }
         ]
       }
@@ -113,6 +157,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.3,
+            "plus_minus_pg": 2.3,
             "fg_pct": 75.0
           },
           {
@@ -125,6 +170,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.3,
+            "plus_minus_pg": 2.3,
             "fg_pct": 75.0
           },
           {
@@ -137,6 +183,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.3,
+            "plus_minus_pg": 2.3,
             "fg_pct": 75.0
           },
           {
@@ -149,6 +196,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 0.0,
             "fg_pct": 0.0
           },
           {
@@ -161,7 +209,77 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.5,
+            "plus_minus_pg": 3.5,
             "fg_pct": 75.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Delivered (Passes FROM this Player)",
+      "data": {
+        "meta_keys": [
+          "finisher"
+        ],
+        "rows": []
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Received (Passes TO this Player)",
+      "data": {
+        "meta_keys": [
+          "passer"
+        ],
+        "rows": [
+          {
+            "passer": "Walter Clayton Jr.",
+            "passer_id": "4896372",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.12,
+            "finisher_xpts": 1.12,
+            "paoe": 0.88,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 0,
+            "mid_ast": 1,
+            "baskets_share": 33.3
+          },
+          {
+            "passer": "Tobi Lawal",
+            "passer_id": "5106040",
+            "assists": 1,
+            "pts_created": 3,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.52,
+            "paoe": 1.48,
+            "points_added": 1.5,
+            "two_pt_ast": 0,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 33.3
+          },
+          {
+            "passer": "Naji Marshall",
+            "passer_id": "4278594",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.07,
+            "finisher_xpts": 1.07,
+            "paoe": 0.93,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 1,
+            "mid_ast": 0,
+            "baskets_share": 33.3
           }
         ]
       }
@@ -234,6 +352,7 @@
             "fg3a": 0,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 4,
             "gmsc": 1.7,
             "ts_pct": 100.0
           },
@@ -254,6 +373,7 @@
             "fg3a": 0,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 0,
             "gmsc": 0.0,
             "ts_pct": 0.0
           },
@@ -274,6 +394,7 @@
             "fg3a": 2,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 3,
             "gmsc": 2.7,
             "ts_pct": 83.3
           }

@@ -7,23 +7,38 @@
   "sections": [
     {
       "type": "table",
-      "title": "Season Averages",
+      "title": "Season Averages & Output",
       "data": {
         "meta_keys": [
-          "gp"
+          "gp",
+          "gs"
         ],
         "rows": [
           {
             "gp": 8,
-            "min": 23.4,
-            "pts": 6.4,
-            "reb": 3.4,
-            "ast": 1.5,
-            "stl": 1.6,
-            "blk": 1.0,
-            "to": 1.6,
+            "gs": 5,
+            "min_pg": 23.4,
+            "pts_pg": 6.4,
+            "reb_pg": 3.4,
+            "ast_pg": 1.5,
+            "stl_pg": 1.6,
+            "blk_pg": 1.0,
+            "to_pg": 1.6,
+            "pf_pg": 3.5,
+            "plus_minus_pg": 4.9,
+            "fgm_pg": 2.4,
+            "fga_pg": 4.0,
             "fg_pct": 59.4,
-            "custom_impact": 16.3
+            "fg3m_pg": 1.2,
+            "fg3a_pg": 2.1,
+            "fg3_pct": 58.8,
+            "ftm_pg": 0.4,
+            "fta_pg": 0.8,
+            "ft_pct": 50.0,
+            "oreb_pg": 1.4,
+            "dreb_pg": 2.0,
+            "prf_pg": 10.2,
+            "pct_team_prf": 8.4
           }
         ]
       }
@@ -40,7 +55,7 @@
             "gp": 8,
             "ts_pct": 73.6,
             "efg_pct": 75.0,
-            "usg_pct": 0.1,
+            "usg_pct": 12.7,
             "tov_pct": 27.3,
             "ast_to_ratio": 0.92,
             "three_par": 53.1,
@@ -48,6 +63,27 @@
             "ppsa": 1.59,
             "gmsc_avg": 6.3,
             "stocks_pg": 2.6
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Playmaking & Passing Quality Profile",
+      "data": {
+        "meta_keys": [
+          "ast_recorded"
+        ],
+        "rows": [
+          {
+            "ast_recorded": 12,
+            "pts_created_pg": 3.8,
+            "pts_per_ast": 2.5,
+            "xpts_per_ast": 1.3,
+            "paoe": 1.2,
+            "points_added_pg": 1.8,
+            "rim_ast_pct": 33.3,
+            "three_ast_pct": 50.0
           }
         ]
       }
@@ -62,35 +98,43 @@
         "rows": [
           {
             "scope": "League Percentile",
-            "min": 62.4,
-            "pts": 45.1,
-            "reb": 56.6,
-            "ast": 52.1,
-            "stl": 93.4,
-            "blk": 89.9,
-            "to": 72.1,
+            "min_pg": 62.4,
+            "pts_pg": 45.1,
+            "reb_pg": 56.6,
+            "ast_pg": 52.1,
+            "stl_pg": 93.4,
+            "blk_pg": 89.9,
+            "to_pg": 72.1,
             "fg_pct": 87.3,
-            "custom_impact": 53.7,
             "ts_pct": 91.0,
             "efg_pct": 93.4,
-            "usg_pct": 11.0,
-            "gmsc_avg": 53.9
+            "usg_pct": 9.5,
+            "gmsc_avg": 53.9,
+            "xpts_per_ast": 75.2,
+            "paoe": 80.8,
+            "pts_created_pg": 53.8,
+            "prf_pg": 47.6,
+            "pct_team_prf": 44.6
           },
           {
             "scope": "Position Percentile (F)",
-            "min": 60.6,
-            "pts": 46.8,
-            "reb": 52.3,
-            "ast": 62.1,
-            "stl": 93.1,
-            "blk": 90.8,
-            "to": 76.7,
+            "min_pg": 60.6,
+            "pts_pg": 46.8,
+            "reb_pg": 52.3,
+            "ast_pg": 62.1,
+            "stl_pg": 93.1,
+            "blk_pg": 90.8,
+            "to_pg": 76.7,
             "fg_pct": 85.9,
-            "custom_impact": 54.3,
             "ts_pct": 89.4,
             "efg_pct": 92.8,
-            "usg_pct": 11.5,
-            "gmsc_avg": 55.2
+            "usg_pct": 7.8,
+            "gmsc_avg": 55.2,
+            "xpts_per_ast": 73.6,
+            "paoe": 78.2,
+            "pts_created_pg": 63.8,
+            "prf_pg": 52.6,
+            "pct_team_prf": 50.9
           }
         ]
       }
@@ -113,6 +157,7 @@
             "stl_pg": 1.6,
             "blk_pg": 1.0,
             "to_pg": 1.6,
+            "plus_minus_pg": 4.9,
             "fg_pct": 59.4
           },
           {
@@ -125,6 +170,7 @@
             "stl_pg": 1.5,
             "blk_pg": 0.8,
             "to_pg": 1.8,
+            "plus_minus_pg": 7.5,
             "fg_pct": 70.6
           },
           {
@@ -137,6 +183,7 @@
             "stl_pg": 1.8,
             "blk_pg": 1.2,
             "to_pg": 1.5,
+            "plus_minus_pg": 2.2,
             "fg_pct": 46.7
           },
           {
@@ -149,6 +196,7 @@
             "stl_pg": 1.4,
             "blk_pg": 1.4,
             "to_pg": 2.4,
+            "plus_minus_pg": 4.2,
             "fg_pct": 59.1
           },
           {
@@ -161,6 +209,7 @@
             "stl_pg": 1.5,
             "blk_pg": 1.2,
             "to_pg": 1.7,
+            "plus_minus_pg": 10.0,
             "fg_pct": 60.9
           },
           {
@@ -173,7 +222,238 @@
             "stl_pg": 2.0,
             "blk_pg": 0.5,
             "to_pg": 1.5,
+            "plus_minus_pg": -10.5,
             "fg_pct": 55.6
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Delivered (Passes FROM this Player)",
+      "data": {
+        "meta_keys": [
+          "finisher"
+        ],
+        "rows": [
+          {
+            "finisher": "Luka Doncic",
+            "finisher_id": "3945274",
+            "assists": 3,
+            "pts_created": 8,
+            "pts_per_ast": 2.67,
+            "xpts_per_ast": 1.35,
+            "finisher_xpts": 1.62,
+            "paoe": 1.32,
+            "points_added": 3.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 2,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "ast_share": 25.0
+          },
+          {
+            "finisher": "Collin Sexton",
+            "finisher_id": "4277811",
+            "assists": 3,
+            "pts_created": 7,
+            "pts_per_ast": 2.33,
+            "xpts_per_ast": 1.22,
+            "finisher_xpts": 1.35,
+            "paoe": 1.11,
+            "points_added": 3.3,
+            "two_pt_ast": 2,
+            "three_pt_ast": 1,
+            "rim_ast": 2,
+            "mid_ast": 0,
+            "ast_share": 25.0
+          },
+          {
+            "finisher": "Austin Reaves",
+            "finisher_id": "4066457",
+            "assists": 3,
+            "pts_created": 8,
+            "pts_per_ast": 2.67,
+            "xpts_per_ast": 1.39,
+            "finisher_xpts": 1.68,
+            "paoe": 1.28,
+            "points_added": 3.8,
+            "two_pt_ast": 1,
+            "three_pt_ast": 2,
+            "rim_ast": 0,
+            "mid_ast": 1,
+            "ast_share": 25.0
+          },
+          {
+            "finisher": "Quentin Grimes",
+            "finisher_id": "4397014",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.07,
+            "finisher_xpts": 1.62,
+            "paoe": 0.93,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 1,
+            "mid_ast": 0,
+            "ast_share": 8.3
+          },
+          {
+            "finisher": "Ziaire Williams",
+            "finisher_id": "4433137",
+            "assists": 1,
+            "pts_created": 3,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.7,
+            "paoe": 1.48,
+            "points_added": 1.5,
+            "two_pt_ast": 0,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "ast_share": 8.3
+          },
+          {
+            "finisher": "Sandro Mamukelashvili",
+            "finisher_id": "4278580",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.07,
+            "finisher_xpts": 1.53,
+            "paoe": 0.93,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 1,
+            "mid_ast": 0,
+            "ast_share": 8.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Received (Passes TO this Player)",
+      "data": {
+        "meta_keys": [
+          "passer"
+        ],
+        "rows": [
+          {
+            "passer": "Luka Doncic",
+            "passer_id": "3945274",
+            "assists": 7,
+            "pts_created": 16,
+            "pts_per_ast": 2.29,
+            "xpts_per_ast": 1.22,
+            "finisher_xpts": 1.38,
+            "paoe": 1.07,
+            "points_added": 7.5,
+            "two_pt_ast": 5,
+            "three_pt_ast": 2,
+            "rim_ast": 3,
+            "mid_ast": 2,
+            "baskets_share": 38.9
+          },
+          {
+            "passer": "Collin Sexton",
+            "passer_id": "4277811",
+            "assists": 4,
+            "pts_created": 10,
+            "pts_per_ast": 2.5,
+            "xpts_per_ast": 1.31,
+            "finisher_xpts": 1.46,
+            "paoe": 1.19,
+            "points_added": 4.8,
+            "two_pt_ast": 2,
+            "three_pt_ast": 2,
+            "rim_ast": 1,
+            "mid_ast": 1,
+            "baskets_share": 22.2
+          },
+          {
+            "passer": "Quentin Grimes",
+            "passer_id": "4397014",
+            "assists": 3,
+            "pts_created": 7,
+            "pts_per_ast": 2.33,
+            "xpts_per_ast": 1.2,
+            "finisher_xpts": 1.32,
+            "paoe": 1.13,
+            "points_added": 3.4,
+            "two_pt_ast": 2,
+            "three_pt_ast": 1,
+            "rim_ast": 1,
+            "mid_ast": 0,
+            "baskets_share": 16.7
+          },
+          {
+            "passer": "Sandro Mamukelashvili",
+            "passer_id": "4278580",
+            "assists": 1,
+            "pts_created": 3,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.62,
+            "paoe": 1.48,
+            "points_added": 1.5,
+            "two_pt_ast": 0,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 5.6
+          },
+          {
+            "passer": "Walker Kessler",
+            "passer_id": "4433136",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.02,
+            "finisher_xpts": 1.08,
+            "paoe": 0.98,
+            "points_added": 1.0,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 5.6
+          },
+          {
+            "passer": "Austin Reaves",
+            "passer_id": "4066457",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.02,
+            "finisher_xpts": 1.08,
+            "paoe": 0.98,
+            "points_added": 1.0,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 5.6
+          },
+          {
+            "passer": "Matisse Thybulle",
+            "passer_id": "3907498",
+            "assists": 1,
+            "pts_created": 3,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.62,
+            "paoe": 1.48,
+            "points_added": 1.5,
+            "two_pt_ast": 0,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 5.6
           }
         ]
       }
@@ -246,6 +526,7 @@
             "fg3a": 2,
             "ftm": 1,
             "fta": 2,
+            "plus_minus": 3,
             "gmsc": 9.2,
             "ts_pct": 116.0
           },
@@ -266,6 +547,7 @@
             "fg3a": 1,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 20,
             "gmsc": 5.6,
             "ts_pct": 87.5
           },
@@ -286,6 +568,7 @@
             "fg3a": 3,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 6,
             "gmsc": 6.9,
             "ts_pct": 66.7
           },
@@ -306,6 +589,7 @@
             "fg3a": 5,
             "ftm": 2,
             "fta": 4,
+            "plus_minus": -11,
             "gmsc": 3.6,
             "ts_pct": 57.1
           },
@@ -326,6 +610,7 @@
             "fg3a": 0,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 3,
             "gmsc": 7.2,
             "ts_pct": 50.0
           },
@@ -346,6 +631,7 @@
             "fg3a": 1,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": -10,
             "gmsc": 6.8,
             "ts_pct": 125.0
           },
@@ -366,6 +652,7 @@
             "fg3a": 2,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 14,
             "gmsc": 2.1,
             "ts_pct": 0.0
           },
@@ -386,6 +673,7 @@
             "fg3a": 3,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 14,
             "gmsc": 8.9,
             "ts_pct": 100.0
           }

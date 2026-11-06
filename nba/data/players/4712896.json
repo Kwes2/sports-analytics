@@ -7,23 +7,38 @@
   "sections": [
     {
       "type": "table",
-      "title": "Season Averages",
+      "title": "Season Averages & Output",
       "data": {
         "meta_keys": [
-          "gp"
+          "gp",
+          "gs"
         ],
         "rows": [
           {
             "gp": 8,
-            "min": 21.1,
-            "pts": 5.6,
-            "reb": 4.4,
-            "ast": 0.9,
-            "stl": 0.4,
-            "blk": 0.5,
-            "to": 0.8,
+            "gs": 0,
+            "min_pg": 21.1,
+            "pts_pg": 5.6,
+            "reb_pg": 4.4,
+            "ast_pg": 0.9,
+            "stl_pg": 0.4,
+            "blk_pg": 0.5,
+            "to_pg": 0.8,
+            "pf_pg": 2.6,
+            "plus_minus_pg": -8.1,
+            "fgm_pg": 1.8,
+            "fga_pg": 4.4,
             "fg_pct": 40.0,
-            "custom_impact": 13.2
+            "fg3m_pg": 0.6,
+            "fg3a_pg": 2.2,
+            "fg3_pct": 27.8,
+            "ftm_pg": 1.5,
+            "fta_pg": 2.1,
+            "ft_pct": 70.6,
+            "oreb_pg": 1.2,
+            "dreb_pg": 3.1,
+            "prf_pg": 7.7,
+            "pct_team_prf": 7.2
           }
         ]
       }
@@ -40,7 +55,7 @@
             "gp": 8,
             "ts_pct": 53.0,
             "efg_pct": 47.1,
-            "usg_pct": 0.1,
+            "usg_pct": 14.3,
             "tov_pct": 12.4,
             "ast_to_ratio": 1.17,
             "three_par": 51.4,
@@ -48,6 +63,27 @@
             "ppsa": 1.29,
             "gmsc_avg": 4.4,
             "stocks_pg": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Playmaking & Passing Quality Profile",
+      "data": {
+        "meta_keys": [
+          "ast_recorded"
+        ],
+        "rows": [
+          {
+            "ast_recorded": 7,
+            "pts_created_pg": 2.1,
+            "pts_per_ast": 2.43,
+            "xpts_per_ast": 1.29,
+            "paoe": 1.14,
+            "points_added_pg": 1.0,
+            "rim_ast_pct": 0.0,
+            "three_ast_pct": 42.9
           }
         ]
       }
@@ -62,35 +98,43 @@
         "rows": [
           {
             "scope": "League Percentile",
-            "min": 56.0,
-            "pts": 39.0,
-            "reb": 69.9,
-            "ast": 32.4,
-            "stl": 38.6,
-            "blk": 69.4,
-            "to": 41.4,
+            "min_pg": 56.0,
+            "pts_pg": 39.0,
+            "reb_pg": 69.9,
+            "ast_pg": 32.4,
+            "stl_pg": 38.6,
+            "blk_pg": 69.4,
+            "to_pg": 41.4,
             "fg_pct": 32.2,
-            "custom_impact": 44.8,
             "ts_pct": 38.9,
             "efg_pct": 30.2,
-            "usg_pct": 11.0,
-            "gmsc_avg": 39.4
+            "usg_pct": 13.7,
+            "gmsc_avg": 39.4,
+            "xpts_per_ast": 70.9,
+            "paoe": 61.9,
+            "pts_created_pg": 34.4,
+            "prf_pg": 37.2,
+            "pct_team_prf": 39.4
           },
           {
             "scope": "Position Percentile (F)",
-            "min": 55.5,
-            "pts": 42.2,
-            "reb": 61.8,
-            "ast": 39.4,
-            "stl": 39.9,
-            "blk": 64.9,
-            "to": 45.1,
+            "min_pg": 55.5,
+            "pts_pg": 42.2,
+            "reb_pg": 61.8,
+            "ast_pg": 39.4,
+            "stl_pg": 39.9,
+            "blk_pg": 64.9,
+            "to_pg": 45.1,
             "fg_pct": 30.2,
-            "custom_impact": 49.1,
             "ts_pct": 37.4,
             "efg_pct": 27.0,
-            "usg_pct": 11.5,
-            "gmsc_avg": 42.0
+            "usg_pct": 13.2,
+            "gmsc_avg": 42.0,
+            "xpts_per_ast": 70.4,
+            "paoe": 64.7,
+            "pts_created_pg": 41.1,
+            "prf_pg": 40.8,
+            "pct_team_prf": 44.0
           }
         ]
       }
@@ -113,6 +157,7 @@
             "stl_pg": 0.4,
             "blk_pg": 0.5,
             "to_pg": 0.8,
+            "plus_minus_pg": -8.1,
             "fg_pct": 40.0
           },
           {
@@ -125,6 +170,7 @@
             "stl_pg": 0.8,
             "blk_pg": 0.2,
             "to_pg": 1.2,
+            "plus_minus_pg": -11.5,
             "fg_pct": 44.4
           },
           {
@@ -137,6 +183,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.8,
             "to_pg": 0.2,
+            "plus_minus_pg": -4.8,
             "fg_pct": 35.3
           },
           {
@@ -149,6 +196,7 @@
             "stl_pg": 0.4,
             "blk_pg": 0.6,
             "to_pg": 0.8,
+            "plus_minus_pg": -9.8,
             "fg_pct": 45.0
           },
           {
@@ -161,6 +209,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.5,
+            "plus_minus_pg": -7.5,
             "fg_pct": 46.2
           },
           {
@@ -173,7 +222,206 @@
             "stl_pg": 0.5,
             "blk_pg": 0.7,
             "to_pg": 0.8,
+            "plus_minus_pg": -8.3,
             "fg_pct": 36.4
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Delivered (Passes FROM this Player)",
+      "data": {
+        "meta_keys": [
+          "finisher"
+        ],
+        "rows": [
+          {
+            "finisher": "Julius Randle",
+            "finisher_id": "3064514",
+            "assists": 2,
+            "pts_created": 4,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.12,
+            "finisher_xpts": 1.18,
+            "paoe": 0.88,
+            "points_added": 1.8,
+            "two_pt_ast": 2,
+            "three_pt_ast": 0,
+            "rim_ast": 0,
+            "mid_ast": 2,
+            "ast_share": 28.6
+          },
+          {
+            "finisher": "Michael Porter Jr.",
+            "finisher_id": "4278104",
+            "assists": 2,
+            "pts_created": 6,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.46,
+            "paoe": 1.48,
+            "points_added": 3.0,
+            "two_pt_ast": 0,
+            "three_pt_ast": 2,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "ast_share": 28.6
+          },
+          {
+            "finisher": "Day'Ron Sharpe",
+            "finisher_id": "4432194",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.12,
+            "finisher_xpts": 1.2,
+            "paoe": 0.88,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 0,
+            "mid_ast": 1,
+            "ast_share": 14.3
+          },
+          {
+            "finisher": "Egor Demin",
+            "finisher_id": "5175643",
+            "assists": 1,
+            "pts_created": 3,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.39,
+            "paoe": 1.48,
+            "points_added": 1.5,
+            "two_pt_ast": 0,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "ast_share": 14.3
+          },
+          {
+            "finisher": "Nolan Traore",
+            "finisher_id": "5279130",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.12,
+            "finisher_xpts": 1.28,
+            "paoe": 0.88,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 0,
+            "mid_ast": 1,
+            "ast_share": 14.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Received (Passes TO this Player)",
+      "data": {
+        "meta_keys": [
+          "passer"
+        ],
+        "rows": [
+          {
+            "passer": "Nolan Traore",
+            "passer_id": "5279130",
+            "assists": 3,
+            "pts_created": 6,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.07,
+            "finisher_xpts": 1.01,
+            "paoe": 0.93,
+            "points_added": 2.8,
+            "two_pt_ast": 3,
+            "three_pt_ast": 0,
+            "rim_ast": 1,
+            "mid_ast": 1,
+            "baskets_share": 27.3
+          },
+          {
+            "passer": "Mikel Brown Jr.",
+            "passer_id": "5101761",
+            "assists": 2,
+            "pts_created": 6,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.46,
+            "paoe": 1.48,
+            "points_added": 3.0,
+            "two_pt_ast": 0,
+            "three_pt_ast": 2,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 18.2
+          },
+          {
+            "passer": "Day'Ron Sharpe",
+            "passer_id": "4432194",
+            "assists": 2,
+            "pts_created": 4,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.1,
+            "finisher_xpts": 1.03,
+            "paoe": 0.9,
+            "points_added": 1.8,
+            "two_pt_ast": 2,
+            "three_pt_ast": 0,
+            "rim_ast": 1,
+            "mid_ast": 1,
+            "baskets_share": 18.2
+          },
+          {
+            "passer": "Julius Randle",
+            "passer_id": "3064514",
+            "assists": 2,
+            "pts_created": 5,
+            "pts_per_ast": 2.5,
+            "xpts_per_ast": 1.32,
+            "finisher_xpts": 1.33,
+            "paoe": 1.18,
+            "points_added": 2.4,
+            "two_pt_ast": 1,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 1,
+            "baskets_share": 18.2
+          },
+          {
+            "passer": "Chaney Johnson",
+            "passer_id": "5174655",
+            "assists": 1,
+            "pts_created": 3,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.46,
+            "paoe": 1.48,
+            "points_added": 1.5,
+            "two_pt_ast": 0,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 9.1
+          },
+          {
+            "passer": "Michael Porter Jr.",
+            "passer_id": "4278104",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.12,
+            "finisher_xpts": 1.2,
+            "paoe": 0.88,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 0,
+            "mid_ast": 1,
+            "baskets_share": 9.1
           }
         ]
       }
@@ -246,6 +494,7 @@
             "fg3a": 4,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": -8,
             "gmsc": 3.6,
             "ts_pct": 58.3
           },
@@ -266,6 +515,7 @@
             "fg3a": 1,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 3,
             "gmsc": 3.9,
             "ts_pct": 33.3
           },
@@ -286,6 +536,7 @@
             "fg3a": 4,
             "ftm": 2,
             "fta": 3,
+            "plus_minus": -7,
             "gmsc": 3.6,
             "ts_pct": 48.1
           },
@@ -306,6 +557,7 @@
             "fg3a": 0,
             "ftm": 1,
             "fta": 2,
+            "plus_minus": -20,
             "gmsc": 4.0,
             "ts_pct": 38.7
           },
@@ -326,6 +578,7 @@
             "fg3a": 1,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": -17,
             "gmsc": 5.2,
             "ts_pct": 150.0
           },
@@ -346,6 +599,7 @@
             "fg3a": 4,
             "ftm": 6,
             "fta": 8,
+            "plus_minus": -12,
             "gmsc": 4.8,
             "ts_pct": 47.3
           },
@@ -366,6 +620,7 @@
             "fg3a": 3,
             "ftm": 1,
             "fta": 2,
+            "plus_minus": 2,
             "gmsc": 1.5,
             "ts_pct": 29.1
           },
@@ -386,6 +641,7 @@
             "fg3a": 1,
             "ftm": 2,
             "fta": 2,
+            "plus_minus": -6,
             "gmsc": 8.3,
             "ts_pct": 116.0
           }

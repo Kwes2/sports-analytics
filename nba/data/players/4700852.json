@@ -7,23 +7,38 @@
   "sections": [
     {
       "type": "table",
-      "title": "Season Averages",
+      "title": "Season Averages & Output",
       "data": {
         "meta_keys": [
-          "gp"
+          "gp",
+          "gs"
         ],
         "rows": [
           {
             "gp": 3,
-            "min": 4.0,
-            "pts": 4.3,
-            "reb": 0.0,
-            "ast": 0.0,
-            "stl": 0.0,
-            "blk": 0.0,
-            "to": 0.0,
+            "gs": 0,
+            "min_pg": 4.0,
+            "pts_pg": 4.3,
+            "reb_pg": 0.0,
+            "ast_pg": 0.0,
+            "stl_pg": 0.0,
+            "blk_pg": 0.0,
+            "to_pg": 0.0,
+            "pf_pg": 0.3,
+            "plus_minus_pg": -0.7,
+            "fgm_pg": 1.7,
+            "fga_pg": 2.3,
             "fg_pct": 71.4,
-            "custom_impact": 4.3
+            "fg3m_pg": 1.0,
+            "fg3a_pg": 1.7,
+            "fg3_pct": 60.0,
+            "ftm_pg": 0.0,
+            "fta_pg": 0.0,
+            "ft_pct": 0.0,
+            "oreb_pg": 0.0,
+            "dreb_pg": 0.0,
+            "prf_pg": 4.3,
+            "pct_team_prf": 3.9
           }
         ]
       }
@@ -40,7 +55,7 @@
             "gp": 3,
             "ts_pct": 92.9,
             "efg_pct": 92.9,
-            "usg_pct": 0.3,
+            "usg_pct": 29.2,
             "tov_pct": 0.0,
             "ast_to_ratio": 0.0,
             "three_par": 71.4,
@@ -48,6 +63,27 @@
             "ppsa": 1.86,
             "gmsc_avg": 3.2,
             "stocks_pg": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Playmaking & Passing Quality Profile",
+      "data": {
+        "meta_keys": [
+          "ast_recorded"
+        ],
+        "rows": [
+          {
+            "ast_recorded": 0,
+            "pts_created_pg": 0.0,
+            "pts_per_ast": 0.0,
+            "xpts_per_ast": 0.0,
+            "paoe": 0.0,
+            "points_added_pg": 0.0,
+            "rim_ast_pct": 0.0,
+            "three_ast_pct": 0.0
           }
         ]
       }
@@ -62,35 +98,43 @@
         "rows": [
           {
             "scope": "League Percentile",
-            "min": 9.1,
-            "pts": 32.5,
-            "reb": 2.4,
-            "ast": 6.1,
-            "stl": 9.3,
-            "blk": 15.0,
-            "to": 7.0,
+            "min_pg": 9.1,
+            "pts_pg": 32.5,
+            "reb_pg": 2.4,
+            "ast_pg": 6.1,
+            "stl_pg": 9.3,
+            "blk_pg": 15.0,
+            "to_pg": 7.0,
             "fg_pct": 94.7,
-            "custom_impact": 16.0,
             "ts_pct": 97.2,
             "efg_pct": 97.2,
-            "usg_pct": 83.1,
-            "gmsc_avg": 29.9
+            "usg_pct": 81.7,
+            "gmsc_avg": 29.9,
+            "xpts_per_ast": 6.1,
+            "paoe": 6.1,
+            "pts_created_pg": 6.1,
+            "prf_pg": 22.6,
+            "pct_team_prf": 22.9
           },
           {
             "scope": "Position Percentile (G)",
-            "min": 9.0,
-            "pts": 29.8,
-            "reb": 3.6,
-            "ast": 5.5,
-            "stl": 7.4,
-            "blk": 16.7,
-            "to": 5.5,
+            "min_pg": 9.0,
+            "pts_pg": 29.8,
+            "reb_pg": 3.6,
+            "ast_pg": 5.5,
+            "stl_pg": 7.4,
+            "blk_pg": 16.7,
+            "to_pg": 5.5,
             "fg_pct": 96.4,
-            "custom_impact": 15.7,
             "ts_pct": 96.9,
             "efg_pct": 96.9,
-            "usg_pct": 80.5,
-            "gmsc_avg": 30.2
+            "usg_pct": 78.3,
+            "gmsc_avg": 30.2,
+            "xpts_per_ast": 5.5,
+            "paoe": 5.5,
+            "pts_created_pg": 5.5,
+            "prf_pg": 19.5,
+            "pct_team_prf": 19.5
           }
         ]
       }
@@ -113,6 +157,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": -0.7,
             "fg_pct": 71.4
           },
           {
@@ -125,6 +170,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": -0.7,
             "fg_pct": 71.4
           },
           {
@@ -137,6 +183,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": -0.7,
             "fg_pct": 71.4
           },
           {
@@ -149,6 +196,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": -1.0,
             "fg_pct": 66.7
           },
           {
@@ -161,7 +209,109 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 0.0,
             "fg_pct": 100.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Delivered (Passes FROM this Player)",
+      "data": {
+        "meta_keys": [
+          "finisher"
+        ],
+        "rows": []
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Received (Passes TO this Player)",
+      "data": {
+        "meta_keys": [
+          "passer"
+        ],
+        "rows": [
+          {
+            "passer": "Isaac Jones",
+            "passer_id": "5107818",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.12,
+            "finisher_xpts": 1.12,
+            "paoe": 0.88,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 0,
+            "mid_ast": 1,
+            "baskets_share": 20.0
+          },
+          {
+            "passer": "Tolu Smith",
+            "passer_id": "4397882",
+            "assists": 1,
+            "pts_created": 3,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.8,
+            "paoe": 1.48,
+            "points_added": 1.5,
+            "two_pt_ast": 0,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 20.0
+          },
+          {
+            "passer": "Ronald Holland II",
+            "passer_id": "4683771",
+            "assists": 1,
+            "pts_created": 3,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.8,
+            "paoe": 1.48,
+            "points_added": 1.5,
+            "two_pt_ast": 0,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 20.0
+          },
+          {
+            "passer": "Ausar Thompson",
+            "passer_id": "4684742",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.07,
+            "finisher_xpts": 1.07,
+            "paoe": 0.93,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 1,
+            "mid_ast": 0,
+            "baskets_share": 20.0
+          },
+          {
+            "passer": "Ebuka Okorie",
+            "passer_id": "5258459",
+            "assists": 1,
+            "pts_created": 3,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.8,
+            "paoe": 1.48,
+            "points_added": 1.5,
+            "two_pt_ast": 0,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 20.0
           }
         ]
       }
@@ -234,6 +384,7 @@
             "fg3a": 3,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 3,
             "gmsc": 2.6,
             "ts_pct": 62.5
           },
@@ -254,6 +405,7 @@
             "fg3a": 2,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": -5,
             "gmsc": 5.4,
             "ts_pct": 150.0
           },
@@ -274,6 +426,7 @@
             "fg3a": 0,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 0,
             "gmsc": 1.7,
             "ts_pct": 100.0
           }

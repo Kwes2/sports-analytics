@@ -7,23 +7,38 @@
   "sections": [
     {
       "type": "table",
-      "title": "Season Averages",
+      "title": "Season Averages & Output",
       "data": {
         "meta_keys": [
-          "gp"
+          "gp",
+          "gs"
         ],
         "rows": [
           {
             "gp": 2,
-            "min": 6.0,
-            "pts": 0.0,
-            "reb": 1.0,
-            "ast": 1.5,
-            "stl": 0.0,
-            "blk": 0.5,
-            "to": 0.0,
+            "gs": 0,
+            "min_pg": 6.0,
+            "pts_pg": 0.0,
+            "reb_pg": 1.0,
+            "ast_pg": 1.5,
+            "stl_pg": 0.0,
+            "blk_pg": 0.5,
+            "to_pg": 0.0,
+            "pf_pg": 1.0,
+            "plus_minus_pg": -5.5,
+            "fgm_pg": 0.0,
+            "fga_pg": 1.5,
             "fg_pct": 0.0,
-            "custom_impact": 4.5
+            "fg3m_pg": 0.0,
+            "fg3a_pg": 1.5,
+            "fg3_pct": 0.0,
+            "ftm_pg": 0.0,
+            "fta_pg": 0.0,
+            "ft_pct": 0.0,
+            "oreb_pg": 0.0,
+            "dreb_pg": 1.0,
+            "prf_pg": 3.0,
+            "pct_team_prf": 3.1
           }
         ]
       }
@@ -40,7 +55,7 @@
             "gp": 2,
             "ts_pct": 0.0,
             "efg_pct": 0.0,
-            "usg_pct": 0.1,
+            "usg_pct": 12.5,
             "tov_pct": 0.0,
             "ast_to_ratio": 3.0,
             "three_par": 100.0,
@@ -48,6 +63,27 @@
             "ppsa": 0.0,
             "gmsc_avg": 0.2,
             "stocks_pg": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Playmaking & Passing Quality Profile",
+      "data": {
+        "meta_keys": [
+          "ast_recorded"
+        ],
+        "rows": [
+          {
+            "ast_recorded": 3,
+            "pts_created_pg": 3.0,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.09,
+            "paoe": 0.91,
+            "points_added_pg": 1.35,
+            "rim_ast_pct": 66.7,
+            "three_ast_pct": 0.0
           }
         ]
       }
@@ -62,35 +98,43 @@
         "rows": [
           {
             "scope": "League Percentile",
-            "min": 15.5,
-            "pts": 2.2,
-            "reb": 17.9,
-            "ast": 52.1,
-            "stl": 9.3,
-            "blk": 69.4,
-            "to": 7.0,
+            "min_pg": 15.5,
+            "pts_pg": 2.2,
+            "reb_pg": 17.9,
+            "ast_pg": 52.1,
+            "stl_pg": 9.3,
+            "blk_pg": 69.4,
+            "to_pg": 7.0,
             "fg_pct": 3.0,
-            "custom_impact": 17.4,
             "ts_pct": 2.2,
             "efg_pct": 3.0,
-            "usg_pct": 11.0,
-            "gmsc_avg": 6.6
+            "usg_pct": 8.5,
+            "gmsc_avg": 6.6,
+            "xpts_per_ast": 15.4,
+            "paoe": 17.6,
+            "pts_created_pg": 46.2,
+            "prf_pg": 15.0,
+            "pct_team_prf": 17.7
           },
           {
             "scope": "Position Percentile (C)",
-            "min": 12.5,
-            "pts": 2.2,
-            "reb": 8.1,
-            "ast": 69.9,
-            "stl": 14.0,
-            "blk": 35.3,
-            "to": 5.1,
+            "min_pg": 12.5,
+            "pts_pg": 2.2,
+            "reb_pg": 8.1,
+            "ast_pg": 69.9,
+            "stl_pg": 14.0,
+            "blk_pg": 35.3,
+            "to_pg": 5.1,
             "fg_pct": 2.9,
-            "custom_impact": 14.0,
             "ts_pct": 2.2,
             "efg_pct": 2.9,
-            "usg_pct": 13.2,
-            "gmsc_avg": 1.5
+            "usg_pct": 14.7,
+            "gmsc_avg": 1.5,
+            "xpts_per_ast": 16.9,
+            "paoe": 22.8,
+            "pts_created_pg": 63.2,
+            "prf_pg": 14.7,
+            "pct_team_prf": 15.4
           }
         ]
       }
@@ -113,6 +157,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.5,
             "to_pg": 0.0,
+            "plus_minus_pg": -5.5,
             "fg_pct": 0.0
           },
           {
@@ -125,6 +170,7 @@
             "stl_pg": 0.0,
             "blk_pg": 1.0,
             "to_pg": 0.0,
+            "plus_minus_pg": -13.0,
             "fg_pct": 0.0
           },
           {
@@ -137,6 +183,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 2.0,
             "fg_pct": 0.0
           },
           {
@@ -149,6 +196,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.5,
             "to_pg": 0.0,
+            "plus_minus_pg": -5.5,
             "fg_pct": 0.0
           },
           {
@@ -161,9 +209,63 @@
             "stl_pg": 0.0,
             "blk_pg": 0.5,
             "to_pg": 0.0,
+            "plus_minus_pg": -5.5,
             "fg_pct": 0.0
           }
         ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Delivered (Passes FROM this Player)",
+      "data": {
+        "meta_keys": [
+          "finisher"
+        ],
+        "rows": [
+          {
+            "finisher": "Tidjane Salaun",
+            "finisher_id": "5211176",
+            "assists": 2,
+            "pts_created": 4,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.07,
+            "finisher_xpts": 1.6,
+            "paoe": 0.93,
+            "points_added": 1.9,
+            "two_pt_ast": 2,
+            "three_pt_ast": 0,
+            "rim_ast": 2,
+            "mid_ast": 0,
+            "ast_share": 66.7
+          },
+          {
+            "finisher": "Hannes Steinbach",
+            "finisher_id": "5281370",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.12,
+            "finisher_xpts": 0.86,
+            "paoe": 0.88,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 0,
+            "mid_ast": 1,
+            "ast_share": 33.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Received (Passes TO this Player)",
+      "data": {
+        "meta_keys": [
+          "passer"
+        ],
+        "rows": []
       }
     },
     {
@@ -234,6 +336,7 @@
             "fg3a": 1,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 2,
             "gmsc": -0.8,
             "ts_pct": 0.0
           },
@@ -254,6 +357,7 @@
             "fg3a": 2,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": -13,
             "gmsc": 1.3,
             "ts_pct": 0.0
           }

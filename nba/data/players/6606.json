@@ -7,23 +7,38 @@
   "sections": [
     {
       "type": "table",
-      "title": "Season Averages",
+      "title": "Season Averages & Output",
       "data": {
         "meta_keys": [
-          "gp"
+          "gp",
+          "gs"
         ],
         "rows": [
           {
             "gp": 7,
-            "min": 29.7,
-            "pts": 20.1,
-            "reb": 4.1,
-            "ast": 4.1,
-            "stl": 0.9,
-            "blk": 0.1,
-            "to": 2.0,
+            "gs": 7,
+            "min_pg": 29.7,
+            "pts_pg": 20.1,
+            "reb_pg": 4.1,
+            "ast_pg": 4.1,
+            "stl_pg": 0.9,
+            "blk_pg": 0.1,
+            "to_pg": 2.0,
+            "pf_pg": 1.3,
+            "plus_minus_pg": 10.0,
+            "fgm_pg": 6.0,
+            "fga_pg": 14.3,
             "fg_pct": 42.0,
-            "custom_impact": 31.2
+            "fg3m_pg": 2.7,
+            "fg3a_pg": 8.6,
+            "fg3_pct": 31.7,
+            "ftm_pg": 5.4,
+            "fta_pg": 6.6,
+            "ft_pct": 82.6,
+            "oreb_pg": 0.6,
+            "dreb_pg": 3.6,
+            "prf_pg": 29.8,
+            "pct_team_prf": 24.4
           }
         ]
       }
@@ -40,7 +55,7 @@
             "gp": 7,
             "ts_pct": 58.6,
             "efg_pct": 51.5,
-            "usg_pct": 0.3,
+            "usg_pct": 32.3,
             "tov_pct": 10.4,
             "ast_to_ratio": 2.07,
             "three_par": 60.0,
@@ -48,6 +63,27 @@
             "ppsa": 1.41,
             "gmsc_avg": 14.9,
             "stocks_pg": 1.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Playmaking & Passing Quality Profile",
+      "data": {
+        "meta_keys": [
+          "ast_recorded"
+        ],
+        "rows": [
+          {
+            "ast_recorded": 29,
+            "pts_created_pg": 9.7,
+            "pts_per_ast": 2.34,
+            "xpts_per_ast": 1.24,
+            "paoe": 1.1,
+            "points_added_pg": 4.57,
+            "rim_ast_pct": 41.4,
+            "three_ast_pct": 34.5
           }
         ]
       }
@@ -62,35 +98,43 @@
         "rows": [
           {
             "scope": "League Percentile",
-            "min": 79.1,
-            "pts": 90.8,
-            "reb": 66.7,
-            "ast": 84.5,
-            "stl": 67.1,
-            "blk": 34.8,
-            "to": 80.6,
+            "min_pg": 79.1,
+            "pts_pg": 90.8,
+            "reb_pg": 66.7,
+            "ast_pg": 84.5,
+            "stl_pg": 67.1,
+            "blk_pg": 34.8,
+            "to_pg": 80.6,
             "fg_pct": 39.3,
-            "custom_impact": 87.4,
             "ts_pct": 59.4,
             "efg_pct": 47.7,
-            "usg_pct": 83.1,
-            "gmsc_avg": 90.5
+            "usg_pct": 89.2,
+            "gmsc_avg": 90.5,
+            "xpts_per_ast": 45.1,
+            "paoe": 45.1,
+            "pts_created_pg": 83.5,
+            "prf_pg": 90.2,
+            "pct_team_prf": 87.7
           },
           {
             "scope": "Position Percentile (G)",
-            "min": 78.1,
-            "pts": 89.8,
-            "reb": 81.9,
-            "ast": 76.2,
-            "stl": 60.7,
-            "blk": 40.2,
-            "to": 76.9,
+            "min_pg": 78.1,
+            "pts_pg": 89.8,
+            "reb_pg": 81.9,
+            "ast_pg": 76.2,
+            "stl_pg": 60.7,
+            "blk_pg": 40.2,
+            "to_pg": 76.9,
             "fg_pct": 49.3,
-            "custom_impact": 88.1,
             "ts_pct": 65.5,
             "efg_pct": 53.6,
-            "usg_pct": 80.5,
-            "gmsc_avg": 90.5
+            "usg_pct": 88.1,
+            "gmsc_avg": 90.5,
+            "xpts_per_ast": 42.4,
+            "paoe": 40.7,
+            "pts_created_pg": 74.5,
+            "prf_pg": 87.4,
+            "pct_team_prf": 85.0
           }
         ]
       }
@@ -113,6 +157,7 @@
             "stl_pg": 0.9,
             "blk_pg": 0.1,
             "to_pg": 2.0,
+            "plus_minus_pg": 10.0,
             "fg_pct": 42.0
           },
           {
@@ -125,6 +170,7 @@
             "stl_pg": 0.5,
             "blk_pg": 0.0,
             "to_pg": 1.0,
+            "plus_minus_pg": 6.0,
             "fg_pct": 40.0
           },
           {
@@ -137,6 +183,7 @@
             "stl_pg": 1.0,
             "blk_pg": 0.2,
             "to_pg": 2.4,
+            "plus_minus_pg": 11.6,
             "fg_pct": 42.7
           },
           {
@@ -149,6 +196,7 @@
             "stl_pg": 0.6,
             "blk_pg": 0.2,
             "to_pg": 2.2,
+            "plus_minus_pg": 5.6,
             "fg_pct": 40.0
           },
           {
@@ -161,6 +209,7 @@
             "stl_pg": 1.0,
             "blk_pg": 0.2,
             "to_pg": 2.2,
+            "plus_minus_pg": 13.5,
             "fg_pct": 44.8
           },
           {
@@ -173,7 +222,270 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 1.0,
+            "plus_minus_pg": -11.0,
             "fg_pct": 23.1
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Delivered (Passes FROM this Player)",
+      "data": {
+        "meta_keys": [
+          "finisher"
+        ],
+        "rows": [
+          {
+            "finisher": "Deni Avdija",
+            "finisher_id": "4683021",
+            "assists": 10,
+            "pts_created": 22,
+            "pts_per_ast": 2.2,
+            "xpts_per_ast": 1.18,
+            "finisher_xpts": 1.19,
+            "paoe": 1.02,
+            "points_added": 10.2,
+            "two_pt_ast": 8,
+            "three_pt_ast": 2,
+            "rim_ast": 5,
+            "mid_ast": 3,
+            "ast_share": 34.5
+          },
+          {
+            "finisher": "Scoot Henderson",
+            "finisher_id": "4683678",
+            "assists": 4,
+            "pts_created": 10,
+            "pts_per_ast": 2.5,
+            "xpts_per_ast": 1.31,
+            "finisher_xpts": 1.2,
+            "paoe": 1.19,
+            "points_added": 4.8,
+            "two_pt_ast": 2,
+            "three_pt_ast": 2,
+            "rim_ast": 1,
+            "mid_ast": 1,
+            "ast_share": 13.8
+          },
+          {
+            "finisher": "Toumani Camara",
+            "finisher_id": "4431736",
+            "assists": 4,
+            "pts_created": 12,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.48,
+            "paoe": 1.48,
+            "points_added": 5.9,
+            "two_pt_ast": 0,
+            "three_pt_ast": 4,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "ast_share": 13.8
+          },
+          {
+            "finisher": "Donovan Clingan",
+            "finisher_id": "5105565",
+            "assists": 3,
+            "pts_created": 6,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.09,
+            "finisher_xpts": 1.14,
+            "paoe": 0.91,
+            "points_added": 2.7,
+            "two_pt_ast": 3,
+            "three_pt_ast": 0,
+            "rim_ast": 2,
+            "mid_ast": 1,
+            "ast_share": 10.3
+          },
+          {
+            "finisher": "Ja Morant",
+            "finisher_id": "4279888",
+            "assists": 3,
+            "pts_created": 7,
+            "pts_per_ast": 2.33,
+            "xpts_per_ast": 1.25,
+            "finisher_xpts": 1.27,
+            "paoe": 1.08,
+            "points_added": 3.2,
+            "two_pt_ast": 2,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 2,
+            "ast_share": 10.3
+          },
+          {
+            "finisher": "Vit Krejci",
+            "finisher_id": "4578893",
+            "assists": 2,
+            "pts_created": 5,
+            "pts_per_ast": 2.5,
+            "xpts_per_ast": 1.3,
+            "finisher_xpts": 1.01,
+            "paoe": 1.2,
+            "points_added": 2.4,
+            "two_pt_ast": 1,
+            "three_pt_ast": 1,
+            "rim_ast": 1,
+            "mid_ast": 0,
+            "ast_share": 6.9
+          },
+          {
+            "finisher": "Robert Williams III",
+            "finisher_id": "4066211",
+            "assists": 2,
+            "pts_created": 4,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.07,
+            "finisher_xpts": 1.23,
+            "paoe": 0.93,
+            "points_added": 1.9,
+            "two_pt_ast": 2,
+            "three_pt_ast": 0,
+            "rim_ast": 2,
+            "mid_ast": 0,
+            "ast_share": 6.9
+          },
+          {
+            "finisher": "Sidy Cissoko",
+            "finisher_id": "5081727",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.07,
+            "finisher_xpts": 1.6,
+            "paoe": 0.93,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 1,
+            "mid_ast": 0,
+            "ast_share": 3.4
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Received (Passes TO this Player)",
+      "data": {
+        "meta_keys": [
+          "passer"
+        ],
+        "rows": [
+          {
+            "passer": "Deni Avdija",
+            "passer_id": "4683021",
+            "assists": 8,
+            "pts_created": 21,
+            "pts_per_ast": 2.62,
+            "xpts_per_ast": 1.33,
+            "finisher_xpts": 1.42,
+            "paoe": 1.29,
+            "points_added": 10.3,
+            "two_pt_ast": 3,
+            "three_pt_ast": 5,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 44.4
+          },
+          {
+            "passer": "Jrue Holiday",
+            "passer_id": "3995",
+            "assists": 3,
+            "pts_created": 8,
+            "pts_per_ast": 2.67,
+            "xpts_per_ast": 1.39,
+            "finisher_xpts": 1.44,
+            "paoe": 1.28,
+            "points_added": 3.8,
+            "two_pt_ast": 1,
+            "three_pt_ast": 2,
+            "rim_ast": 0,
+            "mid_ast": 1,
+            "baskets_share": 16.7
+          },
+          {
+            "passer": "Toumani Camara",
+            "passer_id": "4431736",
+            "assists": 2,
+            "pts_created": 6,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.62,
+            "paoe": 1.48,
+            "points_added": 3.0,
+            "two_pt_ast": 0,
+            "three_pt_ast": 2,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 11.1
+          },
+          {
+            "passer": "Sidy Cissoko",
+            "passer_id": "5081727",
+            "assists": 2,
+            "pts_created": 4,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.02,
+            "finisher_xpts": 1.08,
+            "paoe": 0.98,
+            "points_added": 2.0,
+            "two_pt_ast": 2,
+            "three_pt_ast": 0,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 11.1
+          },
+          {
+            "passer": "Robert Williams III",
+            "passer_id": "4066211",
+            "assists": 1,
+            "pts_created": 3,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.62,
+            "paoe": 1.48,
+            "points_added": 1.5,
+            "two_pt_ast": 0,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 5.6
+          },
+          {
+            "passer": "Ja Morant",
+            "passer_id": "4279888",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.07,
+            "finisher_xpts": 1.17,
+            "paoe": 0.93,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 1,
+            "mid_ast": 0,
+            "baskets_share": 5.6
+          },
+          {
+            "passer": "Scoot Henderson",
+            "passer_id": "4683678",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.07,
+            "finisher_xpts": 1.17,
+            "paoe": 0.93,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 1,
+            "mid_ast": 0,
+            "baskets_share": 5.6
           }
         ]
       }
@@ -246,6 +558,7 @@
             "fg3a": 8,
             "ftm": 5,
             "fta": 5,
+            "plus_minus": 16,
             "gmsc": 19.3,
             "ts_pct": 65.1
           },
@@ -266,6 +579,7 @@
             "fg3a": 5,
             "ftm": 9,
             "fta": 10,
+            "plus_minus": 3,
             "gmsc": 18.9,
             "ts_pct": 64.9
           },
@@ -286,6 +600,7 @@
             "fg3a": 10,
             "ftm": 7,
             "fta": 8,
+            "plus_minus": 21,
             "gmsc": 13.7,
             "ts_pct": 53.6
           },
@@ -306,6 +621,7 @@
             "fg3a": 9,
             "ftm": 2,
             "fta": 4,
+            "plus_minus": -11,
             "gmsc": 1.3,
             "ts_pct": 30.5
           },
@@ -326,6 +642,7 @@
             "fg3a": 8,
             "ftm": 7,
             "fta": 11,
+            "plus_minus": -1,
             "gmsc": 14.5,
             "ts_pct": 62.4
           },
@@ -346,6 +663,7 @@
             "fg3a": 10,
             "ftm": 3,
             "fta": 3,
+            "plus_minus": 19,
             "gmsc": 11.7,
             "ts_pct": 49.2
           },
@@ -366,6 +684,7 @@
             "fg3a": 10,
             "ftm": 5,
             "fta": 5,
+            "plus_minus": 23,
             "gmsc": 24.9,
             "ts_pct": 88.0
           }

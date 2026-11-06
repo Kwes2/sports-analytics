@@ -3,40 +3,591 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sports Reference Stats</title>
-    <script>
-        // Default entry point points to NBA
-        window.location.href = "nba/";
-    </script>
+    <title>NBA Reference Stats</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 10px 20px;
+            background-color: #fff;
+            color: #222;
         }
+
+        header {
+            border-bottom: 2px solid #333;
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
         .sport-nav {
             display: flex;
             gap: 12px;
             font-size: 16px;
             font-weight: bold;
+            margin-bottom: 8px;
         }
+
         .sport-nav a {
             color: #333;
             text-decoration: none;
             padding: 3px 6px;
         }
+
+        .sport-nav a:hover, .sport-nav a.active {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .sub-nav {
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+            border-top: 1px solid #ddd;
+            padding-top: 6px;
+        }
+
+        .sub-nav button {
+            background: none;
+            border: none;
+            padding: 0;
+            color: #0056b3;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 13px;
+        }
+
+        .sub-nav button.active-sub {
+            font-weight: bold;
+            color: #000;
+            text-decoration: none;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin: 15px 0 10px 0;
+        }
+
+        .filter-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            padding: 10px 14px;
+            margin-bottom: 14px;
+            max-width: 1250px;
+            font-size: 13px;
+        }
+
+        .filter-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .filter-rules-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .filter-rule-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: #eee;
+            border: 1px solid #888;
+            padding: 3px 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .filter-btn:hover {
+            background: #e2e2e2;
+        }
+
+        .remove-rule-btn {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #f87171;
+            padding: 2px 6px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-left: auto;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: #fafafa;
+            padding: 4px 8px;
+            border: 1px solid #ccc;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 1250px;
+            font-size: 13px;
+            border: 1px solid #888;
+        }
+
+        th, td {
+            padding: 4px 8px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #eee;
+            font-weight: bold;
+            text-align: left;
+            border-bottom: 2px solid #888;
+            cursor: pointer;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        th:hover {
+            background-color: #e2e2e2;
+        }
+
+        th.has-tip {
+            border-bottom: 1px dotted #666;
+            cursor: help;
+        }
+
+        th.num, td.num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #ffffcc;
+        }
+
+        .sort-indicator {
+            font-size: 10px;
+            margin-left: 4px;
+            color: #666;
+        }
+
+        a.table-link {
+            color: #0056b3;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
+
     <header>
         <div class="sport-nav">
-            <a href="afl/">AFL</a>
-            <a href="nfl/">NFL</a>
-            <a href="nba/">NBA</a>
-            <a href="nhl/">NHL</a>
-            <a href="f1/">F1</a>
+            <a href="../afl/">AFL</a>
+            <a href="../nfl/">NFL</a>
+            <a href="./" class="active">NBA</a>
+            <a href="../nhl/">NHL</a>
+            <a href="../f1/">F1</a>
+        </div>
+        <div class="sub-nav">
+            <button class="active-sub" onclick="loadView('Team Stats', 'data/team_stats.json', this)">Team Stats</button>
+            <button onclick="loadView('Player Stats', 'data/player_stats.json', this)">Player Stats</button>
+            <button onclick="loadView('Completed Games', 'data/completed_games.json', this)">Completed Games</button>
+            <button onclick="loadView('Upcoming Schedule', 'data/upcoming_games.json', this)">Upcoming Schedule</button>
         </div>
     </header>
-    <p>Redirecting to <a href="nba/">NBA Stats</a>...</p>
+
+    <h2 id="table-title">NBA - Team Stats</h2>
+
+    <div id="filter-panel-container"></div>
+    <div id="table-container">Loading data...</div>
+
+    <script>
+        const STAT_GLOSSARY = {
+            "GP": "Games Played",
+            "GS": "Games Started",
+            "W": "Wins",
+            "L": "Losses",
+            "WIN_PCT": "Win Percentage",
+            "PACE": "Pace Factor: Estimated team possessions per 48 minutes",
+            "ORTG": "Offensive Rating: Points scored per 100 possessions",
+            "DRTG": "Defensive Rating: Points allowed per 100 possessions",
+            "NET_RTG": "Net Rating: Point differential per 100 possessions (ORtg - DRtg)",
+            "MIN_PG": "Minutes Per Game",
+            "PTS_PG": "Points Per Game",
+            "REB_PG": "Rebounds Per Game",
+            "AST_PG": "Assists Per Game",
+            "STL_PG": "Steals Per Game",
+            "BLK_PG": "Blocks Per Game",
+            "TO_PG": "Turnovers Per Game",
+            "PF_PG": "Personal Fouls Per Game",
+            "PLUS_MINUS_PG": "Average Plus-Minus (+/-) Per Game",
+            "FGM_PG": "Field Goals Made Per Game",
+            "FGA_PG": "Field Goal Attempts Per Game",
+            "FG_PCT": "Field Goal Percentage (FGM / FGA)",
+            "FG3M_PG": "3-Pointers Made Per Game",
+            "FG3A_PG": "3-Point Attempts Per Game",
+            "FG3_PCT": "3-Point Percentage (3PM / 3PA)",
+            "FTM_PG": "Free Throws Made Per Game",
+            "FTA_PG": "Free Throw Attempts Per Game",
+            "FT_PCT": "Free Throw Percentage (FTM / FTA)",
+            "OREB_PG": "Offensive Rebounds Per Game",
+            "DREB_PG": "Defensive Rebounds Per Game",
+            "TS_PCT": "True Shooting %: Scoring efficiency factoring in 2s, 3s, and FTs",
+            "EFG_PCT": "Effective FG %: Adjusted for the extra value of 3-pointers",
+            "USG_PCT": "Usage Rate %: Percentage of team plays used while on the court",
+            "TOV_PCT": "Turnover Rate %: Turnovers committed per 100 plays",
+            "AST_TO_RATIO": "Assist-to-Turnover Ratio (AST / TO)",
+            "THREE_PAR": "3-Point Attempt Rate (% of FGA from 3PT range)",
+            "FT_RATE": "Free Throw Attempt Rate (FTA / FGA)",
+            "PPSA": "Points Per Shot Attempt (PTS / FGA)",
+            "GMSC_AVG": "Average Hollinger Game Score",
+            "STOCKS_PG": "Stocks: Steals + Blocks per game",
+            "RIM_FG_PCT": "0-4 ft (Rim) Field Goal Percentage",
+            "RIM_FGA_PG": "0-4 ft (Rim) Attempts Per Game",
+            "RIM_SHARE": "Percentage of total attempts at the rim (0-4 ft)",
+            "MID_FG_PCT": "4-14 ft (Short Mid) Field Goal Percentage",
+            "MID_FGA_PG": "4-14 ft (Short Mid) Attempts Per Game",
+            "MID_SHARE": "Percentage of total attempts from 4-14 ft",
+            "THREE_FG_PCT": "14+ ft (Perimeter/3PT) Field Goal Percentage",
+            "THREE_FGA_PG": "14+ ft (Perimeter/3PT) Attempts Per Game",
+            "THREE_SHARE": "Percentage of total attempts from 14+ ft"
+        };
+
+        let rawRows = [];
+        let filteredRows = [];
+        let currentMetaKeys = [];
+        let currentSortColumn = null;
+        let isAscending = false;
+        let activeViewTitle = "";
+        let activeFilterRules = [];
+
+        window.onload = () => {
+            loadView('Team Stats', 'data/team_stats.json', document.querySelector('.sub-nav button.active-sub'));
+        };
+
+        function formatSmartValue(val, col) {
+            if (val === null || val === undefined || val === '') return '';
+            if (typeof val !== 'number') return val;
+
+            const c = col.toLowerCase();
+            if (c === 'ppsa' || c === 'ast_to_ratio') {
+                return val.toFixed(2);
+            }
+            if (c.includes('pct') || c.includes('_pg') || c === 'pace' || c === 'ortg' || c === 'drtg' || c === 'net_rtg' || c.includes('share') || c === 'diff' || c.includes('rate') || c.includes('par') || c.includes('avg')) {
+                return val.toFixed(1);
+            }
+            if (Number.isInteger(val)) {
+                return val;
+            }
+            return val.toFixed(1);
+        }
+
+        function loadView(title, filePath, el) {
+            document.querySelectorAll('.sub-nav button').forEach(b => b.classList.remove('active-sub'));
+            if (el) el.classList.add('active-sub');
+
+            activeViewTitle = title;
+            document.getElementById('table-title').innerText = `NBA - ${title}`;
+            const container = document.getElementById('table-container');
+            container.innerHTML = "Loading...";
+
+            activeFilterRules = [];
+            renderFilterPanel();
+
+            fetch(filePath)
+                .then(res => res.json())
+                .then(payload => {
+                    rawRows = payload.rows || [];
+                    filteredRows = [...rawRows];
+                    currentMetaKeys = payload.meta_keys || [];
+
+                    if (rawRows.length === 0) {
+                        container.innerHTML = "<p>No data recorded yet.</p>";
+                        return;
+                    }
+
+                    currentSortColumn = null;
+                    renderFilterPanel();
+                    renderTable();
+                })
+                .catch(err => {
+                    container.innerHTML = `<p style="color:red">Failed to load ${filePath}. Check that the file exists.</p>`;
+                });
+        }
+
+        function renderFilterPanel() {
+            const container = document.getElementById('filter-panel-container');
+            if (activeViewTitle !== "Player Stats" || rawRows.length === 0) {
+                container.innerHTML = "";
+                return;
+            }
+
+            const sample = rawRows[0];
+            const allKeys = Object.keys(sample).filter(k => k !== "player_id" && k !== "team_id");
+
+            let rulesHtml = "";
+            activeFilterRules.forEach((rule, rIdx) => {
+                const isNumeric = typeof sample[rule.column] === 'number';
+
+                rulesHtml += `<div class="filter-rule-row">`;
+                rulesHtml += `<strong>Rule ${rIdx + 1}:</strong> `;
+
+                rulesHtml += `<select onchange="updateRuleColumn(${rIdx}, this.value)">`;
+                allKeys.forEach(k => {
+                    rulesHtml += `<option value="${k}" ${k === rule.column ? 'selected' : ''}>${k.replace(/_/g, ' ').toUpperCase()}</option>`;
+                });
+                rulesHtml += `</select>`;
+
+                if (isNumeric) {
+                    rulesHtml += `
+                        <select onchange="updateRuleOperator(${rIdx}, this.value)">
+                            <option value=">=" ${rule.op === '>=' ? 'selected' : ''}>&gt;=</option>
+                            <option value="<=" ${rule.op === '<=' ? 'selected' : ''}>&lt;=</option>
+                            <option value=">" ${rule.op === '>' ? 'selected' : ''}>&gt;</option>
+                            <option value="<" ${rule.op === '<' ? 'selected' : ''}>&lt;</option>
+                            <option value="=" ${rule.op === '=' ? 'selected' : ''}>=</option>
+                        </select>
+                        <input type="number" step="any" style="width: 75px;" value="${rule.val}" oninput="updateRuleValue(${rIdx}, this.value)" placeholder="Value" />
+                    `;
+                } else {
+                    const distinctVals = [...new Set(rawRows.map(r => r[rule.column]))].sort();
+                    rulesHtml += `<span style="font-size:12px; color:#555;">Select values:</span> <div class="checkbox-group">`;
+                    distinctVals.forEach(val => {
+                        const checked = (rule.selectedVals || []).includes(val);
+                        rulesHtml += `
+                            <label>
+                                <input type="checkbox" value="${val}" ${checked ? 'checked' : ''} onchange="toggleRuleCatVal(${rIdx}, '${val}')">
+                                ${val}
+                            </label>
+                        `;
+                    });
+                    rulesHtml += `</div>`;
+                }
+
+                rulesHtml += `<button class="remove-rule-btn" onclick="removeRule(${rIdx})">✕ Remove</button>`;
+                rulesHtml += `</div>`;
+            });
+
+            container.innerHTML = `
+                <div class="filter-panel">
+                    <div class="filter-panel-header">
+                        <div>
+                            <strong>Filter Tool:</strong> Showing <strong>${filteredRows.length}</strong> of <strong>${rawRows.length}</strong> players
+                        </div>
+                        <div>
+                            <button class="filter-btn" onclick="addRule()">+ Add Filter Rule</button>
+                            ${activeFilterRules.length > 0 ? `<button class="filter-btn" onclick="clearAllRules()">Clear All Rules</button>` : ''}
+                        </div>
+                    </div>
+                    <div class="filter-rules-list">${rulesHtml}</div>
+                </div>
+            `;
+        }
+
+        function addRule() {
+            const sample = rawRows[0];
+            const allKeys = Object.keys(sample).filter(k => k !== "player_id" && k !== "team_id");
+            const defaultCol = allKeys.includes("min_pg") ? "min_pg" : allKeys[0];
+            const isNum = typeof sample[defaultCol] === 'number';
+
+            activeFilterRules.push({
+                column: defaultCol,
+                op: ">=",
+                val: isNum ? 20 : "",
+                selectedVals: isNum ? [] : [...new Set(rawRows.map(r => r[defaultCol]))]
+            });
+
+            applyFilterRules();
+        }
+
+        function removeRule(index) {
+            activeFilterRules.splice(index, 1);
+            applyFilterRules();
+        }
+
+        function clearAllRules() {
+            activeFilterRules = [];
+            applyFilterRules();
+        }
+
+        function updateRuleColumn(rIdx, col) {
+            const isNum = typeof rawRows[0][col] === 'number';
+            activeFilterRules[rIdx].column = col;
+            activeFilterRules[rIdx].op = isNum ? ">=" : "in";
+            activeFilterRules[rIdx].val = isNum ? 0 : "";
+            activeFilterRules[rIdx].selectedVals = isNum ? [] : [...new Set(rawRows.map(r => r[col]))];
+            applyFilterRules();
+        }
+
+        function updateRuleOperator(rIdx, op) {
+            activeFilterRules[rIdx].op = op;
+            applyFilterRules();
+        }
+
+        function updateRuleValue(rIdx, val) {
+            activeFilterRules[rIdx].val = val !== "" ? parseFloat(val) : "";
+            applyFilterRules();
+        }
+
+        function toggleRuleCatVal(rIdx, val) {
+            const rule = activeFilterRules[rIdx];
+            if (!rule.selectedVals) rule.selectedVals = [];
+            const idx = rule.selectedVals.indexOf(val);
+            if (idx > -1) {
+                rule.selectedVals.splice(idx, 1);
+            } else {
+                rule.selectedVals.push(val);
+            }
+            applyFilterRules();
+        }
+
+        function applyFilterRules() {
+            filteredRows = rawRows.filter(row => {
+                for (const rule of activeFilterRules) {
+                    const rowVal = row[rule.column];
+                    const isNum = typeof rowVal === 'number';
+
+                    if (isNum) {
+                        if (rule.val === "" || isNaN(rule.val)) continue;
+                        if (rule.op === ">=" && !(rowVal >= rule.val)) return false;
+                        if (rule.op === "<=" && !(rowVal <= rule.val)) return false;
+                        if (rule.op === ">" && !(rowVal > rule.val)) return false;
+                        if (rule.op === "<" && !(rowVal < rule.val)) return false;
+                        if (rule.op === "=" && !(rowVal === rule.val)) return false;
+                    } else {
+                        if (rule.selectedVals && rule.selectedVals.length > 0) {
+                            if (!rule.selectedVals.includes(rowVal)) return false;
+                        }
+                    }
+                }
+                return true;
+            });
+
+            if (currentSortColumn) {
+                sortArray(filteredRows, currentSortColumn, isAscending);
+            }
+
+            renderFilterPanel();
+            renderTable();
+        }
+
+        function renderTable() {
+            const container = document.getElementById('table-container');
+            if (filteredRows.length === 0) {
+                container.innerHTML = "<p>No matching records found for active filters.</p>";
+                return;
+            }
+
+            const sample = filteredRows[0];
+            const allKeys = Object.keys(sample);
+            const visibleKeys = allKeys.filter(k => k !== "player_id" && k !== "team_id");
+
+            const metaCols = currentMetaKeys.filter(k => visibleKeys.includes(k));
+            const statCols = visibleKeys.filter(k => !currentMetaKeys.includes(k));
+            const orderedCols = [...metaCols, ...statCols];
+
+            let html = `<table><thead><tr>`;
+
+            orderedCols.forEach(col => {
+                const isMeta = metaCols.includes(col);
+                const isNumeric = typeof sample[col] === 'number';
+                let indicator = '';
+
+                if (currentSortColumn === col) {
+                    indicator = `<span class="sort-indicator">${isAscending ? '▲' : '▼'}</span>`;
+                }
+
+                const colUpper = col.toUpperCase();
+                const tip = STAT_GLOSSARY[colUpper] || "";
+                const tipAttr = tip ? `title="${tip}" class="${isNumeric && !isMeta ? 'num' : ''} has-tip"` : `class="${isNumeric && !isMeta ? 'num' : ''}"`;
+
+                html += `
+                    <th ${tipAttr} onclick="sortTable('${col}')">
+                        ${formatHeader(col)} ${indicator}
+                    </th>`;
+            });
+
+            html += `</tr></thead><tbody>`;
+
+            filteredRows.forEach(row => {
+                html += `<tr>`;
+                orderedCols.forEach(col => {
+                    const rawVal = row[col];
+                    const isMeta = metaCols.includes(col);
+                    const isNumeric = typeof rawVal === 'number';
+
+                    let cellContent = formatSmartValue(rawVal, col);
+                    if (col === 'box_score' && rawVal) {
+                        cellContent = `<a class="table-link" href="${rawVal}">Box Score</a>`;
+                    } else if (col === 'player' && row.player_id) {
+                        cellContent = `<a class="table-link" href="player.html?id=${row.player_id}">${cellContent}</a>`;
+                    } else if (col === 'team' && row.team_id) {
+                        cellContent = `<a class="table-link" href="team.html?id=${row.team_id}">${cellContent}</a>`;
+                    }
+
+                    html += `<td class="${isNumeric && !isMeta ? 'num' : ''}">${cellContent}</td>`;
+                });
+                html += `</tr>`;
+            });
+
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        function sortTable(column) {
+            if (currentSortColumn === column) {
+                isAscending = !isAscending;
+            } else {
+                currentSortColumn = column;
+                const isNumeric = typeof filteredRows[0][column] === 'number';
+                isAscending = !isNumeric;
+            }
+
+            sortArray(filteredRows, column, isAscending);
+            renderTable();
+        }
+
+        function sortArray(arr, col, asc) {
+            arr.sort((a, b) => {
+                let valA = a[col];
+                let valB = b[col];
+
+                if (valA === null || valA === undefined) return 1;
+                if (valB === null || valB === undefined) return -1;
+
+                if (typeof valA === 'number' && typeof valB === 'number') {
+                    return asc ? valA - valB : valB - valA;
+                }
+
+                valA = valA.toString().toLowerCase();
+                valB = valB.toString().toLowerCase();
+
+                if (valA < valB) return asc ? -1 : 1;
+                if (valA > valB) return asc ? 1 : -1;
+                return 0;
+            });
+        }
+
+        function formatHeader(header) {
+            return header.replace(/_/g, ' ').toUpperCase();
+        }
+    </script>
 </body>
 </html>

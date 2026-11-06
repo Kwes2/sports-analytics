@@ -7,23 +7,38 @@
   "sections": [
     {
       "type": "table",
-      "title": "Season Averages",
+      "title": "Season Averages & Output",
       "data": {
         "meta_keys": [
-          "gp"
+          "gp",
+          "gs"
         ],
         "rows": [
           {
             "gp": 1,
-            "min": 1.0,
-            "pts": 0.0,
-            "reb": 0.0,
-            "ast": 0.0,
-            "stl": 0.0,
-            "blk": 0.0,
-            "to": 0.0,
+            "gs": 0,
+            "min_pg": 1.0,
+            "pts_pg": 0.0,
+            "reb_pg": 0.0,
+            "ast_pg": 0.0,
+            "stl_pg": 0.0,
+            "blk_pg": 0.0,
+            "to_pg": 0.0,
+            "pf_pg": 0.0,
+            "plus_minus_pg": 1.0,
+            "fgm_pg": 0.0,
+            "fga_pg": 0.0,
             "fg_pct": 0.0,
-            "custom_impact": 0.0
+            "fg3m_pg": 0.0,
+            "fg3a_pg": 0.0,
+            "fg3_pct": 0.0,
+            "ftm_pg": 0.0,
+            "fta_pg": 0.0,
+            "ft_pct": 0.0,
+            "oreb_pg": 0.0,
+            "dreb_pg": 0.0,
+            "prf_pg": 0.0,
+            "pct_team_prf": 0.0
           }
         ]
       }
@@ -54,6 +69,27 @@
     },
     {
       "type": "table",
+      "title": "Playmaking & Passing Quality Profile",
+      "data": {
+        "meta_keys": [
+          "ast_recorded"
+        ],
+        "rows": [
+          {
+            "ast_recorded": 0,
+            "pts_created_pg": 0.0,
+            "pts_per_ast": 0.0,
+            "xpts_per_ast": 0.0,
+            "paoe": 0.0,
+            "points_added_pg": 0.0,
+            "rim_ast_pct": 0.0,
+            "three_ast_pct": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
       "title": "Percentile Ranks (0\u2013100)",
       "data": {
         "meta_keys": [
@@ -62,35 +98,43 @@
         "rows": [
           {
             "scope": "League Percentile",
-            "min": 0.8,
-            "pts": 2.2,
-            "reb": 2.4,
-            "ast": 6.1,
-            "stl": 9.3,
-            "blk": 15.0,
-            "to": 7.0,
+            "min_pg": 0.8,
+            "pts_pg": 2.2,
+            "reb_pg": 2.4,
+            "ast_pg": 6.1,
+            "stl_pg": 9.3,
+            "blk_pg": 15.0,
+            "to_pg": 7.0,
             "fg_pct": 3.0,
-            "custom_impact": 0.9,
             "ts_pct": 2.2,
             "efg_pct": 3.0,
-            "usg_pct": 1.1,
-            "gmsc_avg": 3.9
+            "usg_pct": 1.0,
+            "gmsc_avg": 3.9,
+            "xpts_per_ast": 6.1,
+            "paoe": 6.1,
+            "pts_created_pg": 6.1,
+            "prf_pg": 1.4,
+            "pct_team_prf": 1.4
           },
           {
             "scope": "Position Percentile (G)",
-            "min": 0.7,
-            "pts": 2.1,
-            "reb": 3.6,
-            "ast": 5.5,
-            "stl": 7.4,
-            "blk": 16.7,
-            "to": 5.5,
+            "min_pg": 0.7,
+            "pts_pg": 2.1,
+            "reb_pg": 3.6,
+            "ast_pg": 5.5,
+            "stl_pg": 7.4,
+            "blk_pg": 16.7,
+            "to_pg": 5.5,
             "fg_pct": 2.6,
-            "custom_impact": 1.2,
             "ts_pct": 2.1,
             "efg_pct": 2.6,
             "usg_pct": 1.0,
-            "gmsc_avg": 4.0
+            "gmsc_avg": 4.0,
+            "xpts_per_ast": 5.5,
+            "paoe": 5.5,
+            "pts_created_pg": 5.5,
+            "prf_pg": 1.7,
+            "pct_team_prf": 1.7
           }
         ]
       }
@@ -113,6 +157,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 1.0,
             "fg_pct": 0.0
           },
           {
@@ -125,6 +170,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 1.0,
             "fg_pct": 0.0
           },
           {
@@ -137,6 +183,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 1.0,
             "fg_pct": 0.0
           },
           {
@@ -149,9 +196,30 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 1.0,
             "fg_pct": 0.0
           }
         ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Delivered (Passes FROM this Player)",
+      "data": {
+        "meta_keys": [
+          "finisher"
+        ],
+        "rows": []
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Received (Passes TO this Player)",
+      "data": {
+        "meta_keys": [
+          "passer"
+        ],
+        "rows": []
       }
     },
     {
@@ -222,6 +290,7 @@
             "fg3a": 0,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 1,
             "gmsc": 0.0,
             "ts_pct": 0.0
           }

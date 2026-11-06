@@ -7,23 +7,38 @@
   "sections": [
     {
       "type": "table",
-      "title": "Season Averages",
+      "title": "Season Averages & Output",
       "data": {
         "meta_keys": [
-          "gp"
+          "gp",
+          "gs"
         ],
         "rows": [
           {
             "gp": 7,
-            "min": 33.0,
-            "pts": 15.7,
-            "reb": 7.4,
-            "ast": 7.4,
-            "stl": 1.4,
-            "blk": 0.9,
-            "to": 2.4,
+            "gs": 7,
+            "min_pg": 33.0,
+            "pts_pg": 15.7,
+            "reb_pg": 7.4,
+            "ast_pg": 7.4,
+            "stl_pg": 1.4,
+            "blk_pg": 0.9,
+            "to_pg": 2.4,
+            "pf_pg": 2.1,
+            "plus_minus_pg": 3.6,
+            "fgm_pg": 6.0,
+            "fga_pg": 13.1,
             "fg_pct": 45.7,
-            "custom_impact": 37.9
+            "fg3m_pg": 0.9,
+            "fg3a_pg": 3.3,
+            "fg3_pct": 26.1,
+            "ftm_pg": 2.9,
+            "fta_pg": 4.4,
+            "ft_pct": 64.5,
+            "oreb_pg": 0.4,
+            "dreb_pg": 7.0,
+            "prf_pg": 32.8,
+            "pct_team_prf": 29.5
           }
         ]
       }
@@ -40,7 +55,7 @@
             "gp": 7,
             "ts_pct": 52.1,
             "efg_pct": 48.9,
-            "usg_pct": 0.3,
+            "usg_pct": 26.5,
             "tov_pct": 13.9,
             "ast_to_ratio": 3.06,
             "three_par": 25.0,
@@ -48,6 +63,27 @@
             "ppsa": 1.2,
             "gmsc_avg": 14.6,
             "stocks_pg": 2.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Playmaking & Passing Quality Profile",
+      "data": {
+        "meta_keys": [
+          "ast_recorded"
+        ],
+        "rows": [
+          {
+            "ast_recorded": 52,
+            "pts_created_pg": 17.1,
+            "pts_per_ast": 2.31,
+            "xpts_per_ast": 1.22,
+            "paoe": 1.09,
+            "points_added_pg": 8.07,
+            "rim_ast_pct": 19.2,
+            "three_ast_pct": 30.8
           }
         ]
       }
@@ -62,35 +98,43 @@
         "rows": [
           {
             "scope": "League Percentile",
-            "min": 90.5,
-            "pts": 82.7,
-            "reb": 91.6,
-            "ast": 97.2,
-            "stl": 89.9,
-            "blk": 86.6,
-            "to": 88.7,
+            "min_pg": 90.5,
+            "pts_pg": 82.7,
+            "reb_pg": 91.6,
+            "ast_pg": 97.2,
+            "stl_pg": 89.9,
+            "blk_pg": 86.6,
+            "to_pg": 88.7,
             "fg_pct": 52.0,
-            "custom_impact": 94.6,
             "ts_pct": 35.4,
             "efg_pct": 36.6,
-            "usg_pct": 83.1,
-            "gmsc_avg": 88.2
+            "usg_pct": 72.2,
+            "gmsc_avg": 88.2,
+            "xpts_per_ast": 36.7,
+            "paoe": 42.1,
+            "pts_created_pg": 97.2,
+            "prf_pg": 92.7,
+            "pct_team_prf": 93.0
           },
           {
             "scope": "Position Percentile (F)",
-            "min": 91.1,
-            "pts": 80.2,
-            "reb": 91.4,
-            "ast": 97.4,
-            "stl": 89.1,
-            "blk": 86.2,
-            "to": 88.2,
+            "min_pg": 91.1,
+            "pts_pg": 80.2,
+            "reb_pg": 91.4,
+            "ast_pg": 97.4,
+            "stl_pg": 89.1,
+            "blk_pg": 86.2,
+            "to_pg": 88.2,
             "fg_pct": 45.7,
-            "custom_impact": 93.4,
             "ts_pct": 32.8,
             "efg_pct": 34.2,
-            "usg_pct": 83.9,
-            "gmsc_avg": 87.9
+            "usg_pct": 74.4,
+            "gmsc_avg": 87.9,
+            "xpts_per_ast": 37.4,
+            "paoe": 45.4,
+            "pts_created_pg": 97.4,
+            "prf_pg": 93.7,
+            "pct_team_prf": 94.0
           }
         ]
       }
@@ -113,6 +157,7 @@
             "stl_pg": 1.4,
             "blk_pg": 0.9,
             "to_pg": 2.4,
+            "plus_minus_pg": 3.6,
             "fg_pct": 45.7
           },
           {
@@ -125,6 +170,7 @@
             "stl_pg": 1.8,
             "blk_pg": 0.5,
             "to_pg": 3.2,
+            "plus_minus_pg": 5.8,
             "fg_pct": 47.4
           },
           {
@@ -137,6 +183,7 @@
             "stl_pg": 1.0,
             "blk_pg": 1.3,
             "to_pg": 1.3,
+            "plus_minus_pg": 0.7,
             "fg_pct": 42.9
           },
           {
@@ -149,6 +196,7 @@
             "stl_pg": 1.2,
             "blk_pg": 0.8,
             "to_pg": 2.2,
+            "plus_minus_pg": 4.0,
             "fg_pct": 49.2
           },
           {
@@ -161,6 +209,7 @@
             "stl_pg": 1.3,
             "blk_pg": 1.0,
             "to_pg": 2.3,
+            "plus_minus_pg": 7.8,
             "fg_pct": 44.2
           },
           {
@@ -173,7 +222,270 @@
             "stl_pg": 2.0,
             "blk_pg": 0.0,
             "to_pg": 3.0,
+            "plus_minus_pg": -22.0,
             "fg_pct": 53.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Delivered (Passes FROM this Player)",
+      "data": {
+        "meta_keys": [
+          "finisher"
+        ],
+        "rows": [
+          {
+            "finisher": "Tyrese Maxey",
+            "finisher_id": "4431678",
+            "assists": 16,
+            "pts_created": 37,
+            "pts_per_ast": 2.31,
+            "xpts_per_ast": 1.22,
+            "finisher_xpts": 1.33,
+            "paoe": 1.09,
+            "points_added": 17.4,
+            "two_pt_ast": 11,
+            "three_pt_ast": 5,
+            "rim_ast": 1,
+            "mid_ast": 7,
+            "ast_share": 30.8
+          },
+          {
+            "finisher": "Joel Embiid",
+            "finisher_id": "3059318",
+            "assists": 9,
+            "pts_created": 19,
+            "pts_per_ast": 2.11,
+            "xpts_per_ast": 1.14,
+            "finisher_xpts": 1.15,
+            "paoe": 0.97,
+            "points_added": 8.8,
+            "two_pt_ast": 8,
+            "three_pt_ast": 1,
+            "rim_ast": 3,
+            "mid_ast": 4,
+            "ast_share": 17.3
+          },
+          {
+            "finisher": "Jaylen Brown",
+            "finisher_id": "3917376",
+            "assists": 6,
+            "pts_created": 14,
+            "pts_per_ast": 2.33,
+            "xpts_per_ast": 1.25,
+            "finisher_xpts": 1.23,
+            "paoe": 1.08,
+            "points_added": 6.5,
+            "two_pt_ast": 4,
+            "three_pt_ast": 2,
+            "rim_ast": 1,
+            "mid_ast": 3,
+            "ast_share": 11.5
+          },
+          {
+            "finisher": "VJ Edgecombe",
+            "finisher_id": "5124612",
+            "assists": 5,
+            "pts_created": 10,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.1,
+            "finisher_xpts": 1.07,
+            "paoe": 0.9,
+            "points_added": 4.5,
+            "two_pt_ast": 5,
+            "three_pt_ast": 0,
+            "rim_ast": 0,
+            "mid_ast": 4,
+            "ast_share": 9.6
+          },
+          {
+            "finisher": "Kentavious Caldwell-Pope",
+            "finisher_id": "2581018",
+            "assists": 5,
+            "pts_created": 12,
+            "pts_per_ast": 2.4,
+            "xpts_per_ast": 1.25,
+            "finisher_xpts": 1.23,
+            "paoe": 1.15,
+            "points_added": 5.7,
+            "two_pt_ast": 3,
+            "three_pt_ast": 2,
+            "rim_ast": 1,
+            "mid_ast": 1,
+            "ast_share": 9.6
+          },
+          {
+            "finisher": "Anfernee Simons",
+            "finisher_id": "4351851",
+            "assists": 5,
+            "pts_created": 14,
+            "pts_per_ast": 2.8,
+            "xpts_per_ast": 1.43,
+            "finisher_xpts": 1.33,
+            "paoe": 1.37,
+            "points_added": 6.8,
+            "two_pt_ast": 1,
+            "three_pt_ast": 4,
+            "rim_ast": 1,
+            "mid_ast": 0,
+            "ast_share": 9.6
+          },
+          {
+            "finisher": "Dean Wade",
+            "finisher_id": "3912848",
+            "assists": 3,
+            "pts_created": 8,
+            "pts_per_ast": 2.67,
+            "xpts_per_ast": 1.35,
+            "finisher_xpts": 1.14,
+            "paoe": 1.32,
+            "points_added": 3.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 2,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "ast_share": 5.8
+          },
+          {
+            "finisher": "Adem Bona",
+            "finisher_id": "5105637",
+            "assists": 2,
+            "pts_created": 4,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.07,
+            "finisher_xpts": 0.8,
+            "paoe": 0.93,
+            "points_added": 1.9,
+            "two_pt_ast": 2,
+            "three_pt_ast": 0,
+            "rim_ast": 2,
+            "mid_ast": 0,
+            "ast_share": 3.8
+          },
+          {
+            "finisher": "Labaron Philon Jr.",
+            "finisher_id": "4873090",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.07,
+            "finisher_xpts": 1.0,
+            "paoe": 0.93,
+            "points_added": 0.9,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 1,
+            "mid_ast": 0,
+            "ast_share": 1.9
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Received (Passes TO this Player)",
+      "data": {
+        "meta_keys": [
+          "passer"
+        ],
+        "rows": [
+          {
+            "passer": "Tyrese Maxey",
+            "passer_id": "4431678",
+            "assists": 11,
+            "pts_created": 23,
+            "pts_per_ast": 2.09,
+            "xpts_per_ast": 1.15,
+            "finisher_xpts": 1.15,
+            "paoe": 0.94,
+            "points_added": 10.4,
+            "two_pt_ast": 10,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 9,
+            "baskets_share": 37.9
+          },
+          {
+            "passer": "Joel Embiid",
+            "passer_id": "3059318",
+            "assists": 6,
+            "pts_created": 14,
+            "pts_per_ast": 2.33,
+            "xpts_per_ast": 1.25,
+            "finisher_xpts": 1.24,
+            "paoe": 1.08,
+            "points_added": 6.5,
+            "two_pt_ast": 4,
+            "three_pt_ast": 2,
+            "rim_ast": 0,
+            "mid_ast": 4,
+            "baskets_share": 20.7
+          },
+          {
+            "passer": "Anfernee Simons",
+            "passer_id": "4351851",
+            "assists": 4,
+            "pts_created": 8,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.11,
+            "finisher_xpts": 1.02,
+            "paoe": 0.89,
+            "points_added": 3.6,
+            "two_pt_ast": 4,
+            "three_pt_ast": 0,
+            "rim_ast": 1,
+            "mid_ast": 3,
+            "baskets_share": 13.8
+          },
+          {
+            "passer": "VJ Edgecombe",
+            "passer_id": "5124612",
+            "assists": 3,
+            "pts_created": 7,
+            "pts_per_ast": 2.33,
+            "xpts_per_ast": 1.25,
+            "finisher_xpts": 1.24,
+            "paoe": 1.08,
+            "points_added": 3.2,
+            "two_pt_ast": 2,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 2,
+            "baskets_share": 10.3
+          },
+          {
+            "passer": "Jaylen Brown",
+            "passer_id": "3917376",
+            "assists": 3,
+            "pts_created": 7,
+            "pts_per_ast": 2.33,
+            "xpts_per_ast": 1.24,
+            "finisher_xpts": 1.08,
+            "paoe": 1.09,
+            "points_added": 3.3,
+            "two_pt_ast": 2,
+            "three_pt_ast": 1,
+            "rim_ast": 1,
+            "mid_ast": 1,
+            "baskets_share": 10.3
+          },
+          {
+            "passer": "Kentavious Caldwell-Pope",
+            "passer_id": "2581018",
+            "assists": 2,
+            "pts_created": 4,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.1,
+            "finisher_xpts": 0.9,
+            "paoe": 0.9,
+            "points_added": 1.8,
+            "two_pt_ast": 2,
+            "three_pt_ast": 0,
+            "rim_ast": 1,
+            "mid_ast": 1,
+            "baskets_share": 6.9
           }
         ]
       }
@@ -246,6 +558,7 @@
             "fg3a": 2,
             "ftm": 2,
             "fta": 2,
+            "plus_minus": 1,
             "gmsc": 15.3,
             "ts_pct": 59.7
           },
@@ -266,6 +579,7 @@
             "fg3a": 2,
             "ftm": 3,
             "fta": 5,
+            "plus_minus": 30,
             "gmsc": 13.5,
             "ts_pct": 49.3
           },
@@ -286,6 +600,7 @@
             "fg3a": 6,
             "ftm": 2,
             "fta": 3,
+            "plus_minus": 8,
             "gmsc": 19.9,
             "ts_pct": 61.3
           },
@@ -306,6 +621,7 @@
             "fg3a": 3,
             "ftm": 1,
             "fta": 2,
+            "plus_minus": 3,
             "gmsc": 15.5,
             "ts_pct": 50.5
           },
@@ -326,6 +642,7 @@
             "fg3a": 3,
             "ftm": 2,
             "fta": 6,
+            "plus_minus": -22,
             "gmsc": 11.8,
             "ts_pct": 51.0
           },
@@ -346,6 +663,7 @@
             "fg3a": 4,
             "ftm": 6,
             "fta": 7,
+            "plus_minus": 7,
             "gmsc": 13.2,
             "ts_pct": 49.8
           },
@@ -366,6 +684,7 @@
             "fg3a": 3,
             "ftm": 4,
             "fta": 6,
+            "plus_minus": -2,
             "gmsc": 13.2,
             "ts_pct": 44.8
           }

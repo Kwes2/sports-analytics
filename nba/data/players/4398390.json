@@ -7,23 +7,38 @@
   "sections": [
     {
       "type": "table",
-      "title": "Season Averages",
+      "title": "Season Averages & Output",
       "data": {
         "meta_keys": [
-          "gp"
+          "gp",
+          "gs"
         ],
         "rows": [
           {
             "gp": 3,
-            "min": 5.3,
-            "pts": 2.3,
-            "reb": 1.0,
-            "ast": 1.3,
-            "stl": 0.3,
-            "blk": 0.0,
-            "to": 0.0,
+            "gs": 0,
+            "min_pg": 5.3,
+            "pts_pg": 2.3,
+            "reb_pg": 1.0,
+            "ast_pg": 1.3,
+            "stl_pg": 0.3,
+            "blk_pg": 0.0,
+            "to_pg": 0.0,
+            "pf_pg": 0.3,
+            "plus_minus_pg": 6.7,
+            "fgm_pg": 1.0,
+            "fga_pg": 1.7,
             "fg_pct": 60.0,
-            "custom_impact": 6.0
+            "fg3m_pg": 0.3,
+            "fg3a_pg": 0.7,
+            "fg3_pct": 50.0,
+            "ftm_pg": 0.0,
+            "fta_pg": 0.0,
+            "ft_pct": 0.0,
+            "oreb_pg": 0.0,
+            "dreb_pg": 1.0,
+            "prf_pg": 5.3,
+            "pct_team_prf": 4.9
           }
         ]
       }
@@ -40,7 +55,7 @@
             "gp": 3,
             "ts_pct": 70.0,
             "efg_pct": 70.0,
-            "usg_pct": 0.2,
+            "usg_pct": 15.6,
             "tov_pct": 0.0,
             "ast_to_ratio": 4.0,
             "three_par": 40.0,
@@ -48,6 +63,27 @@
             "ppsa": 1.4,
             "gmsc_avg": 3.0,
             "stocks_pg": 0.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Playmaking & Passing Quality Profile",
+      "data": {
+        "meta_keys": [
+          "ast_recorded"
+        ],
+        "rows": [
+          {
+            "ast_recorded": 4,
+            "pts_created_pg": 3.0,
+            "pts_per_ast": 2.25,
+            "xpts_per_ast": 1.16,
+            "paoe": 1.09,
+            "points_added_pg": 1.47,
+            "rim_ast_pct": 25.0,
+            "three_ast_pct": 25.0
           }
         ]
       }
@@ -62,35 +98,43 @@
         "rows": [
           {
             "scope": "League Percentile",
-            "min": 13.7,
-            "pts": 18.5,
-            "reb": 17.9,
-            "ast": 48.1,
-            "stl": 32.3,
-            "blk": 15.0,
-            "to": 7.0,
+            "min_pg": 13.7,
+            "pts_pg": 18.5,
+            "reb_pg": 17.9,
+            "ast_pg": 48.1,
+            "stl_pg": 32.3,
+            "blk_pg": 15.0,
+            "to_pg": 7.0,
             "fg_pct": 88.1,
-            "custom_impact": 21.6,
             "ts_pct": 88.2,
             "efg_pct": 89.9,
-            "usg_pct": 45.0,
-            "gmsc_avg": 28.1
+            "usg_pct": 19.9,
+            "gmsc_avg": 28.1,
+            "xpts_per_ast": 22.9,
+            "paoe": 42.1,
+            "pts_created_pg": 46.2,
+            "prf_pg": 26.9,
+            "pct_team_prf": 27.7
           },
           {
             "scope": "Position Percentile (G)",
-            "min": 12.1,
-            "pts": 16.4,
-            "reb": 20.2,
-            "ast": 34.8,
-            "stl": 25.7,
-            "blk": 16.7,
-            "to": 5.5,
+            "min_pg": 12.1,
+            "pts_pg": 16.4,
+            "reb_pg": 20.2,
+            "ast_pg": 34.8,
+            "stl_pg": 25.7,
+            "blk_pg": 16.7,
+            "to_pg": 5.5,
             "fg_pct": 94.8,
-            "custom_impact": 21.2,
             "ts_pct": 92.6,
             "efg_pct": 94.3,
-            "usg_pct": 41.7,
-            "gmsc_avg": 28.6
+            "usg_pct": 18.1,
+            "gmsc_avg": 28.6,
+            "xpts_per_ast": 20.2,
+            "paoe": 37.6,
+            "pts_created_pg": 33.8,
+            "prf_pg": 23.3,
+            "pct_team_prf": 24.3
           }
         ]
       }
@@ -113,6 +157,7 @@
             "stl_pg": 0.3,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 6.7,
             "fg_pct": 60.0
           },
           {
@@ -125,6 +170,7 @@
             "stl_pg": 0.5,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 5.0,
             "fg_pct": 75.0
           },
           {
@@ -137,6 +183,7 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 10.0,
             "fg_pct": 0.0
           },
           {
@@ -149,6 +196,7 @@
             "stl_pg": 0.3,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 6.7,
             "fg_pct": 60.0
           },
           {
@@ -161,6 +209,7 @@
             "stl_pg": 1.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 3.0,
             "fg_pct": 100.0
           },
           {
@@ -173,7 +222,94 @@
             "stl_pg": 0.0,
             "blk_pg": 0.0,
             "to_pg": 0.0,
+            "plus_minus_pg": 8.5,
             "fg_pct": 50.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Delivered (Passes FROM this Player)",
+      "data": {
+        "meta_keys": [
+          "finisher"
+        ],
+        "rows": [
+          {
+            "finisher": "Nick Martinelli",
+            "finisher_id": "5105832",
+            "assists": 2,
+            "pts_created": 4,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.04,
+            "finisher_xpts": 1.29,
+            "paoe": 0.96,
+            "points_added": 1.9,
+            "two_pt_ast": 2,
+            "three_pt_ast": 0,
+            "rim_ast": 1,
+            "mid_ast": 0,
+            "ast_share": 50.0
+          },
+          {
+            "finisher": "Cam Christie",
+            "finisher_id": "4845363",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.02,
+            "finisher_xpts": 1.0,
+            "paoe": 0.98,
+            "points_added": 1.0,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "ast_share": 25.0
+          },
+          {
+            "finisher": "Keaton Wagler",
+            "finisher_id": "5254165",
+            "assists": 1,
+            "pts_created": 3,
+            "pts_per_ast": 3.0,
+            "xpts_per_ast": 1.52,
+            "finisher_xpts": 1.82,
+            "paoe": 1.48,
+            "points_added": 1.5,
+            "two_pt_ast": 0,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "ast_share": 25.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Received (Passes TO this Player)",
+      "data": {
+        "meta_keys": [
+          "passer"
+        ],
+        "rows": [
+          {
+            "passer": "Nick Martinelli",
+            "passer_id": "5105832",
+            "assists": 2,
+            "pts_created": 5,
+            "pts_per_ast": 2.5,
+            "xpts_per_ast": 1.27,
+            "finisher_xpts": 1.67,
+            "paoe": 1.23,
+            "points_added": 2.5,
+            "two_pt_ast": 1,
+            "three_pt_ast": 1,
+            "rim_ast": 0,
+            "mid_ast": 0,
+            "baskets_share": 100.0
           }
         ]
       }
@@ -246,6 +382,7 @@
             "fg3a": 0,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 10,
             "gmsc": 2.0,
             "ts_pct": 0.0
           },
@@ -266,6 +403,7 @@
             "fg3a": 1,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 7,
             "gmsc": 3.3,
             "ts_pct": 66.7
           },
@@ -286,6 +424,7 @@
             "fg3a": 1,
             "ftm": 0,
             "fta": 0,
+            "plus_minus": 3,
             "gmsc": 3.7,
             "ts_pct": 150.0
           }

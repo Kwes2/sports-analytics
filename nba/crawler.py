@@ -42,6 +42,40 @@ def fetch_game_summary(event_id):
     return event_id, None
 
 
+def fetch_single_roster(team_id):
+    url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/{team_id}/roster"
+    try:
+        r = requests.get(url, headers=HEADERS, timeout=8)
+        if r.status_code == 200:
+            return r.json().get("athletes", [])
+    except Exception:
+        pass
+    return []
+
+
+def crawl_team_rosters():
+    """Crawls all 30 teams to build an exact player_id -> canonical position (PG, SG, SF, PF, C) lookup."""
+    print("Crawling rosters for exact 5-position designations (PG, SG, SF, PF, C)...")
+    team_ids = list(range(1, 31))
+
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        results = list(executor.map(fetch_single_roster, team_ids))
+
+    position_map = {}
+    for team_athletes in results:
+        for athlete_entry in team_athletes:
+            # Handle both grouped and flat roster payloads
+            items = athlete_entry.get("items", [athlete_entry]) if "items" in athlete_entry else [athlete_entry]
+            for ath in items:
+                aid = ath.get("id")
+                pos_abbrev = ath.get("position", {}).get("abbreviation")
+                if aid and pos_abbrev:
+                    position_map[str(aid)] = pos_abbrev
+
+    print(f"Roster Positions Loaded: {len(position_map)} players mapped.")
+    return position_map
+
+
 def crawl_full_season_schedule():
     print("Crawling season schedules for all 30 NBA teams...")
     team_ids = list(range(1, 31))
