@@ -16,7 +16,7 @@
         header {
             border-bottom: 2px solid #333;
             padding-bottom: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .sport-nav {
@@ -62,25 +62,53 @@
             text-decoration: none;
         }
 
-        h2 {
-            font-size: 18px;
-            margin: 15px 0 10px 0;
+        .view-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 12px 0 8px 0;
         }
 
-        .filter-panel {
+        h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        /* Filter & Column Toolbar */
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .tool-btn {
+            background: #eee;
+            border: 1px solid #888;
+            padding: 3px 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .tool-btn:hover {
+            background: #e2e2e2;
+        }
+
+        /* Collapsible Drawers */
+        .drawer-panel {
             background-color: #f8f9fa;
             border: 1px solid #ccc;
             padding: 10px 14px;
-            margin-bottom: 14px;
-            max-width: 1250px;
+            margin-bottom: 12px;
             font-size: 13px;
         }
 
-        .filter-panel-header {
+        .filter-panel-header, .column-drawer-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 8px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 4px;
         }
 
         .filter-rules-list {
@@ -100,18 +128,6 @@
             flex-wrap: wrap;
         }
 
-        .filter-btn {
-            background: #eee;
-            border: 1px solid #888;
-            padding: 3px 8px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .filter-btn:hover {
-            background: #e2e2e2;
-        }
-
         .remove-rule-btn {
             background: #fee2e2;
             color: #991b1b;
@@ -122,51 +138,121 @@
             margin-left: auto;
         }
 
-        .checkbox-group {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            background: #fafafa;
-            padding: 4px 8px;
+        .column-checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 6px;
+            max-height: 200px;
+            overflow-y: auto;
+            background: #fff;
+            padding: 8px;
             border: 1px solid #ccc;
         }
 
-        .checkbox-group label {
+        .column-checkbox-grid label {
             display: flex;
             align-items: center;
-            gap: 3px;
+            gap: 4px;
+            font-size: 11px;
             cursor: pointer;
         }
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 1250px;
-            font-size: 13px;
+        .preset-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        /* Responsive Scrollable Container */
+        .table-scroll-container {
+            overflow: auto;
+            max-width: 100%;
+            max-height: 78vh;
             border: 1px solid #888;
+            position: relative;
+        }
+
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            font-size: 13px;
         }
 
         th, td {
             padding: 4px 8px;
-            border: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+            white-space: nowrap;
         }
 
-        th {
+        /* Sticky Header Row */
+        thead th {
+            position: sticky;
+            top: 0;
             background-color: #eee;
             font-weight: bold;
             text-align: left;
             border-bottom: 2px solid #888;
             cursor: pointer;
             user-select: none;
-            white-space: nowrap;
+            z-index: 2;
         }
 
-        th:hover {
+        thead th:hover {
             background-color: #e2e2e2;
         }
 
+        /* Sticky Rank & Player Column */
+        th.sticky-rank, td.sticky-rank {
+            position: sticky;
+            left: 0;
+            width: 25px;
+            text-align: center;
+            background-color: #eee;
+            z-index: 1;
+            font-size: 11px;
+            color: #666;
+            border-right: 1px solid #bbb;
+        }
+
+        th.sticky-player, td.sticky-player {
+            position: sticky;
+            left: 35px;
+            background-color: #fff;
+            z-index: 1;
+            border-right: 2px solid #666; /* Visual divider */
+        }
+
+        /* Corner Anchors (Top-Left Z-Index Override) */
+        thead th.sticky-rank {
+            top: 0;
+            left: 0;
+            z-index: 4;
+            background-color: #ddd;
+        }
+
+        thead th.sticky-player {
+            top: 0;
+            left: 35px;
+            z-index: 4;
+            background-color: #eee;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+
+        tr:nth-child(even) td.sticky-player {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover td {
+            background-color: #ffffcc !important;
+        }
+
         th.has-tip {
-            border-bottom: 1px dotted #666;
+            border-bottom: 1px dotted #444;
             cursor: help;
         }
 
@@ -175,17 +261,9 @@
             font-variant-numeric: tabular-nums;
         }
 
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tr:hover {
-            background-color: #ffffcc;
-        }
-
         .sort-indicator {
             font-size: 10px;
-            margin-left: 4px;
+            margin-left: 3px;
             color: #666;
         }
 
@@ -213,9 +291,20 @@
         </div>
     </header>
 
-    <h2 id="table-title">NBA - Team Stats</h2>
+    <div class="view-header">
+        <h2 id="table-title">NBA - Team Stats</h2>
+        <div class="toolbar" id="toolbar-actions">
+            <!-- Populated dynamically -->
+        </div>
+    </div>
 
+    <!-- Filter Tool Drawer -->
     <div id="filter-panel-container"></div>
+
+    <!-- Column Picker Drawer -->
+    <div id="column-picker-container"></div>
+
+    <!-- Table Container -->
     <div id="table-container">Loading data...</div>
 
     <script>
@@ -228,7 +317,7 @@
             "PACE": "Pace Factor: Estimated team possessions per 48 minutes",
             "ORTG": "Offensive Rating: Points scored per 100 possessions",
             "DRTG": "Defensive Rating: Points allowed per 100 possessions",
-            "NET_RTG": "Net Rating: Point differential per 100 possessions (ORtg - DRtg)",
+            "NET_RTG": "Net Rating: Point differential per 100 possessions",
             "MIN_PG": "Minutes Per Game",
             "PTS_PG": "Points Per Game",
             "PRF_PG": "Points Responsible For Per Game: PTS/G + Points Created off Assists/G",
@@ -286,7 +375,12 @@
         let currentSortColumn = null;
         let isAscending = false;
         let activeViewTitle = "";
+
+        // Filters and Visibility State
         let activeFilterRules = [];
+        let visibleColumns = new Set();
+        let showFilterDrawer = false;
+        let showColumnDrawer = false;
 
         window.onload = () => {
             loadView('Team Stats', 'data/team_stats.json', document.querySelector('.sub-nav button.active-sub'));
@@ -319,7 +413,8 @@
             container.innerHTML = "Loading...";
 
             activeFilterRules = [];
-            renderFilterPanel();
+            showFilterDrawer = false;
+            showColumnDrawer = false;
 
             fetch(filePath)
                 .then(res => res.json())
@@ -333,8 +428,15 @@
                         return;
                     }
 
+                    // Reset visibility to show all columns by default
+                    const sample = rawRows[0];
+                    const allKeys = Object.keys(sample).filter(k => k !== "player_id" && k !== "team_id");
+                    visibleColumns = new Set(allKeys);
+
                     currentSortColumn = null;
-                    renderFilterPanel();
+                    renderToolbar();
+                    renderFilterDrawer();
+                    renderColumnDrawer();
                     renderTable();
                 })
                 .catch(err => {
@@ -342,9 +444,122 @@
                 });
         }
 
-        function renderFilterPanel() {
+        function renderToolbar() {
+            const bar = document.getElementById('toolbar-actions');
+            if (rawRows.length === 0) {
+                bar.innerHTML = "";
+                return;
+            }
+
+            let html = "";
+            if (activeViewTitle === "Player Stats") {
+                html += `<button class="tool-btn" onclick="toggleFilterDrawer()">⚡ Filters (${activeFilterRules.length})</button>`;
+                html += `<button class="tool-btn" onclick="toggleColumnDrawer()">👁 Columns (${visibleColumns.size})</button>`;
+            }
+            html += `<button class="tool-btn" onclick="exportToCSV()">⤓ Export CSV</button>`;
+            bar.innerHTML = html;
+        }
+
+        function toggleFilterDrawer() {
+            showFilterDrawer = !showFilterDrawer;
+            if (showFilterDrawer) showColumnDrawer = false;
+            renderFilterDrawer();
+            renderColumnDrawer();
+        }
+
+        function toggleColumnDrawer() {
+            showColumnDrawer = !showColumnDrawer;
+            if (showColumnDrawer) showFilterDrawer = false;
+            renderColumnDrawer();
+            renderFilterDrawer();
+        }
+
+        // ==========================================
+        // COLUMN VISIBILITY PICKER & PRESETS
+        // ==========================================
+        function renderColumnDrawer() {
+            const container = document.getElementById('column-picker-container');
+            if (!showColumnDrawer || activeViewTitle !== "Player Stats" || rawRows.length === 0) {
+                container.innerHTML = "";
+                return;
+            }
+
+            const sample = rawRows[0];
+            const allKeys = Object.keys(sample).filter(k => k !== "player_id" && k !== "team_id");
+
+            let checkboxesHtml = "";
+            allKeys.forEach(col => {
+                const checked = visibleColumns.has(col);
+                checkboxesHtml += `
+                    <label>
+                        <input type="checkbox" value="${col}" ${checked ? 'checked' : ''} onchange="toggleColumnVisibility('${col}')">
+                        ${col.replace(/_/g, ' ').toUpperCase()}
+                    </label>
+                `;
+            });
+
+            container.innerHTML = `
+                <div class="drawer-panel">
+                    <div class="column-drawer-header">
+                        <strong>Column Picker:</strong>
+                        <div>
+                            <button class="tool-btn" onclick="setColumnPreset('all')">Show All</button>
+                            <button class="tool-btn" onclick="setColumnPreset('none')">Hide All</button>
+                            <button class="tool-btn" onclick="toggleColumnDrawer()">Close</button>
+                        </div>
+                    </div>
+                    <div class="preset-bar">
+                        <span style="font-size:11px; align-self:center; font-weight:bold;">Presets:</span>
+                        <button class="tool-btn" onclick="setColumnPreset('standard')">Standard</button>
+                        <button class="tool-btn" onclick="setColumnPreset('advanced')">Advanced</button>
+                        <button class="tool-btn" onclick="setColumnPreset('passing')">Passing</button>
+                        <button class="tool-btn" onclick="setColumnPreset('shooting')">Shooting Zones</button>
+                    </div>
+                    <div class="column-checkbox-grid">${checkboxesHtml}</div>
+                </div>
+            `;
+        }
+
+        function toggleColumnVisibility(col) {
+            if (visibleColumns.has(col)) {
+                visibleColumns.delete(col);
+            } else {
+                visibleColumns.add(col);
+            }
+            renderToolbar();
+            renderColumnDrawer();
+            renderTable();
+        }
+
+        function setColumnPreset(preset) {
+            const sample = rawRows[0];
+            const allKeys = Object.keys(sample).filter(k => k !== "player_id" && k !== "team_id");
+
+            if (preset === 'all') {
+                visibleColumns = new Set(allKeys);
+            } else if (preset === 'none') {
+                visibleColumns = new Set(["player", "team", "pos"]);
+            } else if (preset === 'standard') {
+                visibleColumns = new Set(["player", "team", "pos", "gp", "gs", "min_pg", "pts_pg", "reb_pg", "ast_pg", "stl_pg", "blk_pg", "fg_pct", "fg3_pct", "ft_pct", "prf_pg"]);
+            } else if (preset === 'advanced') {
+                visibleColumns = new Set(["player", "team", "pos", "gp", "min_pg", "pts_pg", "ts_pct", "efg_pct", "usg_pct", "tov_pct", "ast_to_ratio", "three_par", "ft_rate", "ppsa", "gmsc_avg", "prf_pg", "pct_team_prf"]);
+            } else if (preset === 'passing') {
+                visibleColumns = new Set(["player", "team", "pos", "gp", "ast_pg", "pts_created_pg", "pts_per_ast", "xpts_per_ast", "paoe", "points_added_pg", "rim_ast_pct", "three_ast_pct", "prf_pg", "pct_team_prf"]);
+            } else if (preset === 'shooting') {
+                visibleColumns = new Set(["player", "team", "pos", "gp", "fga_pg", "fg_pct", "rim_fg_pct", "rim_fga_pg", "rim_share", "mid_fg_pct", "mid_fga_pg", "mid_share", "three_fg_pct", "three_fga_pg", "three_share"]);
+            }
+
+            renderToolbar();
+            renderColumnDrawer();
+            renderTable();
+        }
+
+        // ==========================================
+        // DYNAMIC FILTER TOOL
+        // ==========================================
+        function renderFilterDrawer() {
             const container = document.getElementById('filter-panel-container');
-            if (activeViewTitle !== "Player Stats" || rawRows.length === 0) {
+            if (!showFilterDrawer || activeViewTitle !== "Player Stats" || rawRows.length === 0) {
                 container.innerHTML = "";
                 return;
             }
@@ -378,7 +593,7 @@
                     `;
                 } else {
                     const distinctVals = [...new Set(rawRows.map(r => r[rule.column]))].sort();
-                    rulesHtml += `<span style="font-size:12px; color:#555;">Select values:</span> <div class="checkbox-group">`;
+                    rulesHtml += `<span style="font-size:12px; color:#555;">Match:</span> <div class="checkbox-group">`;
                     distinctVals.forEach(val => {
                         const checked = (rule.selectedVals || []).includes(val);
                         rulesHtml += `
@@ -396,14 +611,15 @@
             });
 
             container.innerHTML = `
-                <div class="filter-panel">
+                <div class="drawer-panel">
                     <div class="filter-panel-header">
                         <div>
-                            <strong>Filter Tool:</strong> Showing <strong>${filteredRows.length}</strong> of <strong>${rawRows.length}</strong> players
+                            <strong>Filter Rules:</strong> Showing <strong>${filteredRows.length}</strong> of <strong>${rawRows.length}</strong> players
                         </div>
                         <div>
-                            <button class="filter-btn" onclick="addRule()">+ Add Filter Rule</button>
-                            ${activeFilterRules.length > 0 ? `<button class="filter-btn" onclick="clearAllRules()">Clear All Rules</button>` : ''}
+                            <button class="tool-btn" onclick="addRule()">+ Add Rule</button>
+                            ${activeFilterRules.length > 0 ? `<button class="tool-btn" onclick="clearAllRules()">Clear Rules</button>` : ''}
+                            <button class="tool-btn" onclick="toggleFilterDrawer()">Close</button>
                         </div>
                     </div>
                     <div class="filter-rules-list">${rulesHtml}</div>
@@ -494,28 +710,39 @@
                 sortArray(filteredRows, currentSortColumn, isAscending);
             }
 
-            renderFilterPanel();
+            renderToolbar();
+            renderFilterDrawer();
             renderTable();
         }
 
+        // ==========================================
+        // STICKY TABLE RENDERING ENGINE
+        // ==========================================
         function renderTable() {
             const container = document.getElementById('table-container');
             if (filteredRows.length === 0) {
-                container.innerHTML = "<p>No matching records found for active filters.</p>";
+                container.innerHTML = "<p>No matching records found.</p>";
                 return;
             }
 
             const sample = filteredRows[0];
             const allKeys = Object.keys(sample);
-            const visibleKeys = allKeys.filter(k => k !== "player_id" && k !== "team_id");
+            const visibleKeys = allKeys.filter(k => k !== "player_id" && k !== "team_id" && visibleColumns.has(k));
 
             const metaCols = currentMetaKeys.filter(k => visibleKeys.includes(k));
             const statCols = visibleKeys.filter(k => !currentMetaKeys.includes(k));
             const orderedCols = [...metaCols, ...statCols];
 
-            let html = `<table><thead><tr>`;
+            const isPlayerTable = orderedCols.includes("player");
 
-            orderedCols.forEach(col => {
+            let html = `<div class="table-scroll-container"><table><thead><tr>`;
+
+            // Far-Left Sticky Rank Header (#)
+            if (isPlayerTable) {
+                html += `<th class="sticky-rank">#</th>`;
+            }
+
+            orderedCols.forEach((col, idx) => {
                 const isMeta = metaCols.includes(col);
                 const isNumeric = typeof sample[col] === 'number';
                 let indicator = '';
@@ -526,18 +753,32 @@
 
                 const colUpper = col.toUpperCase();
                 const tip = STAT_GLOSSARY[colUpper] || "";
-                const tipAttr = tip ? `title="${tip}" class="${isNumeric && !isMeta ? 'num' : ''} has-tip"` : `class="${isNumeric && !isMeta ? 'num' : ''}"`;
+                let thClasses = [];
+                if (isNumeric && !isMeta) thClasses.push("num");
+                if (tip) thClasses.push("has-tip");
+
+                // Apply sticky player class to player column
+                if (col === "player") thClasses.push("sticky-player");
+
+                const classAttr = thClasses.length ? `class="${thClasses.join(' ')}"` : '';
+                const tipAttr = tip ? `title="${tip}"` : '';
 
                 html += `
-                    <th ${tipAttr} onclick="sortTable('${col}')">
+                    <th ${classAttr} ${tipAttr} onclick="sortTable('${col}')">
                         ${formatHeader(col)} ${indicator}
                     </th>`;
             });
 
             html += `</tr></thead><tbody>`;
 
-            filteredRows.forEach(row => {
+            filteredRows.forEach((row, rIdx) => {
                 html += `<tr>`;
+
+                // Far-Left Sticky Rank Cell (#)
+                if (isPlayerTable) {
+                    html += `<td class="sticky-rank">${rIdx + 1}</td>`;
+                }
+
                 orderedCols.forEach(col => {
                     const rawVal = row[col];
                     const isMeta = metaCols.includes(col);
@@ -552,12 +793,17 @@
                         cellContent = `<a class="table-link" href="team.html?id=${row.team_id}">${cellContent}</a>`;
                     }
 
-                    html += `<td class="${isNumeric && !isMeta ? 'num' : ''}">${cellContent}</td>`;
+                    let tdClasses = [];
+                    if (isNumeric && !isMeta) tdClasses.push("num");
+                    if (col === "player") tdClasses.push("sticky-player");
+                    const classAttr = tdClasses.length ? `class="${tdClasses.join(' ')}"` : '';
+
+                    html += `<td ${classAttr}>${cellContent}</td>`;
                 });
                 html += `</tr>`;
             });
 
-            html += `</tbody></table>`;
+            html += `</tbody></table></div>`;
             container.innerHTML = html;
         }
 
@@ -593,6 +839,33 @@
                 if (valA > valB) return asc ? 1 : -1;
                 return 0;
             });
+        }
+
+        function exportToCSV() {
+            if (filteredRows.length === 0) return;
+            const sample = filteredRows[0];
+            const allKeys = Object.keys(sample);
+            const visibleKeys = allKeys.filter(k => k !== "player_id" && k !== "team_id" && visibleColumns.has(k));
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            csvContent += visibleKeys.join(",") + "\r\n";
+
+            filteredRows.forEach(row => {
+                const rowValues = visibleKeys.map(k => {
+                    let val = row[k];
+                    if (val === null || val === undefined) return "";
+                    return typeof val === 'string' && val.includes(",") ? `"${val}"` : val;
+                });
+                csvContent += rowValues.join(",") + "\r\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `${activeViewTitle.replace(/ /g, '_')}_export.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
 
         function formatHeader(header) {
