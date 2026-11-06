@@ -237,6 +237,9 @@
             "DREB": "Defensive Rebounds",
             "TS_PCT": "True Shooting %: Scoring efficiency factoring in 2s, 3s, and FTs",
             "EFG_PCT": "Effective FG %: Adjusted for the extra value of 3-pointers",
+            "XEFG_PCT": "Expected Effective FG %: Shot quality benchmark based on the difficulty of shot locations taken",
+            "SMOE": "Shot-Making Over Expected: Actual eFG% minus Expected eFG% (Measures pure finishing/shot-making skill)",
+            "MEI": "Moreyball Efficiency Index: % of shot possessions ending at the Rim, 3PT, or Free Throw line",
             "USG_PCT": "Usage Rate %: Percentage of team plays used while on the court",
             "TOV_PCT": "Turnover Rate %: Turnovers committed per 100 plays",
             "AST_TO_RATIO": "Assist-to-Turnover Ratio (AST / TO)",
@@ -446,7 +449,7 @@
                         const c = col.toLowerCase();
                         if (c === 'ppsa' || c === 'ast_to_ratio' || c.includes('pts_per_ast') || c.includes('xpts') || c === 'paoe' || c === 'points_added_pg') {
                             cellContent = val.toFixed(2);
-                        } else if (c.includes('pct') || c.includes('_pg') || c === 'pace' || c === 'ortg' || c === 'drtg' || c === 'net_rtg' || c.includes('share') || c.includes('rate') || c.includes('avg') || c === 'points_added') {
+                        } else if (c.includes('pct') || c.includes('_pg') || c === 'smoe' || c === 'mei' || c === 'pace' || c === 'ortg' || c === 'drtg' || c === 'net_rtg' || c.includes('share') || c.includes('rate') || c.includes('avg') || c === 'points_added') {
                             cellContent = val.toFixed(1);
                         }
                     }

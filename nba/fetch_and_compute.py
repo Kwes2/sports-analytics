@@ -10,8 +10,11 @@ from crawler import (
 )
 from shots import (
     ZONES,
+    GRANULAR_ZONES,
     init_zone_dict,
-    process_game_shots
+    init_granular_dict,
+    process_game_shots,
+    compute_shot_quality_metrics
 )
 from stats import (
     process_boxscore_players,
@@ -73,6 +76,7 @@ def main():
     team_season_shots = {}
     team_game_stats_ledger = {}
     all_season_assisted_plays = []
+    league_granular_shots = init_granular_dict()
     saved_boxes = 0
 
     for event_id, data in summaries.items():
@@ -99,7 +103,7 @@ def main():
         home_score = parse_score(home_comp.get("score"))
         away_score = parse_score(away_comp.get("score"))
 
-        team_shots, game_player_shots = process_game_shots(plays, home_id, away_id)
+        team_shots, game_player_shots, game_player_granular = process_game_shots(plays, home_id, away_id)
         game_team_rows, player_events = process_boxscore_players(
             game_players, home_abbrev, away_abbrev, home_score, away_score, date_str, position_map
         )
@@ -145,11 +149,23 @@ def main():
                     "player_id": aid, "player": "Unknown", "team": "", "team_id": "", "team_abbrev": "", "pos": "-",
                     "gp": 0, "gs": 0, "tot_min": 0.0, "tot_pts": 0, "tot_reb": 0, "tot_ast": 0, "tot_stl": 0, "tot_blk": 0,
                     "tot_to": 0, "tot_fgm": 0, "tot_fga": 0, "tot_fg3m": 0, "tot_fg3a": 0, "tot_ftm": 0, "tot_fta": 0,
-                    "tot_oreb": 0, "tot_dreb": 0, "tot_pf": 0, "tot_plus_minus": 0, "game_logs": [], "zone_shots": init_zone_dict()
+                    "tot_oreb": 0, "tot_dreb": 0, "tot_pf": 0, "tot_plus_minus": 0, "game_logs": [],
+                    "zone_shots": init_zone_dict(), "granular_shots": init_granular_dict()
                 }
             for z in ZONES:
                 players[aid]["zone_shots"][z]["fga"] += s_zones[z]["fga"]
                 players[aid]["zone_shots"][z]["fgm"] += s_zones[z]["fgm"]
+
+        # Track granular shots for player and league baseline
+        for aid, g_zones in game_player_granular.items():
+            if aid in players:
+                for gz in GRANULAR_ZONES:
+                    players[aid]["granular_shots"][gz]["fga"] += g_zones[gz]["fga"]
+                    players[aid]["granular_shots"][gz]["fgm"] += g_zones[gz]["fgm"]
+                    players[aid]["granular_shots"][gz]["fg3m"] += g_zones[gz]["fg3m"]
+                    league_granular_shots[gz]["fga"] += g_zones[gz]["fga"]
+                    league_granular_shots[gz]["fgm"] += g_zones[gz]["fgm"]
+                    league_granular_shots[gz]["fg3m"] += g_zones[gz]["fg3m"]
 
         for aid, ev in player_events.items():
             player_names_map[aid] = ev["player"]
@@ -159,7 +175,7 @@ def main():
                     "team_abbrev": ev["team_abbrev"], "pos": ev["pos"], "gp": 0, "gs": 0, "tot_min": 0.0, "tot_pts": 0,
                     "tot_reb": 0, "tot_ast": 0, "tot_stl": 0, "tot_blk": 0, "tot_to": 0, "tot_fgm": 0, "tot_fga": 0,
                     "tot_fg3m": 0, "tot_fg3a": 0, "tot_ftm": 0, "tot_fta": 0, "tot_oreb": 0, "tot_dreb": 0, "tot_pf": 0,
-                    "tot_plus_minus": 0, "game_logs": [], "zone_shots": init_zone_dict()
+                    "tot_plus_minus": 0, "game_logs": [], "zone_shots": init_zone_dict(), "granular_shots": init_granular_dict()
                 }
 
             p = players[aid]
@@ -240,7 +256,20 @@ def main():
             }, f, indent=2)
         saved_boxes += 1
 
-    # 4. Compute Season Averages & Advanced Metrics for Active Players
+    # 4. Compute Empirical League eFG% for Granular Analytical Zones
+    league_granular_efg = {}
+    for gz in GRANULAR_ZONES:
+        fga = league_granular_shots[gz]["fga"]
+        fgm = league_granular_shots[gz]["fgm"]
+        fg3m = league_granular_shots[gz]["fg3m"]
+        if fga > 0:
+            league_granular_efg[gz] = round((fgm + 0.5 * fg3m) / fga * 100, 1)
+        else:
+            league_granular_efg[gz] = 50.0
+
+    print(f"Empirical League Shot Zone eFG% Baselines: {league_granular_efg}")
+
+    # 5. Compute Season Averages & Advanced Metrics for Active Players
     active_players = {}
     for aid, p in players.items():
         if p["gp"] == 0:
@@ -275,6 +304,12 @@ def main():
         p["game_logs"].sort(key=lambda x: x["date"], reverse=True)
         adv = compute_player_advanced_metrics(p)
 
+        # Compute Shot Quality (xeFG%), Shot-Making Over Expected (SMOE), and Moreyball Index (MEI)
+        sq_metrics = compute_shot_quality_metrics(
+            p["granular_shots"], league_granular_efg, p["tot_fta"], p["tot_fga"]
+        )
+        adv = {**adv, **sq_metrics}
+
         active_players[aid] = {
             "player_id": aid, "name": p["player"], "team": p["team"], "team_id": p["team_id"],
             "team_abbrev": p["team_abbrev"], "pos": p["pos"],
@@ -291,7 +326,7 @@ def main():
             "game_logs": p["game_logs"]
         }
 
-    # 5. League Benchmark Baselines
+    # 6. League Benchmark Baselines for Simple Distance Zones
     league_zone_totals = init_zone_dict()
     for p in active_players.values():
         for z in ZONES:
@@ -303,7 +338,7 @@ def main():
         for z in ZONES
     }
 
-    # 6. Group Assisted Events for Graph Networks & Aggregate Passing Profiles
+    # 7. Group Assisted Events for Graph Networks
     passer_finisher_map = {}
     finisher_passer_map = {}
     all_passer_events_map = {}
@@ -328,7 +363,7 @@ def main():
             finisher_passer_map[s_id][p_id] = []
         finisher_passer_map[s_id][p_id].append(ev)
 
-    # 7. Compute Passing Profiles, PRF, and Dynamic Feature Dictionaries
+    # 8. Compute Passing Profiles, PRF, and Dynamic Feature Dictionaries
     for aid, p in active_players.items():
         p_events = all_passer_events_map.get(aid, [])
         gp = p["averages"]["gp"]
@@ -358,7 +393,6 @@ def main():
                 "rim_ast_pct": 0.0, "three_ast_pct": 0.0
             }
 
-        # Calculate PRF (Points Responsible For) & %PRF
         pts_pg = p["averages"]["pts_pg"]
         pts_created_pg = p["passing_profile"]["pts_created_pg"]
         prf_pg = round(pts_pg + pts_created_pg, 1)
@@ -371,7 +405,6 @@ def main():
             "pct_team_prf": pct_team_prf
         }
 
-        # Calculate Distance Zone Flat Summary
         tot_fga = sum(p["zone_shots"][z]["fga"] for z in ZONES)
         zone_summary = {}
         for z, label in [("0-4 ft", "rim"), ("4-14 ft", "mid"), ("14+ ft", "three")]:
@@ -385,11 +418,11 @@ def main():
 
         p["zone_summary"] = zone_summary
 
-    # 8. Distribution Pools (Including PRF)
+    # 9. Distribution Pools (Including Shot Quality & Shot Making)
     stat_keys = [
         "min_pg", "pts_pg", "reb_pg", "ast_pg", "stl_pg", "blk_pg", "to_pg", "fg_pct",
-        "ts_pct", "efg_pct", "usg_pct", "gmsc_avg", "xpts_per_ast", "paoe", "pts_created_pg",
-        "prf_pg", "pct_team_prf"
+        "ts_pct", "efg_pct", "xefg_pct", "smoe", "mei", "usg_pct", "gmsc_avg",
+        "xpts_per_ast", "paoe", "pts_created_pg", "prf_pg", "pct_team_prf"
     ]
 
     league_pools = {k: [] for k in stat_keys}
@@ -406,7 +439,7 @@ def main():
 
     vol_pools, eff_pools = build_shot_pools(active_players, ZONES)
 
-    # 9. Assemble Section-Based Player Profile Payloads & Complete Player Stats Table (Auto-Merged!)
+    # 10. Assemble Section-Based Player Profile Payloads & Complete Player Stats Table (Auto-Merged!)
     all_player_stats_rows = []
     for aid, p in active_players.items():
         pos = p["pos"]
@@ -476,7 +509,7 @@ def main():
                 },
                 {
                     "type": "table",
-                    "title": "Advanced Statistics",
+                    "title": "Advanced Statistics (Efficiency & Shot Quality)",
                     "data": {"meta_keys": ["gp"], "rows": [adv]}
                 },
                 {
@@ -526,7 +559,6 @@ def main():
         with open(PLAYER_DIR / f"{aid}.json", "w") as f:
             json.dump(player_payload, f, indent=2)
 
-        # 100% Dynamic Feature Auto-Merge (No manual cherry-picking!)
         flattened_player = {
             "player_id": aid,
             "player": p["name"],
@@ -545,7 +577,7 @@ def main():
     with open(DATA_DIR / "player_stats.json", "w") as f:
         json.dump({"meta_keys": ["player", "team", "pos"], "rows": all_player_stats_rows}, f, indent=2)
 
-    # 10. Assemble Team Payloads
+    # 11. Assemble Team Payloads
     for t_row in team_rows:
         t_id = t_row["team_id"]
         t_name = t_row["team"]
@@ -563,8 +595,9 @@ def main():
                 "pct_team_prf": p["prf_metrics"]["pct_team_prf"],
                 "reb_pg": p["averages"]["reb_pg"],
                 "ast_pg": p["averages"]["ast_pg"],
-                "paoe": p["passing_profile"]["paoe"],
                 "ts_pct": p["advanced"]["ts_pct"],
+                "smoe": p["advanced"]["smoe"],
+                "mei": p["advanced"]["mei"],
                 "usg_pct": p["advanced"]["usg_pct"],
                 "gmsc_avg": p["advanced"]["gmsc_avg"]
             }
@@ -688,7 +721,7 @@ def main():
         with open(TEAM_DIR / f"{t_id}.json", "w") as f:
             json.dump(team_payload, f, indent=2)
 
-    # 11. Main Standings Table
+    # 12. Main Standings Table
     enriched_standings = []
     for t in team_rows:
         adv = compute_team_advanced_metrics(t["team"], team_game_stats_ledger.get(t["team_id"], []))
@@ -711,7 +744,7 @@ def main():
     with open(DATA_DIR / "team_stats.json", "w") as f:
         json.dump({"meta_keys": ["team"], "rows": enriched_standings}, f, indent=2)
 
-    print("Pipeline Complete: PRF computed and all features auto-merged into PlayerStats.")
+    print("Pipeline Complete: Shot Quality (xeFG%), SMOE, and Moreyball Index computed.")
 
 
 if __name__ == "__main__":

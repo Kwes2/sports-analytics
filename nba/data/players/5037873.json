@@ -45,7 +45,7 @@
     },
     {
       "type": "table",
-      "title": "Advanced Statistics",
+      "title": "Advanced Statistics (Efficiency & Shot Quality)",
       "data": {
         "meta_keys": [
           "gp"
@@ -62,7 +62,10 @@
             "ft_rate": 0.0,
             "ppsa": 0.0,
             "gmsc_avg": 0.8,
-            "stocks_pg": 0.0
+            "stocks_pg": 0.0,
+            "xefg_pct": 65.6,
+            "smoe": -65.6,
+            "mei": 100.0
           }
         ]
       }
@@ -108,6 +111,9 @@
             "fg_pct": 3.0,
             "ts_pct": 2.2,
             "efg_pct": 3.0,
+            "xefg_pct": 99.7,
+            "smoe": 0.1,
+            "mei": 98.2,
             "usg_pct": 2.3,
             "gmsc_avg": 11.4,
             "xpts_per_ast": 87.4,
@@ -128,6 +134,9 @@
             "fg_pct": 2.6,
             "ts_pct": 2.1,
             "efg_pct": 2.6,
+            "xefg_pct": 99.8,
+            "smoe": 0.2,
+            "mei": 98.3,
             "usg_pct": 2.1,
             "gmsc_avg": 12.6,
             "xpts_per_ast": 90.0,
