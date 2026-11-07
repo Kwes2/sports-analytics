@@ -135,6 +135,7 @@ def main():
                 event_id, date_str, ga["team_id"], ga["passer_id"], ga["scorer_id"], ga["val"], ga["zone"]
             ))
 
+        # Real-time Stint Tracking with Database Collector
         home_starters = [r["player_id"] for r in game_team_rows.get(home_id, {}).get("starters", [])]
         away_starters = [r["player_id"] for r in game_team_rows.get(away_id, {}).get("starters", [])]
         if home_starters and away_starters:
@@ -142,21 +143,13 @@ def main():
             game_player_stints = {}
 
             for play in plays:
-                stint_tracker.process_play(play, merged_pair_ledger, game_player_stints)
-            stint_tracker.commit_stint(merged_pair_ledger, game_player_stints)
+                stint_tracker.process_play(play, merged_pair_ledger, game_player_stints, db_stints_rows, event_id, date_str)
+            stint_tracker.commit_stint(merged_pair_ledger, game_player_stints, db_stints_rows, event_id, date_str)
 
             for p_id, g_stint in game_player_stints.items():
                 if p_id not in player_game_stints_history:
                     player_game_stints_history[p_id] = []
                 player_game_stints_history[p_id].append(g_stint)
-
-            db_stints_rows.append((
-                event_id, date_str,
-                json.dumps(list(stint_tracker.home_on_court)),
-                json.dumps(list(stint_tracker.away_on_court)),
-                stint_tracker.home_pts_stint, stint_tracker.away_pts_stint,
-                max((stint_tracker.home_poss_stint + stint_tracker.away_poss_stint) / 2.0, 1.0)
-            ))
 
         for play in plays:
             coord = play.get("coordinate")
@@ -271,7 +264,6 @@ def main():
             p["tot_plus_minus"] += ev["plus_minus"]
             p["game_logs"].append(ev["log"])
 
-            # Normalized lean game log row
             db_player_logs_rows.append((
                 aid, event_id, date_str, 1 if ev["is_starter"] else 0, ev["minutes"],
                 ev["pts"], ev["reb"], ev["ast"], ev["stl"], ev["blk"], ev["to"], ev["pf"], ev["plus_minus"],
@@ -329,7 +321,7 @@ def main():
         saved_boxes += 1
 
     # Bulk Insert Everything into SQLite Database (nba.db)
-    print("Writing optimized atomic tables to SQLite Database (nba.db)...")
+    print(f"Writing {len(db_stints_rows)} active stints into SQLite Database (nba.db)...")
     bulk_insert(DB_PATH, "players", [
         "player_id", "player_name", "team_id", "team_abbrev", "pos"
     ], list(db_players_lookup.values()))
@@ -355,7 +347,6 @@ def main():
         "game_id", "date", "home_lineup", "away_lineup", "home_pts", "away_pts", "poss"
     ], db_stints_rows)
 
-    # VACUUM to permanently compact disk pages to ~20 MB
     optimize_db(DB_PATH)
 
     # 4. Compute Granular Shot Baselines
@@ -376,14 +367,14 @@ def main():
             continue
         gp = p["gp"]
         gs = p["gs"]
-        min_pg = round(p["tot_min"] / gp, 1) if gp > 0 else 0.0
-        pts_pg = round(p["tot_pts"] / gp, 1) if gp > 0 else 0.0
-        reb_pg = round(p["tot_reb"] / gp, 1) if gp > 0 else 0.0
-        ast_pg = round(p["tot_ast"] / gp, 1) if gp > 0 else 0.0
-        stl_pg = round(p["tot_stl"] / gp, 1) if gp > 0 else 0.0
-        blk_pg = round(p["tot_blk"] / gp, 1) if gp > 0 else 0.0
-        to_pg = round(p["tot_to"] / gp, 1) if gp > 0 else 0.0
-        pf_pg = round(p["tot_pf"] / gp, 1) if gp > 0 else 0.0
+        min_pg = round(p["tot_min"] / gp, 1)
+        pts_pg = round(p["tot_pts"] / gp, 1)
+        reb_pg = round(p["tot_reb"] / gp, 1)
+        ast_pg = round(p["tot_ast"] / gp, 1)
+        stl_pg = round(p["tot_stl"] / gp, 1)
+        blk_pg = round(p["tot_blk"] / gp, 1)
+        to_pg = round(p["tot_to"] / gp, 1)
+        pf_pg = round(p["tot_pf"] / gp, 1)
         plus_minus_pg = round(p["tot_plus_minus"] / gp, 1)
 
         fgm_pg = round(p["tot_fgm"] / gp, 1)
@@ -857,7 +848,7 @@ def main():
     with open(DATA_DIR / "team_stats.json", "w") as f:
         json.dump({"meta_keys": ["team"], "rows": enriched_standings}, f, indent=2)
 
-    print("Pipeline Complete: Lean database vacuumed and static JSON files generated.")
+    print("Pipeline Complete: Full database populated (nba.db) with non-zero stints.")
 
 
 if __name__ == "__main__":

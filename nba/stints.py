@@ -15,14 +15,14 @@ class StintTracker:
         self.home_poss_stint = 0.0
         self.away_poss_stint = 0.0
 
-    def process_play(self, play, player_pairs_ledger, player_stints_ledger):
+    def process_play(self, play, player_pairs_ledger, player_stints_ledger, db_stints_collector=None, event_id=None, date_str=None):
         txt = play.get("text", "").lower()
         period = play.get("period", {}).get("number", 1)
         team_id = str(play.get("team", {}).get("id", ""))
 
         # 1. Period change trigger: commit stint before switching quarters
         if period != self.current_period:
-            self.commit_stint(player_pairs_ledger, player_stints_ledger)
+            self.commit_stint(player_pairs_ledger, player_stints_ledger, db_stints_collector, event_id, date_str)
             self.current_period = period
 
         # 2. Track scoring points by team
@@ -68,7 +68,7 @@ class StintTracker:
                 out_player = str(participants[1].get("athlete", {}).get("id", ""))
 
                 if in_player and out_player:
-                    self.commit_stint(player_pairs_ledger, player_stints_ledger)
+                    self.commit_stint(player_pairs_ledger, player_stints_ledger, db_stints_collector, event_id, date_str)
 
                     if out_player in self.home_on_court:
                         self.home_on_court.discard(out_player)
@@ -77,16 +77,17 @@ class StintTracker:
                         self.away_on_court.discard(out_player)
                         self.away_on_court.add(in_player)
 
-    def commit_stint(self, player_pairs_ledger, player_stints_ledger):
-        # Average possessions experienced during the stint
+    def commit_stint(self, player_pairs_ledger, player_stints_ledger, db_stints_collector=None, event_id=None, date_str=None):
         stint_poss = (self.home_poss_stint + self.away_poss_stint) / 2.0
+        if stint_poss <= 0 and self.home_pts_stint == 0 and self.away_pts_stint == 0:
+            return
         if stint_poss <= 0:
             stint_poss = 0.5
 
         home_list = list(self.home_on_court)
         away_list = list(self.away_on_court)
 
-        # 1. Record Individual Player On-Court Volume (for building their own personal baseline)
+        # 1. Update individual on-court stats (used to build their personal baseline)
         for hp in home_list:
             if hp not in player_stints_ledger:
                 player_stints_ledger[hp] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
@@ -101,29 +102,37 @@ class StintTracker:
             player_stints_ledger[ap]["pts_against"] += self.home_pts_stint
             player_stints_ledger[ap]["poss"] += stint_poss
 
-        # 2. Record Home Teammate pairs
+        # 2. Update Teammates
         for i in range(len(home_list)):
             for j in range(i + 1, len(home_list)):
                 p1, p2 = home_list[i], home_list[j]
                 self._log_pair(player_pairs_ledger, p1, p2, self.home_pts_stint, self.away_pts_stint, stint_poss, is_teammate=True)
                 self._log_pair(player_pairs_ledger, p2, p1, self.home_pts_stint, self.away_pts_stint, stint_poss, is_teammate=True)
 
-        # 3. Record Away Teammate pairs
         for i in range(len(away_list)):
             for j in range(i + 1, len(away_list)):
                 p1, p2 = away_list[i], away_list[j]
                 self._log_pair(player_pairs_ledger, p1, p2, self.away_pts_stint, self.home_pts_stint, stint_poss, is_teammate=True)
                 self._log_pair(player_pairs_ledger, p2, p1, self.away_pts_stint, self.home_pts_stint, stint_poss, is_teammate=True)
 
-        # 4. Record Opponent pairs (Home vs Away)
+        # 3. Update Opponents
         for hp in home_list:
             for ap in away_list:
-                # hp perspective: scoring home_pts, conceding away_pts
                 self._log_pair(player_pairs_ledger, hp, ap, self.home_pts_stint, self.away_pts_stint, stint_poss, is_teammate=False)
-                # ap perspective: scoring away_pts, conceding home_pts
                 self._log_pair(player_pairs_ledger, ap, hp, self.away_pts_stint, self.home_pts_stint, stint_poss, is_teammate=False)
 
-        # Reset stint accumulators
+        # 4. Save to Database Collector if provided
+        if db_stints_collector is not None and event_id and date_str:
+            import json
+            db_stints_collector.append((
+                event_id, date_str,
+                json.dumps(home_list),
+                json.dumps(away_list),
+                self.home_pts_stint, self.away_pts_stint,
+                stint_poss
+            ))
+
+        # Reset accumulators
         self.home_pts_stint = 0
         self.away_pts_stint = 0
         self.home_poss_stint = 0.0
