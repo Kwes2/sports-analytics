@@ -1,6 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 import requests
+from db import get_existing_completed_game_ids
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -21,28 +22,39 @@ def parse_score(score_field):
     return 0
 
 
-def is_legitimate_nba_game(event, comp):
-    name = event.get("name", "").lower()
+def determine_season_type(event, comp):
+    """
+    Identifies competition type:
+    2 = Regular Season
+    3 = Playoffs / Postseason
+    5 = Play-In Tournament
+    1 = Preseason / Summer (returns None to discard)
+    """
     desc = comp.get("status", {}).get("type", {}).get("description", "").lower()
+    name = event.get("name", "").lower()
 
-    if "preseason" in desc or "preseason" in name:
-        return False
-    if "summer" in desc or "summer" in name:
-        return False
+    if "preseason" in desc or "preseason" in name or "summer" in desc or "summer" in name:
+        return None
 
     date_str = event.get("date", "")[:10]
     if date_str:
         try:
             dt = datetime.strptime(date_str, "%Y-%m-%d")
-            # Discard July, August, September, and early October before Oct 18
-            if dt.month in [7, 8, 9]:
-                return False
-            if dt.month == 10 and dt.day < 18:
-                return False
+            # Discard July, August, September, and early October
+            if dt.month in [7, 8, 9] or (dt.month == 10 and dt.day < 18):
+                return None
+            # Playoffs generally run mid-April to June
+            if dt.month in [5, 6] or (dt.month == 4 and dt.day >= 18):
+                return 3
         except Exception:
             pass
 
-    return True
+    if "playoff" in desc or "postseason" in name or "playoff" in name:
+        return 3
+    if "play-in" in desc or "play-in" in name:
+        return 5
+
+    return 2  # Regular Season
 
 
 def fetch_team_schedule(team_id, season=2027):
@@ -100,14 +112,11 @@ def crawl_team_rosters():
 
 
 def crawl_full_season_schedule(seasons=[2026, 2027]):
-    """
-    Crawls 2026 (completed 2025-26 season) and 2027 (current 2026-27 active season).
-    """
     all_events = {}
     team_ids = list(range(1, 31))
 
     for season in seasons:
-        print(f"Crawling schedule for ESPN Season {season}...")
+        print(f"Crawling schedule index for Season {season}...")
         with ThreadPoolExecutor(max_workers=10) as executor:
             results = list(executor.map(lambda tid: fetch_team_schedule(tid, season=season), team_ids))
 
@@ -128,7 +137,8 @@ def crawl_full_season_schedule(seasons=[2026, 2027]):
             continue
         comp = comps[0]
 
-        if not is_legitimate_nba_game(event, comp):
+        season_type = determine_season_type(event, comp)
+        if season_type is None:
             continue
 
         status_obj = comp.get("status") or event.get("status", {})
@@ -167,6 +177,7 @@ def crawl_full_season_schedule(seasons=[2026, 2027]):
             completed_games.append({
                 "game_id": event_id,
                 "season_year": season_year,
+                "season_type": season_type,
                 "date": date_str,
                 "box_score": f"boxscore.html?id={event_id}",
                 "venue": venue_str,
@@ -181,7 +192,6 @@ def crawl_full_season_schedule(seasons=[2026, 2027]):
             })
             completed_ids.append(event_id)
         else:
-            # Current 2026-27 season upcoming schedule (season=2027)
             if season_year == 2027:
                 time_str = type_obj.get("shortDetail") or event.get("status", {}).get("type", {}).get("shortDetail", "Scheduled")
                 upcoming_games.append({
@@ -195,14 +205,28 @@ def crawl_full_season_schedule(seasons=[2026, 2027]):
     completed_games.sort(key=lambda x: x["date"], reverse=True)
     upcoming_games.sort(key=lambda x: x["date"])
 
-    print(f"Legitimate NBA Games Filtered: {len(completed_games)} completed, {len(upcoming_games)} upcoming (Preseason & Summer League discarded).")
+    print(f"Legitimate Games Indexed: {len(completed_games)} completed, {len(upcoming_games)} upcoming.")
     return completed_games, upcoming_games, completed_ids
 
 
 def crawl_game_summaries(event_ids):
-    print(f"Downloading box scores and full play-by-play for {len(event_ids)} games concurrently...")
+    """
+    INCREMENTAL DOWNLOADER:
+    Checks SQLite database on disk first. Only downloads games that have NOT yet been processed!
+    """
+    already_saved_ids = get_existing_completed_game_ids()
+    new_ids = [eid for eid in event_ids if eid not in already_saved_ids]
+
+    print(f"Cache check: {len(already_saved_ids)} games already saved in database.")
+    print(f"New games to download: {len(new_ids)}")
+
+    if not new_ids:
+        print("All games up to date! Zero network downloads needed.")
+        return {}
+
     with ThreadPoolExecutor(max_workers=15) as executor:
-        results = list(executor.map(fetch_game_summary, event_ids))
+        results = list(executor.map(fetch_game_summary, new_ids))
+
     return {eid: data for eid, data in results if data is not None}
 
 
