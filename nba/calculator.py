@@ -9,39 +9,36 @@ GRANULAR_ZONES = ["rim", "short_mid", "long_mid", "corner_3", "atb_3"]
 
 
 def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
-    """
-    Recalculates 100% of player statistics, advanced metrics, shot quality,
-    assist expected points, and influence ratings on the fly for any date window.
-    """
     conn = get_db_connection(db_path)
     cur = conn.cursor()
 
-    # 1. Query Player Game Logs within Date Range
+    # 1. Query Player Game Logs within Date Range (Joined with players lookup)
     cur.execute("""
         SELECT 
-            player_id, player_name, team_id, team_abbrev, pos,
+            l.player_id, p.player_name, p.team_id, p.team_abbrev, p.pos,
             COUNT(*) as gp,
-            SUM(is_starter) as gs,
-            SUM(minutes) as tot_min,
-            SUM(pts) as tot_pts,
-            SUM(reb) as tot_reb,
-            SUM(ast) as tot_ast,
-            SUM(stl) as tot_stl,
-            SUM(blk) as tot_blk,
-            SUM(to_val) as tot_to,
-            SUM(pf) as tot_pf,
-            SUM(plus_minus) as tot_pm,
-            SUM(fgm) as tot_fgm,
-            SUM(fga) as tot_fga,
-            SUM(fg3m) as tot_fg3m,
-            SUM(fg3a) as tot_fg3a,
-            SUM(ftm) as tot_ftm,
-            SUM(fta) as tot_fta,
-            SUM(oreb) as tot_oreb,
-            SUM(dreb) as tot_dreb
-        FROM player_game_logs
-        WHERE date BETWEEN ? AND ?
-        GROUP BY player_id
+            SUM(l.is_starter) as gs,
+            SUM(l.minutes) as tot_min,
+            SUM(l.pts) as tot_pts,
+            SUM(l.reb) as tot_reb,
+            SUM(l.ast) as tot_ast,
+            SUM(l.stl) as tot_stl,
+            SUM(l.blk) as tot_blk,
+            SUM(l.to_val) as tot_to,
+            SUM(l.pf) as tot_pf,
+            SUM(l.plus_minus) as tot_pm,
+            SUM(l.fgm) as tot_fgm,
+            SUM(l.fga) as tot_fga,
+            SUM(l.fg3m) as tot_fg3m,
+            SUM(l.fg3a) as tot_fg3a,
+            SUM(l.ftm) as tot_ftm,
+            SUM(l.fta) as tot_fta,
+            SUM(l.oreb) as tot_oreb,
+            SUM(l.dreb) as tot_dreb
+        FROM player_game_logs l
+        JOIN players p ON l.player_id = p.player_id
+        WHERE l.date BETWEEN ? AND ?
+        GROUP BY l.player_id
     """, (start_date, end_date))
     log_rows = cur.fetchall()
 
@@ -152,7 +149,7 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
     # 5. Query Stints & Calculate On-Court Influence within Date Range
     cur.execute("""
         SELECT 
-            home_team_id, away_team_id, home_lineup, away_lineup, home_pts, away_pts, poss
+            home_lineup, away_lineup, home_pts, away_pts, poss
         FROM stints
         WHERE date BETWEEN ? AND ?
     """, (start_date, end_date))
@@ -182,7 +179,6 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
             player_on_court[ap]["pts_against"] += h_pts
             player_on_court[ap]["poss"] += poss
 
-        # Teammate pairs
         for team_lineup, pts_f, pts_a in [(h_lineup, h_pts, a_pts), (a_lineup, a_pts, h_pts)]:
             for i in range(len(team_lineup)):
                 for j in range(i + 1, len(team_lineup)):
@@ -196,7 +192,6 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
                         pair_ledger[m1]["teammates"][m2]["pts_against"] += pts_a
                         pair_ledger[m1]["teammates"][m2]["poss"] += poss
 
-        # Opponent pairs
         for hp in h_lineup:
             for ap in a_lineup:
                 for m1, m2, pf, pa in [(hp, ap, h_pts, a_pts), (ap, hp, a_pts, h_pts)]:
@@ -226,7 +221,6 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
     for pid in player_on_court.keys():
         p_pairs = pair_ledger.get(pid, {"teammates": {}, "opponents": {}})
 
-        # Teammate deltas
         t_off_diff, t_def_diff, t_poss = 0.0, 0.0, 0.0
         for tid, data in p_pairs["teammates"].items():
             if data["poss"] >= 4.0:
@@ -240,7 +234,6 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
         t_off = round(t_off_diff / t_poss, 2) if t_poss > 0 else 0.0
         t_def = round(t_def_diff / t_poss, 2) if t_poss > 0 else 0.0
 
-        # Opponent deltas
         o_off_diff, o_def_diff, o_poss = 0.0, 0.0, 0.0
         for oid, data in p_pairs["opponents"].items():
             if data["poss"] >= 4.0:
@@ -291,7 +284,6 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
         ftm = r["tot_ftm"]
         ft_pct = round(ftm / fta * 100, 1) if fta > 0 else 0.0
 
-        # Advanced stats
         ts_pct = round(r["tot_pts"] / (2 * (fga + 0.44 * fta)) * 100, 1) if (fga + 0.44 * fta) > 0 else 0.0
         efg_pct = round((fgm + 0.5 * fg3m) / fga * 100, 1) if fga > 0 else 0.0
         three_par = round(fg3a / fga * 100, 1) if fga > 0 else 0.0
@@ -332,10 +324,8 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
         rim_ast_pct = round(sum(1 for e in ev_list if e["zone"] == "0-4 ft") / tot_ast_ct * 100, 1) if tot_ast_ct > 0 else 0.0
         three_ast_pct = round(sum(1 for e in ev_list if e["val"] == 3) / tot_ast_ct * 100, 1) if tot_ast_ct > 0 else 0.0
 
-        # PRF
         prf_pg = round(pts_pg + pts_created_pg, 1)
 
-        # Distance zones
         p_z = player_zones.get(aid, {z: {"fga": 0, "fgm": 0} for z in ZONES})
         tot_z_fga = sum(p_z[z]["fga"] for z in ZONES)
         zone_dict = {}
