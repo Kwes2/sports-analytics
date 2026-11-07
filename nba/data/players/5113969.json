@@ -45,7 +45,7 @@
     },
     {
       "type": "table",
-      "title": "Advanced Statistics (Efficiency & Shot Quality)",
+      "title": "Advanced Statistics & Influence",
       "data": {
         "meta_keys": [
           "gp"
@@ -63,9 +63,16 @@
             "ppsa": 0.0,
             "gmsc_avg": -0.2,
             "stocks_pg": 0.0,
-            "xefg_pct": 51.4,
-            "smoe": -51.4,
-            "mei": 100.0
+            "xefg_pct": 52.1,
+            "smoe": -52.1,
+            "mei": 100.0,
+            "teammate_off_impact": -40.68,
+            "teammate_def_impact": -28.59,
+            "teammate_overall_impact": -69.27,
+            "opponent_off_impact": -57.01,
+            "opponent_def_impact": -58.77,
+            "opponent_overall_impact": -115.78,
+            "overall_impact": -92.53
           }
         ]
       }
@@ -101,49 +108,55 @@
         "rows": [
           {
             "scope": "League Percentile",
-            "min_pg": 0.8,
-            "pts_pg": 2.2,
-            "reb_pg": 2.4,
-            "ast_pg": 6.1,
-            "stl_pg": 9.3,
-            "blk_pg": 15.0,
-            "to_pg": 6.9,
-            "fg_pct": 3.0,
-            "ts_pct": 2.2,
-            "efg_pct": 3.0,
-            "xefg_pct": 2.2,
-            "smoe": 2.3,
-            "mei": 98.2,
-            "usg_pct": 26.3,
-            "gmsc_avg": 1.5,
-            "xpts_per_ast": 6.1,
-            "paoe": 6.1,
-            "pts_created_pg": 6.1,
-            "prf_pg": 1.4,
-            "pct_team_prf": 1.4
+            "min_pg": 0.2,
+            "pts_pg": 0.8,
+            "reb_pg": 0.8,
+            "ast_pg": 1.7,
+            "stl_pg": 2.8,
+            "blk_pg": 7.7,
+            "to_pg": 2.4,
+            "fg_pct": 1.0,
+            "ts_pct": 0.8,
+            "efg_pct": 1.0,
+            "xefg_pct": 0.7,
+            "smoe": 0.9,
+            "mei": 99.4,
+            "usg_pct": 22.6,
+            "gmsc_avg": 0.9,
+            "xpts_per_ast": 1.7,
+            "paoe": 1.7,
+            "pts_created_pg": 1.7,
+            "prf_pg": 0.5,
+            "pct_team_prf": 0.5,
+            "overall_impact": 0.4,
+            "teammate_overall_impact": 0.5,
+            "opponent_overall_impact": 0.4
           },
           {
             "scope": "Position Percentile (G)",
-            "min_pg": 0.7,
-            "pts_pg": 2.1,
-            "reb_pg": 3.6,
-            "ast_pg": 5.5,
-            "stl_pg": 7.4,
-            "blk_pg": 16.7,
-            "to_pg": 5.2,
-            "fg_pct": 2.6,
-            "ts_pct": 2.1,
-            "efg_pct": 2.6,
-            "xefg_pct": 2.1,
-            "smoe": 2.1,
-            "mei": 98.3,
-            "usg_pct": 23.6,
-            "gmsc_avg": 1.9,
-            "xpts_per_ast": 5.5,
-            "paoe": 5.5,
-            "pts_created_pg": 5.5,
-            "prf_pg": 1.7,
-            "pct_team_prf": 1.7
+            "min_pg": 0.3,
+            "pts_pg": 0.8,
+            "reb_pg": 1.0,
+            "ast_pg": 1.7,
+            "stl_pg": 1.7,
+            "blk_pg": 8.3,
+            "to_pg": 1.7,
+            "fg_pct": 0.8,
+            "ts_pct": 0.8,
+            "efg_pct": 0.8,
+            "xefg_pct": 0.8,
+            "smoe": 0.8,
+            "mei": 99.5,
+            "usg_pct": 16.5,
+            "gmsc_avg": 0.8,
+            "xpts_per_ast": 1.7,
+            "paoe": 1.7,
+            "pts_created_pg": 1.7,
+            "prf_pg": 0.7,
+            "pct_team_prf": 0.7,
+            "overall_impact": 0.8,
+            "teammate_overall_impact": 1.2,
+            "opponent_overall_impact": 0.8
           }
         ]
       }
@@ -258,9 +271,8 @@
             "fga": 0,
             "fg_pct": 0.0,
             "shot_share": 0.0,
-            "league_avg_fg": 53.8,
-            "eff_percentile": 50.0,
-            "vol_percentile": 6.6
+            "league_avg_fg": 56.0,
+            "eff_percentile": 50.0
           },
           {
             "zone": "4-14 ft",
@@ -268,9 +280,8 @@
             "fga": 0,
             "fg_pct": 0.0,
             "shot_share": 0.0,
-            "league_avg_fg": 55.9,
-            "eff_percentile": 50.0,
-            "vol_percentile": 3.9
+            "league_avg_fg": 56.1,
+            "eff_percentile": 50.0
           },
           {
             "zone": "14+ ft",
@@ -278,9 +289,8 @@
             "fga": 1,
             "fg_pct": 0.0,
             "shot_share": 100.0,
-            "league_avg_fg": 50.8,
-            "eff_percentile": 50.0,
-            "vol_percentile": 6.2
+            "league_avg_fg": 51.3,
+            "eff_percentile": 50.0
           }
         ]
       }

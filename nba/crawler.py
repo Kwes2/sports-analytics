@@ -1,4 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor
+from datetime import datetime
 import requests
 
 HEADERS = {
@@ -20,8 +21,32 @@ def parse_score(score_field):
     return 0
 
 
-def fetch_team_schedule(team_id):
-    url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/{team_id}/schedule"
+def is_legitimate_nba_game(event, comp):
+    name = event.get("name", "").lower()
+    desc = comp.get("status", {}).get("type", {}).get("description", "").lower()
+
+    if "preseason" in desc or "preseason" in name:
+        return False
+    if "summer" in desc or "summer" in name:
+        return False
+
+    date_str = event.get("date", "")[:10]
+    if date_str:
+        try:
+            dt = datetime.strptime(date_str, "%Y-%m-%d")
+            # Discard July, August, September, and early October before Oct 18
+            if dt.month in [7, 8, 9]:
+                return False
+            if dt.month == 10 and dt.day < 18:
+                return False
+        except Exception:
+            pass
+
+    return True
+
+
+def fetch_team_schedule(team_id, season=2027):
+    url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/{team_id}/schedule?season={season}"
     try:
         r = requests.get(url, headers=HEADERS, timeout=8)
         if r.status_code == 200:
@@ -54,7 +79,6 @@ def fetch_single_roster(team_id):
 
 
 def crawl_team_rosters():
-    """Crawls all 30 teams to build an exact player_id -> canonical position (PG, SG, SF, PF, C) lookup."""
     print("Crawling rosters for exact 5-position designations (PG, SG, SF, PF, C)...")
     team_ids = list(range(1, 31))
 
@@ -64,7 +88,6 @@ def crawl_team_rosters():
     position_map = {}
     for team_athletes in results:
         for athlete_entry in team_athletes:
-            # Handle both grouped and flat roster payloads
             items = athlete_entry.get("items", [athlete_entry]) if "items" in athlete_entry else [athlete_entry]
             for ath in items:
                 aid = ath.get("id")
@@ -76,19 +99,24 @@ def crawl_team_rosters():
     return position_map
 
 
-def crawl_full_season_schedule():
-    print("Crawling season schedules for all 30 NBA teams...")
+def crawl_full_season_schedule(seasons=[2026, 2027]):
+    """
+    Crawls 2026 (completed 2025-26 season) and 2027 (current 2026-27 active season).
+    """
+    all_events = {}
     team_ids = list(range(1, 31))
 
-    with ThreadPoolExecutor(max_workers=10) as executor:
-        results = list(executor.map(fetch_team_schedule, team_ids))
+    for season in seasons:
+        print(f"Crawling schedule for ESPN Season {season}...")
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            results = list(executor.map(lambda tid: fetch_team_schedule(tid, season=season), team_ids))
 
-    all_events = {}
-    for team_events in results:
-        for event in team_events:
-            event_id = event.get("id")
-            if event_id and event_id not in all_events:
-                all_events[event_id] = event
+        for team_events in results:
+            for event in team_events:
+                event_id = event.get("id")
+                if event_id and event_id not in all_events:
+                    event["_crawl_season"] = season
+                    all_events[event_id] = event
 
     completed_games = []
     upcoming_games = []
@@ -99,6 +127,9 @@ def crawl_full_season_schedule():
         if not comps:
             continue
         comp = comps[0]
+
+        if not is_legitimate_nba_game(event, comp):
+            continue
 
         status_obj = comp.get("status") or event.get("status", {})
         type_obj = status_obj.get("type", {})
@@ -114,6 +145,7 @@ def crawl_full_season_schedule():
         city = venue_obj.get("address", {}).get("city", "")
         venue_str = f"{venue_name} ({city})" if city else venue_name
         date_str = event.get("date", "")[:10]
+        season_year = event.get("_crawl_season", 2027)
 
         competitors = comp.get("competitors", [])
         home = next((c for c in competitors if c.get("homeAway") == "home"), None)
@@ -124,6 +156,8 @@ def crawl_full_season_schedule():
 
         home_team = home.get("team", {}).get("displayName", "Unknown")
         away_team = away.get("team", {}).get("displayName", "Unknown")
+        home_team_id = str(home.get("team", {}).get("id", ""))
+        away_team_id = str(away.get("team", {}).get("id", ""))
 
         if is_completed:
             home_score = parse_score(home.get("score"))
@@ -131,11 +165,15 @@ def crawl_full_season_schedule():
             margin = home_score - away_score
 
             completed_games.append({
+                "game_id": event_id,
+                "season_year": season_year,
                 "date": date_str,
                 "box_score": f"boxscore.html?id={event_id}",
                 "venue": venue_str,
                 "home_team": home_team,
+                "home_team_id": home_team_id,
                 "away_team": away_team,
+                "away_team_id": away_team_id,
                 "home_score": home_score,
                 "away_score": away_score,
                 "margin": margin,
@@ -143,24 +181,26 @@ def crawl_full_season_schedule():
             })
             completed_ids.append(event_id)
         else:
-            time_str = type_obj.get("shortDetail") or event.get("status", {}).get("type", {}).get("shortDetail", "Scheduled")
-            upcoming_games.append({
-                "date": date_str,
-                "time": time_str,
-                "venue": venue_str,
-                "home_team": home_team,
-                "away_team": away_team
-            })
+            # Current 2026-27 season upcoming schedule (season=2027)
+            if season_year == 2027:
+                time_str = type_obj.get("shortDetail") or event.get("status", {}).get("type", {}).get("shortDetail", "Scheduled")
+                upcoming_games.append({
+                    "date": date_str,
+                    "time": time_str,
+                    "venue": venue_str,
+                    "home_team": home_team,
+                    "away_team": away_team
+                })
 
     completed_games.sort(key=lambda x: x["date"], reverse=True)
     upcoming_games.sort(key=lambda x: x["date"])
 
-    print(f"Schedule Crawled: {len(completed_games)} completed games, {len(upcoming_games)} upcoming.")
+    print(f"Legitimate NBA Games Filtered: {len(completed_games)} completed, {len(upcoming_games)} upcoming (Preseason & Summer League discarded).")
     return completed_games, upcoming_games, completed_ids
 
 
 def crawl_game_summaries(event_ids):
-    print(f"Downloading box scores and play-by-play for {len(event_ids)} games concurrently...")
+    print(f"Downloading box scores and full play-by-play for {len(event_ids)} games concurrently...")
     with ThreadPoolExecutor(max_workers=15) as executor:
         results = list(executor.map(fetch_game_summary, event_ids))
     return {eid: data for eid, data in results if data is not None}

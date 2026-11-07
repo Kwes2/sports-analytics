@@ -31,6 +31,9 @@ from percentiles import (
     build_stat_pools,
     build_shot_pools
 )
+from stints import StintTracker
+from baselines import BaselineEngine
+from influence import InfluenceEngine
 
 DATA_DIR = Path(__file__).parent / "data"
 BOX_DIR = DATA_DIR / "boxscores"
@@ -47,8 +50,8 @@ def main():
     # 0. Canonical Positions Mapping
     position_map = crawl_team_rosters()
 
-    # 1. Crawl Schedule
-    completed_games, upcoming_games, completed_ids = crawl_full_season_schedule()
+    # 1. Crawl Schedule (2026 completed season + 2027 active season)
+    completed_games, upcoming_games, completed_ids = crawl_full_season_schedule(seasons=[2026, 2027])
 
     with open(DATA_DIR / "completed_games.json", "w") as f:
         json.dump({
@@ -77,6 +80,10 @@ def main():
     team_game_stats_ledger = {}
     all_season_assisted_plays = []
     league_granular_shots = init_granular_dict()
+
+    # Stint-level interaction ledgers
+    merged_pair_ledger = {}
+    player_game_stints_history = {}  # {aid: [game_stint_summary_1, game_stint_summary_2, ...]}
     saved_boxes = 0
 
     for event_id, data in summaries.items():
@@ -110,6 +117,23 @@ def main():
 
         game_assists = extract_detailed_assists_from_plays(plays)
         all_season_assisted_plays.extend(game_assists)
+
+        # Stint tracking with accurate home/away ID matching
+        home_starters = [r["player_id"] for r in game_team_rows.get(home_id, {}).get("starters", [])]
+        away_starters = [r["player_id"] for r in game_team_rows.get(away_id, {}).get("starters", [])]
+        if home_starters and away_starters:
+            stint_tracker = StintTracker(home_starters, away_starters, home_id, away_id)
+            game_player_stints = {}
+
+            for play in plays:
+                stint_tracker.process_play(play, merged_pair_ledger, game_player_stints)
+            stint_tracker.commit_stint(merged_pair_ledger, game_player_stints)
+
+            # Record this game's stint total into player's history
+            for p_id, g_stint in game_player_stints.items():
+                if p_id not in player_game_stints_history:
+                    player_game_stints_history[p_id] = []
+                player_game_stints_history[p_id].append(g_stint)
 
         for tid in [home_id, away_id]:
             if tid not in team_season_shots:
@@ -156,7 +180,6 @@ def main():
                 players[aid]["zone_shots"][z]["fga"] += s_zones[z]["fga"]
                 players[aid]["zone_shots"][z]["fgm"] += s_zones[z]["fgm"]
 
-        # Track granular shots for player and league baseline
         for aid, g_zones in game_player_granular.items():
             if aid in players:
                 for gz in GRANULAR_ZONES:
@@ -256,7 +279,7 @@ def main():
             }, f, indent=2)
         saved_boxes += 1
 
-    # 4. Compute Empirical League eFG% for Granular Analytical Zones
+    # 4. Compute Granular Shot Baselines
     league_granular_efg = {}
     for gz in GRANULAR_ZONES:
         fga = league_granular_shots[gz]["fga"]
@@ -266,8 +289,6 @@ def main():
             league_granular_efg[gz] = round((fgm + 0.5 * fg3m) / fga * 100, 1)
         else:
             league_granular_efg[gz] = 50.0
-
-    print(f"Empirical League Shot Zone eFG% Baselines: {league_granular_efg}")
 
     # 5. Compute Season Averages & Advanced Metrics for Active Players
     active_players = {}
@@ -303,8 +324,6 @@ def main():
 
         p["game_logs"].sort(key=lambda x: x["date"], reverse=True)
         adv = compute_player_advanced_metrics(p)
-
-        # Compute Shot Quality (xeFG%), Shot-Making Over Expected (SMOE), and Moreyball Index (MEI)
         sq_metrics = compute_shot_quality_metrics(
             p["granular_shots"], league_granular_efg, p["tot_fta"], p["tot_fga"]
         )
@@ -326,7 +345,15 @@ def main():
             "game_logs": p["game_logs"]
         }
 
-    # 6. League Benchmark Baselines for Simple Distance Zones
+    # 6. Execute Pure On-Court Baselines & Influence Engines
+    print("Computing 30-game individual on-court baselines...")
+    baseline_engine = BaselineEngine(active_players, player_game_stints_history, team_game_stats_ledger)
+
+    print("Evaluating individual teammate elevation & opponent suppression...")
+    influence_engine = InfluenceEngine(active_players, baseline_engine, merged_pair_ledger)
+    player_influence_map = influence_engine.attr
+
+    # 7. League Benchmark Baselines for Simple Distance Zones
     league_zone_totals = init_zone_dict()
     for p in active_players.values():
         for z in ZONES:
@@ -338,7 +365,7 @@ def main():
         for z in ZONES
     }
 
-    # 7. Group Assisted Events for Graph Networks
+    # 8. Group Assisted Events for Graph Networks
     passer_finisher_map = {}
     finisher_passer_map = {}
     all_passer_events_map = {}
@@ -363,7 +390,7 @@ def main():
             finisher_passer_map[s_id][p_id] = []
         finisher_passer_map[s_id][p_id].append(ev)
 
-    # 8. Compute Passing Profiles, PRF, and Dynamic Feature Dictionaries
+    # 9. Compute Passing Profiles, PRF, and Dynamic Feature Dictionaries
     for aid, p in active_players.items():
         p_events = all_passer_events_map.get(aid, [])
         gp = p["averages"]["gp"]
@@ -405,6 +432,13 @@ def main():
             "pct_team_prf": pct_team_prf
         }
 
+        # Attach Influence Metrics
+        p["influence_metrics"] = player_influence_map.get(aid, {
+            "teammate_off_impact": 0.0, "teammate_def_impact": 0.0, "teammate_overall_impact": 0.0,
+            "opponent_off_impact": 0.0, "opponent_def_impact": 0.0, "opponent_overall_impact": 0.0,
+            "overall_impact": 0.0
+        })
+
         tot_fga = sum(p["zone_shots"][z]["fga"] for z in ZONES)
         zone_summary = {}
         for z, label in [("0-4 ft", "rim"), ("4-14 ft", "mid"), ("14+ ft", "three")]:
@@ -418,11 +452,12 @@ def main():
 
         p["zone_summary"] = zone_summary
 
-    # 9. Distribution Pools (Including Shot Quality & Shot Making)
+    # 10. Distribution Pools
     stat_keys = [
         "min_pg", "pts_pg", "reb_pg", "ast_pg", "stl_pg", "blk_pg", "to_pg", "fg_pct",
         "ts_pct", "efg_pct", "xefg_pct", "smoe", "mei", "usg_pct", "gmsc_avg",
-        "xpts_per_ast", "paoe", "pts_created_pg", "prf_pg", "pct_team_prf"
+        "xpts_per_ast", "paoe", "pts_created_pg", "prf_pg", "pct_team_prf",
+        "overall_impact", "teammate_overall_impact", "opponent_overall_impact"
     ]
 
     league_pools = {k: [] for k in stat_keys}
@@ -431,7 +466,7 @@ def main():
         pos = p["pos"]
         if pos not in pos_pools:
             pos_pools[pos] = {k: [] for k in stat_keys}
-        combined = {**p["averages"], **p["advanced"], **p["passing_profile"], **p["prf_metrics"]}
+        combined = {**p["averages"], **p["advanced"], **p["passing_profile"], **p["prf_metrics"], **p["influence_metrics"]}
         for k in stat_keys:
             val = combined.get(k, 0.0)
             league_pools[k].append(val)
@@ -439,7 +474,7 @@ def main():
 
     vol_pools, eff_pools = build_shot_pools(active_players, ZONES)
 
-    # 10. Assemble Section-Based Player Profile Payloads & Complete Player Stats Table (Auto-Merged!)
+    # 11. Assemble Section-Based Player Profile Payloads & Complete Player Stats Table (Auto-Merged!)
     all_player_stats_rows = []
     for aid, p in active_players.items():
         pos = p["pos"]
@@ -447,8 +482,9 @@ def main():
         adv = p["advanced"]
         pass_prof = p["passing_profile"]
         prf = p["prf_metrics"]
+        inf = p["influence_metrics"]
 
-        combined = {**avg, **adv, **pass_prof, **prf}
+        combined = {**avg, **adv, **pass_prof, **prf, **inf}
         league_percentiles = {k: compute_percentile(combined.get(k, 0), league_pools[k]) for k in stat_keys}
         pos_percentiles = {k: compute_percentile(combined.get(k, 0), pos_pools[pos][k]) for k in stat_keys}
 
@@ -460,11 +496,10 @@ def main():
             pct = round(fgm / fga * 100, 1) if fga > 0 else 0.0
             share = round(fga / tot_fga * 100, 1) if tot_fga > 0 else 0.0
             eff_pctile = compute_percentile(pct, eff_pools[z]) if fga >= 2 else 50.0
-            vol_pctile = compute_percentile(fga, vol_pools[z])
 
             shooting_splits_rows.append({
                 "zone": z, "fgm": fgm, "fga": fga, "fg_pct": pct, "shot_share": share,
-                "league_avg_fg": league_avg_fg[z], "eff_percentile": eff_pctile, "vol_percentile": vol_pctile
+                "league_avg_fg": league_avg_fg[z], "eff_percentile": eff_pctile
             })
 
         situational_rows = compute_player_situational_splits(p["game_logs"])
@@ -472,7 +507,6 @@ def main():
         passes_from_rows = []
         finisher_dict = passer_finisher_map.get(aid, {})
         tot_player_assists = sum(len(ev_list) for ev_list in finisher_dict.values())
-
         for finisher_id, ev_list in finisher_dict.items():
             metrics = compute_assist_connection_metrics(ev_list, league_avg_fg, active_players)
             f_name = player_names_map.get(finisher_id, f"Player {finisher_id}")
@@ -485,7 +519,6 @@ def main():
         passes_to_rows = []
         passer_dict = finisher_passer_map.get(aid, {})
         tot_player_assisted_baskets = sum(len(ev_list) for ev_list in passer_dict.values())
-
         for passer_id, ev_list in passer_dict.items():
             metrics = compute_assist_connection_metrics(ev_list, league_avg_fg, active_players)
             p_name = player_names_map.get(passer_id, f"Player {passer_id}")
@@ -509,8 +542,8 @@ def main():
                 },
                 {
                     "type": "table",
-                    "title": "Advanced Statistics (Efficiency & Shot Quality)",
-                    "data": {"meta_keys": ["gp"], "rows": [adv]}
+                    "title": "Advanced Statistics & Influence",
+                    "data": {"meta_keys": ["gp"], "rows": [{**adv, **inf}]}
                 },
                 {
                     "type": "table",
@@ -569,7 +602,8 @@ def main():
             **p["prf_metrics"],
             **p["advanced"],
             **p["passing_profile"],
-            **p["zone_summary"]
+            **p["zone_summary"],
+            **p["influence_metrics"]
         }
         all_player_stats_rows.append(flattened_player)
 
@@ -577,7 +611,7 @@ def main():
     with open(DATA_DIR / "player_stats.json", "w") as f:
         json.dump({"meta_keys": ["player", "team", "pos"], "rows": all_player_stats_rows}, f, indent=2)
 
-    # 11. Assemble Team Payloads
+    # 12. Assemble Team Payloads
     for t_row in team_rows:
         t_id = t_row["team_id"]
         t_name = t_row["team"]
@@ -591,10 +625,7 @@ def main():
                 "gs": p["averages"]["gs"],
                 "min_pg": p["averages"]["min_pg"],
                 "pts_pg": p["averages"]["pts_pg"],
-                "prf_pg": p["prf_metrics"]["prf_pg"],
-                "pct_team_prf": p["prf_metrics"]["pct_team_prf"],
-                "reb_pg": p["averages"]["reb_pg"],
-                "ast_pg": p["averages"]["ast_pg"],
+                "overall_impact": p["influence_metrics"]["overall_impact"],
                 "ts_pct": p["advanced"]["ts_pct"],
                 "smoe": p["advanced"]["smoe"],
                 "mei": p["advanced"]["mei"],
@@ -721,7 +752,7 @@ def main():
         with open(TEAM_DIR / f"{t_id}.json", "w") as f:
             json.dump(team_payload, f, indent=2)
 
-    # 12. Main Standings Table
+    # 13. Main Standings Table
     enriched_standings = []
     for t in team_rows:
         adv = compute_team_advanced_metrics(t["team"], team_game_stats_ledger.get(t["team_id"], []))
@@ -744,7 +775,7 @@ def main():
     with open(DATA_DIR / "team_stats.json", "w") as f:
         json.dump({"meta_keys": ["team"], "rows": enriched_standings}, f, indent=2)
 
-    print("Pipeline Complete: Shot Quality (xeFG%), SMOE, and Moreyball Index computed.")
+    print("Pipeline Complete: Individual on-court baselines & influence metrics computed.")
 
 
 if __name__ == "__main__":
