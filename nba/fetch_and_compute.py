@@ -14,7 +14,9 @@ from shots import (
     init_zone_dict,
     init_granular_dict,
     process_game_shots,
-    compute_shot_quality_metrics
+    compute_shot_quality_metrics,
+    classify_shot_distance,
+    classify_shot_granular
 )
 from stats import (
     process_boxscore_players,
@@ -34,6 +36,7 @@ from percentiles import (
 from stints import StintTracker
 from baselines import BaselineEngine
 from influence import InfluenceEngine
+from db import init_db, bulk_insert, DB_PATH
 
 DATA_DIR = Path(__file__).parent / "data"
 BOX_DIR = DATA_DIR / "boxscores"
@@ -47,6 +50,10 @@ TEAM_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def main():
+    # Initialize SQLite Database
+    print("Initializing SQLite Database (nba.db)...")
+    init_db(DB_PATH)
+
     # 0. Canonical Positions Mapping
     position_map = crawl_team_rosters()
 
@@ -81,9 +88,16 @@ def main():
     all_season_assisted_plays = []
     league_granular_shots = init_granular_dict()
 
+    # DB Accumulators
+    db_games_rows = []
+    db_player_logs_rows = []
+    db_shots_rows = []
+    db_assisted_rows = []
+    db_stints_rows = []
+
     # Stint-level interaction ledgers
     merged_pair_ledger = {}
-    player_game_stints_history = {}  # {aid: [game_stint_summary_1, game_stint_summary_2, ...]}
+    player_game_stints_history = {}
     saved_boxes = 0
 
     for event_id, data in summaries.items():
@@ -110,6 +124,12 @@ def main():
         home_score = parse_score(home_comp.get("score"))
         away_score = parse_score(away_comp.get("score"))
 
+        # DB: Games row
+        db_games_rows.append((
+            event_id, 2026 if "2025" in date_str or ("2026" in date_str and int(date_str[5:7]) < 7) else 2027,
+            date_str, home_id, away_id, home_name, away_name, home_score, away_score, venue_str
+        ))
+
         team_shots, game_player_shots, game_player_granular = process_game_shots(plays, home_id, away_id)
         game_team_rows, player_events = process_boxscore_players(
             game_players, home_abbrev, away_abbrev, home_score, away_score, date_str, position_map
@@ -118,7 +138,13 @@ def main():
         game_assists = extract_detailed_assists_from_plays(plays)
         all_season_assisted_plays.extend(game_assists)
 
-        # Stint tracking with accurate home/away ID matching
+        # DB: Assisted Baskets rows
+        for ga in game_assists:
+            db_assisted_rows.append((
+                event_id, date_str, ga["team_id"], ga["passer_id"], ga["scorer_id"], ga["val"], ga["zone"]
+            ))
+
+        # Stint tracking
         home_starters = [r["player_id"] for r in game_team_rows.get(home_id, {}).get("starters", [])]
         away_starters = [r["player_id"] for r in game_team_rows.get(away_id, {}).get("starters", [])]
         if home_starters and away_starters:
@@ -129,11 +155,38 @@ def main():
                 stint_tracker.process_play(play, merged_pair_ledger, game_player_stints)
             stint_tracker.commit_stint(merged_pair_ledger, game_player_stints)
 
-            # Record this game's stint total into player's history
             for p_id, g_stint in game_player_stints.items():
                 if p_id not in player_game_stints_history:
                     player_game_stints_history[p_id] = []
                 player_game_stints_history[p_id].append(g_stint)
+
+            # DB: Stints row
+            db_stints_rows.append((
+                event_id, date_str, home_id, away_id,
+                json.dumps(list(stint_tracker.home_on_court)),
+                json.dumps(list(stint_tracker.away_on_court)),
+                stint_tracker.home_pts_stint, stint_tracker.away_pts_stint,
+                max((stint_tracker.home_poss_stint + stint_tracker.away_poss_stint) / 2.0, 1.0)
+            ))
+
+        # DB: Raw Shot Rows
+        for play in plays:
+            coord = play.get("coordinate")
+            text = play.get("text", "")
+            is_shooting = play.get("scoringPlay", False)
+
+            if coord and ("x" in coord and "y" in coord) and (is_shooting or "shot" in text.lower() or "jumper" in text.lower() or "layup" in text.lower() or "dunk" in text.lower()):
+                cx, cy = coord["x"], coord["y"]
+                is_three = ("three point" in text.lower() or "3pt" in text.lower())
+                z = classify_shot_distance(cx, cy)
+                gz = classify_shot_granular(cx, cy, is_three)
+                sh_id = str(play.get("participants", [{}])[0].get("athlete", {}).get("id", ""))
+                is_made = 1 if (play.get("scoringPlay") and "missed" not in text.lower()) else 0
+                val = 3 if is_three else 2
+                t_id = str(play.get("team", {}).get("id", ""))
+
+                if sh_id:
+                    db_shots_rows.append((event_id, date_str, sh_id, t_id, cx, cy, val, is_made, z, gz))
 
         for tid in [home_id, away_id]:
             if tid not in team_season_shots:
@@ -229,6 +282,15 @@ def main():
             p["tot_plus_minus"] += ev["plus_minus"]
             p["game_logs"].append(ev["log"])
 
+            # DB: Player Game Log Row
+            db_player_logs_rows.append((
+                aid, ev["player"], ev["team_id"], ev["team_abbrev"], ev["pos"],
+                event_id, date_str, 1 if ev["is_starter"] else 0, ev["minutes"],
+                ev["pts"], ev["reb"], ev["ast"], ev["stl"], ev["blk"], ev["to"], ev["pf"], ev["plus_minus"],
+                ev["fgm"], ev["fga"], ev["fg3m"], ev["fg3a"], ev["ftm"], ev["fta"], ev["oreb"], ev["dreb"],
+                ev["log"]["gmsc"], ev["log"]["ts_pct"]
+            ))
+
         game_four_factors = [
             {"team": home_name, **compute_team_advanced_metrics(home_name, [team_game_stats_ledger[home_id][-1]])},
             {"team": away_name, **compute_team_advanced_metrics(away_name, [team_game_stats_ledger[away_id][-1]])}
@@ -278,6 +340,32 @@ def main():
                 "teams": box_teams
             }, f, indent=2)
         saved_boxes += 1
+
+    # Bulk Insert Everything into SQLite Database (nba.db)
+    print("Writing atomic tables to SQLite Database (nba.db)...")
+    bulk_insert(DB_PATH, "games", [
+        "game_id", "season_year", "date", "home_team_id", "away_team_id",
+        "home_team_name", "away_team_name", "home_score", "away_score", "venue"
+    ], db_games_rows)
+
+    bulk_insert(DB_PATH, "player_game_logs", [
+        "player_id", "player_name", "team_id", "team_abbrev", "pos",
+        "game_id", "date", "is_starter", "minutes", "pts", "reb", "ast", "stl", "blk", "to_val", "pf",
+        "plus_minus", "fgm", "fga", "fg3m", "fg3a", "ftm", "fta", "oreb", "dreb", "gmsc", "ts_pct"
+    ], db_player_logs_rows)
+
+    bulk_insert(DB_PATH, "shots", [
+        "game_id", "date", "shooter_id", "team_id", "x", "y", "val", "made", "zone", "granular_zone"
+    ], db_shots_rows)
+
+    bulk_insert(DB_PATH, "assisted_baskets", [
+        "game_id", "date", "team_id", "passer_id", "scorer_id", "val", "zone"
+    ], db_assisted_rows)
+
+    bulk_insert(DB_PATH, "stints", [
+        "game_id", "date", "home_team_id", "away_team_id", "home_lineup", "away_lineup",
+        "home_pts", "away_pts", "poss"
+    ], db_stints_rows)
 
     # 4. Compute Granular Shot Baselines
     league_granular_efg = {}
@@ -432,7 +520,6 @@ def main():
             "pct_team_prf": pct_team_prf
         }
 
-        # Attach Influence Metrics
         p["influence_metrics"] = player_influence_map.get(aid, {
             "teammate_off_impact": 0.0, "teammate_def_impact": 0.0, "teammate_overall_impact": 0.0,
             "opponent_off_impact": 0.0, "opponent_def_impact": 0.0, "opponent_overall_impact": 0.0,
@@ -474,7 +561,7 @@ def main():
 
     vol_pools, eff_pools = build_shot_pools(active_players, ZONES)
 
-    # 11. Assemble Section-Based Player Profile Payloads & Complete Player Stats Table (Auto-Merged!)
+    # 11. Assemble Section-Based Player Profile Payloads & Complete Player Stats Table
     all_player_stats_rows = []
     for aid, p in active_players.items():
         pos = p["pos"]
@@ -625,10 +712,12 @@ def main():
                 "gs": p["averages"]["gs"],
                 "min_pg": p["averages"]["min_pg"],
                 "pts_pg": p["averages"]["pts_pg"],
+                "prf_pg": p["prf_metrics"]["prf_pg"],
+                "pct_team_prf": p["prf_metrics"]["pct_team_prf"],
+                "reb_pg": p["averages"]["reb_pg"],
+                "ast_pg": p["averages"]["ast_pg"],
                 "overall_impact": p["influence_metrics"]["overall_impact"],
                 "ts_pct": p["advanced"]["ts_pct"],
-                "smoe": p["advanced"]["smoe"],
-                "mei": p["advanced"]["mei"],
                 "usg_pct": p["advanced"]["usg_pct"],
                 "gmsc_avg": p["advanced"]["gmsc_avg"]
             }
@@ -775,7 +864,7 @@ def main():
     with open(DATA_DIR / "team_stats.json", "w") as f:
         json.dump({"meta_keys": ["team"], "rows": enriched_standings}, f, indent=2)
 
-    print("Pipeline Complete: Individual on-court baselines & influence metrics computed.")
+    print("Pipeline Complete: Full database populated (nba.db) and static JSON files generated.")
 
 
 if __name__ == "__main__":
