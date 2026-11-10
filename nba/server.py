@@ -1,6 +1,6 @@
 """
 server.py - Production & Local Web Server for StatsWebsite.
-Runs natively on Render (and locally), serving all sports and executing on-the-fly analytics.
+Binds to 0.0.0.0 and respects cloud host assigned PORT.
 """
 
 import json
@@ -31,13 +31,17 @@ from calculator import (
     compute_window_single_player_profile
 )
 
-# Render provides PORT in the environment (defaults to 8000 locally)
+# Use cloud host assigned port, or fallback to 8000 locally
 PORT = int(os.environ.get("PORT", 8000))
 
 
 class WebsiteRequestHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(PROJECT_ROOT), **kwargs)
+
+    def log_message(self, format, *args):
+        sys.stdout.write(f">> [SERVER] {self.address_string()} - {format % args}\n")
+        sys.stdout.flush()
 
     def end_headers(self):
         self.send_header("Access-Control-Allow-Origin", "*")
@@ -152,10 +156,11 @@ class ReusableServer(HTTPServer):
 
 
 def run_server():
+    # 0.0.0.0 is REQUIRED for Render and public cloud containers
     server_address = ("0.0.0.0", PORT)
     httpd = ReusableServer(server_address, WebsiteRequestHandler)
     print("=" * 65)
-    print(f" StatsWebsite Server running on port {PORT}")
+    print(f" StatsWebsite Server running on 0.0.0.0:{PORT}")
     print(f" Serving Root: {PROJECT_ROOT}")
     print("=" * 65)
     sys.stdout.flush()
