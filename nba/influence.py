@@ -1,3 +1,9 @@
+"""
+influence.py - Solves for isolated Offensive and Defensive impact using 
+Ridge-Regularized Adjusted Plus-Minus (RAPM) over all 10 players on the court.
+Memory-optimized with O(N) vectorized weights (no 50GB dense matrix allocation).
+"""
+
 import numpy as np
 
 class InfluenceEngine:
@@ -11,12 +17,7 @@ class InfluenceEngine:
         self._calculate_decomposed_rapm()
 
     def _calculate_decomposed_rapm(self):
-        """
-        Solves for true isolated Offensive and Defensive impact using 
-        Ridge-Regularized Adjusted Plus-Minus (RAPM) over all 10 players on the court.
-        """
         if not self.all_games_stints:
-            # Fallback if stints list wasn't provided
             for aid in self.active_players.keys():
                 self.player_influences[aid] = {"orapm": 0.0, "drapm": 0.0, "net_rapm": 0.0}
             return
@@ -50,32 +51,32 @@ class InfluenceEngine:
             away_ortg = (a_pts / poss) * 100.0
 
             # Row 1: Home Offense vs Away Defense
-            row_home_off = np.zeros(total_cols)
-            row_home_off[0] = 1.0  # Intercept (League Baseline)
+            row_home_off = np.zeros(total_cols, dtype=np.float32)
+            row_home_off[0] = 1.0
             for p in h_lineup:
                 pid = str(p)
                 if pid in player_to_idx:
-                    row_home_off[1 + player_to_idx[pid]] += 1.0  # +1 for Home Offense
+                    row_home_off[1 + player_to_idx[pid]] += 1.0
             for p in a_lineup:
                 pid = str(p)
                 if pid in player_to_idx:
-                    row_home_off[1 + n_players + player_to_idx[pid]] -= 1.0  # -1 for Away Defense
+                    row_home_off[1 + n_players + player_to_idx[pid]] -= 1.0
 
             X_rows.append(row_home_off)
             y_rows.append(home_ortg)
             w_rows.append(poss)
 
             # Row 2: Away Offense vs Home Defense
-            row_away_off = np.zeros(total_cols)
-            row_away_off[0] = 1.0  # Intercept
+            row_away_off = np.zeros(total_cols, dtype=np.float32)
+            row_away_off[0] = 1.0
             for p in a_lineup:
                 pid = str(p)
                 if pid in player_to_idx:
-                    row_away_off[1 + player_to_idx[pid]] += 1.0  # +1 for Away Offense
+                    row_away_off[1 + player_to_idx[pid]] += 1.0
             for p in h_lineup:
                 pid = str(p)
                 if pid in player_to_idx:
-                    row_away_off[1 + n_players + player_to_idx[pid]] -= 1.0  # -1 for Home Defense
+                    row_away_off[1 + n_players + player_to_idx[pid]] -= 1.0
 
             X_rows.append(row_away_off)
             y_rows.append(away_ortg)
@@ -86,24 +87,26 @@ class InfluenceEngine:
                 self.player_influences[aid] = {"orapm": 0.0, "drapm": 0.0, "net_rapm": 0.0}
             return
 
-        X = np.array(X_rows)
-        y = np.array(y_rows)
-        W = np.diag(np.array(w_rows))
+        X = np.array(X_rows, dtype=np.float32)
+        y = np.array(y_rows, dtype=np.float32)
+        w = np.array(w_rows, dtype=np.float32)
 
         # Solve Ridge Regression with unpenalized intercept
+        # Optimization: Vectorized multiplication instead of np.diag(w) which creates a 58 GB matrix!
         LAMBDA_REG = 3500.0
         
-        XTW = X.T @ W
+        # XTW = X.T * w (broadcasting eliminates the NxN diagonal matrix completely)
+        XTW = X.T * w
         XTWX = XTW @ X
+        XTWy = XTW @ y
         
-        Lambda_mat = np.zeros((total_cols, total_cols))
+        Lambda_mat = np.zeros((total_cols, total_cols), dtype=np.float32)
         np.fill_diagonal(Lambda_mat[1:, 1:], LAMBDA_REG)
         
         try:
-            beta = np.linalg.solve(XTWX + Lambda_mat, XTW @ y)
+            beta = np.linalg.solve(XTWX + Lambda_mat, XTWy)
         except np.linalg.LinAlgError:
-            # Fallback if matrix is completely singular (rare in large samples)
-            beta = np.zeros(total_cols)
+            beta = np.zeros(total_cols, dtype=np.float32)
 
         # Extract ORAPM and DRAPM for every player
         for aid in self.active_players.keys():
