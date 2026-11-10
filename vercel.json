@@ -1,3 +1,12 @@
 {
-  "outputDirectory": "."
+  "rewrites": [
+    {
+      "source": "/nba/api/:match*",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/api/:match*",
+      "destination": "/api/index.py"
+    }
+  ]
 }

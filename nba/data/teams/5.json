@@ -1,9 +1,9 @@
 {
   "team_id": "5",
   "team_name": "Cleveland Cavaliers",
-  "record": "5-4",
-  "win_pct": 55.6,
-  "diff": 4.5,
+  "record": "5-5",
+  "win_pct": 50.0,
+  "diff": 2.9,
   "sections": [
     {
       "type": "table",
@@ -18,77 +18,65 @@
             "player_id": "3992",
             "player": "James Harden",
             "pos": "G",
-            "gp": 79,
-            "gs": 79,
+            "gp": 80,
+            "gs": 80,
             "min_pg": 34.7,
-            "pts_pg": 22.8,
-            "prf_pg": 40.8,
-            "pct_team_prf": 34.2,
-            "reb_pg": 4.9,
+            "pts_pg": 22.6,
+            "reb_pg": 4.8,
             "ast_pg": 7.7,
-            "overall_impact": -0.03,
-            "ts_pct": 60.5,
-            "smoe": 3.5,
-            "mei": 70.9,
-            "usg_pct": 32.1,
-            "gmsc_avg": 18.4
+            "net_rapm": 0.01,
+            "net_on_off": -7.4,
+            "bpm": 0.9,
+            "ts_pct": 60.4,
+            "usg_pct": 31.9
           },
           {
             "player_id": "3908809",
             "player": "Donovan Mitchell",
             "pos": "G",
-            "gp": 79,
-            "gs": 79,
-            "min_pg": 33.4,
-            "pts_pg": 27.3,
-            "prf_pg": 40.9,
-            "pct_team_prf": 34.3,
+            "gp": 80,
+            "gs": 80,
+            "min_pg": 33.5,
+            "pts_pg": 27.4,
             "reb_pg": 4.6,
             "ast_pg": 5.7,
-            "overall_impact": 5.95,
-            "ts_pct": 61.2,
-            "smoe": 3.1,
-            "mei": 60.4,
-            "usg_pct": 37.6,
-            "gmsc_avg": 20.5
+            "net_rapm": 4.79,
+            "net_on_off": 10.1,
+            "bpm": 1.0,
+            "ts_pct": 61.3,
+            "usg_pct": 37.7
           },
           {
             "player_id": "4432158",
             "player": "Evan Mobley",
             "pos": "C",
-            "gp": 74,
-            "gs": 72,
+            "gp": 75,
+            "gs": 73,
             "min_pg": 32.1,
-            "pts_pg": 18.3,
-            "prf_pg": 27.0,
-            "pct_team_prf": 22.7,
+            "pts_pg": 18.2,
             "reb_pg": 8.9,
             "ast_pg": 3.6,
-            "overall_impact": 2.86,
-            "ts_pct": 60.4,
-            "smoe": 0.5,
-            "mei": 54.9,
-            "usg_pct": 26.4,
-            "gmsc_avg": 16.5
+            "net_rapm": 1.93,
+            "net_on_off": 2.2,
+            "bpm": 1.2,
+            "ts_pct": 60.3,
+            "usg_pct": 26.3
           },
           {
             "player_id": "4576087",
             "player": "Peyton Watson",
             "pos": "G",
-            "gp": 61,
-            "gs": 47,
+            "gp": 62,
+            "gs": 48,
             "min_pg": 29.4,
             "pts_pg": 14.2,
-            "prf_pg": 19.6,
-            "pct_team_prf": 16.4,
             "reb_pg": 4.9,
-            "ast_pg": 2.1,
-            "overall_impact": 3.0,
-            "ts_pct": 57.9,
-            "smoe": -0.9,
-            "mei": 59.5,
-            "usg_pct": 23.9,
-            "gmsc_avg": 10.7
+            "ast_pg": 2.2,
+            "net_rapm": 0.94,
+            "net_on_off": 1.4,
+            "bpm": 0.1,
+            "ts_pct": 57.8,
+            "usg_pct": 23.8
           },
           {
             "player_id": "4066328",
@@ -98,16 +86,13 @@
             "gs": 64,
             "min_pg": 26.9,
             "pts_pg": 15.1,
-            "prf_pg": 19.1,
-            "pct_team_prf": 16.0,
             "reb_pg": 8.4,
             "ast_pg": 1.7,
-            "overall_impact": 4.51,
+            "net_rapm": 2.37,
+            "net_on_off": 4.6,
+            "bpm": 0.8,
             "ts_pct": 66.8,
-            "smoe": 5.7,
-            "mei": 49.2,
-            "usg_pct": 23.3,
-            "gmsc_avg": 14.8
+            "usg_pct": 23.3
           },
           {
             "player_id": "4683747",
@@ -117,16 +102,13 @@
             "gs": 42,
             "min_pg": 26.5,
             "pts_pg": 12.8,
-            "prf_pg": 18.3,
-            "pct_team_prf": 15.4,
             "reb_pg": 5.0,
             "ast_pg": 2.3,
-            "overall_impact": 1.89,
+            "net_rapm": 0.64,
+            "net_on_off": -0.0,
+            "bpm": -0.4,
             "ts_pct": 60.1,
-            "smoe": 2.3,
-            "mei": 64.0,
-            "usg_pct": 22.9,
-            "gmsc_avg": 10.0
+            "usg_pct": 22.9
           },
           {
             "player_id": "4066757",
@@ -136,35 +118,29 @@
             "gs": 39,
             "min_pg": 26.0,
             "pts_pg": 12.0,
-            "prf_pg": 17.5,
-            "pct_team_prf": 14.7,
             "reb_pg": 2.7,
             "ast_pg": 2.3,
-            "overall_impact": 5.94,
+            "net_rapm": 3.04,
+            "net_on_off": 6.9,
+            "bpm": -0.8,
             "ts_pct": 63.5,
-            "smoe": 6.5,
-            "mei": 77.8,
-            "usg_pct": 19.6,
-            "gmsc_avg": 9.0
+            "usg_pct": 19.6
           },
           {
             "player_id": "5041951",
             "player": "Meleek Thomas",
             "pos": "G",
-            "gp": 6,
-            "gs": 1,
-            "min_pg": 22.2,
-            "pts_pg": 12.8,
-            "prf_pg": 15.8,
-            "pct_team_prf": 13.3,
-            "reb_pg": 2.3,
-            "ast_pg": 1.2,
-            "overall_impact": -0.07,
-            "ts_pct": 61.3,
-            "smoe": 3.2,
-            "mei": 60.2,
-            "usg_pct": 26.2,
-            "gmsc_avg": 8.2
+            "gp": 7,
+            "gs": 2,
+            "min_pg": 22.4,
+            "pts_pg": 12.3,
+            "reb_pg": 2.6,
+            "ast_pg": 1.0,
+            "net_rapm": -0.24,
+            "net_on_off": -5.5,
+            "bpm": -1.0,
+            "ts_pct": 59.1,
+            "usg_pct": 25.7
           },
           {
             "player_id": "4066421",
@@ -174,54 +150,45 @@
             "gs": 3,
             "min_pg": 20.8,
             "pts_pg": 4.6,
-            "prf_pg": 13.9,
-            "pct_team_prf": 11.7,
             "reb_pg": 4.0,
             "ast_pg": 3.9,
-            "overall_impact": -2.38,
+            "net_rapm": -0.78,
+            "net_on_off": -4.7,
+            "bpm": -0.5,
             "ts_pct": 43.2,
-            "smoe": -13.7,
-            "mei": 80.0,
-            "usg_pct": 16.3,
-            "gmsc_avg": 5.2
+            "usg_pct": 16.3
           },
           {
             "player_id": "2995706",
             "player": "Mario Hezonja",
             "pos": "F",
-            "gp": 9,
+            "gp": 10,
             "gs": 0,
-            "min_pg": 20.6,
-            "pts_pg": 9.3,
-            "prf_pg": 13.6,
-            "pct_team_prf": 11.4,
-            "reb_pg": 6.3,
-            "ast_pg": 1.9,
-            "overall_impact": 0.13,
-            "ts_pct": 55.6,
-            "smoe": -2.9,
-            "mei": 64.2,
-            "usg_pct": 23.4,
-            "gmsc_avg": 7.9
+            "min_pg": 20.4,
+            "pts_pg": 8.4,
+            "reb_pg": 6.2,
+            "ast_pg": 1.8,
+            "net_rapm": -0.03,
+            "net_on_off": -1.2,
+            "bpm": -0.8,
+            "ts_pct": 51.5,
+            "usg_pct": 22.7
           },
           {
             "player_id": "4701233",
             "player": "Craig Porter Jr.",
             "pos": "G",
-            "gp": 71,
+            "gp": 72,
             "gs": 3,
-            "min_pg": 17.0,
+            "min_pg": 16.9,
             "pts_pg": 4.1,
-            "prf_pg": 11.2,
-            "pct_team_prf": 9.4,
-            "reb_pg": 3.3,
+            "reb_pg": 3.2,
             "ast_pg": 3.0,
-            "overall_impact": 1.42,
+            "net_rapm": 0.7,
+            "net_on_off": 0.0,
+            "bpm": -0.7,
             "ts_pct": 52.4,
-            "smoe": -6.3,
-            "mei": 55.5,
-            "usg_pct": 14.3,
-            "gmsc_avg": 5.6
+            "usg_pct": 14.1
           },
           {
             "player_id": "5106268",
@@ -231,54 +198,45 @@
             "gs": 3,
             "min_pg": 15.7,
             "pts_pg": 5.8,
-            "prf_pg": 7.8,
-            "pct_team_prf": 6.5,
             "reb_pg": 2.9,
             "ast_pg": 0.8,
-            "overall_impact": 0.5,
+            "net_rapm": 0.4,
+            "net_on_off": -0.8,
+            "bpm": -1.1,
             "ts_pct": 54.9,
-            "smoe": -1.7,
-            "mei": 60.7,
-            "usg_pct": 18.4,
-            "gmsc_avg": 5.0
+            "usg_pct": 18.4
           },
           {
             "player_id": "3934723",
             "player": "Thomas Bryant",
             "pos": "C",
-            "gp": 64,
+            "gp": 65,
             "gs": 1,
             "min_pg": 12.2,
             "pts_pg": 6.3,
-            "prf_pg": 7.5,
-            "pct_team_prf": 6.3,
             "reb_pg": 3.3,
             "ast_pg": 0.5,
-            "overall_impact": -0.92,
+            "net_rapm": -0.9,
+            "net_on_off": -5.8,
+            "bpm": -1.3,
             "ts_pct": 62.8,
-            "smoe": 5.7,
-            "mei": 68.8,
-            "usg_pct": 22.6,
-            "gmsc_avg": 5.4
+            "usg_pct": 22.4
           },
           {
             "player_id": "5023693",
             "player": "Tyrese Proctor",
             "pos": "G",
-            "gp": 58,
+            "gp": 59,
             "gs": 2,
-            "min_pg": 11.5,
+            "min_pg": 11.7,
             "pts_pg": 5.5,
-            "prf_pg": 9.2,
-            "pct_team_prf": 7.7,
             "reb_pg": 1.5,
             "ast_pg": 1.6,
-            "overall_impact": -0.42,
+            "net_rapm": -0.32,
+            "net_on_off": -3.5,
+            "bpm": -1.6,
             "ts_pct": 56.9,
-            "smoe": 0.9,
-            "mei": 69.3,
-            "usg_pct": 24.2,
-            "gmsc_avg": 4.0
+            "usg_pct": 23.8
           },
           {
             "player_id": "4278046",
@@ -288,16 +246,13 @@
             "gs": 0,
             "min_pg": 9.8,
             "pts_pg": 3.5,
-            "prf_pg": 6.3,
-            "pct_team_prf": 5.3,
             "reb_pg": 2.8,
             "ast_pg": 1.2,
-            "overall_impact": 20.71,
+            "net_rapm": 0.56,
+            "net_on_off": 26.9,
+            "bpm": -1.0,
             "ts_pct": 76.1,
-            "smoe": 6.9,
-            "mei": 67.4,
-            "usg_pct": 14.4,
-            "gmsc_avg": 4.0
+            "usg_pct": 14.4
           },
           {
             "player_id": "4431734",
@@ -307,16 +262,13 @@
             "gs": 0,
             "min_pg": 9.7,
             "pts_pg": 3.7,
-            "prf_pg": 5.1,
-            "pct_team_prf": 4.3,
             "reb_pg": 1.6,
             "ast_pg": 0.7,
-            "overall_impact": 11.86,
+            "net_rapm": 0.79,
+            "net_on_off": 13.2,
+            "bpm": -1.7,
             "ts_pct": 51.9,
-            "smoe": -5.4,
-            "mei": 64.6,
-            "usg_pct": 19.6,
-            "gmsc_avg": 3.3
+            "usg_pct": 19.6
           },
           {
             "player_id": "4997539",
@@ -326,35 +278,29 @@
             "gs": 0,
             "min_pg": 8.8,
             "pts_pg": 2.3,
-            "prf_pg": 4.0,
-            "pct_team_prf": 3.4,
             "reb_pg": 2.0,
             "ast_pg": 0.8,
-            "overall_impact": -14.52,
+            "net_rapm": -0.78,
+            "net_on_off": -16.6,
+            "bpm": -1.6,
             "ts_pct": 35.0,
-            "smoe": -16.6,
-            "mei": 60.0,
-            "usg_pct": 20.5,
-            "gmsc_avg": 2.3
+            "usg_pct": 20.5
           },
           {
             "player_id": "5177362",
             "player": "Riley Minix",
             "pos": "F",
-            "gp": 10,
+            "gp": 11,
             "gs": 0,
-            "min_pg": 6.5,
-            "pts_pg": 3.5,
-            "prf_pg": 4.7,
-            "pct_team_prf": 3.9,
-            "reb_pg": 0.9,
+            "min_pg": 6.8,
+            "pts_pg": 3.9,
+            "reb_pg": 1.1,
             "ast_pg": 0.5,
-            "overall_impact": 9.95,
-            "ts_pct": 64.1,
-            "smoe": 8.7,
-            "mei": 59.7,
-            "usg_pct": 23.3,
-            "gmsc_avg": 2.8
+            "net_rapm": 0.72,
+            "net_on_off": 17.5,
+            "bpm": -2.0,
+            "ts_pct": 68.6,
+            "usg_pct": 22.9
           },
           {
             "player_id": "4433622",
@@ -364,16 +310,13 @@
             "gs": 0,
             "min_pg": 5.7,
             "pts_pg": 3.0,
-            "prf_pg": 3.7,
-            "pct_team_prf": 3.1,
             "reb_pg": 1.0,
             "ast_pg": 0.3,
-            "overall_impact": 21.0,
+            "net_rapm": 0.23,
+            "net_on_off": 17.4,
+            "bpm": -1.9,
             "ts_pct": 60.5,
-            "smoe": 4.7,
-            "mei": 86.6,
-            "usg_pct": 21.9,
-            "gmsc_avg": 2.2
+            "usg_pct": 21.9
           },
           {
             "player_id": "4702134",
@@ -383,16 +326,13 @@
             "gs": 0,
             "min_pg": 3.7,
             "pts_pg": 2.4,
-            "prf_pg": 3.4,
-            "pct_team_prf": 2.9,
             "reb_pg": 1.3,
             "ast_pg": 0.4,
-            "overall_impact": -38.2,
+            "net_rapm": -0.69,
+            "net_on_off": -44.7,
+            "bpm": -2.0,
             "ts_pct": 75.1,
-            "smoe": 18.2,
-            "mei": 47.0,
-            "usg_pct": 21.8,
-            "gmsc_avg": 2.7
+            "usg_pct": 21.8
           },
           {
             "player_id": "4397450",
@@ -402,16 +342,13 @@
             "gs": 0,
             "min_pg": 3.0,
             "pts_pg": 0.0,
-            "prf_pg": 0.0,
-            "pct_team_prf": 0.0,
             "reb_pg": 1.0,
             "ast_pg": 0.0,
-            "overall_impact": 0.0,
+            "net_rapm": -0.11,
+            "net_on_off": -93.0,
+            "bpm": -2.5,
             "ts_pct": 0.0,
-            "smoe": -66.9,
-            "mei": 0.0,
-            "usg_pct": 16.7,
-            "gmsc_avg": -0.4
+            "usg_pct": 16.7
           }
         ]
       }
@@ -425,18 +362,18 @@
         ],
         "rows": [
           {
-            "pace": 98.3,
-            "ortg": 121.6,
+            "pace": 98.2,
+            "ortg": 121.5,
             "drtg": 117.2,
-            "net_rtg": 4.4,
-            "efg_pct": 56.0,
+            "net_rtg": 4.3,
+            "efg_pct": 55.9,
             "tov_pct": 11.7,
-            "orb_pct": 26.8,
-            "ft_rate": 26.8,
+            "orb_pct": 26.7,
+            "ft_rate": 26.7,
             "opp_efg_pct": 54.0,
             "opp_tov_pct": 12.3,
-            "drb_pct": 74.4,
-            "opp_ft_rate": 26.3
+            "drb_pct": 74.3,
+            "opp_ft_rate": 26.2
           }
         ]
       }
@@ -455,36 +392,36 @@
             "passer_id": "3908809",
             "finisher": "Evan Mobley",
             "finisher_id": "4432158",
-            "assists": 98,
-            "pts_created": 217,
+            "assists": 100,
+            "pts_created": 221,
             "pts_per_ast": 2.21,
             "xpts_per_ast": 1.21,
             "finisher_xpts": 1.32,
             "paoe": 1.0,
-            "points_added": 98.3,
-            "two_pt_ast": 77,
+            "points_added": 100.1,
+            "two_pt_ast": 79,
             "three_pt_ast": 21,
             "rim_ast": 17,
-            "mid_ast": 60,
-            "team_ast_share": 3.8
+            "mid_ast": 62,
+            "team_ast_share": 3.9
           },
           {
             "passer": "James Harden",
             "passer_id": "3992",
             "finisher": "Evan Mobley",
             "finisher_id": "4432158",
-            "assists": 55,
-            "pts_created": 120,
-            "pts_per_ast": 2.18,
+            "assists": 58,
+            "pts_created": 127,
+            "pts_per_ast": 2.19,
             "xpts_per_ast": 1.2,
             "finisher_xpts": 1.28,
-            "paoe": 0.98,
-            "points_added": 54.3,
-            "two_pt_ast": 45,
-            "three_pt_ast": 10,
+            "paoe": 0.99,
+            "points_added": 57.5,
+            "two_pt_ast": 47,
+            "three_pt_ast": 11,
             "rim_ast": 18,
-            "mid_ast": 26,
-            "team_ast_share": 2.1
+            "mid_ast": 28,
+            "team_ast_share": 2.2
           },
           {
             "passer": "Donovan Mitchell",
@@ -497,7 +434,7 @@
             "xpts_per_ast": 1.12,
             "finisher_xpts": 1.29,
             "paoe": 0.88,
-            "points_added": 48.3,
+            "points_added": 48.4,
             "two_pt_ast": 55,
             "three_pt_ast": 0,
             "rim_ast": 22,
@@ -520,7 +457,7 @@
             "three_pt_ast": 23,
             "rim_ast": 11,
             "mid_ast": 19,
-            "team_ast_share": 2.1
+            "team_ast_share": 2.0
           },
           {
             "passer": "Evan Mobley",
@@ -574,7 +511,7 @@
             "three_pt_ast": 28,
             "rim_ast": 0,
             "mid_ast": 6,
-            "team_ast_share": 1.6
+            "team_ast_share": 1.5
           },
           {
             "passer": "Evan Mobley",
@@ -733,23 +670,23 @@
         "rows": [
           {
             "split": "Overall",
-            "gp": 91,
+            "gp": 92,
             "w": 57,
-            "l": 34,
-            "win_pct": 62.6,
-            "pts_pg": 119.5,
+            "l": 35,
+            "win_pct": 62.0,
+            "pts_pg": 119.2,
             "opp_pts_pg": 115.3,
-            "diff": 4.2
+            "diff": 3.9
           },
           {
             "split": "Home",
-            "gp": 46,
+            "gp": 47,
             "w": 31,
-            "l": 15,
-            "win_pct": 67.4,
-            "pts_pg": 119.3,
-            "opp_pts_pg": 114.5,
-            "diff": 4.8
+            "l": 16,
+            "win_pct": 66.0,
+            "pts_pg": 118.9,
+            "opp_pts_pg": 114.4,
+            "diff": 4.5
           },
           {
             "split": "Away",
@@ -767,9 +704,9 @@
             "w": 2,
             "l": 3,
             "win_pct": 40.0,
-            "pts_pg": 118.8,
-            "opp_pts_pg": 112.2,
-            "diff": 6.6
+            "pts_pg": 116.0,
+            "opp_pts_pg": 111.2,
+            "diff": 4.8
           }
         ]
       }
@@ -784,27 +721,27 @@
         "rows": [
           {
             "zone": "0-4 ft",
-            "fgm": 724,
-            "fga": 1367,
-            "fg_pct": 53.0,
+            "fgm": 725,
+            "fga": 1374,
+            "fg_pct": 52.8,
             "shot_share": 13.0,
-            "eff_percentile": 43.5
+            "eff_percentile": 43.0
           },
           {
             "zone": "4-14 ft",
-            "fgm": 1815,
-            "fga": 3014,
-            "fg_pct": 60.2,
+            "fgm": 1833,
+            "fga": 3038,
+            "fg_pct": 60.3,
             "shot_share": 28.7,
-            "eff_percentile": 69.6
+            "eff_percentile": 69.8
           },
           {
             "zone": "14+ ft",
-            "fgm": 3092,
-            "fga": 6103,
-            "fg_pct": 50.7,
-            "shot_share": 58.2,
-            "eff_percentile": 61.7
+            "fgm": 3119,
+            "fga": 6174,
+            "fg_pct": 50.5,
+            "shot_share": 58.3,
+            "eff_percentile": 61.4
           }
         ]
       }
@@ -820,6 +757,15 @@
           "result"
         ],
         "rows": [
+          {
+            "date": "2026-11-08",
+            "box_score": "boxscore.html?id=401909940",
+            "opponent": "vs New York Knicks",
+            "result": "L 97-109",
+            "pts_for": 97,
+            "pts_against": 109,
+            "margin": -12
+          },
           {
             "date": "2026-11-07",
             "box_score": "boxscore.html?id=401909289",
@@ -1654,12 +1600,6 @@
         ],
         "rows": [
           {
-            "date": "2026-11-08",
-            "time": "11/7 - 8:00 PM EST",
-            "venue": "Rocket Arena (Cleveland)",
-            "opponent": "vs New York Knicks"
-          },
-          {
             "date": "2026-11-10",
             "time": "11/9 - 7:00 PM EST",
             "venue": "Spectrum Center (Charlotte)",
@@ -1742,6 +1682,12 @@
             "time": "12/15 - 8:00 PM EST",
             "venue": "Rocket Arena (Cleveland)",
             "opponent": "vs San Antonio Spurs"
+          },
+          {
+            "date": "2026-12-17",
+            "time": "12/16 - 7:00 PM EST",
+            "venue": "Kia Center (Orlando)",
+            "opponent": "@ Orlando Magic"
           }
         ]
       }

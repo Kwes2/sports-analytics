@@ -1,0 +1,526 @@
+"""
+stat_metadata.py - Centralized metadata registry for all NBA statistical metrics.
+Defines category groupings, display names, tooltips, formats, and polarity.
+"""
+
+import json
+from pathlib import Path
+
+DATA_DIR = Path(__file__).parent / "data"
+
+STAT_METADATA = {
+    # -------------------------------------------------------------
+    # BASIC OUTPUT STATS
+    # -------------------------------------------------------------
+    "gp": {
+        "name": "Games Played",
+        "category": "Basic",
+        "tooltip": "Total games played in the selected time period",
+        "format": "int",
+        "higher_is_better": True
+    },
+    "gs": {
+        "name": "Games Started",
+        "category": "Basic",
+        "tooltip": "Total games started in the selected time period",
+        "format": "int",
+        "higher_is_better": True
+    },
+    "min_pg": {
+        "name": "Minutes Per Game",
+        "category": "Basic",
+        "tooltip": "Average minutes played per contest",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "pts_pg": {
+        "name": "Points Per Game",
+        "category": "Basic",
+        "tooltip": "Average points scored per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "reb_pg": {
+        "name": "Rebounds Per Game",
+        "category": "Basic",
+        "tooltip": "Total rebounds (offensive + defensive) per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "ast_pg": {
+        "name": "Assists Per Game",
+        "category": "Basic",
+        "tooltip": "Average assists credited per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "stl_pg": {
+        "name": "Steals Per Game",
+        "category": "Basic",
+        "tooltip": "Average steals credited per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "blk_pg": {
+        "name": "Blocks Per Game",
+        "category": "Basic",
+        "tooltip": "Average shots blocked per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "to_pg": {
+        "name": "Turnovers Per Game",
+        "category": "Basic",
+        "tooltip": "Average turnovers committed per game",
+        "format": "float1",
+        "higher_is_better": False
+    },
+    "pf_pg": {
+        "name": "Personal Fouls Per Game",
+        "category": "Basic",
+        "tooltip": "Average personal fouls committed per game",
+        "format": "float1",
+        "higher_is_better": False
+    },
+    "plus_minus_pg": {
+        "name": "Plus-Minus Per Game",
+        "category": "Basic",
+        "tooltip": "Average point differential while the player was on court",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "fgm_pg": {
+        "name": "Field Goals Made Per Game",
+        "category": "Basic",
+        "tooltip": "Average field goals made per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "fga_pg": {
+        "name": "Field Goal Attempts Per Game",
+        "category": "Basic",
+        "tooltip": "Average field goals attempted per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "fg_pct": {
+        "name": "Field Goal %",
+        "category": "Basic",
+        "tooltip": "Percentage of field goals made (FGM / FGA)",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "fg3m_pg": {
+        "name": "3-Pointers Made Per Game",
+        "category": "Basic",
+        "tooltip": "Average 3-point field goals made per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "fg3a_pg": {
+        "name": "3-Point Attempts Per Game",
+        "category": "Basic",
+        "tooltip": "Average 3-point field goals attempted per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "fg3_pct": {
+        "name": "3-Point %",
+        "category": "Basic",
+        "tooltip": "Percentage of 3-point attempts made (3PM / 3PA)",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "ftm_pg": {
+        "name": "Free Throws Made Per Game",
+        "category": "Basic",
+        "tooltip": "Average free throws made per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "fta_pg": {
+        "name": "Free Throw Attempts Per Game",
+        "category": "Basic",
+        "tooltip": "Average free throws attempted per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "ft_pct": {
+        "name": "Free Throw %",
+        "category": "Basic",
+        "tooltip": "Percentage of free throw attempts made (FTM / FTA)",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "oreb_pg": {
+        "name": "Offensive Rebounds Per Game",
+        "category": "Basic",
+        "tooltip": "Average offensive rebounds secured per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "dreb_pg": {
+        "name": "Defensive Rebounds Per Game",
+        "category": "Basic",
+        "tooltip": "Average defensive rebounds secured per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "stocks_pg": {
+        "name": "Stocks Per Game",
+        "category": "Basic",
+        "tooltip": "Combined steals + blocks per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+
+    # -------------------------------------------------------------
+    # ADVANCED EFFICIENCY & BOX SCORE VALUE
+    # -------------------------------------------------------------
+    "ts_pct": {
+        "name": "True Shooting %",
+        "category": "Advanced",
+        "tooltip": "Scoring efficiency measure taking 2s, 3s, and FTs into account: PTS / (2 * (FGA + 0.44 * FTA))",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "efg_pct": {
+        "name": "Effective Field Goal %",
+        "category": "Advanced",
+        "tooltip": "Field goal percentage adjusted for the extra point value of 3-pointers: (FGM + 0.5 * 3PM) / FGA",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "usg_pct": {
+        "name": "Usage Rate %",
+        "category": "Advanced",
+        "tooltip": "Estimate of the percentage of team plays used by a player while on the floor",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "tov_pct": {
+        "name": "Turnover Rate %",
+        "category": "Advanced",
+        "tooltip": "Turnovers committed per 100 individual offensive plays used",
+        "format": "pct1",
+        "higher_is_better": False
+    },
+    "ast_to_ratio": {
+        "name": "Assist-to-Turnover Ratio",
+        "category": "Advanced",
+        "tooltip": "Ratio of assists credited to turnovers committed",
+        "format": "float2",
+        "higher_is_better": True
+    },
+    "three_par": {
+        "name": "3-Point Attempt Rate",
+        "category": "Advanced",
+        "tooltip": "Percentage of total field goal attempts that are 3-pointers",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "ft_rate": {
+        "name": "Free Throw Rate",
+        "category": "Advanced",
+        "tooltip": "Ratio of free throw attempts to field goal attempts (FTA / FGA)",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "ppsa": {
+        "name": "Points Per Shot Attempt",
+        "category": "Advanced",
+        "tooltip": "Scoring output generated per field goal attempted (PTS / FGA)",
+        "format": "float2",
+        "higher_is_better": True
+    },
+    "gmsc_avg": {
+        "name": "Average Game Score",
+        "category": "Advanced",
+        "tooltip": "John Hollinger's single-game overall box score efficiency rating",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "per": {
+        "name": "Player Efficiency Rating (PER)",
+        "category": "Advanced",
+        "tooltip": "Per-minute statistical production rating scaled to a league average of 15.0",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "bpm": {
+        "name": "Box Plus-Minus (BPM 2.0)",
+        "category": "Advanced",
+        "tooltip": "Net points contributed per 100 possessions above a league-average player (+0.0 is league average)",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "vorp": {
+        "name": "Value Over Replacement Player (VORP)",
+        "category": "Advanced",
+        "tooltip": "Estimated cumulative points contributed above a replacement level player (-2.0 BPM)",
+        "format": "float2",
+        "higher_is_better": True
+    },
+
+    # -------------------------------------------------------------
+    # SHOOTING & SHOT QUALITY
+    # -------------------------------------------------------------
+    "xefg_pct": {
+        "name": "Expected eFG %",
+        "category": "Shooting",
+        "tooltip": "Expected effective FG% based purely on the league-wide difficulty of locations taken",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "smoe": {
+        "name": "Shot-Making Over Expected (SMOE)",
+        "category": "Shooting",
+        "tooltip": "Actual eFG% minus Expected eFG%. Measures finishing ability independent of shot diet",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "mei": {
+        "name": "Moreyball Efficiency Index",
+        "category": "Shooting",
+        "tooltip": "Percentage of shot possessions ending in high-efficiency areas (Rim, 3PT, or Free Throw line)",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "rim_fg_pct": {
+        "name": "Rim FG % (0-4 ft)",
+        "category": "Shooting",
+        "tooltip": "Field goal percentage on attempts within 4 feet of the basket",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "rim_fga_pg": {
+        "name": "Rim Attempts Per Game",
+        "category": "Shooting",
+        "tooltip": "Attempts per game within 4 feet of the rim",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "rim_share": {
+        "name": "Rim Attempt Share %",
+        "category": "Shooting",
+        "tooltip": "Percentage of player's total shots taken within 4 feet of the rim",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "mid_fg_pct": {
+        "name": "Mid-Range FG % (4-14 ft)",
+        "category": "Shooting",
+        "tooltip": "Field goal percentage on attempts between 4 and 14 feet",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "mid_fga_pg": {
+        "name": "Mid-Range Attempts Per Game",
+        "category": "Shooting",
+        "tooltip": "Attempts per game between 4 and 14 feet",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "mid_share": {
+        "name": "Mid-Range Attempt Share %",
+        "category": "Shooting",
+        "tooltip": "Percentage of player's total shots taken between 4 and 14 feet",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "three_fg_pct": {
+        "name": "Perimeter / 3PT FG % (14+ ft)",
+        "category": "Shooting",
+        "tooltip": "Field goal percentage on long-range attempts (14+ feet and 3PT)",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "three_fga_pg": {
+        "name": "Perimeter Attempts Per Game",
+        "category": "Shooting",
+        "tooltip": "Attempts per game from 14+ feet and 3PT range",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "three_share": {
+        "name": "Perimeter Attempt Share %",
+        "category": "Shooting",
+        "tooltip": "Percentage of player's total shots taken from 14+ feet and 3PT range",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+
+    # -------------------------------------------------------------
+    # PASSING & PLAYMAKING QUALITY
+    # -------------------------------------------------------------
+    "pts_created_pg": {
+        "name": "Points Created Per Game",
+        "category": "Passing",
+        "tooltip": "Points scored by teammates directly off this player's assists per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "prf_pg": {
+        "name": "Points Responsible For (PRF)",
+        "category": "Passing",
+        "tooltip": "Direct points scored per game plus points created off assists per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "pct_team_prf": {
+        "name": "% of Team Points Accounted For",
+        "category": "Passing",
+        "tooltip": "Share of the team's total game scoring directly created by this player",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "pts_per_ast": {
+        "name": "Points Per Assist",
+        "category": "Passing",
+        "tooltip": "Average points scored per credited assist",
+        "format": "float2",
+        "higher_is_better": True
+    },
+    "xpts_per_ast": {
+        "name": "Expected Points Per Assist",
+        "category": "Passing",
+        "tooltip": "Baseline points expected per assist given the shooting zones of targets",
+        "format": "float2",
+        "higher_is_better": True
+    },
+    "paoe": {
+        "name": "Points Per Assist Over Expected (PAOE)",
+        "category": "Passing",
+        "tooltip": "Points per assist minus expected points per assist (shot-creation quality added)",
+        "format": "float2",
+        "higher_is_better": True
+    },
+    "points_added_pg": {
+        "name": "Points Added Per Game",
+        "category": "Passing",
+        "tooltip": "Net points generated per game above the league baseline across all assisted shots",
+        "format": "float2",
+        "higher_is_better": True
+    },
+    "rim_ast_pct": {
+        "name": "Rim Assist Share %",
+        "category": "Passing",
+        "tooltip": "Percentage of player's total assists that set up baskets at the rim (0-4 ft)",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "three_ast_pct": {
+        "name": "3-Point Assist Share %",
+        "category": "Passing",
+        "tooltip": "Percentage of player's total assists that set up 3-point field goals",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+
+    # -------------------------------------------------------------
+    # LINEUP IMPACT, ON/OFF & REGULARIZED RATINGS
+    # -------------------------------------------------------------
+    "net_rapm": {
+        "name": "Net RAPM",
+        "category": "Ratings",
+        "tooltip": "Regularized Adjusted Plus-Minus: Isolated net impact per 100 possessions via 10-man ridge regression",
+        "format": "float2",
+        "higher_is_better": True
+    },
+    "orapm": {
+        "name": "Offensive RAPM",
+        "category": "Ratings",
+        "tooltip": "Isolated offensive scoring contribution per 100 possessions above league average",
+        "format": "float2",
+        "higher_is_better": True
+    },
+    "drapm": {
+        "name": "Defensive RAPM",
+        "category": "Ratings",
+        "tooltip": "Isolated defensive suppression per 100 possessions (higher = better defense)",
+        "format": "float2",
+        "higher_is_better": True
+    },
+    "on_ortg": {
+        "name": "On-Court Offensive Rating",
+        "category": "Ratings",
+        "tooltip": "Team points scored per 100 possessions while player is on the court",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "on_drtg": {
+        "name": "On-Court Defensive Rating",
+        "category": "Ratings",
+        "tooltip": "Opponent points scored per 100 possessions while player is on the court",
+        "format": "float1",
+        "higher_is_better": False
+    },
+    "on_net_rtg": {
+        "name": "On-Court Net Rating",
+        "category": "Ratings",
+        "tooltip": "Team net rating (ORtg - DRtg) while player is on the court",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "off_on_off": {
+        "name": "Offensive On/Off Differential",
+        "category": "Ratings",
+        "tooltip": "Team offensive rating with player ON court minus team rating with player OFF court",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "def_on_off": {
+        "name": "Defensive On/Off Differential",
+        "category": "Ratings",
+        "tooltip": "Team defensive rating with player ON court minus team rating with player OFF court",
+        "format": "float1",
+        "higher_is_better": False
+    },
+    "net_on_off": {
+        "name": "Net On/Off Differential",
+        "category": "Ratings",
+        "tooltip": "Net team rating differential with player ON court minus OFF court",
+        "format": "float1",
+        "higher_is_better": True
+    }
+}
+
+
+def get_stat_meta(key: str) -> dict:
+    """
+    Returns stat metadata if registered.
+    Gracefully falls back to category 'Miscellaneous' for any dynamically created new stat.
+    """
+    if key in STAT_METADATA:
+        return STAT_METADATA[key]
+
+    clean_name = key.replace("_", " ").title()
+    if clean_name.endswith(" Pg"):
+        clean_name = clean_name[:-3] + " Per Game"
+    elif clean_name.endswith(" Pct"):
+        clean_name = clean_name[:-4] + " %"
+
+    return {
+        "name": clean_name,
+        "category": "Miscellaneous",
+        "tooltip": f"{clean_name} statistical metric",
+        "format": "float1",
+        "higher_is_better": True
+    }
+
+
+def export_metadata_json(output_path=None):
+    """Exports the canonical stat definitions dictionary to JSON for client consumption."""
+    if output_path is None:
+        output_path = DATA_DIR / "stat_definitions.json"
+    else:
+        output_path = Path(output_path)
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(output_path, "w") as f:
+        json.dump(STAT_METADATA, f, indent=2)
+    print(f"Stat metadata exported to {output_path}")
+
+
+if __name__ == "__main__":
+    export_metadata_json()

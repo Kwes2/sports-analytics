@@ -1,19 +1,199 @@
+"""
+calculator.py - Handles on-the-fly custom window aggregations, 
+dynamic player profile recalculations, and Game Finder queries from SQLite.
+"""
+
 import json
-import math
 from pathlib import Path
 from db import get_db_connection, DB_PATH
-from percentiles import compute_percentile, build_stat_pools, build_shot_pools
+from percentiles import (
+    build_stat_pools,
+    build_shot_pools,
+    compute_percentile,
+    compute_rank,
+    compute_player_rankings_and_percentiles
+)
+from stats import (
+    compute_player_advanced_metrics,
+    compute_assist_connection_metrics,
+    compute_on_off_metrics,
+    compute_player_situational_splits
+)
+from shots import (
+    ZONES,
+    GRANULAR_ZONES,
+    compute_shot_quality_metrics
+)
+from influence import InfluenceEngine
+from stat_metadata import STAT_METADATA, get_stat_meta
 
-ZONES = ["0-4 ft", "4-14 ft", "14+ ft"]
-GRANULAR_ZONES = ["rim", "short_mid", "long_mid", "corner_3", "atb_3"]
+
+class DummyBaselineEngine:
+    def get_baseline(self, player_id):
+        return {"ortg": 112.0, "drtg": 112.0, "net_rtg": 0.0}
 
 
-def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
+def search_player_game_performances(filters=None, db_path=DB_PATH):
+    """
+    Queries individual player game performances from SQLite matching filter criteria.
+    Outputs all per-game box score, shooting, and advanced metrics.
+    """
+    if filters is None:
+        filters = {}
+
     conn = get_db_connection(db_path)
     cur = conn.cursor()
 
-    # 1. Query Player Game Logs within Date Range (Joined with players lookup)
-    cur.execute("""
+    query = """
+        SELECT 
+            l.player_id, p.player_name, p.pos, l.team_abbrev, p.team_id, l.date, l.game_id,
+            l.minutes, l.pts, l.reb, l.ast, l.stl, l.blk, l.to_val as to_count, l.pf,
+            l.plus_minus, l.fgm, l.fga, l.fg3m, l.fg3a, l.ftm, l.fta, l.oreb, l.dreb,
+            g.home_team_name, g.away_team_name, g.home_score, g.away_score
+        FROM player_game_logs l
+        JOIN players p ON l.player_id = p.player_id
+        JOIN games g ON l.game_id = g.game_id
+        WHERE 1=1
+    """
+    params = []
+
+    if filters.get("start_date") and filters.get("end_date"):
+        query += " AND l.date BETWEEN ? AND ?"
+        params.extend([filters["start_date"], filters["end_date"]])
+    elif filters.get("season_year"):
+        query += " AND l.season_year = ?"
+        params.append(filters["season_year"])
+
+    if filters.get("season_type"):
+        query += " AND l.season_type = ?"
+        params.append(filters["season_type"])
+
+    if filters.get("min_pts") is not None:
+        query += " AND l.pts >= ?"
+        params.append(filters["min_pts"])
+
+    if filters.get("min_reb") is not None:
+        query += " AND l.reb >= ?"
+        params.append(filters["min_reb"])
+
+    if filters.get("min_ast") is not None:
+        query += " AND l.ast >= ?"
+        params.append(filters["min_ast"])
+
+    if filters.get("min_min") is not None:
+        query += " AND l.minutes >= ?"
+        params.append(filters["min_min"])
+
+    query += " ORDER BY l.date DESC, l.pts DESC LIMIT 500"
+
+    cur.execute(query, params)
+    rows = cur.fetchall()
+    conn.close()
+
+    results = []
+    for r in rows:
+        is_home = (r["team_abbrev"] in r["home_team_name"] or r["team_id"] in r["home_team_name"])
+        if is_home:
+            opp = f"vs {r['away_team_name']}"
+            is_win = r["home_score"] > r["away_score"]
+            res = f"{'W' if is_win else 'L'} {r['home_score']}-{r['away_score']}"
+        else:
+            opp = f"@ {r['home_team_name']}"
+            is_win = r["away_score"] > r["home_score"]
+            res = f"{'W' if is_win else 'L'} {r['away_score']}-{r['home_score']}"
+
+        if filters.get("result") and not res.startswith(filters["result"]):
+            continue
+
+        fga = r["fga"]
+        fgm = r["fgm"]
+        fg3a = r["fg3a"]
+        fg3m = r["fg3m"]
+        fta = r["fta"]
+        ftm = r["ftm"]
+        pts = r["pts"]
+        oreb = r["oreb"]
+        dreb = r["dreb"]
+        ast = r["ast"]
+        stl = r["stl"]
+        blk = r["blk"]
+        pf = r["pf"]
+        to_cnt = r["to_count"]
+
+        fg_pct = round(fgm / fga * 100, 1) if fga > 0 else 0.0
+        fg3_pct = round(fg3m / fg3a * 100, 1) if fg3a > 0 else 0.0
+        ft_pct = round(ftm / fta * 100, 1) if fta > 0 else 0.0
+        ts_pct = round(pts / (2 * (fga + 0.44 * fta)) * 100, 1) if (fga + 0.44 * fta) > 0 else 0.0
+        gmsc = round(
+            pts + 0.4 * fgm - 0.7 * fga - 0.4 * (fta - ftm) + 0.7 * oreb + 0.3 * dreb + stl + 0.7 * ast + 0.7 * blk - 0.4 * pf - to_cnt,
+            1
+        )
+
+        results.append({
+            "player_id": r["player_id"],
+            "player": r["player_name"],
+            "team": r["team_abbrev"],
+            "team_id": r["team_id"],
+            "pos": r["pos"],
+            "date": r["date"],
+            "opponent": opp,
+            "result": res,
+            "min": int(r["minutes"]),
+            "pts": pts,
+            "reb": r["reb"],
+            "ast": ast,
+            "stl": stl,
+            "blk": blk,
+            "to": to_cnt,
+            "pf": pf,
+            "plus_minus": r["plus_minus"],
+            "fgm": fgm,
+            "fga": fga,
+            "fg_pct": fg_pct,
+            "fg3m": fg3m,
+            "fg3a": fg3a,
+            "fg3_pct": fg3_pct,
+            "ftm": ftm,
+            "fta": fta,
+            "ft_pct": ft_pct,
+            "oreb": oreb,
+            "dreb": dreb,
+            "gmsc": gmsc,
+            "ts_pct": ts_pct,
+            "box_score": f"boxscore.html?id={r['game_id']}"
+        })
+
+    return results
+
+
+def compute_window_player_stats(start_date=None, end_date=None, season_years=None, season_types=None, db_path=DB_PATH):
+    """
+    Recalculates player statistics, advanced metrics, shot quality,
+    and decomposed RAPM on the fly for any date or season window.
+    """
+    conn = get_db_connection(db_path)
+    cur = conn.cursor()
+
+    where_clauses = []
+    params = []
+
+    # Prioritize date filter if specified
+    if start_date and end_date:
+        where_clauses.append("l.date BETWEEN ? AND ?")
+        params.extend([start_date, end_date])
+    elif season_years:
+        placeholders = ",".join(["?"] * len(season_years))
+        where_clauses.append(f"l.season_year IN ({placeholders})")
+        params.extend(season_years)
+
+    if season_types:
+        placeholders = ",".join(["?"] * len(season_types))
+        where_clauses.append(f"l.season_type IN ({placeholders})")
+        params.extend(season_types)
+
+    where_str = " WHERE " + " AND ".join(where_clauses) if where_clauses else ""
+
+    cur.execute(f"""
         SELECT 
             l.player_id, p.player_name, p.team_id, p.team_abbrev, p.pos,
             COUNT(*) as gp,
@@ -37,26 +217,27 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
             SUM(l.dreb) as tot_dreb
         FROM player_game_logs l
         JOIN players p ON l.player_id = p.player_id
-        WHERE l.date BETWEEN ? AND ?
+        {where_str}
         GROUP BY l.player_id
-    """, (start_date, end_date))
+    """, params)
     log_rows = cur.fetchall()
 
     if not log_rows:
         conn.close()
         return []
 
-    # 2. Query Granular Shots within Date Range
-    cur.execute("""
+    # Shots query
+    shot_where = where_str.replace("l.date", "date").replace("l.season_year", "season_year").replace("l.season_type", "season_type")
+    cur.execute(f"""
         SELECT 
             shooter_id, granular_zone,
             COUNT(*) as fga,
             SUM(made) as fgm,
             SUM(CASE WHEN val = 3 AND made = 1 THEN 1 ELSE 0 END) as fg3m
         FROM shots
-        WHERE date BETWEEN ? AND ?
+        {shot_where}
         GROUP BY shooter_id, granular_zone
-    """, (start_date, end_date))
+    """, params)
     shot_rows = cur.fetchall()
 
     player_granular = {}
@@ -89,16 +270,13 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
         t = league_granular[gz]["fg3m"]
         league_granular_efg[gz] = round((m + 0.5 * t) / f * 100, 1) if f > 0 else 50.0
 
-    # 3. Query Distance Zone Splits within Date Range
-    cur.execute("""
-        SELECT 
-            shooter_id, zone,
-            COUNT(*) as fga,
-            SUM(made) as fgm
+    # Distance zone query
+    cur.execute(f"""
+        SELECT shooter_id, zone, COUNT(*) as fga, SUM(made) as fgm
         FROM shots
-        WHERE date BETWEEN ? AND ?
+        {shot_where}
         GROUP BY shooter_id, zone
-    """, (start_date, end_date))
+    """, params)
     zone_rows = cur.fetchall()
 
     player_zones = {}
@@ -126,13 +304,12 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
         for z in ZONES
     }
 
-    # 4. Query Assisted Baskets within Date Range
-    cur.execute("""
-        SELECT 
-            passer_id, scorer_id, val, zone
+    # Assisted baskets query
+    cur.execute(f"""
+        SELECT passer_id, scorer_id, val, zone
         FROM assisted_baskets
-        WHERE date BETWEEN ? AND ?
-    """, (start_date, end_date))
+        {shot_where}
+    """, params)
     assist_rows = cur.fetchall()
 
     player_assists = {}
@@ -146,17 +323,19 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
             "zone": ar["zone"]
         })
 
-    # 5. Query Stints & Calculate On-Court Influence within Date Range
-    cur.execute("""
-        SELECT 
-            home_lineup, away_lineup, home_pts, away_pts, poss
-        FROM stints
-        WHERE date BETWEEN ? AND ?
-    """, (start_date, end_date))
+    # Fixed Stints Query: join with games to get home_team_id and away_team_id reliably
+    stint_where = where_str.replace("l.", "s.")
+    cur.execute(f"""
+        SELECT g.home_team_id, g.away_team_id, s.home_lineup, s.away_lineup, s.home_pts, s.away_pts, s.poss
+        FROM stints s
+        JOIN games g ON s.game_id = g.game_id
+        {stint_where}
+    """, params)
     stint_rows = cur.fetchall()
 
     player_on_court = {}
-    pair_ledger = {}
+    team_totals = {}
+    valid_stints = []
 
     for sr in stint_rows:
         h_lineup = json.loads(sr["home_lineup"])
@@ -164,6 +343,29 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
         h_pts = sr["home_pts"]
         a_pts = sr["away_pts"]
         poss = sr["poss"]
+        h_tid = sr["home_team_id"]
+        a_tid = sr["away_team_id"]
+
+        valid_stints.append({
+            "home_lineup": h_lineup,
+            "away_lineup": a_lineup,
+            "home_pts": h_pts,
+            "away_pts": a_pts,
+            "poss": poss
+        })
+
+        if h_tid not in team_totals:
+            team_totals[h_tid] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
+        if a_tid not in team_totals:
+            team_totals[a_tid] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
+
+        team_totals[h_tid]["pts_for"] += h_pts
+        team_totals[h_tid]["pts_against"] += a_pts
+        team_totals[h_tid]["poss"] += poss
+
+        team_totals[a_tid]["pts_for"] += a_pts
+        team_totals[a_tid]["pts_against"] += h_pts
+        team_totals[a_tid]["poss"] += poss
 
         for hp in h_lineup:
             if hp not in player_on_court:
@@ -179,85 +381,12 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
             player_on_court[ap]["pts_against"] += h_pts
             player_on_court[ap]["poss"] += poss
 
-        for team_lineup, pts_f, pts_a in [(h_lineup, h_pts, a_pts), (a_lineup, a_pts, h_pts)]:
-            for i in range(len(team_lineup)):
-                for j in range(i + 1, len(team_lineup)):
-                    p1, p2 = team_lineup[i], team_lineup[j]
-                    for m1, m2 in [(p1, p2), (p2, p1)]:
-                        if m1 not in pair_ledger:
-                            pair_ledger[m1] = {"teammates": {}, "opponents": {}}
-                        if m2 not in pair_ledger[m1]["teammates"]:
-                            pair_ledger[m1]["teammates"][m2] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
-                        pair_ledger[m1]["teammates"][m2]["pts_for"] += pts_f
-                        pair_ledger[m1]["teammates"][m2]["pts_against"] += pts_a
-                        pair_ledger[m1]["teammates"][m2]["poss"] += poss
-
-        for hp in h_lineup:
-            for ap in a_lineup:
-                for m1, m2, pf, pa in [(hp, ap, h_pts, a_pts), (ap, hp, a_pts, h_pts)]:
-                    if m1 not in pair_ledger:
-                        pair_ledger[m1] = {"teammates": {}, "opponents": {}}
-                    if m2 not in pair_ledger[m1]["opponents"]:
-                        pair_ledger[m1]["opponents"][m2] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
-                    pair_ledger[m1]["opponents"][m2]["pts_for"] += pf
-                    pair_ledger[m1]["opponents"][m2]["pts_against"] += pa
-                    pair_ledger[m1]["opponents"][m2]["poss"] += poss
-
     conn.close()
 
-    # Compute On-Court Baselines
-    player_baselines = {}
-    for pid, oc in player_on_court.items():
-        if oc["poss"] >= 50.0:
-            player_baselines[pid] = {
-                "ortg": (oc["pts_for"] / oc["poss"]) * 100.0,
-                "drtg": (oc["pts_against"] / oc["poss"]) * 100.0
-            }
-        else:
-            player_baselines[pid] = {"ortg": 112.0, "drtg": 112.0}
+    active_players_dict = {r["player_id"]: None for r in log_rows}
+    influence_engine = InfluenceEngine(active_players_dict, DummyBaselineEngine(), None, all_games_stints=valid_stints)
+    influence_results = influence_engine.attr
 
-    # Compute Influence Metrics per Player
-    influence_results = {}
-    for pid in player_on_court.keys():
-        p_pairs = pair_ledger.get(pid, {"teammates": {}, "opponents": {}})
-
-        t_off_diff, t_def_diff, t_poss = 0.0, 0.0, 0.0
-        for tid, data in p_pairs["teammates"].items():
-            if data["poss"] >= 4.0:
-                s_ortg = (data["pts_for"] / data["poss"]) * 100.0
-                s_drtg = (data["pts_against"] / data["poss"]) * 100.0
-                t_base = player_baselines.get(tid, {"ortg": 112.0, "drtg": 112.0})
-                t_off_diff += (s_ortg - t_base["ortg"]) * data["poss"]
-                t_def_diff += (t_base["drtg"] - s_drtg) * data["poss"]
-                t_poss += data["poss"]
-
-        t_off = round(t_off_diff / t_poss, 2) if t_poss > 0 else 0.0
-        t_def = round(t_def_diff / t_poss, 2) if t_poss > 0 else 0.0
-
-        o_off_diff, o_def_diff, o_poss = 0.0, 0.0, 0.0
-        for oid, data in p_pairs["opponents"].items():
-            if data["poss"] >= 4.0:
-                opp_ortg = (data["pts_against"] / data["poss"]) * 100.0
-                opp_drtg = (data["pts_for"] / data["poss"]) * 100.0
-                o_base = player_baselines.get(oid, {"ortg": 112.0, "drtg": 112.0})
-                o_off_diff += (o_base["ortg"] - opp_ortg) * data["poss"]
-                o_def_diff += (opp_drtg - o_base["drtg"]) * data["poss"]
-                o_poss += data["poss"]
-
-        o_off = round(o_off_diff / o_poss, 2) if o_poss > 0 else 0.0
-        o_def = round(o_def_diff / o_poss, 2) if o_poss > 0 else 0.0
-
-        t_net = round(t_off + t_def, 2)
-        o_net = round(o_off + o_def, 2)
-        ovr = round(0.5 * t_net + 0.5 * o_net, 2)
-
-        influence_results[pid] = {
-            "teammate_off_impact": t_off, "teammate_def_impact": t_def, "teammate_overall_impact": t_net,
-            "opponent_off_impact": o_off, "opponent_def_impact": o_def, "opponent_overall_impact": o_net,
-            "overall_impact": ovr
-        }
-
-    # 6. Synthesize Unified Player Rows
     output_rows = []
     for r in log_rows:
         aid = r["player_id"]
@@ -284,33 +413,18 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
         ftm = r["tot_ftm"]
         ft_pct = round(ftm / fta * 100, 1) if fta > 0 else 0.0
 
-        ts_pct = round(r["tot_pts"] / (2 * (fga + 0.44 * fta)) * 100, 1) if (fga + 0.44 * fta) > 0 else 0.0
-        efg_pct = round((fgm + 0.5 * fg3m) / fga * 100, 1) if fga > 0 else 0.0
-        three_par = round(fg3a / fga * 100, 1) if fga > 0 else 0.0
-        ft_rate = round(fta / fga * 100, 1) if fga > 0 else 0.0
-        ppsa = round(r["tot_pts"] / fga, 2) if fga > 0 else 0.0
-        ast_to = round(r["tot_ast"] / r["tot_to"], 2) if r["tot_to"] > 0 else float(r["tot_ast"])
-        tov_pct = round(r["tot_to"] / (fga + 0.44 * fta + r["tot_to"]) * 100, 1) if (fga + 0.44 * fta + r["tot_to"]) > 0 else 0.0
-        stocks_pg = round((r["tot_stl"] + r["tot_blk"]) / gp, 1) if gp > 0 else 0.0
+        p_struct = {
+            "gp": gp, "tot_min": r["tot_min"], "tot_pts": r["tot_pts"], "tot_reb": r["tot_reb"],
+            "tot_ast": r["tot_ast"], "tot_stl": r["tot_stl"], "tot_blk": r["tot_blk"], "tot_to": r["tot_to"],
+            "tot_pf": r["tot_pf"], "tot_fga": fga, "tot_fgm": fgm, "tot_fg3a": fg3a, "tot_fg3m": fg3m,
+            "tot_fta": fta, "tot_ftm": ftm, "tot_oreb": r["tot_oreb"], "tot_dreb": r["tot_dreb"]
+        }
 
-        tot_gmsc = r["tot_pts"] + 0.4 * fgm - 0.7 * fga - 0.4 * (fta - ftm) + 0.7 * r["tot_oreb"] + 0.3 * r["tot_dreb"] + r["tot_stl"] + 0.7 * r["tot_ast"] + 0.7 * r["tot_blk"] - 0.4 * r["tot_pf"] - r["tot_to"]
-        gmsc_avg = round(tot_gmsc / gp, 1) if gp > 0 else 0.0
-
-        used_plays = fga + 0.44 * fta + r["tot_to"]
-        usg_pct = round((used_plays / (r["tot_min"] * 2.0)) * 100.0, 1) if r["tot_min"] > 0 else 0.0
-
-        # Shot quality
+        adv = compute_player_advanced_metrics(p_struct)
+        on_off = compute_on_off_metrics(player_on_court.get(aid, {}), team_totals.get(r["team_id"], {}))
         p_gz = player_granular.get(aid, {z: {"fga": 0, "fgm": 0, "fg3m": 0} for z in GRANULAR_ZONES})
-        tot_tracked = sum(p_gz[z]["fga"] for z in GRANULAR_ZONES)
-        exp_makes = sum(p_gz[z]["fga"] * (league_granular_efg.get(z, 50.0) / 100.0) for z in GRANULAR_ZONES)
-        xefg_pct = round(exp_makes / tot_tracked * 100, 1) if tot_tracked > 0 else 0.0
-        smoe = round(efg_pct - xefg_pct, 1)
+        sq_metrics = compute_shot_quality_metrics(p_gz, league_granular_efg, fta, fga)
 
-        rim_fga = p_gz["rim"]["fga"]
-        three_fga = p_gz["corner_3"]["fga"] + p_gz["atb_3"]["fga"]
-        mei = round((rim_fga + three_fga + 0.44 * fta) / (fga + 0.44 * fta) * 100, 1) if (fga + 0.44 * fta) > 0 else 0.0
-
-        # Passing quality
         ev_list = player_assists.get(aid, [])
         tot_ast_ct = len(ev_list)
         pts_created = sum(e["val"] for e in ev_list)
@@ -336,11 +450,7 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
             zone_dict[f"{label}_fg_pct"] = round(zm / zf * 100, 1) if zf > 0 else 0.0
             zone_dict[f"{label}_share"] = round(zf / tot_z_fga * 100, 1) if tot_z_fga > 0 else 0.0
 
-        inf = influence_results.get(aid, {
-            "teammate_off_impact": 0.0, "teammate_def_impact": 0.0, "teammate_overall_impact": 0.0,
-            "opponent_off_impact": 0.0, "opponent_def_impact": 0.0, "opponent_overall_impact": 0.0,
-            "overall_impact": 0.0
-        })
+        inf = influence_results.get(aid, {"orapm": 0.0, "drapm": 0.0, "net_rapm": 0.0})
 
         output_rows.append({
             "player_id": aid, "player": r["player_name"], "team": r["team_abbrev"], "team_id": r["team_id"], "pos": r["pos"],
@@ -350,15 +460,91 @@ def compute_window_player_stats(start_date, end_date, db_path=DB_PATH):
             "fg_pct": fg_pct, "fg3m_pg": round(fg3m / gp, 1) if gp > 0 else 0.0, "fg3a_pg": round(fg3a / gp, 1) if gp > 0 else 0.0,
             "fg3_pct": fg3_pct, "ftm_pg": round(ftm / gp, 1) if gp > 0 else 0.0, "fta_pg": round(fta / gp, 1) if gp > 0 else 0.0,
             "ft_pct": ft_pct, "oreb_pg": round(r["tot_oreb"] / gp, 1) if gp > 0 else 0.0, "dreb_pg": round(r["tot_dreb"] / gp, 1) if gp > 0 else 0.0,
-            "ts_pct": ts_pct, "efg_pct": efg_pct, "xefg_pct": xefg_pct, "smoe": smoe, "mei": mei,
-            "usg_pct": usg_pct, "tov_pct": tov_pct, "ast_to_ratio": ast_to, "three_par": three_par, "ft_rate": ft_rate,
-            "ppsa": ppsa, "gmsc_avg": gmsc_avg, "stocks_pg": stocks_pg,
+            **adv, **sq_metrics, **on_off,
             "ast_recorded": tot_ast_ct, "pts_created_pg": pts_created_pg, "pts_per_ast": pts_per_ast,
             "xpts_per_ast": xpts_per_ast, "paoe": paoe, "points_added_pg": points_added_pg,
             "rim_ast_pct": rim_ast_pct, "three_ast_pct": three_ast_pct,
-            **zone_dict,
-            **inf
+            **zone_dict, **inf
         })
 
     output_rows.sort(key=lambda x: x["pts_pg"], reverse=True)
     return output_rows
+
+
+def compute_window_single_player_profile(player_id, start_date=None, end_date=None, season_years=None, season_types=None, db_path=DB_PATH):
+    """
+    Recalculates a single player's entire categorized profile (values, league ranks,
+    league percentiles, pos ranks, pos percentiles) across any custom window.
+    """
+    all_players = compute_window_player_stats(start_date, end_date, season_years, season_types, db_path)
+    if not all_players:
+        return None
+
+    target = next((p for p in all_players if str(p["player_id"]) == str(player_id)), None)
+    if not target:
+        return None
+
+    stat_keys = list(STAT_METADATA.keys())
+    league_pools = {k: [] for k in stat_keys}
+    pos_pools = {}
+
+    for p in all_players:
+        pos = p["pos"]
+        if pos not in pos_pools:
+            pos_pools[pos] = {k: [] for k in stat_keys}
+        for k in stat_keys:
+            val = p.get(k, 0.0)
+            league_pools[k].append(val)
+            pos_pools[pos][k].append(val)
+
+    rankings_data = compute_player_rankings_and_percentiles(target, league_pools, pos_pools, target["pos"], stat_keys)
+
+    categorized_tables = {
+        "Basic": [],
+        "Advanced": [],
+        "Shooting": [],
+        "Passing": [],
+        "Ratings": [],
+        "Miscellaneous": []
+    }
+
+    for k, v in target.items():
+        meta = get_stat_meta(k)
+        cat = meta.get("category", "Miscellaneous")
+        if cat not in categorized_tables:
+            cat = "Miscellaneous"
+
+        r_info = rankings_data.get(k, {
+            "value": v, "league_rank": "-", "league_percentile": 50.0,
+            "pos_rank": "-", "pos_percentile": 50.0
+        })
+
+        categorized_tables[cat].append({
+            "stat_key": k,
+            "stat_name": meta["name"],
+            "value": v,
+            "tooltip": meta.get("tooltip", ""),
+            "league_rank": r_info["league_rank"],
+            "league_percentile": r_info["league_percentile"],
+            "pos_rank": r_info["pos_rank"],
+            "pos_percentile": r_info["pos_percentile"]
+        })
+
+    sections = []
+    for cat_name, rows in categorized_tables.items():
+        if rows:
+            sections.append({
+                "type": "long_form_stats",
+                "title": f"{cat_name} Statistics",
+                "category": cat_name,
+                "data": {"meta_keys": ["stat_name"], "rows": rows}
+            })
+
+    return {
+        "player_id": target["player_id"],
+        "name": target["player"],
+        "team": target["team"],
+        "team_id": target["team_id"],
+        "position": target["pos"],
+        "sections": sections
+    }

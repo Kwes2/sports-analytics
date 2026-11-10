@@ -47,11 +47,16 @@
         }
 
         .player-header {
-            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
             padding: 12px 16px;
             background-color: #f7f7f7;
             border: 1px solid #ccc;
             max-width: 950px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .player-header h1 {
@@ -64,9 +69,199 @@
             color: #555;
         }
 
+        .tool-btn {
+            background: #eee;
+            border: 1px solid #888;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .tool-btn:hover {
+            background: #e2e2e2;
+        }
+
+        .drawer-panel {
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            padding: 12px 14px;
+            margin-bottom: 18px;
+            font-size: 13px;
+            max-width: 950px;
+        }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 4px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            background: #fafafa;
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 8px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .preset-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .window-bottom-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .date-picker-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .date-picker-row input[type="date"] {
+            border: 1px solid #888;
+            padding: 3px 6px;
+            font-family: inherit;
+            font-size: 12px;
+        }
+
+        .action-cluster {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        .calc-btn {
+            background: #0056b3;
+            color: #fff;
+            border: 1px solid #004085;
+            padding: 5px 12px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .calc-btn:hover {
+            background: #004085;
+        }
+
+        hr.drawer-divider {
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 8px 0;
+        }
+
         h3 {
-            font-size: 15px;
-            margin: 22px 0 8px 0;
+            font-size: 16px;
+            margin: 24px 0 8px 0;
+            border-bottom: 1px solid #bbb;
+            padding-bottom: 4px;
+            max-width: 950px;
+        }
+
+        /* Profile Content Container & Recalculating Dimmer */
+        #player-content-wrapper {
+            position: relative;
+            max-width: 950px;
+        }
+
+        #player-content {
+            transition: opacity 0.2s ease, filter 0.2s ease;
+        }
+
+        #player-content.is-recalculating {
+            opacity: 0.35;
+            filter: grayscale(85%);
+            pointer-events: none;
+        }
+
+        .recalc-overlay-badge {
+            display: none;
+            position: absolute;
+            top: 250px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #222;
+            color: #fff;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: bold;
+            border-radius: 4px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+
+        .recalc-overlay-badge.active {
+            display: block;
+        }
+
+        table.long-form-table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 950px;
+            font-size: 13px;
+            border: 1px solid #888;
+            margin-bottom: 18px;
+        }
+
+        th, td {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #eee;
+            font-weight: bold;
+            text-align: left;
+            border-bottom: 2px solid #888;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        th.num, td.num {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        th.has-tip, td.has-tip {
+            border-bottom: 1px dotted #555;
+            cursor: help;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #ffffcc;
+        }
+
+        td.pctile-cell {
+            text-align: right;
+            font-weight: 500;
         }
 
         .shot-chart-container {
@@ -119,64 +314,6 @@
             stroke-width: 3 !important;
         }
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            max-width: 950px;
-            font-size: 13px;
-            border: 1px solid #888;
-            margin-bottom: 25px;
-        }
-
-        .shot-chart-container table {
-            flex: 1;
-            min-width: 450px;
-            margin-bottom: 0;
-        }
-
-        th, td {
-            padding: 4px 8px;
-            border: 1px solid #ccc;
-        }
-
-        th {
-            background-color: #eee;
-            font-weight: bold;
-            text-align: left;
-            border-bottom: 2px solid #888;
-            cursor: pointer;
-            user-select: none;
-            white-space: nowrap;
-        }
-
-        th:hover {
-            background-color: #e2e2e2;
-        }
-
-        th.has-tip {
-            border-bottom: 1px dotted #666;
-            cursor: help;
-        }
-
-        th.num, td.num {
-            text-align: right;
-            font-variant-numeric: tabular-nums;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tr:hover {
-            background-color: #ffffcc;
-        }
-
-        .sort-indicator {
-            font-size: 10px;
-            margin-left: 4px;
-            color: #666;
-        }
-
         a.table-link {
             color: #0056b3;
             text-decoration: underline;
@@ -197,77 +334,39 @@
 
     <a href="./" class="back-link">← Back to NBA Stats & Schedule</a>
 
-    <div id="player-content">Loading player profile...</div>
+    <div id="player-header-container"></div>
+    <div id="player-date-drawer"></div>
+
+    <div id="player-content-wrapper">
+        <div id="player-recalc-badge" class="recalc-overlay-badge">⏳ Recalculating player percentiles and ranks across the league...</div>
+        <div id="player-content">Loading player profile...</div>
+    </div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const playerId = urlParams.get('id');
 
-        const STAT_GLOSSARY = {
-            "GP": "Games Played",
-            "GS": "Games Started",
-            "MIN": "Minutes Played",
-            "MIN_PG": "Minutes Per Game",
-            "PTS": "Points",
-            "PTS_PG": "Points Per Game",
-            "PRF_PG": "Points Responsible For Per Game: PTS/G + Points Created off Assists/G",
-            "PCT_TEAM_PRF": "% of Team Points Accounted For: Share of team scoring directly generated by this player",
-            "REB": "Rebounds",
-            "REB_PG": "Rebounds Per Game",
-            "AST": "Assists",
-            "AST_PG": "Assists Per Game",
-            "STL": "Steals",
-            "STL_PG": "Steals Per Game",
-            "BLK": "Blocks",
-            "BLK_PG": "Blocks Per Game",
-            "TO": "Turnovers",
-            "TO_PG": "Turnovers Per Game",
-            "PF": "Personal Fouls",
-            "PF_PG": "Personal Fouls Per Game",
-            "PLUS_MINUS": "Plus-Minus (+/-)",
-            "PLUS_MINUS_PG": "Average Plus-Minus (+/-) Per Game",
-            "FGM": "Field Goals Made",
-            "FGA": "Field Goals Attempted",
-            "FG_PCT": "Field Goal Percentage",
-            "FG3M": "3-Pointers Made",
-            "FG3A": "3-Point Attempts",
-            "FTM": "Free Throws Made",
-            "FTA": "Free Throws Attempted",
-            "OREB": "Offensive Rebounds",
-            "DREB": "Defensive Rebounds",
-            "TS_PCT": "True Shooting %: Scoring efficiency factoring in 2s, 3s, and FTs",
-            "EFG_PCT": "Effective FG %: Adjusted for the extra value of 3-pointers",
-            "XEFG_PCT": "Expected Effective FG %: Shot quality benchmark based on the difficulty of shot locations taken",
-            "SMOE": "Shot-Making Over Expected: Actual eFG% minus Expected eFG% (Measures pure finishing/shot-making skill)",
-            "MEI": "Moreyball Efficiency Index: % of shot possessions ending at the Rim, 3PT, or Free Throw line",
-            "USG_PCT": "Usage Rate %: Percentage of team plays used while on the court",
-            "TOV_PCT": "Turnover Rate %: Turnovers committed per 100 plays",
-            "AST_TO_RATIO": "Assist-to-Turnover Ratio (AST / TO)",
-            "THREE_PAR": "3-Point Attempt Rate (% of FGA from 3PT range)",
-            "FT_RATE": "Free Throw Attempt Rate (FTA / FGA)",
-            "PPSA": "Points Per Shot Attempt (PTS / FGA)",
-            "GMSC": "Game Score: Single-game performance rating",
-            "GMSC_AVG": "Average Hollinger Game Score",
-            "STOCKS_PG": "Stocks: Steals + Blocks per game",
-            "AST_RECORDED": "Total season assists analyzed with play-by-play tracking",
-            "PTS_CREATED_PG": "Points Created Per Game: Points generated from assists per game",
-            "PTS_PER_AST": "Points Per Assist: Actual points scored per completed assist",
-            "XPTS_PER_AST": "Expected Points Per Assist: Passing shot quality baseline",
-            "FINISHER_XPTS": "Finisher Expected Points Per Assist: Baseline based on finisher's personal zone FG%",
-            "PAOE": "Points Per Assist Over Expected: Passer Value Added per assist",
-            "POINTS_ADDED_PG": "Points Added Per Game: Net points created above expected shot baseline per game",
-            "RIM_AST_PCT": "% of player's total assists leading to baskets at the rim (0-4 ft)",
-            "THREE_AST_PCT": "% of player's total assists leading to 3-point baskets",
-            "SHOT_SHARE": "Percentage of total attempts in this distance zone",
-            "LEAGUE_AVG_FG": "League Average FG% in this distance zone",
-            "EFF_PERCENTILE": "Efficiency Percentile: Player FG% rank compared to league (0-100)",
-            "VOL_PERCENTILE": "Volume Percentile: Shot attempts rank compared to league (0-100)",
-            "AST_SHARE": "% of this player's total season assists delivered to this teammate",
-            "BASKETS_SHARE": "% of this player's assisted field goals created by this passer"
+        let STAT_DEFINITIONS = {};
+        let zoneStatsMap = {};
+        let defaultPlayerData = null;
+        let showWindowDrawer = false;
+
+        const playerSeasonState = JSON.parse(sessionStorage.getItem('nba_season_state')) || {
+            curr_reg: true,
+            curr_post: false,
+            prev_reg: false,
+            prev_post: false,
+            last_5_wks: false,
+            last_10_wks: false,
+            use_custom_date: false,
+            start_date: "2025-10-22",
+            end_date: "2026-04-15"
         };
 
-        const tableState = {};
-        let zoneStatsMap = {};
+        fetch('data/stat_definitions.json')
+            .then(res => res.json())
+            .then(data => { STAT_DEFINITIONS = data; })
+            .catch(() => {});
 
         window.onload = () => {
             if (!playerId) {
@@ -277,27 +376,362 @@
 
             fetch(`data/players/${playerId}.json`)
                 .then(res => res.json())
-                .then(data => renderPlayerEngine(data))
-                .catch(err => {
+                .then(data => {
+                    defaultPlayerData = data;
+                    renderHeader(data.name, data.team, data.team_id, data.position, "Full Season");
+                    renderProfileSections(data);
+                })
+                .catch(() => {
                     document.getElementById('player-content').innerHTML = `<p style="color:red">Failed to load profile for Player ID ${playerId}.</p>`;
                 });
         };
 
+        function renderHeader(name, team, teamId, position, windowLabel) {
+            const container = document.getElementById('player-header-container');
+            const teamLink = teamId ? `<a class="table-link" href="team.html?id=${teamId}">${team}</a>` : team;
+
+            container.innerHTML = `
+                <div class="player-header">
+                    <div>
+                        <h1>${name}</h1>
+                        <div class="meta">${teamLink} | Position: <strong>${position}</strong> | Window: <strong id="current-window-label">${windowLabel}</strong></div>
+                    </div>
+                    <div>
+                        <button class="tool-btn" onclick="toggleWindowDrawer()">📅 Seasons & Ranges</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleWindowDrawer() {
+            showWindowDrawer = !showWindowDrawer;
+            const container = document.getElementById('player-date-drawer');
+            if (!showWindowDrawer) {
+                container.innerHTML = "";
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="drawer-panel">
+                    <div class="drawer-header">
+                        <strong>Recalculate Player Profile over Window:</strong>
+                        <button class="tool-btn" onclick="toggleWindowDrawer()">Close</button>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="chk-p-curr-reg" ${playerSeasonState.curr_reg ? 'checked' : ''} onchange="handlePlayerSeasonChange('curr_reg')"> [2026-2027] (Regular Season)</label>
+                        <label><input type="checkbox" id="chk-p-curr-post" ${playerSeasonState.curr_post ? 'checked' : ''} onchange="handlePlayerSeasonChange('curr_post')"> [2026-2027] (Playoffs)</label>
+                        <label><input type="checkbox" id="chk-p-prev-reg" ${playerSeasonState.prev_reg ? 'checked' : ''} onchange="handlePlayerSeasonChange('prev_reg')"> [2025-2026] (Regular Season)</label>
+                        <label><input type="checkbox" id="chk-p-prev-post" ${playerSeasonState.prev_post ? 'checked' : ''} onchange="handlePlayerSeasonChange('prev_post')"> [2025-2026] (Playoffs)</label>
+                    </div>
+
+                    <hr class="drawer-divider"/>
+
+                    <div class="preset-bar">
+                        <label><input type="checkbox" id="chk-p-last-5" ${playerSeasonState.last_5_wks ? 'checked' : ''} onchange="togglePlayerWeeksFilter(5)"> [Last 5 Weeks]</label>
+                        <label style="margin-left: 12px;"><input type="checkbox" id="chk-p-last-10" ${playerSeasonState.last_10_wks ? 'checked' : ''} onchange="togglePlayerWeeksFilter(10)"> [Last 10 Weeks]</label>
+                    </div>
+
+                    <hr class="drawer-divider"/>
+
+                    <div class="window-bottom-row">
+                        <div class="date-picker-row">
+                            <label><input type="checkbox" id="chk-p-custom-range" ${playerSeasonState.use_custom_date ? 'checked' : ''} onchange="togglePlayerCustomRangeCheckbox()"> <strong>[Custom Date Range]</strong></label>
+                            <label style="margin-left:6px;">From: <input type="date" id="p-start-date" value="${playerSeasonState.start_date}" /></label>
+                            <label>To: <input type="date" id="p-end-date" value="${playerSeasonState.end_date}" /></label>
+                        </div>
+
+                        <div class="action-cluster">
+                            <span id="player-calc-status" style="font-size: 11px; color: #555;"></span>
+                            <button class="tool-btn" onclick="resetToFullSeason()">Reset Full Season</button>
+                            <button class="calc-btn" onclick="executePlayerWindowRecalculation()">⚡ Recalculate Profile</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function indicatePlayerStaleStatus() {
+            const status = document.getElementById('player-calc-status');
+            if (status) status.innerHTML = "<em>Selection changed. Click [Recalculate Profile] to apply.</em>";
+        }
+
+        // 1. Season change -> deselects weeks and custom range
+        function handlePlayerSeasonChange(key) {
+            playerSeasonState[key] = document.getElementById(`chk-p-${key.replace('_', '-')}`).checked;
+            if (playerSeasonState[key]) {
+                playerSeasonState.last_5_wks = false;
+                playerSeasonState.last_10_wks = false;
+                playerSeasonState.use_custom_date = false;
+
+                const c5 = document.getElementById('chk-p-last-5');
+                const c10 = document.getElementById('chk-p-last-10');
+                const cc = document.getElementById('chk-p-custom-range');
+                if (c5) c5.checked = false;
+                if (c10) c10.checked = false;
+                if (cc) cc.checked = false;
+            }
+            sessionStorage.setItem('nba_season_state', JSON.stringify(playerSeasonState));
+            indicatePlayerStaleStatus();
+        }
+
+        // 2. Weeks change -> deselects seasons and custom range
+        function togglePlayerWeeksFilter(weeks) {
+            const is5 = (weeks === 5);
+            const targetChecked = document.getElementById(is5 ? 'chk-p-last-5' : 'chk-p-last-10').checked;
+
+            playerSeasonState.last_5_wks = is5 ? targetChecked : false;
+            playerSeasonState.last_10_wks = is5 ? false : targetChecked;
+
+            if (targetChecked) {
+                playerSeasonState.curr_reg = false;
+                playerSeasonState.curr_post = false;
+                playerSeasonState.prev_reg = false;
+                playerSeasonState.prev_post = false;
+                playerSeasonState.use_custom_date = false;
+
+                ['curr-reg', 'curr-post', 'prev-reg', 'prev-post'].forEach(id => {
+                    const el = document.getElementById(`chk-p-${id}`);
+                    if (el) el.checked = false;
+                });
+                const alt = document.getElementById(is5 ? 'chk-p-last-10' : 'chk-p-last-5');
+                if (alt) alt.checked = false;
+                const cc = document.getElementById('chk-p-custom-range');
+                if (cc) cc.checked = false;
+
+                const now = new Date();
+                const past = new Date(now.getTime() - (weeks * 7 * 24 * 60 * 60 * 1000));
+                playerSeasonState.start_date = past.toISOString().slice(0, 10);
+                playerSeasonState.end_date = now.toISOString().slice(0, 10);
+
+                document.getElementById('p-start-date').value = playerSeasonState.start_date;
+                document.getElementById('p-end-date').value = playerSeasonState.end_date;
+            }
+
+            sessionStorage.setItem('nba_season_state', JSON.stringify(playerSeasonState));
+            indicatePlayerStaleStatus();
+        }
+
+        // 3. Custom Date Range toggle -> deselects seasons and weeks
+        function togglePlayerCustomRangeCheckbox() {
+            const isChecked = document.getElementById('chk-p-custom-range').checked;
+            playerSeasonState.use_custom_date = isChecked;
+
+            if (isChecked) {
+                playerSeasonState.curr_reg = false;
+                playerSeasonState.curr_post = false;
+                playerSeasonState.prev_reg = false;
+                playerSeasonState.prev_post = false;
+                playerSeasonState.last_5_wks = false;
+                playerSeasonState.last_10_wks = false;
+
+                ['curr-reg', 'curr-post', 'prev-reg', 'prev-post', 'last-5', 'last-10'].forEach(id => {
+                    const el = document.getElementById(`chk-p-${id}`);
+                    if (el) el.checked = false;
+                });
+            } else {
+                playerSeasonState.curr_reg = true;
+                const el = document.getElementById('chk-p-curr-reg');
+                if (el) el.checked = true;
+            }
+
+            sessionStorage.setItem('nba_season_state', JSON.stringify(playerSeasonState));
+            indicatePlayerStaleStatus();
+        }
+
+        function executePlayerWindowRecalculation() {
+            const startDate = document.getElementById('p-start-date').value;
+            const endDate = document.getElementById('p-end-date').value;
+            playerSeasonState.start_date = startDate;
+            playerSeasonState.end_date = endDate;
+            sessionStorage.setItem('nba_season_state', JSON.stringify(playerSeasonState));
+
+            const status = document.getElementById('player-calc-status');
+            const contentElem = document.getElementById('player-content');
+            const badge = document.getElementById('player-recalc-badge');
+
+            // Apply Dimmer / Grey-Out
+            if (contentElem) contentElem.classList.add('is-recalculating');
+            if (badge) badge.classList.add('active');
+            if (status) status.innerText = "Recalculating league percentiles & ranks...";
+
+            const queryParams = new URLSearchParams();
+            queryParams.append("id", playerId);
+
+            if (playerSeasonState.use_custom_date || playerSeasonState.last_5_wks || playerSeasonState.last_10_wks) {
+                queryParams.append("start", startDate);
+                queryParams.append("end", endDate);
+            } else {
+                if (playerSeasonState.curr_reg) { queryParams.append("season_year", "2027"); queryParams.append("season_type", "2"); }
+                if (playerSeasonState.curr_post) { queryParams.append("season_year", "2027"); queryParams.append("season_type", "3"); }
+                if (playerSeasonState.prev_reg) { queryParams.append("season_year", "2026"); queryParams.append("season_type", "2"); }
+                if (playerSeasonState.prev_post) { queryParams.append("season_year", "2026"); queryParams.append("season_type", "3"); }
+            }
+
+            const finishRecalc = () => {
+                if (contentElem) contentElem.classList.remove('is-recalculating');
+                if (badge) badge.classList.remove('active');
+            };
+
+            fetch(`api/player_window?${queryParams.toString()}`)
+                .then(res => {
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    return res.json();
+                })
+                .then(data => {
+                    finishRecalc();
+                    if (data.error) {
+                        status.innerText = data.error;
+                        return;
+                    }
+                    status.innerText = "Done!";
+                    const label = playerSeasonState.use_custom_date ? `${startDate} to ${endDate}` : (playerSeasonState.last_5_wks ? "Last 5 Weeks" : (playerSeasonState.last_10_wks ? "Last 10 Weeks" : "Season Filter"));
+                    document.getElementById('current-window-label').innerText = label;
+                    renderProfileSections(data);
+                })
+                .catch(() => {
+                    finishRecalc();
+                    status.innerText = "Query timed out. Make sure 'python server.py' is running.";
+                });
+        }
+
+        function resetToFullSeason() {
+            if (defaultPlayerData) {
+                document.getElementById('current-window-label').innerText = "Full Season";
+                renderProfileSections(defaultPlayerData);
+                const status = document.getElementById('player-calc-status');
+                if (status) status.innerText = "Reset to full season.";
+            }
+        }
+
         function getPercentileColor(p) {
-            if (p === null || p === undefined || isNaN(p)) return '#f0f0f0';
-            if (p < 50) {
-                const t = p / 50.0;
+            if (p === null || p === undefined || isNaN(p) || p === '-') return '#f0f0f0';
+            const num = parseFloat(p);
+            if (num < 50) {
+                const t = num / 50.0;
                 const r = Math.round(59 + (240 - 59) * t);
                 const g = Math.round(130 + (240 - 130) * t);
                 const b = Math.round(246 + (240 - 246) * t);
                 return `rgb(${r}, ${g}, ${b})`;
             } else {
-                const t = (p - 50.0) / 50.0;
+                const t = (num - 50.0) / 50.0;
                 const r = Math.round(240 + (239 - 240) * t);
                 const g = Math.round(240 + (68 - 240) * t);
                 const b = Math.round(240 + (68 - 240) * t);
                 return `rgb(${r}, ${g}, ${b})`;
             }
+        }
+
+        function formatDisplayValue(val, key) {
+            if (val === null || val === undefined || val === '') return '-';
+            if (typeof val !== 'number') return val;
+
+            const meta = STAT_DEFINITIONS[key.toLowerCase()];
+            if (meta) {
+                if (meta.format === 'int') return Math.round(val);
+                if (meta.format === 'float2') return val.toFixed(2);
+                if (meta.format === 'pct1') return `${val.toFixed(1)}%`;
+                if (meta.format === 'float1') return val.toFixed(1);
+            }
+
+            const k = key.toLowerCase();
+            if (k === 'ppsa' || k === 'ast_to_ratio' || k.includes('pts_per_ast') || k.includes('xpts') || k === 'paoe' || k.includes('rapm') || k === 'vorp') {
+                return val.toFixed(2);
+            }
+            if (k.includes('pct') || k.includes('_pg') || k === 'smoe' || k === 'mei' || k.includes('rate') || k.includes('share') || k === 'bpm' || k === 'per') {
+                return val.toFixed(1);
+            }
+            return Number.isInteger(val) ? val : val.toFixed(1);
+        }
+
+        function renderProfileSections(data) {
+            const container = document.getElementById('player-content');
+            let html = "";
+
+            (data.sections || []).forEach((sec) => {
+                if (sec.type === "long_form_stats") {
+                    html += `<h3>${sec.title}</h3>`;
+                    html += `<table class="long-form-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th class="num">Value</th>
+                                <th class="num">League Rank</th>
+                                <th class="num">League %ile</th>
+                                <th class="num">Position Rank (${data.position})</th>
+                                <th class="num">Position %ile</th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+
+                    (sec.data.rows || []).forEach(r => {
+                        const meta = STAT_DEFINITIONS[r.stat_key.toLowerCase()];
+                        const tip = (meta && meta.tooltip) ? meta.tooltip : r.tooltip;
+                        const tipAttr = tip ? `class="has-tip" title="${tip}"` : '';
+
+                        const lPctColor = getPercentileColor(r.league_percentile);
+                        const pPctColor = getPercentileColor(r.pos_percentile);
+
+                        html += `<tr>
+                            <td ${tipAttr}><strong>${r.stat_name}</strong></td>
+                            <td class="num"><strong>${formatDisplayValue(r.value, r.stat_key)}</strong></td>
+                            <td class="num">#${r.league_rank}</td>
+                            <td class="pctile-cell" style="background-color: ${lPctColor};">${r.league_percentile}</td>
+                            <td class="num">#${r.pos_rank}</td>
+                            <td class="pctile-cell" style="background-color: ${pPctColor};">${r.pos_percentile}</td>
+                        </tr>`;
+                    });
+
+                    html += `</tbody></table>`;
+
+                } else if (sec.type === "shot_chart") {
+                    html += `<h3>${sec.title}</h3>`;
+                    html += `
+                        <div class="shot-chart-container">
+                            <div class="court-wrapper">
+                                <div class="court-title">Efficiency Heat Map</div>
+                                ${createCourtSVG(sec.data.rows)}
+                                <div class="court-info-box" id="court-info-box">
+                                    <em>Hover over any zone to inspect shot volume and efficiency.</em>
+                                </div>
+                            </div>
+                            <div>
+                                <table class="long-form-table" style="min-width: 450px;">
+                                    <thead>
+                                        <tr>
+                                            <th>Zone</th>
+                                            <th class="num">FGM</th>
+                                            <th class="num">FGA</th>
+                                            <th class="num">FG %</th>
+                                            <th class="num">Shot Share</th>
+                                            <th class="num">League Avg</th>
+                                            <th class="num">Eff %ile</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${sec.data.rows.map(r => `
+                                            <tr>
+                                                <td>${r.zone}</td>
+                                                <td class="num">${r.fgm}</td>
+                                                <td class="num">${r.fga}</td>
+                                                <td class="num">${r.fg_pct}%</td>
+                                                <td class="num">${r.shot_share}%</td>
+                                                <td class="num">${r.league_avg_fg}%</td>
+                                                <td class="pctile-cell" style="background-color: ${getPercentileColor(r.eff_percentile)};">${r.eff_percentile}</td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    `;
+                } else if (sec.type === "table") {
+                    html += `<h3>${sec.title}</h3>`;
+                    html += renderStandardTable(sec.data);
+                }
+            });
+
+            container.innerHTML = html;
         }
 
         function createCourtSVG(splitsRows) {
@@ -361,143 +795,34 @@
             if (box) box.innerHTML = "<em>Hover over any court zone to inspect shot volume and efficiency.</em>";
         }
 
-        function renderPlayerEngine(data) {
-            const container = document.getElementById('player-content');
-            const teamLink = data.team_id ? `<a class="table-link" href="team.html?id=${data.team_id}">${data.team}</a>` : data.team;
+        function renderStandardTable(dataObj) {
+            const rows = dataObj.rows || [];
+            if (rows.length === 0) return "<p>No data recorded.</p>";
+            const keys = Object.keys(rows[0]).filter(k => k !== "player_id" && k !== "team_id");
 
-            let html = `
-                <div class="player-header">
-                    <h1>${data.name}</h1>
-                    <div class="meta">${teamLink} | Position: <strong>${data.position}</strong></div>
-                </div>
-            `;
-
-            (data.sections || []).forEach((section, idx) => {
-                const sectionId = `section_${idx}`;
-                html += `<h3>${section.title}</h3>`;
-
-                tableState[sectionId] = {
-                    metaKeys: section.data.meta_keys || [],
-                    rows: section.data.rows || [],
-                    sortCol: null,
-                    isAsc: false
-                };
-
-                if (section.type === "shot_chart") {
-                    html += `
-                        <div class="shot-chart-container">
-                            <div class="court-wrapper">
-                                <div class="court-title">Efficiency Heat Map</div>
-                                ${createCourtSVG(section.data.rows)}
-                                <div class="court-info-box" id="court-info-box">
-                                    <em>Hover over any court zone to inspect shot volume and efficiency.</em>
-                                </div>
-                            </div>
-                            <div id="${sectionId}_box">
-                                ${buildTableHTML(sectionId)}
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    html += `<div id="${sectionId}_box">${buildTableHTML(sectionId)}</div>`;
-                }
-            });
-
-            container.innerHTML = html;
-        }
-
-        function buildTableHTML(sectionId) {
-            const state = tableState[sectionId];
-            if (!state || state.rows.length === 0) return "<p>No data recorded.</p>";
-
-            const sample = state.rows[0];
-            const allKeys = Object.keys(sample);
-            const visibleKeys = allKeys.filter(k => k !== "player_id" && k !== "passer_id" && k !== "finisher_id");
-            const metaCols = state.metaKeys.filter(k => visibleKeys.includes(k));
-            const statCols = visibleKeys.filter(k => !state.metaKeys.includes(k));
-            const orderedCols = [...metaCols, ...statCols];
-
-            let html = `<table><thead><tr>`;
-            orderedCols.forEach(col => {
-                const isMeta = metaCols.includes(col);
-                const isNumeric = typeof sample[col] === 'number';
-                let indicator = '';
-
-                if (state.sortCol === col) {
-                    indicator = `<span class="sort-indicator">${state.isAsc ? '▲' : '▼'}</span>`;
-                }
-
-                const colUpper = col.toUpperCase();
-                const tip = STAT_GLOSSARY[colUpper] || "";
-                const tipAttr = tip ? `title="${tip}" class="${isNumeric && !isMeta ? 'num' : ''} has-tip"` : `class="${isNumeric && !isMeta ? 'num' : ''}"`;
-
-                html += `<th ${tipAttr} onclick="handleSort('${sectionId}', '${col}')">
-                    ${col.replace(/_/g, ' ').toUpperCase()} ${indicator}
-                </th>`;
+            let html = `<table class="long-form-table"><thead><tr>`;
+            keys.forEach(k => {
+                const meta = STAT_DEFINITIONS[k.toLowerCase()];
+                const tip = meta ? meta.tooltip : "";
+                const tipAttr = tip ? `class="has-tip" title="${tip}"` : '';
+                html += `<th ${tipAttr}>${k.replace(/_/g, ' ').toUpperCase()}</th>`;
             });
             html += `</tr></thead><tbody>`;
 
-            state.rows.forEach(row => {
+            rows.forEach(r => {
                 html += `<tr>`;
-                orderedCols.forEach(col => {
-                    const val = row[col];
-                    const isMeta = metaCols.includes(col);
-                    const isNumeric = typeof val === 'number';
-
-                    let cellContent = val !== null ? val : '';
-                    if (isNumeric) {
-                        const c = col.toLowerCase();
-                        if (c === 'ppsa' || c === 'ast_to_ratio' || c.includes('pts_per_ast') || c.includes('xpts') || c === 'paoe' || c === 'points_added_pg') {
-                            cellContent = val.toFixed(2);
-                        } else if (c.includes('pct') || c.includes('_pg') || c === 'smoe' || c === 'mei' || c === 'pace' || c === 'ortg' || c === 'drtg' || c === 'net_rtg' || c.includes('share') || c.includes('rate') || c.includes('avg') || c === 'points_added') {
-                            cellContent = val.toFixed(1);
-                        }
-                    }
-
-                    if (col === 'finisher' && row.finisher_id) {
-                        cellContent = `<a class="table-link" href="player.html?id=${row.finisher_id}">${cellContent}</a>`;
-                    } else if (col === 'passer' && row.passer_id) {
-                        cellContent = `<a class="table-link" href="player.html?id=${row.passer_id}">${cellContent}</a>`;
-                    }
-
-                    html += `<td class="${isNumeric && !isMeta ? 'num' : ''}">${cellContent}</td>`;
+                keys.forEach(k => {
+                    const val = r[k];
+                    const isNum = typeof val === 'number';
+                    let display = val !== null ? val : '';
+                    if (isNum) display = formatDisplayValue(val, k);
+                    html += `<td class="${isNum ? 'num' : ''}">${display}</td>`;
                 });
                 html += `</tr>`;
             });
 
             html += `</tbody></table>`;
             return html;
-        }
-
-        function handleSort(sectionId, col) {
-            const state = tableState[sectionId];
-            if (!state || state.rows.length === 0) return;
-
-            if (state.sortCol === col) {
-                state.isAsc = !state.isAsc;
-            } else {
-                state.sortCol = col;
-                const isNumeric = typeof state.rows[0][col] === 'number';
-                state.isAsc = !isNumeric;
-            }
-
-            state.rows.sort((a, b) => {
-                let valA = a[col];
-                let valB = b[col];
-                if (valA === null || valA === undefined) return 1;
-                if (valB === null || valB === undefined) return -1;
-
-                if (typeof valA === 'number' && typeof valB === 'number') {
-                    return state.isAsc ? valA - valB : valB - valA;
-                }
-                valA = valA.toString().toLowerCase();
-                valB = valB.toString().toLowerCase();
-                if (valA < valB) return state.isAsc ? -1 : 1;
-                if (valA > valB) return state.isAsc ? 1 : -1;
-                return 0;
-            });
-
-            document.getElementById(`${sectionId}_box`).innerHTML = buildTableHTML(sectionId);
         }
     </script>
 </body>

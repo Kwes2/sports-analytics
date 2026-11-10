@@ -1,8 +1,3 @@
-import math
-
-ZONES = ["0-4 ft", "4-14 ft", "14+ ft"]
-
-
 def parse_int(val):
     try:
         return int(float(val))
@@ -17,16 +12,6 @@ def parse_split(val_str):
         parts = str(val_str).split("-")
         return parse_int(parts[0]), parse_int(parts[1]) if len(parts) > 1 else 0
     return parse_int(val_str), 0
-
-
-def classify_shot_distance(x, y):
-    dist = math.sqrt((float(x) - 25.0) ** 2 + (float(y) - 5.25) ** 2)
-    if dist <= 4.0:
-        return "0-4 ft"
-    elif dist <= 14.0:
-        return "4-14 ft"
-    else:
-        return "14+ ft"
 
 
 def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score, away_score, date_str, position_map):
@@ -93,6 +78,7 @@ def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score,
 
                 player_name = ath.get("displayName", "Unknown")
                 pos_str = position_map.get(str(aid), ath.get("position", {}).get("abbreviation", "-"))
+
                 is_starter = (item_idx < 5)
 
                 gmsc = round(
@@ -190,10 +176,6 @@ def process_boxscore_players(game_players, home_abbrev, away_abbrev, home_score,
 
 
 def extract_detailed_assists_from_plays(plays):
-    """
-    Extracts all assisted field goals from plays with exact coordinates and shot values.
-    Returns: List of assisted shot events.
-    """
     events = []
 
     for play in plays:
@@ -213,6 +195,8 @@ def extract_detailed_assists_from_plays(plays):
 
                     coord = play.get("coordinate")
                     if coord and "x" in coord and "y" in coord:
+                        # Late import to prevent circular dependency if shots.py relies on stats.py
+                        from shots import classify_shot_distance 
                         zone = classify_shot_distance(coord["x"], coord["y"])
                     else:
                         zone = "14+ ft" if is_three else "0-4 ft"
@@ -229,10 +213,6 @@ def extract_detailed_assists_from_plays(plays):
 
 
 def compute_assist_connection_metrics(assisted_events, league_zone_avg_fg, active_players):
-    """
-    Computes Points Created, xPts/Ast, Finisher xPts/Ast, PAOE, and zone breakdowns
-    for a list of assisted events between a specific duo.
-    """
     total_ast = len(assisted_events)
     if total_ast == 0:
         return {}
@@ -245,7 +225,6 @@ def compute_assist_connection_metrics(assisted_events, league_zone_avg_fg, activ
     rim_ast = sum(1 for e in assisted_events if e["zone"] == "0-4 ft")
     mid_ast = sum(1 for e in assisted_events if e["zone"] == "4-14 ft")
 
-    # League Expected Points (based on zone league-averages)
     tot_xpts_lg = 0.0
     for e in assisted_events:
         lg_pct = league_zone_avg_fg.get(e["zone"], 50.0) / 100.0
@@ -253,7 +232,6 @@ def compute_assist_connection_metrics(assisted_events, league_zone_avg_fg, activ
 
     xpts_per_ast = round(tot_xpts_lg / total_ast, 2)
 
-    # Finisher Expected Points (based on finisher's personal zone shooting %)
     scorer_id = assisted_events[0]["scorer_id"]
     finisher_data = active_players.get(scorer_id, {})
     finisher_zones = finisher_data.get("zone_shots", {})
@@ -269,7 +247,6 @@ def compute_assist_connection_metrics(assisted_events, league_zone_avg_fg, activ
 
     finisher_xpts_per_ast = round(tot_xpts_finisher / total_ast, 2)
 
-    # Points Per Assist Over Expected (PAOE) vs League Baseline
     paoe = round(pts_per_ast - xpts_per_ast, 2)
     points_added = round(pts_created - tot_xpts_lg, 1)
 
@@ -305,6 +282,7 @@ def compute_player_advanced_metrics(p):
     dreb = p.get("tot_dreb", 0)
     pf = p.get("tot_pf", 0)
     tot_min = p["tot_min"]
+    reb = oreb + dreb
 
     ts_pct = round(pts / (2 * (fga + 0.44 * fta)) * 100, 1) if (fga + 0.44 * fta) > 0 else 0.0
     efg_pct = round((fgm + 0.5 * fg3m) / fga * 100, 1) if fga > 0 else 0.0
@@ -321,6 +299,27 @@ def compute_player_advanced_metrics(p):
     used_plays = fga + 0.44 * fta + to
     usg_pct = round((used_plays / (tot_min * 2.0)) * 100.0, 1) if tot_min > 0 else 0.0
 
+    # 1. Player Efficiency Rating (PER) Approximation
+    if tot_min > 0:
+        raw_per = (pts + reb + ast + stl + blk - (fga - fgm) - (fta - ftm) - to) / tot_min
+        per = round(raw_per * 33.0, 1)  # Scaled roughly to league average of 15.0
+    else:
+        per = 0.0
+
+    # 2. Box Plus-Minus (BPM 2.0 Approximation)
+    pts_pg = pts / gp if gp > 0 else 0
+    reb_pg = reb / gp if gp > 0 else 0
+    ast_pg = ast / gp if gp > 0 else 0
+    stl_pg = stl / gp if gp > 0 else 0
+    blk_pg = blk / gp if gp > 0 else 0
+    to_pg = to / gp if gp > 0 else 0
+    fga_pg = fga / gp if gp > 0 else 0
+
+    bpm = round(0.12 * pts_pg + 0.15 * reb_pg + 0.18 * ast_pg + 0.7 * stl_pg + 0.5 * blk_pg - 0.25 * to_pg - 0.1 * fga_pg - 2.5, 1)
+
+    # 3. Value Over Replacement Player (VORP)
+    vorp = round((bpm + 2.0) * (tot_min / 3936.0) * 82.0, 2)
+
     return {
         "gp": gp,
         "ts_pct": ts_pct,
@@ -332,7 +331,10 @@ def compute_player_advanced_metrics(p):
         "ft_rate": ft_rate,
         "ppsa": ppsa,
         "gmsc_avg": gmsc_avg,
-        "stocks_pg": stocks_pg
+        "stocks_pg": stocks_pg,
+        "per": per,
+        "bpm": bpm,
+        "vorp": vorp
     }
 
 
@@ -527,3 +529,44 @@ def compute_team_situational_splits(team_name, completed_games):
         })
 
     return rows
+
+
+def compute_on_off_metrics(player_on_court, team_totals):
+    """Computes Team Ratings when Player is ON vs OFF the court, and the Differentials."""
+    on_poss = player_on_court.get("poss", 0.0)
+    on_pf = player_on_court.get("pts_for", 0)
+    on_pa = player_on_court.get("pts_against", 0)
+
+    t_poss = team_totals.get("poss", 0.0)
+    t_pf = team_totals.get("pts_for", 0)
+    t_pa = team_totals.get("pts_against", 0)
+
+    off_poss = t_poss - on_poss
+    off_pf = t_pf - on_pf
+    off_pa = t_pa - on_pa
+
+    if on_poss > 0:
+        on_ortg = (on_pf / on_poss) * 100.0
+        on_drtg = (on_pa / on_poss) * 100.0
+        on_net = on_ortg - on_drtg
+    else:
+        on_ortg, on_drtg, on_net = 0.0, 0.0, 0.0
+
+    if off_poss > 0:
+        off_ortg = (off_pf / off_poss) * 100.0
+        off_drtg = (off_pa / off_poss) * 100.0
+        off_net = off_ortg - off_drtg
+    else:
+        off_ortg, off_drtg, off_net = 0.0, 0.0, 0.0
+
+    return {
+        "on_ortg": round(on_ortg, 1),
+        "on_drtg": round(on_drtg, 1),
+        "on_net_rtg": round(on_net, 1),
+        "off_ortg": round(off_ortg, 1),
+        "off_drtg": round(off_drtg, 1),
+        "off_net_rtg": round(off_net, 1),
+        "off_on_off": round(on_ortg - off_ortg, 1),
+        "def_on_off": round(on_drtg - off_drtg, 1),
+        "net_on_off": round(on_net - off_net, 1)
+    }

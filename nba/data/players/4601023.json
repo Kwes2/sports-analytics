@@ -6,157 +6,801 @@
   "position": "F",
   "sections": [
     {
-      "type": "table",
-      "title": "Season Averages & Output",
+      "type": "long_form_stats",
+      "title": "Basic Statistics",
+      "category": "Basic",
       "data": {
         "meta_keys": [
-          "gp",
-          "gs"
+          "stat_name"
         ],
         "rows": [
           {
-            "gp": 87,
-            "gs": 25,
-            "min_pg": 22.0,
-            "pts_pg": 6.5,
-            "reb_pg": 5.1,
-            "ast_pg": 2.3,
-            "stl_pg": 0.8,
-            "blk_pg": 0.7,
-            "to_pg": 1.3,
-            "pf_pg": 2.7,
-            "plus_minus_pg": 1.7,
-            "fgm_pg": 2.9,
-            "fga_pg": 4.5,
-            "fg_pct": 65.4,
-            "fg3m_pg": 0.0,
-            "fg3a_pg": 0.0,
-            "fg3_pct": 0.0,
-            "ftm_pg": 0.6,
-            "fta_pg": 1.4,
-            "ft_pct": 44.4,
-            "oreb_pg": 1.7,
-            "dreb_pg": 3.4,
-            "prf_pg": 12.2,
-            "pct_team_prf": 10.7
-          }
-        ]
-      }
-    },
-    {
-      "type": "table",
-      "title": "Advanced Statistics & Influence",
-      "data": {
-        "meta_keys": [
-          "gp"
-        ],
-        "rows": [
-          {
-            "gp": 87,
-            "ts_pct": 63.5,
-            "efg_pct": 65.4,
-            "usg_pct": 14.5,
-            "tov_pct": 19.9,
-            "ast_to_ratio": 1.83,
-            "three_par": 0.3,
-            "ft_rate": 32.3,
-            "ppsa": 1.45,
-            "gmsc_avg": 7.1,
-            "stocks_pg": 1.6,
-            "xefg_pct": 59.2,
-            "smoe": 1.1,
-            "mei": 41.9,
-            "teammate_off_impact": 1.72,
-            "teammate_def_impact": 1.33,
-            "teammate_overall_impact": 3.05,
-            "opponent_off_impact": 2.96,
-            "opponent_def_impact": 2.39,
-            "opponent_overall_impact": 5.35,
-            "overall_impact": 4.2
-          }
-        ]
-      }
-    },
-    {
-      "type": "table",
-      "title": "Playmaking & Passing Quality Profile",
-      "data": {
-        "meta_keys": [
-          "ast_recorded"
-        ],
-        "rows": [
-          {
-            "ast_recorded": 203,
-            "pts_created_pg": 5.7,
-            "pts_per_ast": 2.46,
-            "xpts_per_ast": 1.3,
-            "paoe": 1.16,
-            "points_added_pg": 2.7,
-            "rim_ast_pct": 13.8,
-            "three_ast_pct": 45.8
-          }
-        ]
-      }
-    },
-    {
-      "type": "table",
-      "title": "Percentile Ranks (0\u2013100)",
-      "data": {
-        "meta_keys": [
-          "scope"
-        ],
-        "rows": [
-          {
-            "scope": "League Percentile",
-            "min_pg": 60.7,
-            "pts_pg": 44.3,
-            "reb_pg": 79.3,
-            "ast_pg": 67.0,
-            "stl_pg": 65.4,
-            "blk_pg": 83.4,
-            "to_pg": 67.2,
-            "fg_pct": 95.6,
-            "ts_pct": 84.9,
-            "efg_pct": 92.6,
-            "xefg_pct": 73.5,
-            "smoe": 65.2,
-            "mei": 5.9,
-            "usg_pct": 12.7,
-            "gmsc_avg": 57.8,
-            "xpts_per_ast": 67.8,
-            "paoe": 75.9,
-            "pts_created_pg": 69.3,
-            "prf_pg": 53.8,
-            "pct_team_prf": 52.9,
-            "overall_impact": 82.2,
-            "teammate_overall_impact": 77.6,
-            "opponent_overall_impact": 79.9
+            "stat_key": "gp",
+            "stat_name": "Games Played",
+            "value": 88,
+            "tooltip": "Total games played in the selected time period",
+            "league_rank": 23,
+            "league_percentile": 96.0,
+            "pos_rank": 7,
+            "pos_percentile": 96.6
           },
           {
-            "scope": "Position Percentile (F)",
-            "min_pg": 61.8,
-            "pts_pg": 47.6,
-            "reb_pg": 74.1,
-            "ast_pg": 78.5,
-            "stl_pg": 69.5,
-            "blk_pg": 83.7,
-            "to_pg": 74.3,
-            "fg_pct": 95.8,
-            "ts_pct": 83.9,
-            "efg_pct": 91.8,
-            "xefg_pct": 74.1,
-            "smoe": 63.5,
-            "mei": 6.4,
-            "usg_pct": 14.7,
-            "gmsc_avg": 61.4,
-            "xpts_per_ast": 66.3,
-            "paoe": 72.3,
-            "pts_created_pg": 81.1,
-            "prf_pg": 59.6,
-            "pct_team_prf": 59.6,
-            "overall_impact": 81.3,
-            "teammate_overall_impact": 76.5,
-            "opponent_overall_impact": 78.9
+            "stat_key": "gs",
+            "stat_name": "Games Started",
+            "value": 26,
+            "tooltip": "Total games started in the selected time period",
+            "league_rank": 188,
+            "league_percentile": 70.5,
+            "pos_rank": 75,
+            "pos_percentile": 70.1
+          },
+          {
+            "stat_key": "min_pg",
+            "stat_name": "Minutes Per Game",
+            "value": 22.0,
+            "tooltip": "Average minutes played per contest",
+            "league_rank": 250,
+            "league_percentile": 60.9,
+            "pos_rank": 94,
+            "pos_percentile": 62.2
+          },
+          {
+            "stat_key": "pts_pg",
+            "stat_name": "Points Per Game",
+            "value": 6.5,
+            "tooltip": "Average points scored per game",
+            "league_rank": 357,
+            "league_percentile": 44.5,
+            "pos_rank": 130,
+            "pos_percentile": 48.0
+          },
+          {
+            "stat_key": "reb_pg",
+            "stat_name": "Rebounds Per Game",
+            "value": 5.1,
+            "tooltip": "Total rebounds (offensive + defensive) per game",
+            "league_rank": 131,
+            "league_percentile": 79.3,
+            "pos_rank": 64,
+            "pos_percentile": 73.9
+          },
+          {
+            "stat_key": "ast_pg",
+            "stat_name": "Assists Per Game",
+            "value": 2.3,
+            "tooltip": "Average assists credited per game",
+            "league_rank": 204,
+            "league_percentile": 67.5,
+            "pos_rank": 50,
+            "pos_percentile": 79.3
+          },
+          {
+            "stat_key": "stl_pg",
+            "stat_name": "Steals Per Game",
+            "value": 0.8,
+            "tooltip": "Average steals credited per game",
+            "league_rank": 194,
+            "league_percentile": 65.6,
+            "pos_rank": 63,
+            "pos_percentile": 69.9
+          },
+          {
+            "stat_key": "blk_pg",
+            "stat_name": "Blocks Per Game",
+            "value": 0.7,
+            "tooltip": "Average shots blocked per game",
+            "league_rank": 99,
+            "league_percentile": 82.8,
+            "pos_rank": 37,
+            "pos_percentile": 82.7
+          },
+          {
+            "stat_key": "to_pg",
+            "stat_name": "Turnovers Per Game",
+            "value": 1.3,
+            "tooltip": "Average turnovers committed per game",
+            "league_rank": 423,
+            "league_percentile": 32.6,
+            "pos_rank": 181,
+            "pos_percentile": 25.5
+          },
+          {
+            "stat_key": "pf_pg",
+            "stat_name": "Personal Fouls Per Game",
+            "value": 2.7,
+            "tooltip": "Average personal fouls committed per game",
+            "league_rank": 578,
+            "league_percentile": 8.9,
+            "pos_rank": 224,
+            "pos_percentile": 8.4
+          },
+          {
+            "stat_key": "plus_minus_pg",
+            "stat_name": "Plus-Minus Per Game",
+            "value": 1.6,
+            "tooltip": "Average point differential while the player was on court",
+            "league_rank": 151,
+            "league_percentile": 76.2,
+            "pos_rank": 54,
+            "pos_percentile": 77.9
+          },
+          {
+            "stat_key": "fgm_pg",
+            "stat_name": "Field Goals Made Per Game",
+            "value": 2.9,
+            "tooltip": "Average field goals made per game",
+            "league_rank": 301,
+            "league_percentile": 52.7,
+            "pos_rank": 109,
+            "pos_percentile": 55.4
+          },
+          {
+            "stat_key": "fga_pg",
+            "stat_name": "Field Goal Attempts Per Game",
+            "value": 4.5,
+            "tooltip": "Average field goals attempted per game",
+            "league_rank": 393,
+            "league_percentile": 38.0,
+            "pos_rank": 138,
+            "pos_percentile": 43.6
+          },
+          {
+            "stat_key": "fg_pct",
+            "stat_name": "Field Goal %",
+            "value": 65.4,
+            "tooltip": "Percentage of field goals made (FGM / FGA)",
+            "league_rank": 26,
+            "league_percentile": 96.0,
+            "pos_rank": 9,
+            "pos_percentile": 96.6
+          },
+          {
+            "stat_key": "fg3m_pg",
+            "stat_name": "3-Pointers Made Per Game",
+            "value": 0.0,
+            "tooltip": "Average 3-point field goals made per game",
+            "league_rank": 541,
+            "league_percentile": 8.1,
+            "pos_rank": 213,
+            "pos_percentile": 7.4
+          },
+          {
+            "stat_key": "fg3a_pg",
+            "stat_name": "3-Point Attempts Per Game",
+            "value": 0.0,
+            "tooltip": "Average 3-point field goals attempted per game",
+            "league_rank": 592,
+            "league_percentile": 4.1,
+            "pos_rank": 231,
+            "pos_percentile": 3.8
+          },
+          {
+            "stat_key": "fg3_pct",
+            "stat_name": "3-Point %",
+            "value": 0.0,
+            "tooltip": "Percentage of 3-point attempts made (3PM / 3PA)",
+            "league_rank": 562,
+            "league_percentile": 6.4,
+            "pos_rank": 221,
+            "pos_percentile": 5.8
+          },
+          {
+            "stat_key": "ftm_pg",
+            "stat_name": "Free Throws Made Per Game",
+            "value": 0.6,
+            "tooltip": "Average free throws made per game",
+            "league_rank": 416,
+            "league_percentile": 32.8,
+            "pos_rank": 158,
+            "pos_percentile": 35.7
+          },
+          {
+            "stat_key": "fta_pg",
+            "stat_name": "Free Throw Attempts Per Game",
+            "value": 1.4,
+            "tooltip": "Average free throws attempted per game",
+            "league_rank": 292,
+            "league_percentile": 53.6,
+            "pos_rank": 110,
+            "pos_percentile": 54.6
+          },
+          {
+            "stat_key": "ft_pct",
+            "stat_name": "Free Throw %",
+            "value": 44.4,
+            "tooltip": "Percentage of free throw attempts made (FTM / FTA)",
+            "league_rank": 596,
+            "league_percentile": 7.5,
+            "pos_rank": 225,
+            "pos_percentile": 9.6
+          },
+          {
+            "stat_key": "oreb_pg",
+            "stat_name": "Offensive Rebounds Per Game",
+            "value": 1.7,
+            "tooltip": "Average offensive rebounds secured per game",
+            "league_rank": 87,
+            "league_percentile": 86.0,
+            "pos_rank": 31,
+            "pos_percentile": 86.9
+          },
+          {
+            "stat_key": "dreb_pg",
+            "stat_name": "Defensive Rebounds Per Game",
+            "value": 3.4,
+            "tooltip": "Average defensive rebounds secured per game",
+            "league_rank": 155,
+            "league_percentile": 75.3,
+            "pos_rank": 75,
+            "pos_percentile": 69.3
+          },
+          {
+            "stat_key": "stocks_pg",
+            "stat_name": "Stocks Per Game",
+            "value": 1.5,
+            "tooltip": "Combined steals + blocks per game",
+            "league_rank": 135,
+            "league_percentile": 76.6,
+            "pos_rank": 47,
+            "pos_percentile": 79.3
+          }
+        ]
+      }
+    },
+    {
+      "type": "long_form_stats",
+      "title": "Advanced Statistics",
+      "category": "Advanced",
+      "data": {
+        "meta_keys": [
+          "stat_name"
+        ],
+        "rows": [
+          {
+            "stat_key": "ts_pct",
+            "stat_name": "True Shooting %",
+            "value": 63.6,
+            "tooltip": "Scoring efficiency measure taking 2s, 3s, and FTs into account: PTS / (2 * (FGA + 0.44 * FTA))",
+            "league_rank": 93,
+            "league_percentile": 85.5,
+            "pos_rank": 38,
+            "pos_percentile": 84.9
+          },
+          {
+            "stat_key": "efg_pct",
+            "stat_name": "Effective Field Goal %",
+            "value": 65.4,
+            "tooltip": "Field goal percentage adjusted for the extra point value of 3-pointers: (FGM + 0.5 * 3PM) / FGA",
+            "league_rank": 46,
+            "league_percentile": 92.9,
+            "pos_rank": 21,
+            "pos_percentile": 91.8
+          },
+          {
+            "stat_key": "usg_pct",
+            "stat_name": "Usage Rate %",
+            "value": 14.5,
+            "tooltip": "Estimate of the percentage of team plays used by a player while on the floor",
+            "league_rank": 562,
+            "league_percentile": 12.7,
+            "pos_rank": 213,
+            "pos_percentile": 14.7
+          },
+          {
+            "stat_key": "tov_pct",
+            "stat_name": "Turnover Rate %",
+            "value": 20.3,
+            "tooltip": "Turnovers committed per 100 individual offensive plays used",
+            "league_rank": 596,
+            "league_percentile": 7.5,
+            "pos_rank": 235,
+            "pos_percentile": 5.8
+          },
+          {
+            "stat_key": "ast_to_ratio",
+            "stat_name": "Assist-to-Turnover Ratio",
+            "value": 1.81,
+            "tooltip": "Ratio of assists credited to turnovers committed",
+            "league_rank": 284,
+            "league_percentile": 55.7,
+            "pos_rank": 81,
+            "pos_percentile": 67.5
+          },
+          {
+            "stat_key": "three_par",
+            "stat_name": "3-Point Attempt Rate",
+            "value": 0.3,
+            "tooltip": "Percentage of total field goal attempts that are 3-pointers",
+            "league_rank": 596,
+            "league_percentile": 7.4,
+            "pos_rank": 233,
+            "pos_percentile": 6.4
+          },
+          {
+            "stat_key": "ft_rate",
+            "stat_name": "Free Throw Rate",
+            "value": 32.1,
+            "tooltip": "Ratio of free throw attempts to field goal attempts (FTA / FGA)",
+            "league_rank": 179,
+            "league_percentile": 72.3,
+            "pos_rank": 72,
+            "pos_percentile": 71.3
+          },
+          {
+            "stat_key": "ppsa",
+            "stat_name": "Points Per Shot Attempt",
+            "value": 1.45,
+            "tooltip": "Scoring output generated per field goal attempted (PTS / FGA)",
+            "league_rank": 99,
+            "league_percentile": 84.0,
+            "pos_rank": 40,
+            "pos_percentile": 83.5
+          },
+          {
+            "stat_key": "gmsc_avg",
+            "stat_name": "Average Game Score",
+            "value": 7.0,
+            "tooltip": "John Hollinger's single-game overall box score efficiency rating",
+            "league_rank": 275,
+            "league_percentile": 57.1,
+            "pos_rank": 96,
+            "pos_percentile": 61.4
+          },
+          {
+            "stat_key": "per",
+            "stat_name": "Player Efficiency Rating (PER)",
+            "value": 17.7,
+            "tooltip": "Per-minute statistical production rating scaled to a league average of 15.0",
+            "league_rank": 245,
+            "league_percentile": 62.0,
+            "pos_rank": 99,
+            "pos_percentile": 60.2
+          },
+          {
+            "stat_key": "bpm",
+            "stat_name": "Box Plus-Minus (BPM 2.0)",
+            "value": -0.4,
+            "tooltip": "Net points contributed per 100 possessions above a league-average player (+0.0 is league average)",
+            "league_rank": 192,
+            "league_percentile": 69.0,
+            "pos_rank": 67,
+            "pos_percentile": 71.9
+          },
+          {
+            "stat_key": "vorp",
+            "stat_name": "Value Over Replacement Player (VORP)",
+            "value": 64.67,
+            "tooltip": "Estimated cumulative points contributed above a replacement level player (-2.0 BPM)",
+            "league_rank": 138,
+            "league_percentile": 78.6,
+            "pos_rank": 50,
+            "pos_percentile": 79.9
+          }
+        ]
+      }
+    },
+    {
+      "type": "long_form_stats",
+      "title": "Shooting Statistics",
+      "category": "Shooting",
+      "data": {
+        "meta_keys": [
+          "stat_name"
+        ],
+        "rows": [
+          {
+            "stat_key": "xefg_pct",
+            "stat_name": "Expected eFG %",
+            "value": 59.2,
+            "tooltip": "Expected effective FG% based purely on the league-wide difficulty of locations taken",
+            "league_rank": 153,
+            "league_percentile": 74.6,
+            "pos_rank": 59,
+            "pos_percentile": 75.3
+          },
+          {
+            "stat_key": "smoe",
+            "stat_name": "Shot-Making Over Expected (SMOE)",
+            "value": 1.1,
+            "tooltip": "Actual eFG% minus Expected eFG%. Measures finishing ability independent of shot diet",
+            "league_rank": 222,
+            "league_percentile": 65.2,
+            "pos_rank": 89,
+            "pos_percentile": 64.1
+          },
+          {
+            "stat_key": "mei",
+            "stat_name": "Moreyball Efficiency Index",
+            "value": 41.8,
+            "tooltip": "Percentage of shot possessions ending in high-efficiency areas (Rim, 3PT, or Free Throw line)",
+            "league_rank": 608,
+            "league_percentile": 5.6,
+            "pos_rank": 235,
+            "pos_percentile": 5.8
+          },
+          {
+            "stat_key": "rim_fga_pg",
+            "stat_name": "Rim Attempts Per Game",
+            "value": 1.5,
+            "tooltip": "Attempts per game within 4 feet of the rim",
+            "league_rank": 1,
+            "league_percentile": 100.0,
+            "pos_rank": 1,
+            "pos_percentile": 100.0
+          },
+          {
+            "stat_key": "rim_fg_pct",
+            "stat_name": "Rim FG % (0-4 ft)",
+            "value": 64.9,
+            "tooltip": "Field goal percentage on attempts within 4 feet of the basket",
+            "league_rank": 1,
+            "league_percentile": 100.0,
+            "pos_rank": 1,
+            "pos_percentile": 100.0
+          },
+          {
+            "stat_key": "rim_share",
+            "stat_name": "Rim Attempt Share %",
+            "value": 25.2,
+            "tooltip": "Percentage of player's total shots taken within 4 feet of the rim",
+            "league_rank": 1,
+            "league_percentile": 100.0,
+            "pos_rank": 1,
+            "pos_percentile": 100.0
+          },
+          {
+            "stat_key": "mid_fga_pg",
+            "stat_name": "Mid-Range Attempts Per Game",
+            "value": 3.0,
+            "tooltip": "Attempts per game between 4 and 14 feet",
+            "league_rank": 1,
+            "league_percentile": 100.0,
+            "pos_rank": 1,
+            "pos_percentile": 100.0
+          },
+          {
+            "stat_key": "mid_fg_pct",
+            "stat_name": "Mid-Range FG % (4-14 ft)",
+            "value": 66.2,
+            "tooltip": "Field goal percentage on attempts between 4 and 14 feet",
+            "league_rank": 1,
+            "league_percentile": 100.0,
+            "pos_rank": 1,
+            "pos_percentile": 100.0
+          },
+          {
+            "stat_key": "mid_share",
+            "stat_name": "Mid-Range Attempt Share %",
+            "value": 50.1,
+            "tooltip": "Percentage of player's total shots taken between 4 and 14 feet",
+            "league_rank": 1,
+            "league_percentile": 100.0,
+            "pos_rank": 1,
+            "pos_percentile": 100.0
+          },
+          {
+            "stat_key": "three_fga_pg",
+            "stat_name": "Perimeter Attempts Per Game",
+            "value": 1.5,
+            "tooltip": "Attempts per game from 14+ feet and 3PT range",
+            "league_rank": 1,
+            "league_percentile": 100.0,
+            "pos_rank": 1,
+            "pos_percentile": 100.0
+          },
+          {
+            "stat_key": "three_fg_pct",
+            "stat_name": "Perimeter / 3PT FG % (14+ ft)",
+            "value": 43.8,
+            "tooltip": "Field goal percentage on long-range attempts (14+ feet and 3PT)",
+            "league_rank": 1,
+            "league_percentile": 100.0,
+            "pos_rank": 1,
+            "pos_percentile": 100.0
+          },
+          {
+            "stat_key": "three_share",
+            "stat_name": "Perimeter Attempt Share %",
+            "value": 24.7,
+            "tooltip": "Percentage of player's total shots taken from 14+ feet and 3PT range",
+            "league_rank": 1,
+            "league_percentile": 100.0,
+            "pos_rank": 1,
+            "pos_percentile": 100.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "long_form_stats",
+      "title": "Passing Statistics",
+      "category": "Passing",
+      "data": {
+        "meta_keys": [
+          "stat_name"
+        ],
+        "rows": [
+          {
+            "stat_key": "pts_created_pg",
+            "stat_name": "Points Created Per Game",
+            "value": 5.8,
+            "tooltip": "Points scored by teammates directly off this player's assists per game",
+            "league_rank": 192,
+            "league_percentile": 69.8,
+            "pos_rank": 43,
+            "pos_percentile": 82.1
+          },
+          {
+            "stat_key": "pts_per_ast",
+            "stat_name": "Points Per Assist",
+            "value": 2.46,
+            "tooltip": "Average points scored per credited assist",
+            "league_rank": 173,
+            "league_percentile": 72.2,
+            "pos_rank": 74,
+            "pos_percentile": 69.3
+          },
+          {
+            "stat_key": "xpts_per_ast",
+            "stat_name": "Expected Points Per Assist",
+            "value": 1.3,
+            "tooltip": "Baseline points expected per assist given the shooting zones of targets",
+            "league_rank": 183,
+            "league_percentile": 67.6,
+            "pos_rank": 78,
+            "pos_percentile": 65.7
+          },
+          {
+            "stat_key": "paoe",
+            "stat_name": "Points Per Assist Over Expected (PAOE)",
+            "value": 1.16,
+            "tooltip": "Points per assist minus expected points per assist (shot-creation quality added)",
+            "league_rank": 148,
+            "league_percentile": 75.1,
+            "pos_rank": 67,
+            "pos_percentile": 71.7
+          },
+          {
+            "stat_key": "points_added_pg",
+            "stat_name": "Points Added Per Game",
+            "value": 2.71,
+            "tooltip": "Net points generated per game above the league baseline across all assisted shots",
+            "league_rank": 190,
+            "league_percentile": 70.3,
+            "pos_rank": 44,
+            "pos_percentile": 82.1
+          },
+          {
+            "stat_key": "rim_ast_pct",
+            "stat_name": "Rim Assist Share %",
+            "value": 13.6,
+            "tooltip": "Percentage of player's total assists that set up baskets at the rim (0-4 ft)",
+            "league_rank": 469,
+            "league_percentile": 27.0,
+            "pos_rank": 176,
+            "pos_percentile": 28.9
+          },
+          {
+            "stat_key": "three_ast_pct",
+            "stat_name": "3-Point Assist Share %",
+            "value": 45.6,
+            "tooltip": "Percentage of player's total assists that set up 3-point field goals",
+            "league_rank": 185,
+            "league_percentile": 71.3,
+            "pos_rank": 79,
+            "pos_percentile": 68.3
+          },
+          {
+            "stat_key": "prf_pg",
+            "stat_name": "Points Responsible For (PRF)",
+            "value": 12.3,
+            "tooltip": "Direct points scored per game plus points created off assists per game",
+            "league_rank": 297,
+            "league_percentile": 54.0,
+            "pos_rank": 100,
+            "pos_percentile": 60.0
+          },
+          {
+            "stat_key": "pct_team_prf",
+            "stat_name": "% of Team Points Accounted For",
+            "value": 10.9,
+            "tooltip": "Share of the team's total game scoring directly created by this player",
+            "league_rank": 294,
+            "league_percentile": 54.0,
+            "pos_rank": 95,
+            "pos_percentile": 61.4
+          }
+        ]
+      }
+    },
+    {
+      "type": "long_form_stats",
+      "title": "Ratings Statistics",
+      "category": "Ratings",
+      "data": {
+        "meta_keys": [
+          "stat_name"
+        ],
+        "rows": [
+          {
+            "stat_key": "on_ortg",
+            "stat_name": "On-Court Offensive Rating",
+            "value": 115.1,
+            "tooltip": "Team points scored per 100 possessions while player is on the court",
+            "league_rank": 169,
+            "league_percentile": 73.7,
+            "pos_rank": 65,
+            "pos_percentile": 73.7
+          },
+          {
+            "stat_key": "on_drtg",
+            "stat_name": "On-Court Defensive Rating",
+            "value": 110.8,
+            "tooltip": "Opponent points scored per 100 possessions while player is on the court",
+            "league_rank": 169,
+            "league_percentile": 73.7,
+            "pos_rank": 64,
+            "pos_percentile": 74.3
+          },
+          {
+            "stat_key": "on_net_rtg",
+            "stat_name": "On-Court Net Rating",
+            "value": 4.3,
+            "tooltip": "Team net rating (ORtg - DRtg) while player is on the court",
+            "league_rank": 151,
+            "league_percentile": 76.3,
+            "pos_rank": 58,
+            "pos_percentile": 76.5
+          },
+          {
+            "stat_key": "off_on_off",
+            "stat_name": "Offensive On/Off Differential",
+            "value": -4.8,
+            "tooltip": "Team offensive rating with player ON court minus team rating with player OFF court",
+            "league_rank": 195,
+            "league_percentile": 69.6,
+            "pos_rank": 76,
+            "pos_percentile": 69.7
+          },
+          {
+            "stat_key": "def_on_off",
+            "stat_name": "Defensive On/Off Differential",
+            "value": -11.1,
+            "tooltip": "Team defensive rating with player ON court minus team rating with player OFF court",
+            "league_rank": 144,
+            "league_percentile": 77.6,
+            "pos_rank": 54,
+            "pos_percentile": 78.3
+          },
+          {
+            "stat_key": "net_on_off",
+            "stat_name": "Net On/Off Differential",
+            "value": 6.4,
+            "tooltip": "Net team rating differential with player ON court minus OFF court",
+            "league_rank": 130,
+            "league_percentile": 79.7,
+            "pos_rank": 54,
+            "pos_percentile": 78.3
+          },
+          {
+            "stat_key": "orapm",
+            "stat_name": "Offensive RAPM",
+            "value": 1.0,
+            "tooltip": "Isolated offensive scoring contribution per 100 possessions above league average",
+            "league_rank": 87,
+            "league_percentile": 86.6,
+            "pos_rank": 30,
+            "pos_percentile": 88.2
+          },
+          {
+            "stat_key": "drapm",
+            "stat_name": "Defensive RAPM",
+            "value": 1.24,
+            "tooltip": "Isolated defensive suppression per 100 possessions (higher = better defense)",
+            "league_rank": 57,
+            "league_percentile": 91.0,
+            "pos_rank": 14,
+            "pos_percentile": 94.4
+          },
+          {
+            "stat_key": "net_rapm",
+            "stat_name": "Net RAPM",
+            "value": 2.24,
+            "tooltip": "Regularized Adjusted Plus-Minus: Isolated net impact per 100 possessions via 10-man ridge regression",
+            "league_rank": 64,
+            "league_percentile": 90.1,
+            "pos_rank": 18,
+            "pos_percentile": 93.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "long_form_stats",
+      "title": "Miscellaneous Statistics",
+      "category": "Miscellaneous",
+      "data": {
+        "meta_keys": [
+          "stat_name"
+        ],
+        "rows": [
+          {
+            "stat_key": "off_ortg",
+            "stat_name": "Off Ortg",
+            "value": 119.9,
+            "tooltip": "Off Ortg statistical metric",
+            "league_rank": "-",
+            "league_percentile": 50.0,
+            "pos_rank": "-",
+            "pos_percentile": 50.0
+          },
+          {
+            "stat_key": "off_drtg",
+            "stat_name": "Off Drtg",
+            "value": 122.0,
+            "tooltip": "Off Drtg statistical metric",
+            "league_rank": "-",
+            "league_percentile": 50.0,
+            "pos_rank": "-",
+            "pos_percentile": 50.0
+          },
+          {
+            "stat_key": "off_net_rtg",
+            "stat_name": "Off Net Rtg",
+            "value": -2.1,
+            "tooltip": "Off Net Rtg statistical metric",
+            "league_rank": "-",
+            "league_percentile": 50.0,
+            "pos_rank": "-",
+            "pos_percentile": 50.0
+          },
+          {
+            "stat_key": "ast_recorded",
+            "stat_name": "Ast Recorded",
+            "value": 206,
+            "tooltip": "Ast Recorded statistical metric",
+            "league_rank": "-",
+            "league_percentile": 50.0,
+            "pos_rank": "-",
+            "pos_percentile": 50.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "shot_chart",
+      "title": "Shooting Splits (Distance Zones)",
+      "data": {
+        "meta_keys": [
+          "zone"
+        ],
+        "rows": [
+          {
+            "zone": "0-4 ft",
+            "fgm": 85,
+            "fga": 131,
+            "fg_pct": 64.9,
+            "shot_share": 25.2,
+            "league_avg_fg": 55.9,
+            "eff_percentile": 83.6
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 172,
+            "fga": 260,
+            "fg_pct": 66.2,
+            "shot_share": 50.1,
+            "league_avg_fg": 56.1,
+            "eff_percentile": 85.0
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 56,
+            "fga": 128,
+            "fg_pct": 43.8,
+            "shot_share": 24.7,
+            "league_avg_fg": 51.3,
+            "eff_percentile": 28.9
           }
         ]
       }
@@ -171,7 +815,7 @@
         "rows": [
           {
             "split": "Overall",
-            "gp": 87,
+            "gp": 88,
             "min_pg": 22.0,
             "pts_pg": 6.5,
             "reb_pg": 5.1,
@@ -179,20 +823,20 @@
             "stl_pg": 0.8,
             "blk_pg": 0.7,
             "to_pg": 1.3,
-            "plus_minus_pg": 1.7,
+            "plus_minus_pg": 1.6,
             "fg_pct": 65.4
           },
           {
             "split": "Home Games",
-            "gp": 44,
+            "gp": 45,
             "min_pg": 21.8,
             "pts_pg": 6.0,
-            "reb_pg": 5.1,
-            "ast_pg": 2.1,
+            "reb_pg": 5.2,
+            "ast_pg": 2.2,
             "stl_pg": 0.9,
             "blk_pg": 0.9,
-            "to_pg": 1.4,
-            "plus_minus_pg": 1.0,
+            "to_pg": 1.5,
+            "plus_minus_pg": 0.8,
             "fg_pct": 67.0
           },
           {
@@ -211,28 +855,28 @@
           {
             "split": "Last 5 Games",
             "gp": 5,
-            "min_pg": 21.4,
-            "pts_pg": 7.0,
-            "reb_pg": 5.2,
+            "min_pg": 23.0,
+            "pts_pg": 6.2,
+            "reb_pg": 5.8,
             "ast_pg": 3.6,
             "stl_pg": 0.0,
             "blk_pg": 1.0,
-            "to_pg": 2.0,
-            "plus_minus_pg": -2.0,
-            "fg_pct": 66.7
+            "to_pg": 2.6,
+            "plus_minus_pg": -2.4,
+            "fg_pct": 70.0
           },
           {
             "split": "In Team Wins",
-            "gp": 46,
+            "gp": 47,
             "min_pg": 21.6,
-            "pts_pg": 6.5,
+            "pts_pg": 6.4,
             "reb_pg": 5.2,
             "ast_pg": 2.2,
             "stl_pg": 0.9,
             "blk_pg": 0.9,
             "to_pg": 1.3,
-            "plus_minus_pg": 8.0,
-            "fg_pct": 71.0
+            "plus_minus_pg": 7.7,
+            "fg_pct": 70.9
           },
           {
             "split": "In Team Losses",
@@ -252,594 +896,6 @@
     },
     {
       "type": "table",
-      "title": "Assists Delivered (Passes FROM this Player)",
-      "data": {
-        "meta_keys": [
-          "finisher"
-        ],
-        "rows": [
-          {
-            "finisher": "Collin Gillespie",
-            "finisher_id": "4278585",
-            "assists": 44,
-            "pts_created": 114,
-            "pts_per_ast": 2.59,
-            "xpts_per_ast": 1.35,
-            "finisher_xpts": 1.16,
-            "paoe": 1.24,
-            "points_added": 54.8,
-            "two_pt_ast": 18,
-            "three_pt_ast": 26,
-            "rim_ast": 3,
-            "mid_ast": 5,
-            "ast_share": 21.7
-          },
-          {
-            "finisher": "Devin Booker",
-            "finisher_id": "3136193",
-            "assists": 31,
-            "pts_created": 67,
-            "pts_per_ast": 2.16,
-            "xpts_per_ast": 1.17,
-            "finisher_xpts": 1.22,
-            "paoe": 0.99,
-            "points_added": 30.6,
-            "two_pt_ast": 26,
-            "three_pt_ast": 5,
-            "rim_ast": 6,
-            "mid_ast": 15,
-            "ast_share": 15.3
-          },
-          {
-            "finisher": "Jalen Green",
-            "finisher_id": "4437244",
-            "assists": 25,
-            "pts_created": 56,
-            "pts_per_ast": 2.24,
-            "xpts_per_ast": 1.21,
-            "finisher_xpts": 1.07,
-            "paoe": 1.03,
-            "points_added": 25.7,
-            "two_pt_ast": 19,
-            "three_pt_ast": 6,
-            "rim_ast": 4,
-            "mid_ast": 12,
-            "ast_share": 12.3
-          },
-          {
-            "finisher": "Grayson Allen",
-            "finisher_id": "3135045",
-            "assists": 21,
-            "pts_created": 59,
-            "pts_per_ast": 2.81,
-            "xpts_per_ast": 1.45,
-            "finisher_xpts": 1.41,
-            "paoe": 1.36,
-            "points_added": 28.4,
-            "two_pt_ast": 4,
-            "three_pt_ast": 17,
-            "rim_ast": 1,
-            "mid_ast": 2,
-            "ast_share": 10.3
-          },
-          {
-            "finisher": "Royce O'Neale",
-            "finisher_id": "2583632",
-            "assists": 15,
-            "pts_created": 44,
-            "pts_per_ast": 2.93,
-            "xpts_per_ast": 1.51,
-            "finisher_xpts": 1.23,
-            "paoe": 1.42,
-            "points_added": 21.3,
-            "two_pt_ast": 1,
-            "three_pt_ast": 14,
-            "rim_ast": 1,
-            "mid_ast": 0,
-            "ast_share": 7.4
-          },
-          {
-            "finisher": "Jordan Goodwin",
-            "finisher_id": "4278402",
-            "assists": 15,
-            "pts_created": 37,
-            "pts_per_ast": 2.47,
-            "xpts_per_ast": 1.3,
-            "finisher_xpts": 1.07,
-            "paoe": 1.17,
-            "points_added": 17.4,
-            "two_pt_ast": 8,
-            "three_pt_ast": 7,
-            "rim_ast": 2,
-            "mid_ast": 4,
-            "ast_share": 7.4
-          },
-          {
-            "finisher": "Ryan Dunn",
-            "finisher_id": "4888725",
-            "assists": 14,
-            "pts_created": 31,
-            "pts_per_ast": 2.21,
-            "xpts_per_ast": 1.21,
-            "finisher_xpts": 1.15,
-            "paoe": 1.0,
-            "points_added": 14.1,
-            "two_pt_ast": 11,
-            "three_pt_ast": 3,
-            "rim_ast": 6,
-            "mid_ast": 5,
-            "ast_share": 6.9
-          },
-          {
-            "finisher": "Rasheer Fleming",
-            "finisher_id": "5105977",
-            "assists": 11,
-            "pts_created": 26,
-            "pts_per_ast": 2.36,
-            "xpts_per_ast": 1.26,
-            "finisher_xpts": 1.04,
-            "paoe": 1.1,
-            "points_added": 12.1,
-            "two_pt_ast": 7,
-            "three_pt_ast": 4,
-            "rim_ast": 3,
-            "mid_ast": 3,
-            "ast_share": 5.4
-          },
-          {
-            "finisher": "Dillon Brooks",
-            "finisher_id": "3155526",
-            "assists": 8,
-            "pts_created": 20,
-            "pts_per_ast": 2.5,
-            "xpts_per_ast": 1.31,
-            "finisher_xpts": 1.27,
-            "paoe": 1.19,
-            "points_added": 9.6,
-            "two_pt_ast": 4,
-            "three_pt_ast": 4,
-            "rim_ast": 1,
-            "mid_ast": 1,
-            "ast_share": 3.9
-          },
-          {
-            "finisher": "Jamaree Bouyea",
-            "finisher_id": "4280245",
-            "assists": 4,
-            "pts_created": 8,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.1,
-            "finisher_xpts": 1.02,
-            "paoe": 0.9,
-            "points_added": 3.6,
-            "two_pt_ast": 4,
-            "three_pt_ast": 0,
-            "rim_ast": 0,
-            "mid_ast": 3,
-            "ast_share": 2.0
-          },
-          {
-            "finisher": "Amir Coffey",
-            "finisher_id": "4066387",
-            "assists": 3,
-            "pts_created": 7,
-            "pts_per_ast": 2.33,
-            "xpts_per_ast": 1.26,
-            "finisher_xpts": 1.32,
-            "paoe": 1.07,
-            "points_added": 3.2,
-            "two_pt_ast": 2,
-            "three_pt_ast": 1,
-            "rim_ast": 0,
-            "mid_ast": 2,
-            "ast_share": 1.5
-          },
-          {
-            "finisher": "Miles Bridges",
-            "finisher_id": "4066383",
-            "assists": 3,
-            "pts_created": 8,
-            "pts_per_ast": 2.67,
-            "xpts_per_ast": 1.4,
-            "finisher_xpts": 1.37,
-            "paoe": 1.27,
-            "points_added": 3.8,
-            "two_pt_ast": 1,
-            "three_pt_ast": 2,
-            "rim_ast": 0,
-            "mid_ast": 1,
-            "ast_share": 1.5
-          },
-          {
-            "finisher": "Haywood Highsmith",
-            "finisher_id": "4291678",
-            "assists": 2,
-            "pts_created": 6,
-            "pts_per_ast": 3.0,
-            "xpts_per_ast": 1.54,
-            "finisher_xpts": 2.0,
-            "paoe": 1.46,
-            "points_added": 2.9,
-            "two_pt_ast": 0,
-            "three_pt_ast": 2,
-            "rim_ast": 0,
-            "mid_ast": 0,
-            "ast_share": 1.0
-          },
-          {
-            "finisher": "Nick Richards",
-            "finisher_id": "4278076",
-            "assists": 2,
-            "pts_created": 4,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.29,
-            "paoe": 0.88,
-            "points_added": 1.8,
-            "two_pt_ast": 2,
-            "three_pt_ast": 0,
-            "rim_ast": 0,
-            "mid_ast": 2,
-            "ast_share": 1.0
-          },
-          {
-            "finisher": "Luke Kennard",
-            "finisher_id": "3913174",
-            "assists": 2,
-            "pts_created": 5,
-            "pts_per_ast": 2.5,
-            "xpts_per_ast": 1.33,
-            "finisher_xpts": 1.51,
-            "paoe": 1.17,
-            "points_added": 2.3,
-            "two_pt_ast": 1,
-            "three_pt_ast": 1,
-            "rim_ast": 0,
-            "mid_ast": 1,
-            "ast_share": 1.0
-          },
-          {
-            "finisher": "Isaiah Livers",
-            "finisher_id": "4277957",
-            "assists": 1,
-            "pts_created": 2,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 0.88,
-            "paoe": 0.88,
-            "points_added": 0.9,
-            "two_pt_ast": 1,
-            "three_pt_ast": 0,
-            "rim_ast": 0,
-            "mid_ast": 1,
-            "ast_share": 0.5
-          },
-          {
-            "finisher": "Koby Brea",
-            "finisher_id": "4591259",
-            "assists": 1,
-            "pts_created": 3,
-            "pts_per_ast": 3.0,
-            "xpts_per_ast": 1.54,
-            "finisher_xpts": 1.36,
-            "paoe": 1.46,
-            "points_added": 1.5,
-            "two_pt_ast": 0,
-            "three_pt_ast": 1,
-            "rim_ast": 0,
-            "mid_ast": 0,
-            "ast_share": 0.5
-          },
-          {
-            "finisher": "CJ Huntley",
-            "finisher_id": "4702602",
-            "assists": 1,
-            "pts_created": 2,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.12,
-            "paoe": 0.88,
-            "points_added": 0.9,
-            "two_pt_ast": 1,
-            "three_pt_ast": 0,
-            "rim_ast": 1,
-            "mid_ast": 0,
-            "ast_share": 0.5
-          }
-        ]
-      }
-    },
-    {
-      "type": "table",
-      "title": "Assists Received (Passes TO this Player)",
-      "data": {
-        "meta_keys": [
-          "passer"
-        ],
-        "rows": [
-          {
-            "passer": "Collin Gillespie",
-            "passer_id": "4278585",
-            "assists": 56,
-            "pts_created": 112,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.31,
-            "paoe": 0.88,
-            "points_added": 49.2,
-            "two_pt_ast": 56,
-            "three_pt_ast": 0,
-            "rim_ast": 21,
-            "mid_ast": 35,
-            "baskets_share": 28.7
-          },
-          {
-            "passer": "Devin Booker",
-            "passer_id": "3136193",
-            "assists": 37,
-            "pts_created": 74,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.32,
-            "paoe": 0.88,
-            "points_added": 32.5,
-            "two_pt_ast": 37,
-            "three_pt_ast": 0,
-            "rim_ast": 10,
-            "mid_ast": 27,
-            "baskets_share": 19.0
-          },
-          {
-            "passer": "Grayson Allen",
-            "passer_id": "3135045",
-            "assists": 23,
-            "pts_created": 46,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.31,
-            "paoe": 0.88,
-            "points_added": 20.2,
-            "two_pt_ast": 23,
-            "three_pt_ast": 0,
-            "rim_ast": 10,
-            "mid_ast": 13,
-            "baskets_share": 11.8
-          },
-          {
-            "passer": "Jordan Goodwin",
-            "passer_id": "4278402",
-            "assists": 21,
-            "pts_created": 42,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.32,
-            "paoe": 0.88,
-            "points_added": 18.4,
-            "two_pt_ast": 21,
-            "three_pt_ast": 0,
-            "rim_ast": 5,
-            "mid_ast": 16,
-            "baskets_share": 10.8
-          },
-          {
-            "passer": "Jalen Green",
-            "passer_id": "4437244",
-            "assists": 20,
-            "pts_created": 40,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.31,
-            "paoe": 0.88,
-            "points_added": 17.6,
-            "two_pt_ast": 20,
-            "three_pt_ast": 0,
-            "rim_ast": 7,
-            "mid_ast": 13,
-            "baskets_share": 10.3
-          },
-          {
-            "passer": "Royce O'Neale",
-            "passer_id": "2583632",
-            "assists": 11,
-            "pts_created": 22,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.31,
-            "paoe": 0.88,
-            "points_added": 9.7,
-            "two_pt_ast": 11,
-            "three_pt_ast": 0,
-            "rim_ast": 5,
-            "mid_ast": 6,
-            "baskets_share": 5.6
-          },
-          {
-            "passer": "Ryan Dunn",
-            "passer_id": "4888725",
-            "assists": 7,
-            "pts_created": 14,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.31,
-            "paoe": 0.88,
-            "points_added": 6.1,
-            "two_pt_ast": 7,
-            "three_pt_ast": 0,
-            "rim_ast": 2,
-            "mid_ast": 5,
-            "baskets_share": 3.6
-          },
-          {
-            "passer": "Dillon Brooks",
-            "passer_id": "3155526",
-            "assists": 6,
-            "pts_created": 12,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.31,
-            "paoe": 0.88,
-            "points_added": 5.3,
-            "two_pt_ast": 6,
-            "three_pt_ast": 0,
-            "rim_ast": 3,
-            "mid_ast": 3,
-            "baskets_share": 3.1
-          },
-          {
-            "passer": "Jamaree Bouyea",
-            "passer_id": "4280245",
-            "assists": 6,
-            "pts_created": 12,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.32,
-            "paoe": 0.88,
-            "points_added": 5.3,
-            "two_pt_ast": 6,
-            "three_pt_ast": 0,
-            "rim_ast": 1,
-            "mid_ast": 5,
-            "baskets_share": 3.1
-          },
-          {
-            "passer": "Isaiah Livers",
-            "passer_id": "4277957",
-            "assists": 2,
-            "pts_created": 4,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.31,
-            "paoe": 0.88,
-            "points_added": 1.8,
-            "two_pt_ast": 2,
-            "three_pt_ast": 0,
-            "rim_ast": 1,
-            "mid_ast": 1,
-            "baskets_share": 1.0
-          },
-          {
-            "passer": "Miles Bridges",
-            "passer_id": "4066383",
-            "assists": 2,
-            "pts_created": 4,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.31,
-            "paoe": 0.88,
-            "points_added": 1.8,
-            "two_pt_ast": 2,
-            "three_pt_ast": 0,
-            "rim_ast": 1,
-            "mid_ast": 1,
-            "baskets_share": 1.0
-          },
-          {
-            "passer": "Nigel Hayes-Davis",
-            "passer_id": "3059409",
-            "assists": 1,
-            "pts_created": 2,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.31,
-            "paoe": 0.88,
-            "points_added": 0.9,
-            "two_pt_ast": 1,
-            "three_pt_ast": 0,
-            "rim_ast": 1,
-            "mid_ast": 0,
-            "baskets_share": 0.5
-          },
-          {
-            "passer": "Rasheer Fleming",
-            "passer_id": "5105977",
-            "assists": 1,
-            "pts_created": 2,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.31,
-            "paoe": 0.88,
-            "points_added": 0.9,
-            "two_pt_ast": 1,
-            "three_pt_ast": 0,
-            "rim_ast": 1,
-            "mid_ast": 0,
-            "baskets_share": 0.5
-          },
-          {
-            "passer": "Haywood Highsmith",
-            "passer_id": "4291678",
-            "assists": 1,
-            "pts_created": 2,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.31,
-            "paoe": 0.88,
-            "points_added": 0.9,
-            "two_pt_ast": 1,
-            "three_pt_ast": 0,
-            "rim_ast": 1,
-            "mid_ast": 0,
-            "baskets_share": 0.5
-          },
-          {
-            "passer": "Luke Kennard",
-            "passer_id": "3913174",
-            "assists": 1,
-            "pts_created": 2,
-            "pts_per_ast": 2.0,
-            "xpts_per_ast": 1.12,
-            "finisher_xpts": 1.31,
-            "paoe": 0.88,
-            "points_added": 0.9,
-            "two_pt_ast": 1,
-            "three_pt_ast": 0,
-            "rim_ast": 1,
-            "mid_ast": 0,
-            "baskets_share": 0.5
-          }
-        ]
-      }
-    },
-    {
-      "type": "shot_chart",
-      "title": "Shooting Splits (Distance Zones)",
-      "data": {
-        "meta_keys": [
-          "zone"
-        ],
-        "rows": [
-          {
-            "zone": "0-4 ft",
-            "fgm": 85,
-            "fga": 130,
-            "fg_pct": 65.4,
-            "shot_share": 25.2,
-            "league_avg_fg": 56.0,
-            "eff_percentile": 83.4
-          },
-          {
-            "zone": "4-14 ft",
-            "fgm": 170,
-            "fga": 258,
-            "fg_pct": 65.9,
-            "shot_share": 50.0,
-            "league_avg_fg": 56.1,
-            "eff_percentile": 84.5
-          },
-          {
-            "zone": "14+ ft",
-            "fgm": 56,
-            "fga": 128,
-            "fg_pct": 43.8,
-            "shot_share": 24.8,
-            "league_avg_fg": 51.3,
-            "eff_percentile": 28.9
-          }
-        ]
-      }
-    },
-    {
-      "type": "table",
       "title": "Season Game Logs",
       "data": {
         "meta_keys": [
@@ -848,6 +904,27 @@
           "result"
         ],
         "rows": [
+          {
+            "date": "2026-11-08",
+            "opponent": "vs HOU",
+            "result": "W 102-99",
+            "min": 23,
+            "pts": 4,
+            "reb": 6,
+            "ast": 3,
+            "stl": 0,
+            "blk": 0,
+            "to": 3,
+            "fgm": 2,
+            "fga": 3,
+            "fg3m": 0,
+            "fg3a": 0,
+            "ftm": 0,
+            "fta": 0,
+            "plus_minus": -9,
+            "gmsc": 2.8,
+            "ts_pct": 66.7
+          },
           {
             "date": "2026-11-06",
             "opponent": "vs ORL",
