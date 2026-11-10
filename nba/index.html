@@ -318,11 +318,11 @@
             <a href="../f1/">F1</a>
         </div>
         <div class="sub-nav">
-            <button class="active-sub" onclick="loadView('Completed Games', 'data/completed_games.json', this)">Completed Games</button>
-            <button onclick="loadView('Player Stats', 'data/player_stats.json', this)">Player Stats</button>
-            <button onclick="loadView('Team Stats', 'data/team_stats.json', this)">Team Stats</button>
-            <button onclick="loadView('Upcoming Schedule', 'data/upcoming_games.json', this)">Upcoming Games</button>
-            <button onclick="loadView('Game Finder', 'data/game_performances.json', this)">Game Finder</button>
+            <button class="active-sub" onclick="loadView('Completed Games', 'completed_games.json', this)">Completed Games</button>
+            <button onclick="loadView('Player Stats', 'player_stats.json', this)">Player Stats</button>
+            <button onclick="loadView('Team Stats', 'team_stats.json', this)">Team Stats</button>
+            <button onclick="loadView('Upcoming Schedule', 'upcoming_games.json', this)">Upcoming Games</button>
+            <button onclick="loadView('Game Finder', 'game_performances.json', this)">Game Finder</button>
         </div>
     </header>
 
@@ -342,9 +342,27 @@
     </div>
 
     <script>
+        function getDataPath(fileName) {
+            // If viewing at root (e.g. /index.html), path is 'nba/data/...'
+            // If viewing inside /nba/ (e.g. /nba/index.html), path is 'data/...'
+            const p = window.location.pathname.toLowerCase();
+            if (p.includes('/nba/') || p.endsWith('/nba')) {
+                return `data/${fileName}`;
+            }
+            return `nba/data/${fileName}`;
+        }
+
+        function getApiPath(endpoint) {
+            const p = window.location.pathname.toLowerCase();
+            if (p.includes('/nba/') || p.endsWith('/nba')) {
+                return `api/${endpoint}`;
+            }
+            return `nba/api/${endpoint}`;
+        }
+
         let STAT_DEFINITIONS = {};
 
-        fetch('data/stat_definitions.json')
+        fetch(getDataPath('stat_definitions.json'))
             .then(res => res.json())
             .then(data => { STAT_DEFINITIONS = data; })
             .catch(() => {});
@@ -362,7 +380,6 @@
         let showColumnDrawer = false;
         let showDatePickerDrawer = false;
 
-        // Controller for immediately aborting prior calculation on consecutive triggers
         let activeRecalcController = null;
 
         const savedSeasonState = JSON.parse(sessionStorage.getItem('nba_season_state')) || {
@@ -381,13 +398,13 @@
             const lastTab = sessionStorage.getItem('nba_active_tab') || 'Completed Games';
             const btn = [...document.querySelectorAll('.sub-nav button')].find(b => b.innerText === lastTab) || document.querySelector('.sub-nav button');
             
-            let filePath = 'data/completed_games.json';
-            if (lastTab === 'Player Stats') filePath = 'data/player_stats.json';
-            else if (lastTab === 'Team Stats') filePath = 'data/team_stats.json';
-            else if (lastTab === 'Upcoming Games') filePath = 'data/upcoming_games.json';
-            else if (lastTab === 'Game Finder') filePath = 'data/game_performances.json';
+            let fileKey = 'completed_games.json';
+            if (lastTab === 'Player Stats') fileKey = 'player_stats.json';
+            else if (lastTab === 'Team Stats') fileKey = 'team_stats.json';
+            else if (lastTab === 'Upcoming Games') fileKey = 'upcoming_games.json';
+            else if (lastTab === 'Game Finder') fileKey = 'game_performances.json';
 
-            loadView(lastTab, filePath, btn);
+            loadView(lastTab, fileKey, btn);
         };
 
         function formatSmartValue(val, col) {
@@ -412,8 +429,7 @@
             return val.toFixed(1);
         }
 
-        function loadView(title, filePath, el) {
-            // Cancel any in-flight calculation when switching tabs
+        function loadView(title, fileKey, el) {
             if (activeRecalcController) {
                 activeRecalcController.abort();
                 activeRecalcController = null;
@@ -433,8 +449,13 @@
             showColumnDrawer = false;
             showDatePickerDrawer = false;
 
-            fetch(filePath)
-                .then(res => res.json())
+            const fullPath = getDataPath(fileKey);
+
+            fetch(fullPath)
+                .then(res => {
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    return res.json();
+                })
                 .then(payload => {
                     rawRows = payload.rows || [];
                     filteredRows = [...rawRows];
@@ -454,8 +475,8 @@
                     renderDrawers();
                     renderTable();
                 })
-                .catch(() => {
-                    container.innerHTML = `<p style="color:red">Failed to load ${filePath}. Verify files exist.</p>`;
+                .catch(err => {
+                    container.innerHTML = `<p style="color:red">Failed to load ${fullPath}. Verify that files were generated and pushed to GitHub.</p>`;
                 });
         }
 
@@ -645,7 +666,6 @@
         }
 
         function executeWindowQuery() {
-            // 1. Immediately abort any currently active calculation
             if (activeRecalcController) {
                 activeRecalcController.abort();
             }
@@ -662,17 +682,11 @@
             const tableElem = document.querySelector('.table-scroll-container');
             const badge = document.getElementById('recalc-badge');
 
-            // Apply Dimmer / Grey-Out
             if (tableElem) tableElem.classList.add('is-recalculating');
             if (badge) badge.classList.add('active');
-            if (status) status.innerText = "Recalculating window across entire league...";
+            if (status) status.innerText = "Querying and recalculating window...";
 
             const queryParams = new URLSearchParams();
-
-            let precomputedFile = null;
-            if (savedSeasonState.last_5_wks) precomputedFile = "data/windows/last_5_wks.json";
-            else if (savedSeasonState.last_10_wks) precomputedFile = "data/windows/last_10_wks.json";
-            else if (savedSeasonState.prev_reg && !savedSeasonState.curr_reg) precomputedFile = "data/windows/prev_reg.json";
 
             if (savedSeasonState.use_custom_date || savedSeasonState.last_5_wks || savedSeasonState.last_10_wks) {
                 queryParams.append("start", startDate);
@@ -684,8 +698,8 @@
                 if (savedSeasonState.prev_post) { queryParams.append("season_year", "2026"); queryParams.append("season_type", "3"); }
             }
 
-            const endpoint = (activeViewTitle === "Game Finder") ? "api/game_finder" : "api/custom_range";
-            const queryUrl = `${endpoint}?${queryParams.toString()}`;
+            const endpointKey = (activeViewTitle === "Game Finder") ? "game_finder" : "custom_range";
+            const queryUrl = `${getApiPath(endpointKey)}?${queryParams.toString()}`;
 
             const finishRecalc = () => {
                 if (tableElem) tableElem.classList.remove('is-recalculating');
@@ -712,30 +726,9 @@
                     applyFilterRules();
                 })
                 .catch(err => {
-                    if (err.name === 'AbortError') {
-                        // Superseded by newer calculation; ignore silently
-                        return;
-                    }
-                    if (precomputedFile) {
-                        fetch(precomputedFile, { signal: signal })
-                            .then(res => res.json())
-                            .then(data => {
-                                finishRecalc();
-                                rawRows = data.rows || [];
-                                filteredRows = [...rawRows];
-                                status.innerText = `Loaded ${rawRows.length} records from precomputed cache.`;
-                                document.getElementById('table-title').innerText = `NBA - ${activeViewTitle}`;
-                                applyFilterRules();
-                            })
-                            .catch(err2 => {
-                                if (err2.name === 'AbortError') return;
-                                finishRecalc();
-                                status.innerText = "Query timed out. Make sure 'python server.py' is running.";
-                            });
-                    } else {
-                        finishRecalc();
-                        status.innerText = "Query timed out. Make sure 'python server.py' is running.";
-                    }
+                    if (err.name === 'AbortError') return;
+                    finishRecalc();
+                    status.innerText = "Calculation error. Check server logs.";
                 });
         }
 
