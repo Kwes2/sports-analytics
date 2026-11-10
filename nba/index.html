@@ -39,8 +39,9 @@
             font-size: 13px;
             border-top: 1px solid #ddd;
             padding-top: 6px;
+            align-items: center;
         }
-        .sub-nav button {
+        .sub-nav button, .sub-nav a.sub-link {
             background: none;
             border: none;
             padding: 0;
@@ -59,6 +60,8 @@
             justify-content: space-between;
             align-items: center;
             margin: 12px 0 8px 0;
+            flex-wrap: wrap;
+            gap: 8px;
         }
         h2 {
             font-size: 18px;
@@ -68,6 +71,7 @@
             display: flex;
             gap: 8px;
             align-items: center;
+            flex-wrap: wrap;
         }
         .tool-btn {
             background: #eee;
@@ -78,6 +82,26 @@
         }
         .tool-btn:hover {
             background: #e2e2e2;
+        }
+        .rate-toggle-group {
+            display: flex;
+            border: 1px solid #888;
+            border-radius: 3px;
+            overflow: hidden;
+            background: #eee;
+        }
+        .rate-btn {
+            border: none;
+            background: transparent;
+            padding: 3px 8px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .rate-btn.active {
+            background: #333;
+            color: #fff;
+            font-weight: bold;
         }
         .drawer-panel {
             background-color: #f8f9fa;
@@ -305,6 +329,15 @@
             border-top: 1px solid #ccc;
             margin: 8px 0;
         }
+        .result-badge {
+            font-weight: bold;
+            padding: 1px 4px;
+            border-radius: 2px;
+            font-size: 11px;
+        }
+        .result-badge.w { background: #dcfce7; color: #166534; }
+        .result-badge.l { background: #fee2e2; color: #991b1b; }
+        .result-badge.ot { background: #fef3c7; color: #92400e; }
     </style>
 </head>
 <body>
@@ -323,6 +356,7 @@
             <button onclick="loadView('Team Stats', 'team_stats.json', this)">Team Stats</button>
             <button onclick="loadView('Upcoming Schedule', 'upcoming_games.json', this)">Upcoming Games</button>
             <button onclick="loadView('Game Finder', 'game_performances.json', this)">Game Finder</button>
+            <a href="compare.html" class="sub-link" style="margin-left: auto; font-weight: bold;">⚡ Compare Players</a>
         </div>
     </header>
 
@@ -343,8 +377,6 @@
 
     <script>
         function getDataPath(fileName) {
-            // If viewing at root (e.g. /index.html), path is 'nba/data/...'
-            // If viewing inside /nba/ (e.g. /nba/index.html), path is 'data/...'
             const p = window.location.pathname.toLowerCase();
             if (p.includes('/nba/') || p.endsWith('/nba')) {
                 return `data/${fileName}`;
@@ -361,7 +393,6 @@
         }
 
         let STAT_DEFINITIONS = {};
-
         fetch(getDataPath('stat_definitions.json'))
             .then(res => res.json())
             .then(data => { STAT_DEFINITIONS = data; })
@@ -373,6 +404,8 @@
         let currentSortColumn = null;
         let isAscending = false;
         let activeViewTitle = "";
+
+        let activeRateMode = 'pg';
 
         let activeFilterRules = [];
         let visibleColumns = new Set();
@@ -387,6 +420,7 @@
             curr_post: false,
             prev_reg: false,
             prev_post: false,
+            last_1_wks: false,
             last_5_wks: false,
             last_10_wks: false,
             use_custom_date: false,
@@ -407,26 +441,50 @@
             loadView(lastTab, fileKey, btn);
         };
 
-        function formatSmartValue(val, col) {
+        function switchRateMode(mode) {
+            activeRateMode = mode;
+            document.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.getElementById(`rate-btn-${mode}`);
+            if (activeBtn) activeBtn.classList.add('active');
+            renderTable();
+        }
+
+        function formatSmartValue(val, col, row) {
             if (val === null || val === undefined || val === '') return '';
             if (typeof val !== 'number') return val;
 
             const c = col.toLowerCase();
+            let scaledVal = val;
+            if (activeViewTitle === "Player Stats" && activeRateMode !== 'pg') {
+                const min = row && row.min_pg ? row.min_pg : 36.0;
+                const isCountingStat = (c.endsWith('_pg') || c === 'pts' || c === 'reb' || c === 'ast' || c === 'stl' || c === 'blk' || c === 'to' || c === 'fga' || c === 'fgm');
+
+                if (isCountingStat && min > 0) {
+                    if (activeRateMode === 'p36') {
+                        scaledVal = (val * (36.0 / min));
+                    } else if (activeRateMode === 'p100') {
+                        const pace = row && row.pace ? row.pace : 100.0;
+                        const poss = (pace / 48.0) * min;
+                        if (poss > 0) scaledVal = (val * (100.0 / poss));
+                    }
+                }
+            }
+
             const meta = STAT_DEFINITIONS[c];
-            if (meta && meta.format === 'int') return Math.round(val);
-            if (meta && meta.format === 'float2') return val.toFixed(2);
-            if (meta && (meta.format === 'pct1' || meta.format === 'float1')) return val.toFixed(1);
+            if (meta && meta.format === 'int') return Math.round(scaledVal);
+            if (meta && meta.format === 'float2') return scaledVal.toFixed(2);
+            if (meta && (meta.format === 'pct1' || meta.format === 'float1')) return scaledVal.toFixed(1);
 
             if (c === 'ppsa' || c === 'ast_to_ratio' || c.includes('pts_per_ast') || c.includes('xpts') || c === 'paoe' || c === 'points_added_pg' || c.includes('rapm') || c === 'vorp') {
-                return val.toFixed(2);
+                return scaledVal.toFixed(2);
             }
             if (c.includes('pct') || c.includes('_pg') || c === 'smoe' || c === 'mei' || c === 'pace' || c.includes('ortg') || c.includes('drtg') || c.includes('net_rtg') || c.includes('share') || c === 'diff' || c.includes('rate') || c.includes('par') || c.includes('avg') || c === 'bpm' || c === 'per') {
-                return val.toFixed(1);
+                return scaledVal.toFixed(1);
             }
-            if (Number.isInteger(val)) {
-                return val;
+            if (Number.isInteger(scaledVal)) {
+                return scaledVal;
             }
-            return val.toFixed(1);
+            return scaledVal.toFixed(1);
         }
 
         function loadView(title, fileKey, el) {
@@ -475,8 +533,8 @@
                     renderDrawers();
                     renderTable();
                 })
-                .catch(err => {
-                    container.innerHTML = `<p style="color:red">Failed to load ${fullPath}. Verify that files were generated and pushed to GitHub.</p>`;
+                .catch(() => {
+                    container.innerHTML = `<p style="color:red">Failed to load ${fullPath}. Verify that files exist.</p>`;
                 });
         }
 
@@ -489,6 +547,13 @@
 
             let html = "";
             if (activeViewTitle === "Player Stats") {
+                html += `
+                    <div class="rate-toggle-group">
+                        <button id="rate-btn-pg" class="rate-btn ${activeRateMode === 'pg' ? 'active' : ''}" onclick="switchRateMode('pg')">Per Game</button>
+                        <button id="rate-btn-p100" class="rate-btn ${activeRateMode === 'p100' ? 'active' : ''}" onclick="switchRateMode('p100')">Per 100 Poss</button>
+                        <button id="rate-btn-p36" class="rate-btn ${activeRateMode === 'p36' ? 'active' : ''}" onclick="switchRateMode('p36')">Per 36 Min</button>
+                    </div>
+                `;
                 html += `<button class="tool-btn" onclick="toggleDatePickerDrawer()">📅 Seasons & Ranges</button>`;
                 html += `<button class="tool-btn" onclick="toggleFilterDrawer()">⚡ Filters (${activeFilterRules.length})</button>`;
                 html += `<button class="tool-btn" onclick="toggleColumnDrawer()">👁 Columns (${visibleColumns.size})</button>`;
@@ -558,7 +623,8 @@
                     <hr class="drawer-divider"/>
 
                     <div class="preset-bar">
-                        <label><input type="checkbox" id="chk-last-5" ${savedSeasonState.last_5_wks ? 'checked' : ''} onchange="toggleWeeksFilter(5)"> [Last 5 Weeks]</label>
+                        <label><input type="checkbox" id="chk-last-1" ${savedSeasonState.last_1_wks ? 'checked' : ''} onchange="toggleWeeksFilter(1)"> [Last 1 Week]</label>
+                        <label style="margin-left: 12px;"><input type="checkbox" id="chk-last-5" ${savedSeasonState.last_5_wks ? 'checked' : ''} onchange="toggleWeeksFilter(5)"> [Last 5 Weeks]</label>
                         <label style="margin-left: 12px;"><input type="checkbox" id="chk-last-10" ${savedSeasonState.last_10_wks ? 'checked' : ''} onchange="toggleWeeksFilter(10)"> [Last 10 Weeks]</label>
                     </div>
 
@@ -583,27 +649,29 @@
         function handleSeasonCheckboxChange(key) {
             savedSeasonState[key] = document.getElementById(`chk-${key.replace('_', '-')}`).checked;
             if (savedSeasonState[key]) {
+                savedSeasonState.last_1_wks = false;
                 savedSeasonState.last_5_wks = false;
                 savedSeasonState.last_10_wks = false;
                 savedSeasonState.use_custom_date = false;
 
-                const c5 = document.getElementById('chk-last-5');
-                const c10 = document.getElementById('chk-last-10');
-                const cc = document.getElementById('chk-custom-range');
-                if (c5) c5.checked = false;
-                if (c10) c10.checked = false;
-                if (cc) cc.checked = false;
+                ['chk-last-1', 'chk-last-5', 'chk-last-10', 'chk-custom-range'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.checked = false;
+                });
             }
             sessionStorage.setItem('nba_season_state', JSON.stringify(savedSeasonState));
             indicateStaleStatus();
         }
 
         function toggleWeeksFilter(weeks) {
+            const is1 = (weeks === 1);
             const is5 = (weeks === 5);
-            const targetChecked = document.getElementById(is5 ? 'chk-last-5' : 'chk-last-10').checked;
+            const targetId = is1 ? 'chk-last-1' : (is5 ? 'chk-last-5' : 'chk-last-10');
+            const targetChecked = document.getElementById(targetId).checked;
 
+            savedSeasonState.last_1_wks = is1 ? targetChecked : false;
             savedSeasonState.last_5_wks = is5 ? targetChecked : false;
-            savedSeasonState.last_10_wks = is5 ? false : targetChecked;
+            savedSeasonState.last_10_wks = (!is1 && !is5) ? targetChecked : false;
 
             if (targetChecked) {
                 savedSeasonState.curr_reg = false;
@@ -616,8 +684,12 @@
                     const el = document.getElementById(`chk-${id}`);
                     if (el) el.checked = false;
                 });
-                const alt = document.getElementById(is5 ? 'chk-last-10' : 'chk-last-5');
-                if (alt) alt.checked = false;
+                ['chk-last-1', 'chk-last-5', 'chk-last-10'].forEach(id => {
+                    if (id !== targetId) {
+                        const el = document.getElementById(id);
+                        if (el) el.checked = false;
+                    }
+                });
                 const cc = document.getElementById('chk-custom-range');
                 if (cc) cc.checked = false;
 
@@ -643,10 +715,11 @@
                 savedSeasonState.curr_post = false;
                 savedSeasonState.prev_reg = false;
                 savedSeasonState.prev_post = false;
+                savedSeasonState.last_1_wks = false;
                 savedSeasonState.last_5_wks = false;
                 savedSeasonState.last_10_wks = false;
 
-                ['curr-reg', 'curr-post', 'prev-reg', 'prev-post', 'last-5', 'last-10'].forEach(id => {
+                ['curr-reg', 'curr-post', 'prev-reg', 'prev-post', 'last-1', 'last-5', 'last-10'].forEach(id => {
                     const el = document.getElementById(`chk-${id}`);
                     if (el) el.checked = false;
                 });
@@ -688,7 +761,7 @@
 
             const queryParams = new URLSearchParams();
 
-            if (savedSeasonState.use_custom_date || savedSeasonState.last_5_wks || savedSeasonState.last_10_wks) {
+            if (savedSeasonState.use_custom_date || savedSeasonState.last_1_wks || savedSeasonState.last_5_wks || savedSeasonState.last_10_wks) {
                 queryParams.append("start", startDate);
                 queryParams.append("end", endDate);
             } else {
@@ -768,9 +841,9 @@
                         <span style="font-size:11px; align-self:center; font-weight:bold;">Presets:</span>
                         <button class="tool-btn" onclick="setColumnPreset('standard')">Standard</button>
                         <button class="tool-btn" onclick="setColumnPreset('advanced')">Advanced</button>
-                        <button class="tool-btn" onclick="setColumnPreset('value')">Value & Ratings</button>
-                        <button class="tool-btn" onclick="setColumnPreset('passing')">Passing</button>
-                        <button class="tool-btn" onclick="setColumnPreset('shooting')">Shooting Zones</button>
+                        <button class="tool-btn" onclick="setColumnPreset('ratings')">Ratings & On/Off</button>
+                        <button class="tool-btn" onclick="setColumnPreset('passing')">Passing & xPRF</button>
+                        <button class="tool-btn" onclick="setColumnPreset('shooting')">Shooting Splits</button>
                     </div>` : ''}
                     <div class="column-checkbox-grid">${checkboxesHtml}</div>
                 </div>
@@ -797,13 +870,22 @@
             } else if (preset === 'standard') {
                 visibleColumns = new Set(["player", "team", "pos", "gp", "gs", "min_pg", "pts_pg", "prf_pg", "reb_pg", "ast_pg", "stl_pg", "blk_pg", "fg_pct", "fg3_pct", "ft_pct"]);
             } else if (preset === 'advanced') {
-                visibleColumns = new Set(["player", "team", "pos", "gp", "min_pg", "pts_pg", "prf_pg", "ts_pct", "efg_pct", "xefg_pct", "smoe", "mei", "usg_pct", "tov_pct", "ast_to_ratio", "ppsa", "gmsc_avg"]);
-            } else if (preset === 'value') {
-                visibleColumns = new Set(["player", "team", "pos", "gp", "min_pg", "net_rapm", "orapm", "drapm", "net_on_off", "off_on_off", "def_on_off", "bpm", "vorp", "per"]);
+                visibleColumns = new Set(["player", "team", "pos", "gp", "min_pg", "pts_pg", "prf_pg", "xprf_pg", "prfoe_pg", "trb_pct", "ts_pct", "efg_pct", "xefg_pct", "smoe", "mei", "usg_pct", "tov_pct", "ast_to_ratio", "ppsa", "gmsc_avg"]);
+            } else if (preset === 'ratings') {
+                visibleColumns = new Set([
+                    "player", "team", "pos", "gp", "min_pg",
+                    "net_rapm", "orapm", "drapm", "bpm", "vorp", "per",
+                    "team_on_ortg", "team_on_drtg", "team_on_net_rtg",
+                    "team_off_ortg", "team_off_drtg", "team_off_net_rtg",
+                    "team_diff_ortg", "team_diff_drtg", "team_diff_net_rtg",
+                    "opp_on_ortg", "opp_on_drtg", "opp_on_net_rtg",
+                    "opp_off_ortg", "opp_off_drtg", "opp_off_net_rtg",
+                    "opp_diff_ortg", "opp_diff_drtg", "opp_diff_net_rtg"
+                ]);
             } else if (preset === 'passing') {
-                visibleColumns = new Set(["player", "team", "pos", "gp", "ast_pg", "pts_created_pg", "prf_pg", "pct_team_prf", "pts_per_ast", "xpts_per_ast", "paoe", "points_added_pg", "rim_ast_pct", "three_ast_pct"]);
+                visibleColumns = new Set(["player", "team", "pos", "gp", "ast_pg", "pts_created_pg", "prf_pg", "xprf_pg", "prfoe_pg", "pct_team_prf", "pts_per_ast", "xpts_per_ast", "paoe", "points_added_pg", "rim_ast_pct", "three_ast_pct"]);
             } else if (preset === 'shooting') {
-                visibleColumns = new Set(["player", "team", "pos", "gp", "fga_pg", "fg_pct", "xefg_pct", "smoe", "mei", "rim_fg_pct", "rim_fga_pg", "rim_share", "mid_fg_pct", "mid_fga_pg", "mid_share", "three_fg_pct", "three_fga_pg", "three_share"]);
+                visibleColumns = new Set(["player", "team", "pos", "gp", "fga_pg", "fg_pct", "xefg_pct", "smoe", "mei", "corner3_pct", "corner3_fga_pg", "atb3_pct", "atb3_fga_pg", "ast_fg_pct", "unast_fg_pct", "ast_3p_pct", "unast_3p_pct", "rim_fg_pct", "rim_fga_pg", "rim_share", "mid_fg_pct", "mid_fga_pg", "mid_share", "three_fg_pct", "three_fga_pg", "three_share"]);
             }
 
             renderColumnDrawer();
@@ -833,7 +915,18 @@
                 });
                 rulesHtml += `</select>`;
 
-                if (isNumeric) {
+                if (rule.column === "result") {
+                    rulesHtml += `
+                        <select onchange="updateRuleValue(${rIdx}, this.value)">
+                            <option value="" ${rule.val === '' ? 'selected' : ''}>All Results</option>
+                            <option value="W" ${rule.val === 'W' ? 'selected' : ''}>[W] Wins Only</option>
+                            <option value="L" ${rule.val === 'L' ? 'selected' : ''}>[L] Losses Only</option>
+                            <option value="OT" ${rule.val === 'OT' ? 'selected' : ''}>[OT] Overtime Games</option>
+                            <option value="OT-W" ${rule.val === 'OT-W' ? 'selected' : ''}>[OT-W] Overtime Wins</option>
+                            <option value="OT-L" ${rule.val === 'OT-L' ? 'selected' : ''}>[OT-L] Overtime Losses</option>
+                        </select>
+                    `;
+                } else if (isNumeric) {
                     rulesHtml += `
                         <select onchange="updateRuleOperator(${rIdx}, this.value)">
                             <option value=">=" ${rule.op === '>=' ? 'selected' : ''}>&gt;=</option>
@@ -921,7 +1014,7 @@
         }
 
         function updateRuleValue(rIdx, val) {
-            activeFilterRules[rIdx].val = val !== "" ? parseFloat(val) : "";
+            activeFilterRules[rIdx].val = val;
             applyFilterRules();
         }
 
@@ -943,13 +1036,21 @@
                     const rowVal = row[rule.column];
                     const isNum = typeof rowVal === 'number';
 
-                    if (isNum) {
-                        if (rule.val === "" || isNaN(rule.val)) continue;
-                        if (rule.op === ">=" && !(rowVal >= rule.val)) return false;
-                        if (rule.op === "<=" && !(rowVal <= rule.val)) return false;
-                        if (rule.op === ">" && !(rowVal > rule.val)) return false;
-                        if (rule.op === "<" && !(rowVal < rule.val)) return false;
-                        if (rule.op === "=" && !(rowVal === rule.val)) return false;
+                    if (rule.column === "result") {
+                        if (!rule.val) continue;
+                        if (rule.val === "W" && !String(rowVal).startsWith("W") && rowVal !== "OT-W") return false;
+                        if (rule.val === "L" && !String(rowVal).startsWith("L") && rowVal !== "OT-L") return false;
+                        if (rule.val === "OT" && !String(rowVal).startsWith("OT")) return false;
+                        if (rule.val === "OT-W" && rowVal !== "OT-W") return false;
+                        if (rule.val === "OT-L" && rowVal !== "OT-L") return false;
+                    } else if (isNum) {
+                        const targetVal = parseFloat(rule.val);
+                        if (isNaN(targetVal)) continue;
+                        if (rule.op === ">=" && !(rowVal >= targetVal)) return false;
+                        if (rule.op === "<=" && !(rowVal <= targetVal)) return false;
+                        if (rule.op === ">" && !(rowVal > targetVal)) return false;
+                        if (rule.op === "<" && !(rowVal < targetVal)) return false;
+                        if (rule.op === "=" && !(rowVal === targetVal)) return false;
                     } else {
                         if (rule.selectedVals && rule.selectedVals.length > 0) {
                             if (!rule.selectedVals.includes(rowVal)) return false;
@@ -1036,8 +1137,16 @@
                     const isMeta = metaCols.includes(col);
                     const isNumeric = typeof rawVal === 'number';
 
-                    let cellContent = formatSmartValue(rawVal, col);
-                    if (col === 'box_score' && rawVal) {
+                    let cellContent = formatSmartValue(rawVal, col, row);
+
+                    if (col === 'starter') {
+                        cellContent = rawVal === 1 ? `<strong>*</strong>` : `<span style="color:#aaa;">-</span>`;
+                    } else if (col === 'result') {
+                        let badgeClass = "w";
+                        if (rawVal === "L" || rawVal === "OT-L") badgeClass = "l";
+                        if (String(rawVal).startsWith("OT")) badgeClass = "ot";
+                        cellContent = `<span class="result-badge ${badgeClass}">${rawVal}</span>`;
+                    } else if (col === 'box_score' && rawVal) {
                         cellContent = `<a class="table-link" href="${rawVal}">Box Score</a>`;
                     } else if (col === 'player' && row.player_id) {
                         cellContent = `<a class="table-link" href="player.html?id=${row.player_id}">${cellContent}</a>`;

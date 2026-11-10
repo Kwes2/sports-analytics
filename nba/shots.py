@@ -1,3 +1,8 @@
+"""
+shots.py - Classifies shot locations into distance and analytical zones,
+tracks assisted vs unassisted (self-created) makes, and computes shot quality metrics.
+"""
+
 import math
 
 ZONES = ["0-4 ft", "4-14 ft", "14+ ft"]
@@ -26,7 +31,7 @@ def classify_shot_granular(x, y, is_three):
     if dist <= 4.0:
         return "rim"
     elif is_three:
-        # Corner 3: Within 14 ft of baseline and at least 22 ft from center
+        # Corner 3: Within 14 ft of baseline and at least 21.5 ft from court center
         if fy <= 14.0 and abs(fx - 25.0) >= 21.5:
             return "corner_3"
         return "atb_3"
@@ -54,7 +59,7 @@ def init_zone_dict():
 
 
 def init_granular_dict():
-    return {z: {"fgm": 0, "fga": 0, "fg3m": 0} for z in GRANULAR_ZONES}
+    return {z: {"fgm": 0, "fga": 0, "fg3m": 0, "ast_fgm": 0, "ast_fg3m": 0} for z in GRANULAR_ZONES}
 
 
 def process_game_shots(plays, home_team_id, away_team_id):
@@ -68,19 +73,23 @@ def process_game_shots(plays, home_team_id, away_team_id):
     for play in plays:
         coord = play.get("coordinate")
         text = play.get("text", "")
+        text_lower = text.lower()
         is_shooting = play.get("shootingPlay", False)
 
-        if coord and ("x" in coord and "y" in coord) and (is_shooting or "shot" in text.lower() or "jumper" in text.lower() or "layup" in text.lower() or "dunk" in text.lower()):
+        if coord and ("x" in coord and "y" in coord) and (
+            is_shooting or "shot" in text_lower or "jumper" in text_lower or "layup" in text_lower or "dunk" in text_lower
+        ):
             cx = coord["x"]
             cy = coord["y"]
             zone = classify_shot_distance(cx, cy)
             t_id = str(play.get("team", {}).get("id", ""))
 
             is_made = play.get("scoringPlay", False)
-            if "missed" in text.lower() or "blocks" in text.lower():
+            if "missed" in text_lower or "blocks" in text_lower:
                 is_made = False
 
-            is_three = ("three point" in text.lower() or "3pt" in text.lower())
+            is_three = ("three point" in text_lower or "3pt" in text_lower)
+            is_assisted = (is_made and "assists" in text_lower)
             g_zone = classify_shot_granular(cx, cy, is_three)
 
             if t_id in team_shots:
@@ -100,10 +109,61 @@ def process_game_shots(plays, home_team_id, away_team_id):
                 if is_made:
                     player_shots[shooter_id][zone]["fgm"] += 1
                     player_granular_shots[shooter_id][g_zone]["fgm"] += 1
+                    if is_assisted:
+                        player_granular_shots[shooter_id][g_zone]["ast_fgm"] += 1
+
                     if is_three:
                         player_granular_shots[shooter_id][g_zone]["fg3m"] += 1
+                        if is_assisted:
+                            player_granular_shots[shooter_id][g_zone]["ast_fg3m"] += 1
 
     return team_shots, player_shots, player_granular_shots
+
+
+def compute_assisted_shot_splits(granular_shots):
+    """
+    Computes assisted vs unassisted (self-created) field goal and 3-point percentages.
+    """
+    total_fgm = sum(granular_shots[z]["fgm"] for z in GRANULAR_ZONES)
+    total_ast_fgm = sum(granular_shots[z].get("ast_fgm", 0) for z in GRANULAR_ZONES)
+
+    total_fg3m = sum(granular_shots[z]["fg3m"] for z in GRANULAR_ZONES)
+    total_ast_fg3m = sum(granular_shots[z].get("ast_fg3m", 0) for z in GRANULAR_ZONES)
+
+    ast_fg_pct = round(total_ast_fgm / total_fgm * 100, 1) if total_fgm > 0 else 0.0
+    unast_fg_pct = round((total_fgm - total_ast_fgm) / total_fgm * 100, 1) if total_fgm > 0 else 0.0
+
+    ast_3p_pct = round(total_ast_fg3m / total_fg3m * 100, 1) if total_fg3m > 0 else 0.0
+    unast_3p_pct = round((total_fg3m - total_ast_fg3m) / total_fg3m * 100, 1) if total_fg3m > 0 else 0.0
+
+    return {
+        "ast_fg_pct": ast_fg_pct,
+        "unast_fg_pct": unast_fg_pct,
+        "ast_3p_pct": ast_3p_pct,
+        "unast_3p_pct": unast_3p_pct
+    }
+
+
+def compute_three_point_zone_splits(granular_shots, gp):
+    """
+    Computes volume and efficiency splits for Corner 3s vs Above-the-Break (ATB) 3s.
+    """
+    c3_fga = granular_shots["corner_3"]["fga"]
+    c3_fgm = granular_shots["corner_3"]["fgm"]
+    c3_pct = round(c3_fgm / c3_fga * 100, 1) if c3_fga > 0 else 0.0
+    c3_fga_pg = round(c3_fga / gp, 1) if gp > 0 else 0.0
+
+    atb3_fga = granular_shots["atb_3"]["fga"]
+    atb3_fgm = granular_shots["atb_3"]["fgm"]
+    atb3_pct = round(atb3_fgm / atb3_fga * 100, 1) if atb3_fga > 0 else 0.0
+    atb3_fga_pg = round(atb3_fga / gp, 1) if gp > 0 else 0.0
+
+    return {
+        "corner3_pct": c3_pct,
+        "corner3_fga_pg": c3_fga_pg,
+        "atb3_pct": atb3_pct,
+        "atb3_fga_pg": atb3_fga_pg
+    }
 
 
 def compute_shot_quality_metrics(granular_shots, league_granular_efg, fta, tot_fga):
@@ -118,20 +178,15 @@ def compute_shot_quality_metrics(granular_shots, league_granular_efg, fta, tot_f
     total_fgm = sum(granular_shots[z]["fgm"] for z in GRANULAR_ZONES)
     total_fg3m = sum(granular_shots[z]["fg3m"] for z in GRANULAR_ZONES)
 
-    # Actual eFG% on tracked shots
     actual_efg = round((total_fgm + 0.5 * total_fg3m) / total_fga * 100, 1)
 
-    # Expected eFG% based on where the player took their shots
     expected_makes = sum(
         granular_shots[z]["fga"] * (league_granular_efg.get(z, 50.0) / 100.0)
         for z in GRANULAR_ZONES
     )
     xefg_pct = round(expected_makes / total_fga * 100, 1)
-
-    # Shot-Making Over Expected
     smoe = round(actual_efg - xefg_pct, 1)
 
-    # Moreyball Index: (Rim FGA + 3PT FGA + 0.44 * FTA) / (Total FGA + 0.44 * FTA)
     rim_fga = granular_shots["rim"]["fga"]
     three_fga = granular_shots["corner_3"]["fga"] + granular_shots["atb_3"]["fga"]
     tot_poss_shots = tot_fga + 0.44 * fta

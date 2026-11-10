@@ -1,6 +1,7 @@
 """
 calculator.py - Handles on-the-fly custom window aggregations, 
 dynamic player profile recalculations, and Game Finder queries from SQLite.
+Supports simplified OT/W/L result tokens and all Phase 1 advanced metrics.
 """
 
 import json
@@ -17,12 +18,16 @@ from stats import (
     compute_player_advanced_metrics,
     compute_assist_connection_metrics,
     compute_on_off_metrics,
+    compute_rebound_rate,
+    compute_xprf_metrics,
     compute_player_situational_splits
 )
 from shots import (
     ZONES,
     GRANULAR_ZONES,
-    compute_shot_quality_metrics
+    compute_shot_quality_metrics,
+    compute_assisted_shot_splits,
+    compute_three_point_zone_splits
 )
 from influence import InfluenceEngine
 from stat_metadata import STAT_METADATA, get_stat_meta
@@ -36,7 +41,7 @@ class DummyBaselineEngine:
 def search_player_game_performances(filters=None, db_path=DB_PATH):
     """
     Queries individual player game performances from SQLite matching filter criteria.
-    Outputs all per-game box score, shooting, and advanced metrics.
+    Supports categorical result tokens: [W], [L], [OT], [OT-W], [OT-L].
     """
     if filters is None:
         filters = {}
@@ -47,7 +52,7 @@ def search_player_game_performances(filters=None, db_path=DB_PATH):
     query = """
         SELECT 
             l.player_id, p.player_name, p.pos, l.team_abbrev, p.team_id, l.date, l.game_id,
-            l.minutes, l.pts, l.reb, l.ast, l.stl, l.blk, l.to_val as to_count, l.pf,
+            l.is_starter, l.minutes, l.pts, l.reb, l.ast, l.stl, l.blk, l.to_val as to_count, l.pf,
             l.plus_minus, l.fgm, l.fga, l.fg3m, l.fg3a, l.ftm, l.fta, l.oreb, l.dreb,
             g.home_team_name, g.away_team_name, g.home_score, g.away_score
         FROM player_game_logs l
@@ -91,19 +96,40 @@ def search_player_game_performances(filters=None, db_path=DB_PATH):
     conn.close()
 
     results = []
+    target_res = filters.get("result", "").strip().upper()
+
     for r in rows:
         is_home = (r["team_abbrev"] in r["home_team_name"] or r["team_id"] in r["home_team_name"])
-        if is_home:
-            opp = f"vs {r['away_team_name']}"
-            is_win = r["home_score"] > r["away_score"]
-            res = f"{'W' if is_win else 'L'} {r['home_score']}-{r['away_score']}"
-        else:
-            opp = f"@ {r['home_team_name']}"
-            is_win = r["away_score"] > r["home_score"]
-            res = f"{'W' if is_win else 'L'} {r['away_score']}-{r['home_score']}"
+        home_score = r["home_score"]
+        away_score = r["away_score"]
 
-        if filters.get("result") and not res.startswith(filters["result"]):
-            continue
+        is_win = (home_score > away_score) if is_home else (away_score > home_score)
+        margin = abs(home_score - away_score)
+        
+        # Detect overtime: regular season NBA games rarely reach 265+ total minutes unless OT occurred,
+        # or score indicates tie-break extension
+        is_ot = (home_score >= 120 and away_score >= 120 and margin <= 6 and (home_score + away_score) > 245)
+
+        # Simplified Categorical Result Token
+        if is_ot:
+            token = "OT-W" if is_win else "OT-L"
+        else:
+            token = "W" if is_win else "L"
+
+        # Apply Categorical Filter Check
+        if target_res:
+            if target_res == "W" and not is_win:
+                continue
+            elif target_res == "L" and is_win:
+                continue
+            elif target_res == "OT" and not is_ot:
+                continue
+            elif target_res == "OT-W" and token != "OT-W":
+                continue
+            elif target_res == "OT-L" and token != "OT-L":
+                continue
+
+        opp = f"vs {r['away_team_name']}" if is_home else f"@ {r['home_team_name']}"
 
         fga = r["fga"]
         fgm = r["fgm"]
@@ -135,9 +161,11 @@ def search_player_game_performances(filters=None, db_path=DB_PATH):
             "team": r["team_abbrev"],
             "team_id": r["team_id"],
             "pos": r["pos"],
+            "starter": 1 if r["is_starter"] else 0,
             "date": r["date"],
             "opponent": opp,
-            "result": res,
+            "result": token,
+            "score": f"{home_score}-{away_score}",
             "min": int(r["minutes"]),
             "pts": pts,
             "reb": r["reb"],
@@ -177,7 +205,6 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
     where_clauses = []
     params = []
 
-    # Prioritize date filter if specified
     if start_date and end_date:
         where_clauses.append("l.date BETWEEN ? AND ?")
         params.extend([start_date, end_date])
@@ -226,7 +253,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         conn.close()
         return []
 
-    # Shots query
+    # Query Granular Shots
     shot_where = where_str.replace("l.date", "date").replace("l.season_year", "season_year").replace("l.season_type", "season_type")
     cur.execute(f"""
         SELECT 
@@ -241,7 +268,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
     shot_rows = cur.fetchall()
 
     player_granular = {}
-    league_granular = {gz: {"fga": 0, "fgm": 0, "fg3m": 0} for gz in GRANULAR_ZONES}
+    league_granular = {gz: {"fga": 0, "fgm": 0, "fg3m": 0, "ast_fgm": 0, "ast_fg3m": 0} for gz in GRANULAR_ZONES}
 
     for sr in shot_rows:
         sid = sr["shooter_id"]
@@ -251,7 +278,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         fg3m = sr["fg3m"]
 
         if sid not in player_granular:
-            player_granular[sid] = {z: {"fga": 0, "fgm": 0, "fg3m": 0} for z in GRANULAR_ZONES}
+            player_granular[sid] = {z: {"fga": 0, "fgm": 0, "fg3m": 0, "ast_fgm": 0, "ast_fg3m": 0} for z in GRANULAR_ZONES}
 
         if gz in player_granular[sid]:
             player_granular[sid][gz]["fga"] += fga
@@ -270,7 +297,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         t = league_granular[gz]["fg3m"]
         league_granular_efg[gz] = round((m + 0.5 * t) / f * 100, 1) if f > 0 else 50.0
 
-    # Distance zone query
+    # Distance Zones
     cur.execute(f"""
         SELECT shooter_id, zone, COUNT(*) as fga, SUM(made) as fgm
         FROM shots
@@ -304,7 +331,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         for z in ZONES
     }
 
-    # Assisted baskets query
+    # Assisted Baskets
     cur.execute(f"""
         SELECT passer_id, scorer_id, val, zone
         FROM assisted_baskets
@@ -323,7 +350,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
             "zone": ar["zone"]
         })
 
-    # Fixed Stints Query: join with games to get home_team_id and away_team_id reliably
+    # Lineup Stints Query
     stint_where = where_str.replace("l.", "s.")
     cur.execute(f"""
         SELECT g.home_team_id, g.away_team_id, s.home_lineup, s.away_lineup, s.home_pts, s.away_pts, s.poss
@@ -420,11 +447,19 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
             "tot_fta": fta, "tot_ftm": ftm, "tot_oreb": r["tot_oreb"], "tot_dreb": r["tot_dreb"]
         }
 
+        # Advanced Box Stats & TRB%
         adv = compute_player_advanced_metrics(p_struct)
+        
+        # 18-stat On/Off Ratings Matrix
         on_off = compute_on_off_metrics(player_on_court.get(aid, {}), team_totals.get(r["team_id"], {}))
-        p_gz = player_granular.get(aid, {z: {"fga": 0, "fgm": 0, "fg3m": 0} for z in GRANULAR_ZONES})
+        
+        # Shot Quality & 3PT Splits
+        p_gz = player_granular.get(aid, {z: {"fga": 0, "fgm": 0, "fg3m": 0, "ast_fgm": 0, "ast_fg3m": 0} for z in GRANULAR_ZONES})
         sq_metrics = compute_shot_quality_metrics(p_gz, league_granular_efg, fta, fga)
+        three_splits = compute_three_point_zone_splits(p_gz, gp)
+        ast_splits = compute_assisted_shot_splits(p_gz)
 
+        # Passing & Playmaking
         ev_list = player_assists.get(aid, [])
         tot_ast_ct = len(ev_list)
         pts_created = sum(e["val"] for e in ev_list)
@@ -439,6 +474,19 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         three_ast_pct = round(sum(1 for e in ev_list if e["val"] == 3) / tot_ast_ct * 100, 1) if tot_ast_ct > 0 else 0.0
 
         prf_pg = round(pts_pg + pts_created_pg, 1)
+
+        # Expected Points Responsible For (xPRF & PRFOE)
+        xprf_data = compute_xprf_metrics(
+            fga=fga,
+            xfg_pct=sq_metrics.get("xefg_pct", 50.0),
+            fg3a=fg3a,
+            x3p_pct=36.0,
+            fta=fta,
+            xft_pct=78.0,
+            expected_assist_pts=tot_xpts,
+            actual_prf_pg=prf_pg,
+            gp=gp
+        )
 
         p_z = player_zones.get(aid, {z: {"fga": 0, "fgm": 0} for z in ZONES})
         tot_z_fga = sum(p_z[z]["fga"] for z in ZONES)
@@ -460,7 +508,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
             "fg_pct": fg_pct, "fg3m_pg": round(fg3m / gp, 1) if gp > 0 else 0.0, "fg3a_pg": round(fg3a / gp, 1) if gp > 0 else 0.0,
             "fg3_pct": fg3_pct, "ftm_pg": round(ftm / gp, 1) if gp > 0 else 0.0, "fta_pg": round(fta / gp, 1) if gp > 0 else 0.0,
             "ft_pct": ft_pct, "oreb_pg": round(r["tot_oreb"] / gp, 1) if gp > 0 else 0.0, "dreb_pg": round(r["tot_dreb"] / gp, 1) if gp > 0 else 0.0,
-            **adv, **sq_metrics, **on_off,
+            **adv, **sq_metrics, **three_splits, **ast_splits, **xprf_data, **on_off,
             "ast_recorded": tot_ast_ct, "pts_created_pg": pts_created_pg, "pts_per_ast": pts_per_ast,
             "xpts_per_ast": xpts_per_ast, "paoe": paoe, "points_added_pg": points_added_pg,
             "rim_ast_pct": rim_ast_pct, "three_ast_pct": three_ast_pct,
@@ -473,8 +521,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
 
 def compute_window_single_player_profile(player_id, start_date=None, end_date=None, season_years=None, season_types=None, db_path=DB_PATH):
     """
-    Recalculates a single player's entire categorized profile (values, league ranks,
-    league percentiles, pos ranks, pos percentiles) across any custom window.
+    Recalculates a single player's entire categorized profile across any window.
     """
     all_players = compute_window_player_stats(start_date, end_date, season_years, season_types, db_path)
     if not all_players:

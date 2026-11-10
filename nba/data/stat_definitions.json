@@ -1,4 +1,11 @@
 {
+  "starter": {
+    "name": "Starter",
+    "category": "Basic",
+    "tooltip": "Started game (1 = Starter, 0 = Bench)",
+    "format": "int",
+    "higher_is_better": true
+  },
   "gp": {
     "name": "Games Played",
     "category": "Basic",
@@ -160,6 +167,13 @@
     "format": "float1",
     "higher_is_better": true
   },
+  "trb_pct": {
+    "name": "Total Rebound % (TRB%)",
+    "category": "Advanced",
+    "tooltip": "Estimate of the percentage of available rebounds a player grabbed while on the court",
+    "format": "pct1",
+    "higher_is_better": true
+  },
   "ts_pct": {
     "name": "True Shooting %",
     "category": "Advanced",
@@ -265,6 +279,62 @@
     "format": "pct1",
     "higher_is_better": true
   },
+  "corner3_pct": {
+    "name": "Corner 3PT %",
+    "category": "Shooting",
+    "tooltip": "Field goal percentage on 3-point attempts from the left/right corners",
+    "format": "pct1",
+    "higher_is_better": true
+  },
+  "corner3_fga_pg": {
+    "name": "Corner 3 Attempts Per Game",
+    "category": "Shooting",
+    "tooltip": "Corner 3-point field goal attempts per game",
+    "format": "float1",
+    "higher_is_better": true
+  },
+  "atb3_pct": {
+    "name": "Above-the-Break 3PT %",
+    "category": "Shooting",
+    "tooltip": "Field goal percentage on 3-point attempts above the break (wings and top of the key)",
+    "format": "pct1",
+    "higher_is_better": true
+  },
+  "atb3_fga_pg": {
+    "name": "Above-the-Break 3A Per Game",
+    "category": "Shooting",
+    "tooltip": "Above-the-break 3-point field goal attempts per game",
+    "format": "float1",
+    "higher_is_better": true
+  },
+  "ast_fg_pct": {
+    "name": "Assisted FG %",
+    "category": "Shooting",
+    "tooltip": "Percentage of player's made field goals that were assisted by a teammate",
+    "format": "pct1",
+    "higher_is_better": true
+  },
+  "unast_fg_pct": {
+    "name": "Unassisted (Self-Created) FG %",
+    "category": "Shooting",
+    "tooltip": "Percentage of player's made field goals created independently without an assist",
+    "format": "pct1",
+    "higher_is_better": true
+  },
+  "ast_3p_pct": {
+    "name": "Assisted 3PT %",
+    "category": "Shooting",
+    "tooltip": "Percentage of player's made 3-pointers that were assisted (catch-and-shoot looks)",
+    "format": "pct1",
+    "higher_is_better": true
+  },
+  "unast_3p_pct": {
+    "name": "Unassisted 3PT %",
+    "category": "Shooting",
+    "tooltip": "Percentage of player's made 3-pointers that were unassisted (pull-ups / off the dribble)",
+    "format": "pct1",
+    "higher_is_better": true
+  },
   "rim_fg_pct": {
     "name": "Rim FG % (0-4 ft)",
     "category": "Shooting",
@@ -342,6 +412,20 @@
     "format": "float1",
     "higher_is_better": true
   },
+  "xprf_pg": {
+    "name": "Expected Points Responsible For (xPRF)",
+    "category": "Passing",
+    "tooltip": "Expected total points generated from volume: (FGA * xFG%) + (3PA * x3P%) + (FTA * xFT%) + Expected Assist Points per game",
+    "format": "float1",
+    "higher_is_better": true
+  },
+  "prfoe_pg": {
+    "name": "Points Responsible For Over Expected (PRFOE)",
+    "category": "Passing",
+    "tooltip": "Actual PRF/G minus Expected PRF/G. Measures individual scoring & playmaking shot-making talent above opportunity baseline",
+    "format": "float1",
+    "higher_is_better": true
+  },
   "pct_team_prf": {
     "name": "% of Team Points Accounted For",
     "category": "Passing",
@@ -412,46 +496,130 @@
     "format": "float2",
     "higher_is_better": true
   },
-  "on_ortg": {
-    "name": "On-Court Offensive Rating",
+  "team_on_ortg": {
+    "name": "Team On Offensive Rating",
     "category": "Ratings",
-    "tooltip": "Team points scored per 100 possessions while player is on the court",
+    "tooltip": "Team points scored per 100 possessions while player is ON the court",
     "format": "float1",
     "higher_is_better": true
   },
-  "on_drtg": {
-    "name": "On-Court Defensive Rating",
+  "team_on_drtg": {
+    "name": "Team On Defensive Rating",
     "category": "Ratings",
-    "tooltip": "Opponent points scored per 100 possessions while player is on the court",
+    "tooltip": "Opponent points scored per 100 possessions while player is ON the court",
     "format": "float1",
     "higher_is_better": false
   },
-  "on_net_rtg": {
-    "name": "On-Court Net Rating",
+  "team_on_net_rtg": {
+    "name": "Team On Net Rating",
     "category": "Ratings",
-    "tooltip": "Team net rating (ORtg - DRtg) while player is on the court",
+    "tooltip": "Team Net Rating (ORtg - DRtg) while player is ON the court",
     "format": "float1",
     "higher_is_better": true
   },
-  "off_on_off": {
-    "name": "Offensive On/Off Differential",
+  "team_off_ortg": {
+    "name": "Team Off Offensive Rating",
     "category": "Ratings",
-    "tooltip": "Team offensive rating with player ON court minus team rating with player OFF court",
+    "tooltip": "Team points scored per 100 possessions while player is OFF the court",
     "format": "float1",
     "higher_is_better": true
   },
-  "def_on_off": {
-    "name": "Defensive On/Off Differential",
+  "team_off_drtg": {
+    "name": "Team Off Defensive Rating",
     "category": "Ratings",
-    "tooltip": "Team defensive rating with player ON court minus team rating with player OFF court",
+    "tooltip": "Opponent points scored per 100 possessions while player is OFF the court",
     "format": "float1",
     "higher_is_better": false
   },
-  "net_on_off": {
-    "name": "Net On/Off Differential",
+  "team_off_net_rtg": {
+    "name": "Team Off Net Rating",
     "category": "Ratings",
-    "tooltip": "Net team rating differential with player ON court minus OFF court",
+    "tooltip": "Team Net Rating (ORtg - DRtg) while player is OFF the court",
     "format": "float1",
     "higher_is_better": true
+  },
+  "team_diff_ortg": {
+    "name": "Team Diff Offensive Rating",
+    "category": "Ratings",
+    "tooltip": "Team Offensive Rating ON minus OFF the court",
+    "format": "float1",
+    "higher_is_better": true
+  },
+  "team_diff_drtg": {
+    "name": "Team Diff Defensive Rating",
+    "category": "Ratings",
+    "tooltip": "Team Defensive Rating ON minus OFF the court (negative = better defense on-court)",
+    "format": "float1",
+    "higher_is_better": false
+  },
+  "team_diff_net_rtg": {
+    "name": "Team Diff Net Rating",
+    "category": "Ratings",
+    "tooltip": "Team Net Rating ON minus OFF the court (Net On/Off impact)",
+    "format": "float1",
+    "higher_is_better": true
+  },
+  "opp_on_ortg": {
+    "name": "Opponent On Offensive Rating",
+    "category": "Ratings",
+    "tooltip": "Opponent points scored per 100 possessions while player is ON the court",
+    "format": "float1",
+    "higher_is_better": false
+  },
+  "opp_on_drtg": {
+    "name": "Opponent On Defensive Rating",
+    "category": "Ratings",
+    "tooltip": "Team points allowed by opponent per 100 possessions while player is ON the court",
+    "format": "float1",
+    "higher_is_better": true
+  },
+  "opp_on_net_rtg": {
+    "name": "Opponent On Net Rating",
+    "category": "Ratings",
+    "tooltip": "Opponent Net Rating while player is ON the court",
+    "format": "float1",
+    "higher_is_better": false
+  },
+  "opp_off_ortg": {
+    "name": "Opponent Off Offensive Rating",
+    "category": "Ratings",
+    "tooltip": "Opponent points scored per 100 possessions while player is OFF the court",
+    "format": "float1",
+    "higher_is_better": false
+  },
+  "opp_off_drtg": {
+    "name": "Opponent Off Defensive Rating",
+    "category": "Ratings",
+    "tooltip": "Team points allowed by opponent per 100 possessions while player is OFF the court",
+    "format": "float1",
+    "higher_is_better": true
+  },
+  "opp_off_net_rtg": {
+    "name": "Opponent Off Net Rating",
+    "category": "Ratings",
+    "tooltip": "Opponent Net Rating while player is OFF the court",
+    "format": "float1",
+    "higher_is_better": false
+  },
+  "opp_diff_ortg": {
+    "name": "Opponent Diff Offensive Rating",
+    "category": "Ratings",
+    "tooltip": "Opponent Offensive Rating ON minus OFF (negative = suppressed opponent offense)",
+    "format": "float1",
+    "higher_is_better": false
+  },
+  "opp_diff_drtg": {
+    "name": "Opponent Diff Defensive Rating",
+    "category": "Ratings",
+    "tooltip": "Opponent Defensive Rating ON minus OFF",
+    "format": "float1",
+    "higher_is_better": true
+  },
+  "opp_diff_net_rtg": {
+    "name": "Opponent Diff Net Rating",
+    "category": "Ratings",
+    "tooltip": "Opponent Net Rating ON minus OFF the court",
+    "format": "float1",
+    "higher_is_better": false
   }
 }

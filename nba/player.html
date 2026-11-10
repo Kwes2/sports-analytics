@@ -69,6 +69,36 @@
             color: #555;
         }
 
+        .header-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .rate-toggle-group {
+            display: flex;
+            border: 1px solid #888;
+            border-radius: 3px;
+            overflow: hidden;
+            background: #eee;
+        }
+
+        .rate-btn {
+            border: none;
+            background: transparent;
+            padding: 4px 8px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .rate-btn.active {
+            background: #333;
+            color: #fff;
+            font-weight: bold;
+        }
+
         .tool-btn {
             background: #eee;
             border: 1px solid #888;
@@ -182,7 +212,6 @@
             max-width: 950px;
         }
 
-        /* Profile Content Container & Recalculating Dimmer */
         #player-content-wrapper {
             position: relative;
             max-width: 950px;
@@ -343,19 +372,41 @@
     </div>
 
     <script>
+        function getDataPath(fileName) {
+            const p = window.location.pathname.toLowerCase();
+            if (p.includes('/nba/') || p.endsWith('/nba')) {
+                return `data/${fileName}`;
+            }
+            return `nba/data/${fileName}`;
+        }
+
+        function getApiPath(endpoint) {
+            const p = window.location.pathname.toLowerCase();
+            if (p.includes('/nba/') || p.endsWith('/nba')) {
+                return `api/${endpoint}`;
+            }
+            return `nba/api/${endpoint}`;
+        }
+
         const urlParams = new URLSearchParams(window.location.search);
         const playerId = urlParams.get('id');
 
         let STAT_DEFINITIONS = {};
         let zoneStatsMap = {};
         let defaultPlayerData = null;
+        let currentLoadedData = null;
         let showWindowDrawer = false;
+        let activePlayerRecalcController = null;
+
+        // Rate Mode: 'pg' (Per Game), 'p100' (Per 100 Possessions), 'p36' (Per 36 Minutes)
+        let activePlayerRateMode = 'pg';
 
         const playerSeasonState = JSON.parse(sessionStorage.getItem('nba_season_state')) || {
             curr_reg: true,
             curr_post: false,
             prev_reg: false,
             prev_post: false,
+            last_1_wks: false,
             last_5_wks: false,
             last_10_wks: false,
             use_custom_date: false,
@@ -363,7 +414,7 @@
             end_date: "2026-04-15"
         };
 
-        fetch('data/stat_definitions.json')
+        fetch(getDataPath('stat_definitions.json'))
             .then(res => res.json())
             .then(data => { STAT_DEFINITIONS = data; })
             .catch(() => {});
@@ -374,10 +425,11 @@
                 return;
             }
 
-            fetch(`data/players/${playerId}.json`)
+            fetch(getDataPath(`players/${playerId}.json`))
                 .then(res => res.json())
                 .then(data => {
                     defaultPlayerData = data;
+                    currentLoadedData = data;
                     renderHeader(data.name, data.team, data.team_id, data.position, "Full Season");
                     renderProfileSections(data);
                 })
@@ -385,6 +437,14 @@
                     document.getElementById('player-content').innerHTML = `<p style="color:red">Failed to load profile for Player ID ${playerId}.</p>`;
                 });
         };
+
+        function switchPlayerRateMode(mode) {
+            activePlayerRateMode = mode;
+            document.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('active'));
+            const activeBtn = document.getElementById(`p-rate-${mode}`);
+            if (activeBtn) activeBtn.classList.add('active');
+            if (currentLoadedData) renderProfileSections(currentLoadedData);
+        }
 
         function renderHeader(name, team, teamId, position, windowLabel) {
             const container = document.getElementById('player-header-container');
@@ -396,7 +456,12 @@
                         <h1>${name}</h1>
                         <div class="meta">${teamLink} | Position: <strong>${position}</strong> | Window: <strong id="current-window-label">${windowLabel}</strong></div>
                     </div>
-                    <div>
+                    <div class="header-controls">
+                        <div class="rate-toggle-group">
+                            <button id="p-rate-pg" class="rate-btn ${activePlayerRateMode === 'pg' ? 'active' : ''}" onclick="switchPlayerRateMode('pg')">Per Game</button>
+                            <button id="p-rate-p100" class="rate-btn ${activePlayerRateMode === 'p100' ? 'active' : ''}" onclick="switchPlayerRateMode('p100')">Per 100 Poss</button>
+                            <button id="p-rate-p36" class="rate-btn ${activePlayerRateMode === 'p36' ? 'active' : ''}" onclick="switchPlayerRateMode('p36')">Per 36 Min</button>
+                        </div>
                         <button class="tool-btn" onclick="toggleWindowDrawer()">📅 Seasons & Ranges</button>
                     </div>
                 </div>
@@ -428,7 +493,8 @@
                     <hr class="drawer-divider"/>
 
                     <div class="preset-bar">
-                        <label><input type="checkbox" id="chk-p-last-5" ${playerSeasonState.last_5_wks ? 'checked' : ''} onchange="togglePlayerWeeksFilter(5)"> [Last 5 Weeks]</label>
+                        <label><input type="checkbox" id="chk-p-last-1" ${playerSeasonState.last_1_wks ? 'checked' : ''} onchange="togglePlayerWeeksFilter(1)"> [Last 1 Week]</label>
+                        <label style="margin-left: 12px;"><input type="checkbox" id="chk-p-last-5" ${playerSeasonState.last_5_wks ? 'checked' : ''} onchange="togglePlayerWeeksFilter(5)"> [Last 5 Weeks]</label>
                         <label style="margin-left: 12px;"><input type="checkbox" id="chk-p-last-10" ${playerSeasonState.last_10_wks ? 'checked' : ''} onchange="togglePlayerWeeksFilter(10)"> [Last 10 Weeks]</label>
                     </div>
 
@@ -456,32 +522,32 @@
             if (status) status.innerHTML = "<em>Selection changed. Click [Recalculate Profile] to apply.</em>";
         }
 
-        // 1. Season change -> deselects weeks and custom range
         function handlePlayerSeasonChange(key) {
             playerSeasonState[key] = document.getElementById(`chk-p-${key.replace('_', '-')}`).checked;
             if (playerSeasonState[key]) {
+                playerSeasonState.last_1_wks = false;
                 playerSeasonState.last_5_wks = false;
                 playerSeasonState.last_10_wks = false;
                 playerSeasonState.use_custom_date = false;
 
-                const c5 = document.getElementById('chk-p-last-5');
-                const c10 = document.getElementById('chk-p-last-10');
-                const cc = document.getElementById('chk-p-custom-range');
-                if (c5) c5.checked = false;
-                if (c10) c10.checked = false;
-                if (cc) cc.checked = false;
+                ['chk-p-last-1', 'chk-p-last-5', 'chk-p-last-10', 'chk-p-custom-range'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.checked = false;
+                });
             }
             sessionStorage.setItem('nba_season_state', JSON.stringify(playerSeasonState));
             indicatePlayerStaleStatus();
         }
 
-        // 2. Weeks change -> deselects seasons and custom range
         function togglePlayerWeeksFilter(weeks) {
+            const is1 = (weeks === 1);
             const is5 = (weeks === 5);
-            const targetChecked = document.getElementById(is5 ? 'chk-p-last-5' : 'chk-p-last-10').checked;
+            const targetId = is1 ? 'chk-p-last-1' : (is5 ? 'chk-p-last-5' : 'chk-p-last-10');
+            const targetChecked = document.getElementById(targetId).checked;
 
+            playerSeasonState.last_1_wks = is1 ? targetChecked : false;
             playerSeasonState.last_5_wks = is5 ? targetChecked : false;
-            playerSeasonState.last_10_wks = is5 ? false : targetChecked;
+            playerSeasonState.last_10_wks = (!is1 && !is5) ? targetChecked : false;
 
             if (targetChecked) {
                 playerSeasonState.curr_reg = false;
@@ -494,8 +560,12 @@
                     const el = document.getElementById(`chk-p-${id}`);
                     if (el) el.checked = false;
                 });
-                const alt = document.getElementById(is5 ? 'chk-p-last-10' : 'chk-p-last-5');
-                if (alt) alt.checked = false;
+                ['chk-p-last-1', 'chk-p-last-5', 'chk-p-last-10'].forEach(id => {
+                    if (id !== targetId) {
+                        const el = document.getElementById(id);
+                        if (el) el.checked = false;
+                    }
+                });
                 const cc = document.getElementById('chk-p-custom-range');
                 if (cc) cc.checked = false;
 
@@ -512,7 +582,6 @@
             indicatePlayerStaleStatus();
         }
 
-        // 3. Custom Date Range toggle -> deselects seasons and weeks
         function togglePlayerCustomRangeCheckbox() {
             const isChecked = document.getElementById('chk-p-custom-range').checked;
             playerSeasonState.use_custom_date = isChecked;
@@ -522,10 +591,11 @@
                 playerSeasonState.curr_post = false;
                 playerSeasonState.prev_reg = false;
                 playerSeasonState.prev_post = false;
+                playerSeasonState.last_1_wks = false;
                 playerSeasonState.last_5_wks = false;
                 playerSeasonState.last_10_wks = false;
 
-                ['curr-reg', 'curr-post', 'prev-reg', 'prev-post', 'last-5', 'last-10'].forEach(id => {
+                ['curr-reg', 'curr-post', 'prev-reg', 'prev-post', 'last-1', 'last-5', 'last-10'].forEach(id => {
                     const el = document.getElementById(`chk-p-${id}`);
                     if (el) el.checked = false;
                 });
@@ -540,6 +610,12 @@
         }
 
         function executePlayerWindowRecalculation() {
+            if (activePlayerRecalcController) {
+                activePlayerRecalcController.abort();
+            }
+            activePlayerRecalcController = new AbortController();
+            const signal = activePlayerRecalcController.signal;
+
             const startDate = document.getElementById('p-start-date').value;
             const endDate = document.getElementById('p-end-date').value;
             playerSeasonState.start_date = startDate;
@@ -550,7 +626,6 @@
             const contentElem = document.getElementById('player-content');
             const badge = document.getElementById('player-recalc-badge');
 
-            // Apply Dimmer / Grey-Out
             if (contentElem) contentElem.classList.add('is-recalculating');
             if (badge) badge.classList.add('active');
             if (status) status.innerText = "Recalculating league percentiles & ranks...";
@@ -558,7 +633,7 @@
             const queryParams = new URLSearchParams();
             queryParams.append("id", playerId);
 
-            if (playerSeasonState.use_custom_date || playerSeasonState.last_5_wks || playerSeasonState.last_10_wks) {
+            if (playerSeasonState.use_custom_date || playerSeasonState.last_1_wks || playerSeasonState.last_5_wks || playerSeasonState.last_10_wks) {
                 queryParams.append("start", startDate);
                 queryParams.append("end", endDate);
             } else {
@@ -573,7 +648,7 @@
                 if (badge) badge.classList.remove('active');
             };
 
-            fetch(`api/player_window?${queryParams.toString()}`)
+            fetch(`${getApiPath('player_window')}?${queryParams.toString()}`, { signal: signal })
                 .then(res => {
                     if (!res.ok) throw new Error(`HTTP ${res.status}`);
                     return res.json();
@@ -585,19 +660,22 @@
                         return;
                     }
                     status.innerText = "Done!";
-                    const label = playerSeasonState.use_custom_date ? `${startDate} to ${endDate}` : (playerSeasonState.last_5_wks ? "Last 5 Weeks" : (playerSeasonState.last_10_wks ? "Last 10 Weeks" : "Season Filter"));
+                    const label = playerSeasonState.use_custom_date ? `${startDate} to ${endDate}` : (playerSeasonState.last_1_wks ? "Last 1 Week" : (playerSeasonState.last_5_wks ? "Last 5 Weeks" : (playerSeasonState.last_10_wks ? "Last 10 Weeks" : "Season Filter")));
                     document.getElementById('current-window-label').innerText = label;
+                    currentLoadedData = data;
                     renderProfileSections(data);
                 })
-                .catch(() => {
+                .catch(err => {
+                    if (err.name === 'AbortError') return;
                     finishRecalc();
-                    status.innerText = "Query timed out. Make sure 'python server.py' is running.";
+                    status.innerText = "Query timed out. Make sure server is running.";
                 });
         }
 
         function resetToFullSeason() {
             if (defaultPlayerData) {
                 document.getElementById('current-window-label').innerText = "Full Season";
+                currentLoadedData = defaultPlayerData;
                 renderProfileSections(defaultPlayerData);
                 const status = document.getElementById('player-calc-status');
                 if (status) status.innerText = "Reset to full season.";
@@ -622,31 +700,55 @@
             }
         }
 
-        function formatDisplayValue(val, key) {
+        function formatDisplayValue(val, key, minPg) {
             if (val === null || val === undefined || val === '') return '-';
             if (typeof val !== 'number') return val;
 
-            const meta = STAT_DEFINITIONS[key.toLowerCase()];
-            if (meta) {
-                if (meta.format === 'int') return Math.round(val);
-                if (meta.format === 'float2') return val.toFixed(2);
-                if (meta.format === 'pct1') return `${val.toFixed(1)}%`;
-                if (meta.format === 'float1') return val.toFixed(1);
+            const k = key.toLowerCase();
+            let scaledVal = val;
+
+            // Apply Rate Mode scaling if Per 36 or Per 100
+            if (activePlayerRateMode !== 'pg') {
+                const min = minPg && minPg > 0 ? minPg : 36.0;
+                const isCountingStat = (k.endsWith('_pg') || k === 'pts' || k === 'reb' || k === 'ast' || k === 'stl' || k === 'blk' || k === 'to' || k === 'fga' || k === 'fgm');
+                if (isCountingStat) {
+                    if (activePlayerRateMode === 'p36') {
+                        scaledVal = (val * (36.0 / min));
+                    } else if (activePlayerRateMode === 'p100') {
+                        scaledVal = (val * (100.0 / (min * 2.0)));
+                    }
+                }
             }
 
-            const k = key.toLowerCase();
+            const meta = STAT_DEFINITIONS[k];
+            if (meta) {
+                if (meta.format === 'int') return Math.round(scaledVal);
+                if (meta.format === 'float2') return scaledVal.toFixed(2);
+                if (meta.format === 'pct1') return `${scaledVal.toFixed(1)}%`;
+                if (meta.format === 'float1') return scaledVal.toFixed(1);
+            }
+
             if (k === 'ppsa' || k === 'ast_to_ratio' || k.includes('pts_per_ast') || k.includes('xpts') || k === 'paoe' || k.includes('rapm') || k === 'vorp') {
-                return val.toFixed(2);
+                return scaledVal.toFixed(2);
             }
             if (k.includes('pct') || k.includes('_pg') || k === 'smoe' || k === 'mei' || k.includes('rate') || k.includes('share') || k === 'bpm' || k === 'per') {
-                return val.toFixed(1);
+                return scaledVal.toFixed(1);
             }
-            return Number.isInteger(val) ? val : val.toFixed(1);
+            return Number.isInteger(scaledVal) ? scaledVal : scaledVal.toFixed(1);
         }
 
         function renderProfileSections(data) {
             const container = document.getElementById('player-content');
             let html = "";
+
+            // Find min_pg for rate conversions
+            let playerMinPg = 36.0;
+            (data.sections || []).forEach(sec => {
+                if (sec.type === "long_form_stats" && sec.data.rows) {
+                    const mRow = sec.data.rows.find(r => r.stat_key === "min_pg");
+                    if (mRow && mRow.value) playerMinPg = parseFloat(mRow.value);
+                }
+            });
 
             (data.sections || []).forEach((sec) => {
                 if (sec.type === "long_form_stats") {
@@ -655,7 +757,7 @@
                         <thead>
                             <tr>
                                 <th>Metric</th>
-                                <th class="num">Value</th>
+                                <th class="num">Value (${activePlayerRateMode.toUpperCase()})</th>
                                 <th class="num">League Rank</th>
                                 <th class="num">League %ile</th>
                                 <th class="num">Position Rank (${data.position})</th>
@@ -674,7 +776,7 @@
 
                         html += `<tr>
                             <td ${tipAttr}><strong>${r.stat_name}</strong></td>
-                            <td class="num"><strong>${formatDisplayValue(r.value, r.stat_key)}</strong></td>
+                            <td class="num"><strong>${formatDisplayValue(r.value, r.stat_key, playerMinPg)}</strong></td>
                             <td class="num">#${r.league_rank}</td>
                             <td class="pctile-cell" style="background-color: ${lPctColor};">${r.league_percentile}</td>
                             <td class="num">#${r.pos_rank}</td>
@@ -813,10 +915,15 @@
                 html += `<tr>`;
                 keys.forEach(k => {
                     const val = r[k];
-                    const isNum = typeof val === 'number';
                     let display = val !== null ? val : '';
-                    if (isNum) display = formatDisplayValue(val, k);
-                    html += `<td class="${isNum ? 'num' : ''}">${display}</td>`;
+
+                    if (k === 'starter') {
+                        display = val === 1 ? `<strong>*</strong>` : `<span style="color:#aaa;">-</span>`;
+                    } else if (typeof val === 'number') {
+                        display = formatDisplayValue(val, k);
+                    }
+
+                    html += `<td class="${typeof val === 'number' && k !== 'starter' ? 'num' : ''}">${display}</td>`;
                 });
                 html += `</tr>`;
             });

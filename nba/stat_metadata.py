@@ -1,6 +1,6 @@
 """
 stat_metadata.py - Centralized metadata registry for all NBA statistical metrics.
-Defines category groupings, display names, tooltips, formats, and polarity.
+Defines category groupings, display names, tooltips, formats, polarity, and column presets.
 """
 
 import json
@@ -12,6 +12,13 @@ STAT_METADATA = {
     # -------------------------------------------------------------
     # BASIC OUTPUT STATS
     # -------------------------------------------------------------
+    "starter": {
+        "name": "Starter",
+        "category": "Basic",
+        "tooltip": "Started game (1 = Starter, 0 = Bench)",
+        "format": "int",
+        "higher_is_better": True
+    },
     "gp": {
         "name": "Games Played",
         "category": "Basic",
@@ -177,6 +184,13 @@ STAT_METADATA = {
     # -------------------------------------------------------------
     # ADVANCED EFFICIENCY & BOX SCORE VALUE
     # -------------------------------------------------------------
+    "trb_pct": {
+        "name": "Total Rebound % (TRB%)",
+        "category": "Advanced",
+        "tooltip": "Estimate of the percentage of available rebounds a player grabbed while on the court",
+        "format": "pct1",
+        "higher_is_better": True
+    },
     "ts_pct": {
         "name": "True Shooting %",
         "category": "Advanced",
@@ -263,7 +277,7 @@ STAT_METADATA = {
     },
 
     # -------------------------------------------------------------
-    # SHOOTING & SHOT QUALITY
+    # SHOOTING & QUALITY
     # -------------------------------------------------------------
     "xefg_pct": {
         "name": "Expected eFG %",
@@ -283,6 +297,62 @@ STAT_METADATA = {
         "name": "Moreyball Efficiency Index",
         "category": "Shooting",
         "tooltip": "Percentage of shot possessions ending in high-efficiency areas (Rim, 3PT, or Free Throw line)",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "corner3_pct": {
+        "name": "Corner 3PT %",
+        "category": "Shooting",
+        "tooltip": "Field goal percentage on 3-point attempts from the left/right corners",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "corner3_fga_pg": {
+        "name": "Corner 3 Attempts Per Game",
+        "category": "Shooting",
+        "tooltip": "Corner 3-point field goal attempts per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "atb3_pct": {
+        "name": "Above-the-Break 3PT %",
+        "category": "Shooting",
+        "tooltip": "Field goal percentage on 3-point attempts above the break (wings and top of the key)",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "atb3_fga_pg": {
+        "name": "Above-the-Break 3A Per Game",
+        "category": "Shooting",
+        "tooltip": "Above-the-break 3-point field goal attempts per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "ast_fg_pct": {
+        "name": "Assisted FG %",
+        "category": "Shooting",
+        "tooltip": "Percentage of player's made field goals that were assisted by a teammate",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "unast_fg_pct": {
+        "name": "Unassisted (Self-Created) FG %",
+        "category": "Shooting",
+        "tooltip": "Percentage of player's made field goals created independently without an assist",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "ast_3p_pct": {
+        "name": "Assisted 3PT %",
+        "category": "Shooting",
+        "tooltip": "Percentage of player's made 3-pointers that were assisted (catch-and-shoot looks)",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "unast_3p_pct": {
+        "name": "Unassisted 3PT %",
+        "category": "Shooting",
+        "tooltip": "Percentage of player's made 3-pointers that were unassisted (pull-ups / off the dribble)",
         "format": "pct1",
         "higher_is_better": True
     },
@@ -367,6 +437,20 @@ STAT_METADATA = {
         "format": "float1",
         "higher_is_better": True
     },
+    "xprf_pg": {
+        "name": "Expected Points Responsible For (xPRF)",
+        "category": "Passing",
+        "tooltip": "Expected total points generated from volume: (FGA * xFG%) + (3PA * x3P%) + (FTA * xFT%) + Expected Assist Points per game",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "prfoe_pg": {
+        "name": "Points Responsible For Over Expected (PRFOE)",
+        "category": "Passing",
+        "tooltip": "Actual PRF/G minus Expected PRF/G. Measures individual scoring & playmaking shot-making talent above opportunity baseline",
+        "format": "float1",
+        "higher_is_better": True
+    },
     "pct_team_prf": {
         "name": "% of Team Points Accounted For",
         "category": "Passing",
@@ -418,7 +502,7 @@ STAT_METADATA = {
     },
 
     # -------------------------------------------------------------
-    # LINEUP IMPACT, ON/OFF & REGULARIZED RATINGS
+    # RATINGS, RAPM & ON/OFF DIFFERENTIALS
     # -------------------------------------------------------------
     "net_rapm": {
         "name": "Net RAPM",
@@ -441,56 +525,172 @@ STAT_METADATA = {
         "format": "float2",
         "higher_is_better": True
     },
-    "on_ortg": {
-        "name": "On-Court Offensive Rating",
+
+    # Team On/Off Ratings
+    "team_on_ortg": {
+        "name": "Team On Offensive Rating",
         "category": "Ratings",
-        "tooltip": "Team points scored per 100 possessions while player is on the court",
+        "tooltip": "Team points scored per 100 possessions while player is ON the court",
         "format": "float1",
         "higher_is_better": True
     },
-    "on_drtg": {
-        "name": "On-Court Defensive Rating",
+    "team_on_drtg": {
+        "name": "Team On Defensive Rating",
         "category": "Ratings",
-        "tooltip": "Opponent points scored per 100 possessions while player is on the court",
+        "tooltip": "Opponent points scored per 100 possessions while player is ON the court",
         "format": "float1",
         "higher_is_better": False
     },
-    "on_net_rtg": {
-        "name": "On-Court Net Rating",
+    "team_on_net_rtg": {
+        "name": "Team On Net Rating",
         "category": "Ratings",
-        "tooltip": "Team net rating (ORtg - DRtg) while player is on the court",
+        "tooltip": "Team Net Rating (ORtg - DRtg) while player is ON the court",
         "format": "float1",
         "higher_is_better": True
     },
-    "off_on_off": {
-        "name": "Offensive On/Off Differential",
+    "team_off_ortg": {
+        "name": "Team Off Offensive Rating",
         "category": "Ratings",
-        "tooltip": "Team offensive rating with player ON court minus team rating with player OFF court",
+        "tooltip": "Team points scored per 100 possessions while player is OFF the court",
         "format": "float1",
         "higher_is_better": True
     },
-    "def_on_off": {
-        "name": "Defensive On/Off Differential",
+    "team_off_drtg": {
+        "name": "Team Off Defensive Rating",
         "category": "Ratings",
-        "tooltip": "Team defensive rating with player ON court minus team rating with player OFF court",
+        "tooltip": "Opponent points scored per 100 possessions while player is OFF the court",
         "format": "float1",
         "higher_is_better": False
     },
-    "net_on_off": {
-        "name": "Net On/Off Differential",
+    "team_off_net_rtg": {
+        "name": "Team Off Net Rating",
         "category": "Ratings",
-        "tooltip": "Net team rating differential with player ON court minus OFF court",
+        "tooltip": "Team Net Rating (ORtg - DRtg) while player is OFF the court",
         "format": "float1",
         "higher_is_better": True
+    },
+    "team_diff_ortg": {
+        "name": "Team Diff Offensive Rating",
+        "category": "Ratings",
+        "tooltip": "Team Offensive Rating ON minus OFF the court",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "team_diff_drtg": {
+        "name": "Team Diff Defensive Rating",
+        "category": "Ratings",
+        "tooltip": "Team Defensive Rating ON minus OFF the court (negative = better defense on-court)",
+        "format": "float1",
+        "higher_is_better": False
+    },
+    "team_diff_net_rtg": {
+        "name": "Team Diff Net Rating",
+        "category": "Ratings",
+        "tooltip": "Team Net Rating ON minus OFF the court (Net On/Off impact)",
+        "format": "float1",
+        "higher_is_better": True
+    },
+
+    # Opponent On/Off Ratings
+    "opp_on_ortg": {
+        "name": "Opponent On Offensive Rating",
+        "category": "Ratings",
+        "tooltip": "Opponent points scored per 100 possessions while player is ON the court",
+        "format": "float1",
+        "higher_is_better": False
+    },
+    "opp_on_drtg": {
+        "name": "Opponent On Defensive Rating",
+        "category": "Ratings",
+        "tooltip": "Team points allowed by opponent per 100 possessions while player is ON the court",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "opp_on_net_rtg": {
+        "name": "Opponent On Net Rating",
+        "category": "Ratings",
+        "tooltip": "Opponent Net Rating while player is ON the court",
+        "format": "float1",
+        "higher_is_better": False
+    },
+    "opp_off_ortg": {
+        "name": "Opponent Off Offensive Rating",
+        "category": "Ratings",
+        "tooltip": "Opponent points scored per 100 possessions while player is OFF the court",
+        "format": "float1",
+        "higher_is_better": False
+    },
+    "opp_off_drtg": {
+        "name": "Opponent Off Defensive Rating",
+        "category": "Ratings",
+        "tooltip": "Team points allowed by opponent per 100 possessions while player is OFF the court",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "opp_off_net_rtg": {
+        "name": "Opponent Off Net Rating",
+        "category": "Ratings",
+        "tooltip": "Opponent Net Rating while player is OFF the court",
+        "format": "float1",
+        "higher_is_better": False
+    },
+    "opp_diff_ortg": {
+        "name": "Opponent Diff Offensive Rating",
+        "category": "Ratings",
+        "tooltip": "Opponent Offensive Rating ON minus OFF (negative = suppressed opponent offense)",
+        "format": "float1",
+        "higher_is_better": False
+    },
+    "opp_diff_drtg": {
+        "name": "Opponent Diff Defensive Rating",
+        "category": "Ratings",
+        "tooltip": "Opponent Defensive Rating ON minus OFF",
+        "format": "float1",
+        "higher_is_better": True
+    },
+    "opp_diff_net_rtg": {
+        "name": "Opponent Diff Net Rating",
+        "category": "Ratings",
+        "tooltip": "Opponent Net Rating ON minus OFF the court",
+        "format": "float1",
+        "higher_is_better": False
     }
+}
+
+# Standardized Column Presets for Table Viewers
+PRESET_COLUMNS = {
+    "standard": [
+        "player", "team", "pos", "gp", "gs", "min_pg", "pts_pg", "prf_pg",
+        "reb_pg", "ast_pg", "stl_pg", "blk_pg", "fg_pct", "fg3_pct", "ft_pct"
+    ],
+    "advanced": [
+        "player", "team", "pos", "gp", "min_pg", "pts_pg", "prf_pg", "xprf_pg", "prfoe_pg",
+        "trb_pct", "ts_pct", "efg_pct", "xefg_pct", "smoe", "mei", "usg_pct", "tov_pct", "ast_to_ratio", "ppsa", "gmsc_avg"
+    ],
+    "ratings": [
+        "player", "team", "pos", "gp", "min_pg",
+        "net_rapm", "orapm", "drapm", "bpm", "vorp", "per",
+        "team_on_ortg", "team_on_drtg", "team_on_net_rtg",
+        "team_off_ortg", "team_off_drtg", "team_off_net_rtg",
+        "team_diff_ortg", "team_diff_drtg", "team_diff_net_rtg",
+        "opp_on_ortg", "opp_on_drtg", "opp_on_net_rtg",
+        "opp_off_ortg", "opp_off_drtg", "opp_off_net_rtg",
+        "opp_diff_ortg", "opp_diff_drtg", "opp_diff_net_rtg"
+    ],
+    "passing": [
+        "player", "team", "pos", "gp", "ast_pg", "pts_created_pg", "prf_pg", "xprf_pg", "prfoe_pg",
+        "pct_team_prf", "pts_per_ast", "xpts_per_ast", "paoe", "points_added_pg", "rim_ast_pct", "three_ast_pct"
+    ],
+    "shooting": [
+        "player", "team", "pos", "gp", "fga_pg", "fg_pct", "xefg_pct", "smoe", "mei",
+        "corner3_pct", "corner3_fga_pg", "atb3_pct", "atb3_fga_pg",
+        "ast_fg_pct", "unast_fg_pct", "ast_3p_pct", "unast_3p_pct",
+        "rim_fg_pct", "rim_fga_pg", "rim_share", "mid_fg_pct", "mid_fga_pg", "mid_share", "three_fg_pct", "three_fga_pg", "three_share"
+    ]
 }
 
 
 def get_stat_meta(key: str) -> dict:
-    """
-    Returns stat metadata if registered.
-    Gracefully falls back to category 'Miscellaneous' for any dynamically created new stat.
-    """
     if key in STAT_METADATA:
         return STAT_METADATA[key]
 
@@ -503,14 +703,13 @@ def get_stat_meta(key: str) -> dict:
     return {
         "name": clean_name,
         "category": "Miscellaneous",
-        "tooltip": f"{clean_name} statistical metric",
+        "tooltip": f"{clean_name} metric",
         "format": "float1",
         "higher_is_better": True
     }
 
 
 def export_metadata_json(output_path=None):
-    """Exports the canonical stat definitions dictionary to JSON for client consumption."""
     if output_path is None:
         output_path = DATA_DIR / "stat_definitions.json"
     else:

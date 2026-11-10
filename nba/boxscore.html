@@ -64,7 +64,6 @@
             color: #555;
         }
 
-        /* View Toggle Tabs */
         .view-toggle {
             display: flex;
             gap: 10px;
@@ -191,6 +190,11 @@
             color: #0056b3;
             text-decoration: underline;
         }
+
+        .starter-badge {
+            font-weight: bold;
+            color: #000;
+        }
     </style>
 </head>
 <body>
@@ -213,38 +217,14 @@
         const urlParams = new URLSearchParams(window.location.search);
         const gameId = urlParams.get('id');
 
-        const STAT_GLOSSARY = {
-            "MIN": "Minutes Played",
-            "PTS": "Points",
-            "REB": "Rebounds",
-            "AST": "Assists",
-            "STL": "Steals",
-            "BLK": "Blocks",
-            "TO": "Turnovers",
-            "PF": "Personal Fouls",
-            "PLUS_MINUS": "Plus-Minus (+/-): Point differential while on the court",
-            "FGM": "Field Goals Made",
-            "FGA": "Field Goals Attempted",
-            "FG3M": "3-Pointers Made",
-            "FG3A": "3-Point Attempts",
-            "FTM": "Free Throws Made",
-            "FTA": "Free Throw Attempts",
-            "OREB": "Offensive Rebounds",
-            "DREB": "Defensive Rebounds",
-            "GMSC": "John Hollinger's Game Score Rating",
-            "PACE": "Possessions per 48 minutes",
-            "ORTG": "Offensive Rating (Points per 100 possessions)",
-            "DRTG": "Defensive Rating (Points allowed per 100 possessions)",
-            "NET_RTG": "Net Rating (ORtg - DRtg)",
-            "EFG_PCT": "Effective FG %",
-            "TOV_PCT": "Turnover %",
-            "ORB_PCT": "Offensive Rebound %",
-            "FT_RATE": "Free Throw Attempt Rate (FTA / FGA)",
-            "SHOT_SHARE": "Percentage of team attempts in this zone"
-        };
+        let STAT_DEFINITIONS = {};
+        fetch('data/stat_definitions.json')
+            .then(res => res.json())
+            .then(data => { STAT_DEFINITIONS = data; })
+            .catch(() => {});
 
         const boxTableState = {};
-        let activeTab = "box"; // "box" or "pbp"
+        let activeTab = "box";
         let rawGameData = null;
 
         window.onload = () => {
@@ -259,7 +239,7 @@
                     rawGameData = data;
                     renderMainView();
                 })
-                .catch(err => {
+                .catch(() => {
                     document.getElementById('boxscore-content').innerHTML = `<p style="color:red">Failed to load box score for game ID ${gameId}.</p>`;
                 });
         };
@@ -348,7 +328,7 @@
                 return;
             }
 
-            // Box Score View
+            // Four Factors Comparison
             if (game.four_factors && game.four_factors.rows) {
                 html += `<h3>Four Factors Comparison</h3>`;
                 const ffId = "table_four_factors";
@@ -361,36 +341,24 @@
                 html += `<div id="${ffId}_box">${renderSortableBoxTable(ffId)}</div>`;
             }
 
+            // Unified Team Box Scores (Merged Starters + Bench)
             (game.teams || []).forEach((team, tIdx) => {
                 const teamTitleLink = team.team_id ? `<a class="table-link" href="team.html?id=${team.team_id}">${team.team_name}</a>` : team.team_name;
                 html += `<h3>${teamTitleLink} Box Score</h3>`;
 
-                // Starters
-                if (team.starters && team.starters.length > 0) {
-                    html += `<h4>Starters</h4>`;
-                    const sId = `table_team_${tIdx}_starters`;
-                    boxTableState[sId] = {
-                        metaKeys: ["player", "pos"],
-                        rows: team.starters,
-                        sortCol: null,
-                        isAsc: false
-                    };
-                    html += `<div id="${sId}_box">${renderSortableBoxTable(sId)}</div>`;
-                }
+                // Unified table rows
+                const unifiedRows = team.rows || [...(team.starters || []), ...(team.bench || [])];
+                const teamTableId = `table_team_${tIdx}_unified`;
 
-                // Bench
-                if (team.bench && team.bench.length > 0) {
-                    html += `<h4>Bench</h4>`;
-                    const bId = `table_team_${tIdx}_bench`;
-                    boxTableState[bId] = {
-                        metaKeys: ["player", "pos"],
-                        rows: team.bench,
-                        sortCol: null,
-                        isAsc: false
-                    };
-                    html += `<div id="${bId}_box">${renderSortableBoxTable(bId)}</div>`;
-                }
+                boxTableState[teamTableId] = {
+                    metaKeys: ["player", "starter", "pos"],
+                    rows: unifiedRows,
+                    sortCol: null,
+                    isAsc: false
+                };
+                html += `<div id="${teamTableId}_box">${renderSortableBoxTable(teamTableId)}</div>`;
 
+                // Shooting Splits
                 if (team.shooting_splits && team.shooting_splits.rows) {
                     html += `<h4>Shooting Splits (Distance Zones)</h4>`;
                     const splitId = `table_team_${tIdx}_splits`;
@@ -437,8 +405,9 @@
                     indicator = `<span class="sort-indicator">${state.isAsc ? '▲' : '▼'}</span>`;
                 }
 
-                const colUpper = col.toUpperCase();
-                const tip = STAT_GLOSSARY[colUpper] || "";
+                const colLower = col.toLowerCase();
+                const meta = STAT_DEFINITIONS[colLower];
+                const tip = meta ? meta.tooltip : "";
                 const tipAttr = tip ? `title="${tip}" class="${isNumeric && !isMeta ? 'num' : ''} has-tip"` : `class="${isNumeric && !isMeta ? 'num' : ''}"`;
 
                 html += `<th ${tipAttr} onclick="handleBoxSort('${tblId}', '${col}')">
@@ -455,7 +424,10 @@
                     const isNumeric = typeof val === 'number';
 
                     let cellContent = val !== null ? val : '';
-                    if (col === 'player' && row.player_id) {
+
+                    if (col === 'starter') {
+                        cellContent = val === 1 ? `<span class="starter-badge">*</span>` : `<span style="color:#aaa;">-</span>`;
+                    } else if (col === 'player' && row.player_id) {
                         cellContent = `<a class="table-link" href="player.html?id=${row.player_id}">${val}</a>`;
                     }
 

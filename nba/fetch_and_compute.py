@@ -20,6 +20,8 @@ from shots import (
     init_granular_dict,
     process_game_shots,
     compute_shot_quality_metrics,
+    compute_assisted_shot_splits,
+    compute_three_point_zone_splits,
     classify_shot_distance,
     classify_shot_granular
 )
@@ -32,7 +34,9 @@ from stats import (
     compute_team_advanced_metrics,
     compute_player_situational_splits,
     compute_team_situational_splits,
-    compute_on_off_metrics
+    compute_on_off_metrics,
+    compute_rebound_rate,
+    compute_xprf_metrics
 )
 from percentiles import (
     compute_percentile,
@@ -50,11 +54,13 @@ DATA_DIR = Path(__file__).parent / "data"
 BOX_DIR = DATA_DIR / "boxscores"
 PLAYER_DIR = DATA_DIR / "players"
 TEAM_DIR = DATA_DIR / "teams"
+WINDOWS_DIR = DATA_DIR / "windows"
 
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 BOX_DIR.mkdir(parents=True, exist_ok=True)
 PLAYER_DIR.mkdir(parents=True, exist_ok=True)
 TEAM_DIR.mkdir(parents=True, exist_ok=True)
+WINDOWS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def main():
@@ -103,8 +109,6 @@ def main():
     merged_pair_ledger = {}
     player_game_stints_history = {}
     all_games_stints = []
-    
-    # Pre-compiled game performances for instant front-end Game Finder
     all_game_performances = []
 
     for event_id, data in summaries.items():
@@ -117,7 +121,7 @@ def main():
         venue_str = comp.get("venue", {}).get("fullName", "Unknown Venue")
         date_str = comp.get("date", "")[:10]
         season_year = 2026 if "2025" in date_str or ("2026" in date_str and int(date_str[5:7]) < 7) else 2027
-        season_type = 2 # Regular Season default
+        season_type = 2
 
         competitors = comp.get("competitors", [])
         home_comp = next((c for c in competitors if c.get("homeAway") == "home"), {})
@@ -247,6 +251,9 @@ def main():
                     players[aid]["granular_shots"][gz]["fga"] += g_zones[gz]["fga"]
                     players[aid]["granular_shots"][gz]["fgm"] += g_zones[gz]["fgm"]
                     players[aid]["granular_shots"][gz]["fg3m"] += g_zones[gz]["fg3m"]
+                    players[aid]["granular_shots"][gz]["ast_fgm"] += g_zones.get("ast_fgm", 0)
+                    players[aid]["granular_shots"][gz]["ast_fg3m"] += g_zones.get("ast_fg3m", 0)
+
                     league_granular_shots[gz]["fga"] += g_zones[gz]["fga"]
                     league_granular_shots[gz]["fgm"] += g_zones[gz]["fgm"]
                     league_granular_shots[gz]["fg3m"] += g_zones[gz]["fg3m"]
@@ -292,16 +299,21 @@ def main():
             p["tot_plus_minus"] += ev["plus_minus"]
             p["game_logs"].append(ev["log"])
 
-            # Save to unified Game Finder collection
+            # Clean categorical result token
+            is_w = ev["log"]["result"].startswith("W")
+            is_ot = ("OT" in ev["log"]["result"])
+            res_token = ("OT-W" if is_w else "OT-L") if is_ot else ("W" if is_w else "L")
+
             all_game_performances.append({
                 "player_id": aid,
                 "player": ev["player"],
                 "team": ev["team_abbrev"],
                 "team_id": ev["team_id"],
                 "pos": ev["pos"],
+                "starter": 1 if ev["is_starter"] else 0,
                 "date": date_str,
                 "opponent": ev["log"]["opponent"],
-                "result": ev["log"]["result"],
+                "result": res_token,
                 "min": int(ev["minutes"]),
                 "pts": ev["pts"],
                 "reb": ev["reb"],
@@ -309,13 +321,19 @@ def main():
                 "stl": ev["stl"],
                 "blk": ev["blk"],
                 "to": ev["to"],
+                "pf": ev["pf"],
+                "plus_minus": ev["plus_minus"],
                 "fgm": ev["fgm"],
                 "fga": ev["fga"],
+                "fg_pct": round(ev["fgm"] / ev["fga"] * 100, 1) if ev["fga"] > 0 else 0.0,
                 "fg3m": ev["fg3m"],
                 "fg3a": ev["fg3a"],
+                "fg3_pct": round(ev["fg3m"] / ev["fg3a"] * 100, 1) if ev["fg3a"] > 0 else 0.0,
                 "ftm": ev["ftm"],
                 "fta": ev["fta"],
-                "plus_minus": ev["plus_minus"],
+                "ft_pct": round(ev["ftm"] / ev["fta"] * 100, 1) if ev["fta"] > 0 else 0.0,
+                "oreb": ev["oreb"],
+                "dreb": ev["dreb"],
                 "gmsc": ev["log"]["gmsc"],
                 "ts_pct": ev["log"]["ts_pct"],
                 "box_score": f"boxscore.html?id={event_id}"
@@ -362,7 +380,7 @@ def main():
                 "starters": t_info["starters"],
                 "bench": t_info["bench"],
                 "shooting_splits": {"meta_keys": ["zone"], "rows": split_rows},
-                "meta_keys": ["player", "pos"],
+                "meta_keys": ["player", "starter", "pos"],
                 "rows": t_info["all_rows"]
             })
 
@@ -409,7 +427,7 @@ def main():
     all_game_performances.sort(key=lambda x: (x["date"], x["pts"]), reverse=True)
     with open(DATA_DIR / "game_performances.json", "w") as f:
         json.dump({
-            "meta_keys": ["date", "player", "team", "opponent", "result"],
+            "meta_keys": ["date", "player", "starter", "team", "opponent", "result"],
             "rows": all_game_performances[:1500]
         }, f, indent=2)
 
@@ -455,12 +473,18 @@ def main():
         dreb_pg = round(p["tot_dreb"] / gp, 1)
 
         p["game_logs"].sort(key=lambda x: x["date"], reverse=True)
+        
+        # Advanced Box Metrics + TRB%
         adv = compute_player_advanced_metrics(p)
+        
+        # Shot Quality, Corner/ATB 3s, and Assisted/Unassisted Splits
         sq_metrics = compute_shot_quality_metrics(
             p["granular_shots"], league_granular_efg, p["tot_fta"], p["tot_fga"]
         )
-        adv = {**adv, **sq_metrics}
+        three_splits = compute_three_point_zone_splits(p["granular_shots"], gp)
+        ast_splits = compute_assisted_shot_splits(p["granular_shots"])
 
+        # On/Off 18-stat Matrix
         t_id = str(p.get("team_id"))
         p_on_court = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
         for st in player_game_stints_history.get(aid, []):
@@ -488,7 +512,7 @@ def main():
                 "ftm_pg": ftm_pg, "fta_pg": fta_pg, "ft_pct": ft_pct,
                 "oreb_pg": oreb_pg, "dreb_pg": dreb_pg
             },
-            "advanced": adv,
+            "advanced": {**adv, **sq_metrics, **three_splits, **ast_splits},
             "on_off": on_off,
             "zone_shots": p["zone_shots"],
             "game_logs": p["game_logs"]
@@ -574,6 +598,24 @@ def main():
             "pct_team_prf": pct_team_prf
         }
 
+        # Expected Points Responsible For (xPRF & PRFOE)
+        fga = p["averages"]["fga_pg"] * gp
+        fg3a = p["averages"]["fg3a_pg"] * gp
+        fta = p["averages"]["fta_pg"] * gp
+        tot_xpts = p["passing_profile"]["xpts_per_ast"] * p["passing_profile"]["ast_recorded"]
+        xprf_data = compute_xprf_metrics(
+            fga=fga,
+            xfg_pct=p["advanced"].get("xefg_pct", 50.0),
+            fg3a=fg3a,
+            x3p_pct=36.0,
+            fta=fta,
+            xft_pct=78.0,
+            expected_assist_pts=tot_xpts,
+            actual_prf_pg=prf_pg,
+            gp=gp
+        )
+        p["prf_metrics"].update(xprf_data)
+
         p["influence_metrics"] = player_influence_map.get(aid, {
             "orapm": 0.0, "drapm": 0.0, "net_rapm": 0.0
         })
@@ -591,15 +633,12 @@ def main():
 
         p["zone_summary"] = zone_summary
 
-    # All statutory keys to track across the system
     stat_keys = list(STAT_METADATA.keys())
-
     league_pools, pos_pools = build_stat_pools(active_players, stat_keys)
     vol_pools, eff_pools = build_shot_pools(active_players, ZONES)
 
     all_player_stats_rows = []
-    
-    # Compile each player's categorized profile
+
     for aid, p in active_players.items():
         pos = p["pos"]
         combined = {
@@ -616,7 +655,6 @@ def main():
             combined, league_pools, pos_pools, pos, stat_keys
         )
 
-        # Categorize every stat into: Basic, Advanced, Shooting, Passing, Ratings, Miscellaneous
         categorized_tables = {
             "Basic": [],
             "Advanced": [],
@@ -690,7 +728,7 @@ def main():
         sections.append({
             "type": "table",
             "title": "Season Game Logs",
-            "data": {"meta_keys": ["date", "opponent", "result"], "rows": p["game_logs"]}
+            "data": {"meta_keys": ["date", "starter", "opponent", "result"], "rows": p["game_logs"]}
         })
 
         player_payload = {
@@ -719,7 +757,7 @@ def main():
     with open(DATA_DIR / "player_stats.json", "w") as f:
         json.dump({"meta_keys": ["player", "team", "pos"], "rows": all_player_stats_rows}, f, indent=2)
 
-    # Process teams
+    # Compile team profiles
     for t_row in team_rows:
         t_id = t_row["team_id"]
         t_name = t_row["team"]
@@ -736,7 +774,7 @@ def main():
                 "reb_pg": p["averages"]["reb_pg"],
                 "ast_pg": p["averages"]["ast_pg"],
                 "net_rapm": p["influence_metrics"]["net_rapm"],
-                "net_on_off": p["on_off"]["net_on_off"],
+                "team_diff_net_rtg": p["on_off"]["team_diff_net_rtg"],
                 "bpm": p["advanced"]["bpm"],
                 "ts_pct": p["advanced"]["ts_pct"],
                 "usg_pct": p["advanced"]["usg_pct"]
@@ -883,7 +921,7 @@ def main():
     with open(DATA_DIR / "team_stats.json", "w") as f:
         json.dump({"meta_keys": ["team"], "rows": enriched_standings}, f, indent=2)
 
-    print("Pipeline Complete: Full DB and JSON compiled with categorized player profiles and Game Finder dataset.")
+    print("Pipeline Complete: Full DB and JSON compiled with categorized player profiles, On/Off ratings, and Game Finder dataset.")
 
 
 if __name__ == "__main__":
