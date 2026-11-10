@@ -1,6 +1,6 @@
 """
 server.py - Production & Local Web Server for StatsWebsite.
-Binds to 0.0.0.0 and respects cloud host assigned PORT.
+Auto-detects data locations and prints diagnostic paths on startup.
 """
 
 import json
@@ -12,18 +12,36 @@ import urllib.parse
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 from pathlib import Path
 
-# Identify project root: handles running from root or from inside nba/
 CURRENT_DIR = Path(__file__).resolve().parent
-if (CURRENT_DIR / "nba").exists():
-    PROJECT_ROOT = CURRENT_DIR
-elif CURRENT_DIR.name.lower() == "nba":
+
+# Check potential roots
+if (CURRENT_DIR / "data").exists():
+    # We are inside the nba folder, and data/ is right here
+    NBA_DIR = CURRENT_DIR
+    PROJECT_ROOT = CURRENT_DIR.parent if CURRENT_DIR.parent.name else CURRENT_DIR
+elif (CURRENT_DIR.parent / "nba" / "data").exists():
     PROJECT_ROOT = CURRENT_DIR.parent
+    NBA_DIR = PROJECT_ROOT / "nba"
 else:
     PROJECT_ROOT = CURRENT_DIR
+    NBA_DIR = CURRENT_DIR
 
-NBA_DIR = PROJECT_ROOT / "nba"
 if str(NBA_DIR) not in sys.path:
     sys.path.insert(0, str(NBA_DIR))
+
+# Print startup diagnostics so Render logs show exactly where files live
+print("=" * 65)
+print(f" [DIAGNOSTIC] Python running from: {CURRENT_DIR}")
+print(f" [DIAGNOSTIC] PROJECT_ROOT: {PROJECT_ROOT}")
+print(f" [DIAGNOSTIC] NBA_DIR: {NBA_DIR}")
+print(f" [DIAGNOSTIC] Checking for player_stats.json:")
+p1 = NBA_DIR / "data" / "player_stats.json"
+p2 = PROJECT_ROOT / "data" / "player_stats.json"
+p3 = PROJECT_ROOT / "nba" / "data" / "player_stats.json"
+print(f"   -> {p1}: exists = {p1.exists()}")
+print(f"   -> {p2}: exists = {p2.exists()}")
+print(f"   -> {p3}: exists = {p3.exists()}")
+print("=" * 65)
 
 from calculator import (
     compute_window_player_stats,
@@ -31,12 +49,12 @@ from calculator import (
     compute_window_single_player_profile
 )
 
-# Use cloud host assigned port, or fallback to 8000 locally
 PORT = int(os.environ.get("PORT", 8000))
 
 
 class WebsiteRequestHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
+        # Serve from PROJECT_ROOT
         super().__init__(*args, directory=str(PROJECT_ROOT), **kwargs)
 
     def log_message(self, format, *args):
@@ -137,7 +155,20 @@ class WebsiteRequestHandler(SimpleHTTPRequestHandler):
                 self._send_json_response({"error": str(e)}, status=500)
             return
 
-        # Standard file serving for all sports
+        # -------------------------------------------------------------
+        # 4. Fallback Router for Static Data Files
+        # -------------------------------------------------------------
+        # If the browser requests /data/xxx.json while looking at /nba/, redirect or serve from nba/data
+        if path.startswith("/data/"):
+            alt_nba_path = NBA_DIR / "data" / path.replace("/data/", "")
+            if alt_nba_path.exists():
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json")
+                self.end_headers()
+                with open(alt_nba_path, "rb") as f:
+                    self.wfile.write(f.read())
+                return
+
         super().do_GET()
 
     def _send_json_response(self, data, status=200):
@@ -156,13 +187,9 @@ class ReusableServer(HTTPServer):
 
 
 def run_server():
-    # 0.0.0.0 is REQUIRED for Render and public cloud containers
     server_address = ("0.0.0.0", PORT)
     httpd = ReusableServer(server_address, WebsiteRequestHandler)
-    print("=" * 65)
-    print(f" StatsWebsite Server running on 0.0.0.0:{PORT}")
-    print(f" Serving Root: {PROJECT_ROOT}")
-    print("=" * 65)
+    print(f">> Server ready on port {PORT}. Serving files...")
     sys.stdout.flush()
     try:
         httpd.serve_forever()
