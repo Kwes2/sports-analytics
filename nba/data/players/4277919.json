@@ -15,6 +15,7 @@
         ],
         "rows": [
           {
+<<<<<<< HEAD
             "stat_key": "gp",
             "stat_name": "Games Played",
             "value": 10,
@@ -243,6 +244,32 @@
             "league_percentile": 76.6,
             "pos_rank": 38,
             "pos_percentile": 58.2
+=======
+            "gp": 1,
+            "gs": 0,
+            "min_pg": 17.0,
+            "pts_pg": 3.0,
+            "reb_pg": 3.0,
+            "ast_pg": 1.0,
+            "stl_pg": 1.0,
+            "blk_pg": 2.0,
+            "to_pg": 0.0,
+            "pf_pg": 1.0,
+            "plus_minus_pg": -17.0,
+            "fgm_pg": 1.0,
+            "fga_pg": 1.0,
+            "fg_pct": 100.0,
+            "fg3m_pg": 0.0,
+            "fg3a_pg": 0.0,
+            "fg3_pct": 0.0,
+            "ftm_pg": 1.0,
+            "fta_pg": 2.0,
+            "ft_pct": 50.0,
+            "oreb_pg": 1.0,
+            "dreb_pg": 2.0,
+            "prf_pg": 5.0,
+            "pct_team_prf": 4.7
+>>>>>>> bf39ced2939f5da5e03c77ef1b26b09695284217
           }
         ]
       }
@@ -257,6 +284,7 @@
         ],
         "rows": [
           {
+<<<<<<< HEAD
             "stat_key": "ts_pct",
             "stat_name": "True Shooting %",
             "value": 66.7,
@@ -375,6 +403,29 @@
             "league_percentile": 33.0,
             "pos_rank": 67,
             "pos_percentile": 27.7
+=======
+            "gp": 1,
+            "ts_pct": 79.8,
+            "efg_pct": 100.0,
+            "usg_pct": 5.5,
+            "tov_pct": 0.0,
+            "ast_to_ratio": 1.0,
+            "three_par": 0.0,
+            "ft_rate": 200.0,
+            "ppsa": 3.0,
+            "gmsc_avg": 6.3,
+            "stocks_pg": 3.0,
+            "xefg_pct": 64.6,
+            "smoe": 2.1,
+            "mei": 46.8,
+            "teammate_off_impact": -12.43,
+            "teammate_def_impact": -19.4,
+            "teammate_overall_impact": -31.83,
+            "opponent_off_impact": -24.63,
+            "opponent_def_impact": -8.1,
+            "opponent_overall_impact": -32.73,
+            "overall_impact": -32.28
+>>>>>>> bf39ced2939f5da5e03c77ef1b26b09695284217
           }
         ]
       }
@@ -389,6 +440,7 @@
         ],
         "rows": [
           {
+<<<<<<< HEAD
             "stat_key": "xefg_pct",
             "stat_name": "Expected eFG %",
             "value": 58.8,
@@ -507,6 +559,16 @@
             "league_percentile": 100.0,
             "pos_rank": 1,
             "pos_percentile": 100.0
+=======
+            "ast_recorded": 1,
+            "pts_created_pg": 2.0,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.2,
+            "paoe": 0.8,
+            "points_added_pg": 0.8,
+            "rim_ast_pct": 0.0,
+            "three_ast_pct": 0.0
+>>>>>>> bf39ced2939f5da5e03c77ef1b26b09695284217
           }
         ]
       }
@@ -521,6 +583,7 @@
         ],
         "rows": [
           {
+<<<<<<< HEAD
             "stat_key": "pts_created_pg",
             "stat_name": "Points Created Per Game",
             "value": 1.1,
@@ -609,6 +672,58 @@
             "league_percentile": 30.3,
             "pos_rank": 62,
             "pos_percentile": 33.2
+=======
+            "scope": "League Percentile",
+            "min_pg": 35.2,
+            "pts_pg": 22.6,
+            "reb_pg": 49.1,
+            "ast_pg": 40.4,
+            "stl_pg": 68.3,
+            "blk_pg": 93.5,
+            "to_pg": 15.7,
+            "fg_pct": 96.1,
+            "ts_pct": 83.0,
+            "efg_pct": 94.8,
+            "xefg_pct": 97.8,
+            "smoe": 61.3,
+            "mei": 35.2,
+            "usg_pct": 5.7,
+            "gmsc_avg": 48.3,
+            "xpts_per_ast": 47.8,
+            "paoe": 36.5,
+            "pts_created_pg": 35.2,
+            "prf_pg": 24.3,
+            "pct_team_prf": 26.1,
+            "overall_impact": 9.1,
+            "teammate_overall_impact": 10.0,
+            "opponent_overall_impact": 9.1
+          },
+          {
+            "scope": "Position Percentile (C)",
+            "min_pg": 44.1,
+            "pts_pg": 35.3,
+            "reb_pg": 35.3,
+            "ast_pg": 38.2,
+            "stl_pg": 73.5,
+            "blk_pg": 85.3,
+            "to_pg": 14.7,
+            "fg_pct": 88.2,
+            "ts_pct": 67.6,
+            "efg_pct": 88.2,
+            "xefg_pct": 91.2,
+            "smoe": 61.8,
+            "mei": 50.0,
+            "usg_pct": 8.8,
+            "gmsc_avg": 44.1,
+            "xpts_per_ast": 32.4,
+            "paoe": 32.4,
+            "pts_created_pg": 29.4,
+            "prf_pg": 35.3,
+            "pct_team_prf": 38.2,
+            "overall_impact": 8.8,
+            "teammate_overall_impact": 8.8,
+            "opponent_overall_impact": 8.8
+>>>>>>> bf39ced2939f5da5e03c77ef1b26b09695284217
           }
         ]
       }
@@ -623,6 +738,7 @@
         ],
         "rows": [
           {
+<<<<<<< HEAD
             "stat_key": "on_ortg",
             "stat_name": "On-Court Offensive Rating",
             "value": 99.4,
@@ -711,6 +827,58 @@
             "league_percentile": 36.5,
             "pos_rank": 60,
             "pos_percentile": 35.3
+=======
+            "split": "Overall",
+            "gp": 1,
+            "min_pg": 17.0,
+            "pts_pg": 3.0,
+            "reb_pg": 3.0,
+            "ast_pg": 1.0,
+            "stl_pg": 1.0,
+            "blk_pg": 2.0,
+            "to_pg": 0.0,
+            "plus_minus_pg": -17.0,
+            "fg_pct": 100.0
+          },
+          {
+            "split": "Away Games",
+            "gp": 1,
+            "min_pg": 17.0,
+            "pts_pg": 3.0,
+            "reb_pg": 3.0,
+            "ast_pg": 1.0,
+            "stl_pg": 1.0,
+            "blk_pg": 2.0,
+            "to_pg": 0.0,
+            "plus_minus_pg": -17.0,
+            "fg_pct": 100.0
+          },
+          {
+            "split": "Last 5 Games",
+            "gp": 1,
+            "min_pg": 17.0,
+            "pts_pg": 3.0,
+            "reb_pg": 3.0,
+            "ast_pg": 1.0,
+            "stl_pg": 1.0,
+            "blk_pg": 2.0,
+            "to_pg": 0.0,
+            "plus_minus_pg": -17.0,
+            "fg_pct": 100.0
+          },
+          {
+            "split": "In Team Losses",
+            "gp": 1,
+            "min_pg": 17.0,
+            "pts_pg": 3.0,
+            "reb_pg": 3.0,
+            "ast_pg": 1.0,
+            "stl_pg": 1.0,
+            "blk_pg": 2.0,
+            "to_pg": 0.0,
+            "plus_minus_pg": -17.0,
+            "fg_pct": 100.0
+>>>>>>> bf39ced2939f5da5e03c77ef1b26b09695284217
           }
         ]
       }
@@ -725,6 +893,7 @@
         ],
         "rows": [
           {
+<<<<<<< HEAD
             "stat_key": "off_ortg",
             "stat_name": "Off Ortg",
             "value": 116.0,
@@ -765,6 +934,34 @@
             "pos_percentile": 50.0
           }
         ]
+=======
+            "finisher": "Keyonte George",
+            "finisher_id": "4433627",
+            "assists": 1,
+            "pts_created": 2,
+            "pts_per_ast": 2.0,
+            "xpts_per_ast": 1.2,
+            "finisher_xpts": 1.33,
+            "paoe": 0.8,
+            "points_added": 0.8,
+            "two_pt_ast": 1,
+            "three_pt_ast": 0,
+            "rim_ast": 0,
+            "mid_ast": 1,
+            "ast_share": 100.0
+          }
+        ]
+      }
+    },
+    {
+      "type": "table",
+      "title": "Assists Received (Passes TO this Player)",
+      "data": {
+        "meta_keys": [
+          "passer"
+        ],
+        "rows": []
+>>>>>>> bf39ced2939f5da5e03c77ef1b26b09695284217
       }
     },
     {
@@ -777,6 +974,7 @@
         "rows": [
           {
             "zone": "0-4 ft",
+<<<<<<< HEAD
             "fgm": 4,
             "fga": 6,
             "fg_pct": 66.7,
@@ -890,6 +1088,32 @@
             "to_pg": 0.7,
             "plus_minus_pg": -4.0,
             "fg_pct": 73.3
+=======
+            "fgm": 0,
+            "fga": 0,
+            "fg_pct": 0.0,
+            "shot_share": 0.0,
+            "league_avg_fg": 50.9,
+            "eff_percentile": 50.0
+          },
+          {
+            "zone": "4-14 ft",
+            "fgm": 1,
+            "fga": 1,
+            "fg_pct": 100.0,
+            "shot_share": 33.3,
+            "league_avg_fg": 59.9,
+            "eff_percentile": 50.0
+          },
+          {
+            "zone": "14+ ft",
+            "fgm": 1,
+            "fga": 2,
+            "fg_pct": 50.0,
+            "shot_share": 66.7,
+            "league_avg_fg": 50.7,
+            "eff_percentile": 52.6
+>>>>>>> bf39ced2939f5da5e03c77ef1b26b09695284217
           }
         ]
       }
@@ -911,6 +1135,7 @@
             "min": 17,
             "pts": 3,
             "reb": 3,
+<<<<<<< HEAD
             "ast": 1,
             "stl": 1,
             "blk": 2,
@@ -932,187 +1157,21 @@
             "min": 15,
             "pts": 7,
             "reb": 10,
+=======
+>>>>>>> bf39ced2939f5da5e03c77ef1b26b09695284217
             "ast": 1,
-            "stl": 0,
-            "blk": 1,
+            "stl": 1,
+            "blk": 2,
             "to": 0,
-            "fgm": 3,
-            "fga": 5,
+            "fgm": 1,
+            "fga": 1,
             "fg3m": 0,
             "fg3a": 0,
             "ftm": 1,
             "fta": 2,
-            "plus_minus": 8,
-            "gmsc": 9.5,
-            "ts_pct": 59.5
-          },
-          {
-            "date": "2026-11-03",
-            "opponent": "@ SA",
-            "result": "L 97-119",
-            "min": 18,
-            "pts": 8,
-            "reb": 8,
-            "ast": 0,
-            "stl": 0,
-            "blk": 2,
-            "to": 1,
-            "fgm": 3,
-            "fga": 5,
-            "fg3m": 0,
-            "fg3a": 0,
-            "ftm": 2,
-            "fta": 3,
-            "plus_minus": -21,
-            "gmsc": 9.3,
-            "ts_pct": 63.3
-          },
-          {
-            "date": "2026-10-31",
-            "opponent": "vs POR",
-            "result": "L 90-112",
-            "min": 11,
-            "pts": 6,
-            "reb": 4,
-            "ast": 0,
-            "stl": 1,
-            "blk": 0,
-            "to": 0,
-            "fgm": 2,
-            "fga": 2,
-            "fg3m": 0,
-            "fg3a": 0,
-            "ftm": 2,
-            "fta": 2,
-            "plus_minus": -7,
-            "gmsc": 8.0,
-            "ts_pct": 104.2
-          },
-          {
-            "date": "2026-10-29",
-            "opponent": "vs SA",
-            "result": "L 111-117",
-            "min": 16,
-            "pts": 8,
-            "reb": 4,
-            "ast": 1,
-            "stl": 0,
-            "blk": 1,
-            "to": 1,
-            "fgm": 4,
-            "fga": 6,
-            "fg3m": 0,
-            "fg3a": 0,
-            "ftm": 0,
-            "fta": 0,
-            "plus_minus": 5,
-            "gmsc": 7.0,
-            "ts_pct": 66.7
-          },
-          {
-            "date": "2026-10-27",
-            "opponent": "vs MEM",
-            "result": "L 105-110",
-            "min": 29,
-            "pts": 14,
-            "reb": 7,
-            "ast": 1,
-            "stl": 0,
-            "blk": 4,
-            "to": 1,
-            "fgm": 7,
-            "fga": 8,
-            "fg3m": 0,
-            "fg3a": 0,
-            "ftm": 0,
-            "fta": 0,
-            "plus_minus": 11,
-            "gmsc": 16.6,
-            "ts_pct": 87.5
-          },
-          {
-            "date": "2026-03-06",
-            "opponent": "@ WSH",
-            "result": "W 122-112",
-            "min": 17,
-            "pts": 6,
-            "reb": 12,
-            "ast": 0,
-            "stl": 0,
-            "blk": 0,
-            "to": 0,
-            "fgm": 3,
-            "fga": 6,
-            "fg3m": 0,
-            "fg3a": 0,
-            "ftm": 0,
-            "fta": 0,
-            "plus_minus": 3,
-            "gmsc": 7.8,
-            "ts_pct": 50.0
-          },
-          {
-            "date": "2026-03-05",
-            "opponent": "@ PHI",
-            "result": "L 102-106",
-            "min": 21,
-            "pts": 4,
-            "reb": 8,
-            "ast": 1,
-            "stl": 0,
-            "blk": 2,
-            "to": 2,
-            "fgm": 2,
-            "fga": 3,
-            "fg3m": 0,
-            "fg3a": 0,
-            "ftm": 0,
-            "fta": 0,
-            "plus_minus": -7,
-            "gmsc": 6.0,
-            "ts_pct": 66.7
-          },
-          {
-            "date": "2026-01-04",
-            "opponent": "vs ATL",
-            "result": "W 134-117",
-            "min": 2,
-            "pts": 0,
-            "reb": 2,
-            "ast": 0,
-            "stl": 0,
-            "blk": 0,
-            "to": 0,
-            "fgm": 0,
-            "fga": 2,
-            "fg3m": 0,
-            "fg3a": 0,
-            "ftm": 0,
-            "fta": 0,
-            "plus_minus": 0,
-            "gmsc": -0.4,
-            "ts_pct": 0.0
-          },
-          {
-            "date": "2025-12-30",
-            "opponent": "vs ORL",
-            "result": "W 107-106",
-            "min": 4,
-            "pts": 0,
-            "reb": 0,
-            "ast": 0,
-            "stl": 0,
-            "blk": 1,
-            "to": 0,
-            "fgm": 0,
-            "fga": 0,
-            "fg3m": 0,
-            "fg3a": 0,
-            "ftm": 0,
-            "fta": 0,
-            "plus_minus": -9,
-            "gmsc": -0.1,
-            "ts_pct": 0.0
+            "plus_minus": -17,
+            "gmsc": 6.3,
+            "ts_pct": 79.8
           }
         ]
       }
