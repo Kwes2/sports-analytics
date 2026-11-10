@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Analytics - Race Details</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #111;
+        }
+        header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+        .sport-nav {
+            display: flex;
+            gap: 12px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .sport-nav a {
+            color: #000;
+            text-decoration: none;
+            padding: 3px 6px;
+        }
+        .sport-nav a.active {
+            background-color: #000;
+            color: #fff;
+        }
+        .f1-subnav {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0 16px 0;
+            border-bottom: 1px solid #999;
+            padding-bottom: 6px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .f1-subnav a {
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 2px 4px;
+        }
+        .f1-subnav a.active {
+            background-color: #000;
+            color: #fff;
+        }
+        .toggle-group {
+            display: flex;
+            gap: 8px;
+            margin: 15px 0 10px 0;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .toggle-btn {
+            background-color: #eee;
+            border: 1px solid #333;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .toggle-btn.active {
+            background-color: #000;
+            color: #fff;
+        }
+        .meta-box {
+            background: #fdfdfd;
+            border: 1px solid #444;
+            padding: 8px 12px;
+            margin: 10px 0 12px 0;
+            font-family: monospace;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: monospace;
+            font-size: 12px;
+            margin: 8px 0 30px 0;
+            border: 2px solid #000;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 5px 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #e5e5e5;
+            cursor: pointer;
+            user-select: none;
+        }
+        th:hover {
+            background-color: #ccc;
+        }
+        tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+        tr:hover {
+            background-color: #eaeaea;
+        }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="sport-nav">
+            <a href="../afl/">AFL</a>
+            <a href="../nfl/">NFL</a>
+            <a href="../nba/">NBA</a>
+            <a href="../nhl/">NHL</a>
+            <a href="./" class="active">F1</a>
+        </div>
+    </header>
+
+    <div class="f1-subnav">
+        <a href="./">[← Back to Races]</a>
+        <a href="#" class="active">[Race Details]</a>
+        <a href="drivers.html">[Drivers]</a>
+    </div>
+
+    <h2 id="race-title" style="margin: 0 0 6px 0; font-size: 18px;">Loading Race...</h2>
+    <div id="meta-info" class="meta-box">Loading circuit parameters...</div>
+
+    <!-- 3 View Toggles -->
+    <div class="toggle-group">
+        <button class="toggle-btn" id="btn-all" onclick="setView('all_laps')">[All Laps]</button>
+        <button class="toggle-btn active" id="btn-clean" onclick="setView('clean_laps')">[Clean Laps (No Pits/SC)]</button>
+        <button class="toggle-btn" id="btn-traffic" onclick="setView('no_traffic_laps')">[No Traffic Laps]</button>
+    </div>
+
+    <table id="stats-table">
+        <thead>
+            <tr>
+                <th style="width: 40px;" class="text-center" onclick="sortTable('stats-table', 0)">Fin ↕</th>
+                <th style="width: 50px;" onclick="sortTable('stats-table', 1)">Driver ↕</th>
+                <th onclick="sortTable('stats-table', 2)">Team ↕</th>
+                <th style="width: 50px;" class="text-center" onclick="sortTable('stats-table', 3)">Laps ↕</th>
+                <th class="text-right" onclick="sortTable('stats-table', 4)">Average Lap Time ↕</th>
+                <th class="text-right" onclick="sortTable('stats-table', 5)">Average Gap ↕</th>
+                <th class="text-right" onclick="sortTable('stats-table', 6)">Fuel Corrected Avg ↕</th>
+                <th class="text-right" onclick="sortTable('stats-table', 7)">Fuel Corrected Gap ↕</th>
+                <th class="text-right" onclick="sortTable('stats-table', 8)">Median Lap Time ↕</th>
+                <th class="text-right" onclick="sortTable('stats-table', 9)">Median Gap ↕</th>
+                <th class="text-right" onclick="sortTable('stats-table', 10)">Median (Fuel Corrected) ↕</th>
+                <th class="text-right" onclick="sortTable('stats-table', 11)">Median Gap (Fuel Corrected) ↕</th>
+            </tr>
+        </thead>
+        <tbody id="stats-body"></tbody>
+    </table>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('slug') || 'australian_grand_prix';
+
+        // Load directly by race slug with cache-busting
+        const RACE_URL = `data/2026/processed/races/${slug}.json?t=` + Date.now();
+        let raceData = null;
+        let currentView = 'clean_laps';
+
+        async function loadRaceDetails() {
+            try {
+                const res = await fetch(RACE_URL);
+                if (!res.ok) throw new Error(`Could not find ${slug}.json`);
+                raceData = await res.json();
+
+                document.getElementById('race-title').innerText = `${raceData.season} ${raceData.race_name} (${raceData.date})`;
+
+                document.getElementById('meta-info').innerHTML = `
+                    <strong>Date:</strong> ${raceData.date} | 
+                    <strong>Total Laps:</strong> ${raceData.total_laps} | 
+                    <strong>Fuel Burn Rate:</strong> -${raceData.fuel_burn_rate}s / lap
+                `;
+
+                renderView();
+            } catch (err) {
+                document.getElementById('meta-info').innerHTML = `<strong>Error:</strong> ${err.message}`;
+            }
+        }
+
+        function setView(viewKey) {
+            currentView = viewKey;
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            if (viewKey === 'all_laps') document.getElementById('btn-all').classList.add('active');
+            if (viewKey === 'clean_laps') document.getElementById('btn-clean').classList.add('active');
+            if (viewKey === 'no_traffic_laps') document.getElementById('btn-traffic').classList.add('active');
+            renderView();
+        }
+
+        function renderView() {
+            if (!raceData) return;
+            const drivers = (raceData.views && raceData.views[currentView]) || [];
+            const tbody = document.getElementById('stats-body');
+            tbody.innerHTML = '';
+
+            drivers.forEach(d => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-center" data-val="${d.finish_position}"><strong>${d.finish_position}</strong></td>
+                    <td data-val="${d.code}"><strong>${d.code}</strong></td>
+                    <td data-val="${d.team}">${d.team}</td>
+                    <td class="text-center" data-val="${d.laps_counted}">${d.laps_counted}</td>
+                    <td class="text-right" data-val="${d.raw_avg}">${d.raw_avg_formatted}</td>
+                    <td class="text-right" data-val="${d.raw_avg_gap}">+${d.raw_avg_gap.toFixed(3)}s</td>
+                    <td class="text-right" data-val="${d.fuel_avg}">${d.fuel_avg_formatted}</td>
+                    <td class="text-right" data-val="${d.fuel_avg_gap}">+${d.fuel_avg_gap.toFixed(3)}s</td>
+                    <td class="text-right" data-val="${d.raw_med}">${d.raw_med_formatted}</td>
+                    <td class="text-right" data-val="${d.raw_med_gap}">+${d.raw_med_gap.toFixed(3)}s</td>
+                    <td class="text-right" data-val="${d.fuel_med}">${d.fuel_med_formatted}</td>
+                    <td class="text-right" data-val="${d.fuel_med_gap}">+${d.fuel_med_gap.toFixed(3)}s</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        const sortOrders = {};
+        function sortTable(tableId, colIndex) {
+            const table = document.getElementById(tableId);
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const ascending = sortOrders[colIndex] = !sortOrders[colIndex];
+
+            rows.sort((a, b) => {
+                const cellA = a.children[colIndex];
+                const cellB = b.children[colIndex];
+                const valA = cellA.getAttribute('data-val') !== null ? cellA.getAttribute('data-val') : cellA.innerText.trim();
+                const valB = cellB.getAttribute('data-val') !== null ? cellB.getAttribute('data-val') : cellB.innerText.trim();
+
+                const numA = parseFloat(valA);
+                const numB = parseFloat(valB);
+                if (!isNaN(numA) && !isNaN(numB)) {
+                    return ascending ? numA - numB : numB - numA;
+                }
+                return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+            });
+
+            rows.forEach(r => tbody.appendChild(r));
+        }
+
+        loadRaceDetails();
+    </script>
+</body>
+</html>

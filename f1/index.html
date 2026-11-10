@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Analytics - Races</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 10px 20px;
+            background-color: #fff;
+            color: #111;
+        }
+        header {
+            border-bottom: 2px solid #000;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+        .sport-nav {
+            display: flex;
+            gap: 12px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .sport-nav a {
+            color: #000;
+            text-decoration: none;
+            padding: 3px 6px;
+        }
+        .sport-nav a.active {
+            background-color: #000;
+            color: #fff;
+        }
+        .f1-subnav {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0 16px 0;
+            border-bottom: 1px solid #999;
+            padding-bottom: 6px;
+            font-family: monospace;
+            font-size: 13px;
+        }
+        .f1-subnav a {
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 2px 4px;
+        }
+        .f1-subnav a.active {
+            background-color: #000;
+            color: #fff;
+        }
+        .f1-subnav a.disabled {
+            color: #777;
+            cursor: not-allowed;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: monospace;
+            font-size: 13px;
+            margin-top: 8px;
+            border: 2px solid #000;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 6px 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #e5e5e5;
+            cursor: pointer;
+            user-select: none;
+        }
+        th:hover {
+            background-color: #ccc;
+        }
+        tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+        tr:hover {
+            background-color: #eaeaea;
+        }
+        .text-center { text-align: center; }
+        a.btn {
+            color: #0000ee;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="sport-nav">
+            <a href="../afl/">AFL</a>
+            <a href="../nfl/">NFL</a>
+            <a href="../nba/">NBA</a>
+            <a href="../nhl/">NHL</a>
+            <a href="./" class="active">F1</a>
+        </div>
+    </header>
+
+    <div class="f1-subnav">
+        <a href="./" class="active">[Races]</a>
+        <a href="drivers.html">[Drivers]</a>
+        <a href="#" class="disabled">[Qualifying]</a>
+        <a href="#" class="disabled">[Constructors]</a>
+        <a href="#" class="disabled">[Standings]</a>
+    </div>
+
+
+    
+
+    <h2 style="margin: 0 0 8px 0; font-size: 18px;">2026 Race Calendar & Results</h2>
+    <div id="loading" style="font-family: monospace;">Loading races...</div>
+
+    <table id="races-table" style="display: none;">
+        <thead>
+            <tr>
+                <th style="width: 60px;" class="text-center" onclick="sortTable('races-table', 0)">Number ↕</th>
+                <th onclick="sortTable('races-table', 1)">Name ↕</th>
+                <th style="width: 70px;" class="text-center" onclick="sortTable('races-table', 2)">Year ↕</th>
+                <th style="width: 110px;" onclick="sortTable('races-table', 3)">Date ↕</th>
+                <th style="width: 90px;" class="text-center">Results</th>
+            </tr>
+        </thead>
+        <tbody id="races-body"></tbody>
+    </table>
+
+    <script>
+        // Cache-busting query parameter ensures fresh data is loaded
+        const SUMMARY_URL = 'data/2026/processed/races_summary.json?t=' + Date.now();
+
+        async function loadRaces() {
+            try {
+                const res = await fetch(SUMMARY_URL);
+                if (!res.ok) throw new Error("Could not load races_summary.json");
+                const races = await res.json();
+
+                const tbody = document.getElementById('races-body');
+                tbody.innerHTML = '';
+
+                races.forEach((race, idx) => {
+                    const roundNum = race.round !== undefined ? race.round : (idx + 1);
+                    const raceDate = race.date || '2026 Season';
+                    const tr = document.createElement('tr');
+
+                    tr.innerHTML = `
+                        <td class="text-center" data-val="${roundNum}">${roundNum}</td>
+                        <td data-val="${race.race_name}"><strong>${race.race_name}</strong></td>
+                        <td class="text-center" data-val="2026">2026</td>
+                        <td data-val="${raceDate}">${raceDate}</td>
+                        <td class="text-center">
+                            <a class="btn" href="race.html?slug=${race.race_slug}">[View]</a>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('races-table').style.display = 'table';
+            } catch (err) {
+                document.getElementById('loading').innerHTML = `<strong>Error:</strong> ${err.message}`;
+            }
+        }
+
+        const sortOrders = {};
+        function sortTable(tableId, colIndex) {
+            const table = document.getElementById(tableId);
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            const ascending = sortOrders[colIndex] = !sortOrders[colIndex];
+
+            rows.sort((a, b) => {
+                const cellA = a.children[colIndex];
+                const cellB = b.children[colIndex];
+                const valA = cellA.getAttribute('data-val') !== null ? cellA.getAttribute('data-val') : cellA.innerText.trim();
+                const valB = cellB.getAttribute('data-val') !== null ? cellB.getAttribute('data-val') : cellB.innerText.trim();
+
+                const numA = parseFloat(valA);
+                const numB = parseFloat(valB);
+                if (!isNaN(numA) && !isNaN(numB)) {
+                    return ascending ? numA - numB : numB - numA;
+                }
+                return ascending ? valA.localeCompare(valB) : valB.localeCompare(valA);
+            });
+
+            rows.forEach(r => tbody.appendChild(r));
+        }
+
+        loadRaces();
+    </script>
+</body>
+</html>
