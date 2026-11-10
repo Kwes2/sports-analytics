@@ -1,9 +1,10 @@
 """
-server.py - 100% isolated NBA analytics server on clean port 8055.
-Lives inside nba/ and serves only nba/ files and API endpoints.
+server.py - Production & Local Web Server for StatsWebsite.
+Runs natively on Render (and locally), serving all sports and executing on-the-fly analytics.
 """
 
 import json
+import os
 import socket
 import sys
 import traceback
@@ -11,7 +12,16 @@ import urllib.parse
 from http.server import SimpleHTTPRequestHandler, HTTPServer
 from pathlib import Path
 
-NBA_DIR = Path(__file__).resolve().parent
+# Identify project root: handles running from root or from inside nba/
+CURRENT_DIR = Path(__file__).resolve().parent
+if (CURRENT_DIR / "nba").exists():
+    PROJECT_ROOT = CURRENT_DIR
+elif CURRENT_DIR.name.lower() == "nba":
+    PROJECT_ROOT = CURRENT_DIR.parent
+else:
+    PROJECT_ROOT = CURRENT_DIR
+
+NBA_DIR = PROJECT_ROOT / "nba"
 if str(NBA_DIR) not in sys.path:
     sys.path.insert(0, str(NBA_DIR))
 
@@ -21,17 +31,13 @@ from calculator import (
     compute_window_single_player_profile
 )
 
-PORT = 8055
+# Render provides PORT in the environment (defaults to 8000 locally)
+PORT = int(os.environ.get("PORT", 8000))
 
 
-class IsolatedNbaHandler(SimpleHTTPRequestHandler):
+class WebsiteRequestHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, directory=str(NBA_DIR), **kwargs)
-
-    def log_message(self, format, *args):
-        # Override to ensure it prints to stdout immediately
-        sys.stdout.write(f">> [SERVER LOG] {self.address_string()} - {format % args}\n")
-        sys.stdout.flush()
+        super().__init__(*args, directory=str(PROJECT_ROOT), **kwargs)
 
     def end_headers(self):
         self.send_header("Access-Control-Allow-Origin", "*")
@@ -44,19 +50,16 @@ class IsolatedNbaHandler(SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        print(f"\n=======================================================")
-        print(f">> INCOMING REQUEST: {self.path}")
-        print(f"=======================================================")
-        sys.stdout.flush()
-
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path.lower()
         params = urllib.parse.parse_qs(parsed.query)
 
-        # 1. Custom Range Recalculation
+        # -------------------------------------------------------------
+        # 1. API: Custom Range Recalculation (Player Stats Table)
+        # -------------------------------------------------------------
         if "custom_range" in path:
-            start_date = params.get("start", ["2025-10-22"])[0]
-            end_date = params.get("end", ["2026-04-15"])[0]
+            start_date = params.get("start", [None])[0]
+            end_date = params.get("end", [None])[0]
             season_years = [int(y) for y in params.get("season_year", []) if y.isdigit()]
             season_types = [int(t) for t in params.get("season_type", []) if t.isdigit()]
 
@@ -76,31 +79,24 @@ class IsolatedNbaHandler(SimpleHTTPRequestHandler):
                 self._send_json_response({"error": str(e), "rows": []}, status=500)
             return
 
-        # 2. Game Finder Query
+        # -------------------------------------------------------------
+        # 2. API: Game Finder Single-Game Performance Search
+        # -------------------------------------------------------------
         elif "game_finder" in path:
             filters = {}
-            if "min_pts" in params and params["min_pts"][0].isdigit():
-                filters["min_pts"] = int(params["min_pts"][0])
-            if "min_reb" in params and params["min_reb"][0].isdigit():
-                filters["min_reb"] = int(params["min_reb"][0])
-            if "min_ast" in params and params["min_ast"][0].isdigit():
-                filters["min_ast"] = int(params["min_ast"][0])
-            if "min_min" in params and params["min_min"][0].isdigit():
-                filters["min_min"] = int(params["min_min"][0])
+            for k in ["min_pts", "min_reb", "min_ast", "min_min", "season_year", "season_type"]:
+                if k in params and params[k][0].isdigit():
+                    filters[k] = int(params[k][0])
             if "result" in params and params["result"][0]:
                 filters["result"] = params["result"][0].upper()
             if "start" in params and "end" in params:
                 filters["start_date"] = params["start"][0]
                 filters["end_date"] = params["end"][0]
-            if "season_year" in params and params["season_year"][0].isdigit():
-                filters["season_year"] = int(params["season_year"][0])
-            if "season_type" in params and params["season_type"][0].isdigit():
-                filters["season_type"] = int(params["season_type"][0])
 
             print(f">> [API] Game Finder Query: {filters}")
             try:
                 results = search_player_game_performances(filters=filters)
-                print(f">> [API Success] Found {len(results)} games.")
+                print(f">> [API Success] Found {len(results)} game records.")
                 self._send_json_response({"rows": results})
             except Exception as e:
                 print(f">> [API ERROR] {e}")
@@ -108,7 +104,9 @@ class IsolatedNbaHandler(SimpleHTTPRequestHandler):
                 self._send_json_response({"error": str(e), "rows": []}, status=500)
             return
 
-        # 3. Player Window Recalculation
+        # -------------------------------------------------------------
+        # 3. API: Single Player Window Recalculation (Profile Page)
+        # -------------------------------------------------------------
         elif "player_window" in path:
             player_id = params.get("id", [None])[0]
             start_date = params.get("start", [None])[0]
@@ -135,7 +133,7 @@ class IsolatedNbaHandler(SimpleHTTPRequestHandler):
                 self._send_json_response({"error": str(e)}, status=500)
             return
 
-        # Fallback to static file server
+        # Standard file serving for all sports
         super().do_GET()
 
     def _send_json_response(self, data, status=200):
@@ -147,12 +145,18 @@ class IsolatedNbaHandler(SimpleHTTPRequestHandler):
         self.wfile.write(body)
 
 
+class ReusableServer(HTTPServer):
+    def server_bind(self):
+        self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        super().server_bind()
+
+
 def run_server():
-    server_address = ("127.0.0.1", PORT)
-    httpd = HTTPServer(server_address, IsolatedNbaHandler)
+    server_address = ("0.0.0.0", PORT)
+    httpd = ReusableServer(server_address, WebsiteRequestHandler)
     print("=" * 65)
-    print(f" NBA Analytics Server running on clean port {PORT}")
-    print(f" Open in Browser: http://127.0.0.1:{PORT}/index.html")
+    print(f" StatsWebsite Server running on port {PORT}")
+    print(f" Serving Root: {PROJECT_ROOT}")
     print("=" * 65)
     sys.stdout.flush()
     try:
