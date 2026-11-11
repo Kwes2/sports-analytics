@@ -167,10 +167,17 @@
     "format": "float1",
     "higher_is_better": true
   },
-  "trb_pct": {
-    "name": "Total Rebound % (TRB%)",
+  "team_reb_share": {
+    "name": "Team Rebound Share %",
     "category": "Advanced",
-    "tooltip": "Estimate of the percentage of available rebounds a player grabbed while on the court",
+    "tooltip": "Percentage of total team rebounds grabbed by this player across games played: Player Rebounds / Team Rebounds",
+    "format": "pct1",
+    "higher_is_better": true
+  },
+  "on_court_reb_pct": {
+    "name": "On-Court Available Rebound %",
+    "category": "Advanced",
+    "tooltip": "Percentage of all available rebounds grabbed while on the floor: Player Rebounds / (Team + Opponent Rebounds while on court)",
     "format": "pct1",
     "higher_is_better": true
   },
@@ -296,7 +303,7 @@
   "atb3_pct": {
     "name": "Above-the-Break 3PT %",
     "category": "Shooting",
-    "tooltip": "Field goal percentage on 3-point attempts above the break (wings and top of the key)",
+    "tooltip": "Field goal percentage on 3-point attempts above the break (wings and top of key)",
     "format": "pct1",
     "higher_is_better": true
   },

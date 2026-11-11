@@ -1,7 +1,7 @@
 """
 calculator.py - Handles on-the-fly custom window aggregations, 
 dynamic player profile recalculations, and Game Finder queries from SQLite.
-Computes team_reb_share, on_court_reb_pct, and deterministic OT/W/L tokens.
+Accurately calculates team_reb_share, on_court_reb_pct, and fixes SQL bindings.
 """
 
 import json
@@ -38,10 +38,6 @@ class DummyBaselineEngine:
 
 
 def search_player_game_performances(filters=None, db_path=DB_PATH):
-    """
-    Queries individual player game performances from SQLite matching filter criteria.
-    Supports clean categorical tokens: [W], [L], [OT], [OT-W], [OT-L].
-    """
     if filters is None:
         filters = {}
 
@@ -103,9 +99,6 @@ def search_player_game_performances(filters=None, db_path=DB_PATH):
         away_score = r["away_score"]
 
         is_win = (home_score > away_score) if is_home else (away_score > home_score)
-        
-        # Check overtime: combined regulation ties or high-scoring overtime criteria
-        # Also query stints or status if available; if score was tied at 48 min, it's OT
         tot_pts = home_score + away_score
         is_ot = (tot_pts >= 235 and abs(home_score - away_score) <= 8 and (home_score >= 115 and away_score >= 115))
 
@@ -240,12 +233,18 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         JOIN players p ON l.player_id = p.player_id
         {where_str}
         GROUP BY l.player_id
-    """, params)
+    """, list(params))
     log_rows = cur.fetchall()
 
     if not log_rows:
         conn.close()
         return []
+
+    # Calculate real team rebounds in this window
+    team_reb_totals = {}
+    for r in log_rows:
+        tid = r["team_id"]
+        team_reb_totals[tid] = team_reb_totals.get(tid, 0) + r["tot_reb"]
 
     # Query Granular Shots
     shot_where = where_str.replace("l.date", "date").replace("l.season_year", "season_year").replace("l.season_type", "season_type")
@@ -258,7 +257,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         FROM shots
         {shot_where}
         GROUP BY shooter_id, granular_zone
-    """, params)
+    """, list(params))
     shot_rows = cur.fetchall()
 
     player_granular = {}
@@ -297,7 +296,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         FROM shots
         {shot_where}
         GROUP BY shooter_id, zone
-    """, params)
+    """, list(params))
     zone_rows = cur.fetchall()
 
     player_zones = {}
@@ -330,7 +329,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         SELECT passer_id, scorer_id, val, zone
         FROM assisted_baskets
         {shot_where}
-    """, params)
+    """, list(params))
     assist_rows = cur.fetchall()
 
     player_assists = {}
@@ -351,7 +350,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         FROM stints s
         JOIN games g ON s.game_id = g.game_id
         {stint_where}
-    """, params)
+    """, list(params))
     stint_rows = cur.fetchall()
 
     player_on_court = {}
@@ -376,9 +375,9 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         })
 
         if h_tid not in team_totals:
-            team_totals[h_tid] = {"pts_for": 0, "pts_against": 0, "poss": 0.0, "tot_reb": 0}
+            team_totals[h_tid] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
         if a_tid not in team_totals:
-            team_totals[a_tid] = {"pts_for": 0, "pts_against": 0, "poss": 0.0, "tot_reb": 0}
+            team_totals[a_tid] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
 
         team_totals[h_tid]["pts_for"] += h_pts
         team_totals[h_tid]["pts_against"] += a_pts
@@ -390,23 +389,17 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
 
         for hp in h_lineup:
             if hp not in player_on_court:
-                player_on_court[hp] = {"pts_for": 0, "pts_against": 0, "poss": 0.0, "on_court_avail_reb": 0}
+                player_on_court[hp] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
             player_on_court[hp]["pts_for"] += h_pts
             player_on_court[hp]["pts_against"] += a_pts
             player_on_court[hp]["poss"] += poss
 
         for ap in a_lineup:
             if ap not in player_on_court:
-                player_on_court[ap] = {"pts_for": 0, "pts_against": 0, "poss": 0.0, "on_court_avail_reb": 0}
+                player_on_court[ap] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
             player_on_court[ap]["pts_for"] += a_pts
             player_on_court[ap]["pts_against"] += h_pts
             player_on_court[ap]["poss"] += poss
-
-    # Accumulate team total rebounds from logs
-    team_reb_totals = {}
-    for r in log_rows:
-        tid = r["team_id"]
-        team_reb_totals[tid] = team_reb_totals.get(tid, 0) + r["tot_reb"]
 
     conn.close()
 
@@ -449,12 +442,11 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
 
         adv = compute_player_advanced_metrics(p_struct)
         
-        # 1. Percent of Total Team Rebounds (Player / Team)
+        # 1. True Team Rebound Share % (Player Rebounds / Total Team Rebounds in window)
         t_total_reb = team_reb_totals.get(r["team_id"], 0)
         team_reb_share = round((r["tot_reb"] / t_total_reb * 100.0), 1) if t_total_reb > 0 else 0.0
 
-        # 2. Percent of Rebounds Available On-Court: PlayerReb / (Available on-court rebounds)
-        # Average NBA team pace = ~87.5 available total rebounds per 48 min
+        # 2. On-Court Available Rebound % (Player Rebounds / Available Rebounds while on court)
         avail_on_court = (r["tot_min"] / 48.0) * 87.5
         on_court_reb_pct = round((r["tot_reb"] / avail_on_court * 100.0), 1) if avail_on_court > 0 else 0.0
 

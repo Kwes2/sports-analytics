@@ -399,13 +399,16 @@
 
         window.onload = () => {
             fetch(getDataPath('player_stats.json'))
-                .then(res => res.json())
+                .then(res => {
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    return res.json();
+                })
                 .then(payload => {
                     allPlayersList = payload.rows || [];
                     populatePlayerDropdowns();
                 })
                 .catch(() => {
-                    document.getElementById('comparison-tables').innerHTML = "<p style='color:red;'>Failed to load player directory.</p>";
+                    document.getElementById('comparison-tables').innerHTML = "<p style='color:red;'>Failed to load player directory. Verify data/player_stats.json exists.</p>";
                 });
         };
 
@@ -503,22 +506,27 @@
             const queryA = buildWindowParams('a');
             const queryB = buildWindowParams('b');
 
-            Promise.all([
-                fetch(`${getApiPath('player_window')}?${queryA}`).then(r => r.json()),
-                fetch(`${getApiPath('player_window')}?${queryB}`).then(r => r.json())
-            ])
-            .then(([resA, resB]) => {
-                if (badge) badge.classList.remove('active');
-                if (wrap) wrap.classList.remove('is-recalculating');
-                playerAData = resA;
-                playerBData = resB;
-                renderComparisonTables();
-            })
-            .catch(() => {
-                if (badge) badge.classList.remove('active');
-                if (wrap) wrap.classList.remove('is-recalculating');
-                document.getElementById('comparison-tables').innerHTML = "<p style='color:red;'>Failed to load comparison data. Verify server is running.</p>";
-            });
+            const fetchSingle = (query) => {
+                return fetch(`${getApiPath('player_window')}?${query}`)
+                    .then(r => {
+                        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                        return r.json();
+                    });
+            };
+
+            Promise.all([fetchSingle(queryA), fetchSingle(queryB)])
+                .then(([resA, resB]) => {
+                    if (badge) badge.classList.remove('active');
+                    if (wrap) wrap.classList.remove('is-recalculating');
+                    playerAData = resA;
+                    playerBData = resB;
+                    renderComparisonTables();
+                })
+                .catch(err => {
+                    if (badge) badge.classList.remove('active');
+                    if (wrap) wrap.classList.remove('is-recalculating');
+                    document.getElementById('comparison-tables').innerHTML = `<p style='color:red;'>Could not retrieve records for one of the selections (${err.message}). Verify both players have games in their selected windows.</p>`;
+                });
         }
 
         function formatScaledVal(val, key, minPg) {
@@ -545,11 +553,10 @@
         function renderComparisonTables() {
             const container = document.getElementById('comparison-tables');
             if (!playerAData || !playerBData || playerAData.error || playerBData.error) {
-                container.innerHTML = "<p style='color:red;'>Could not retrieve records for one of the selections.</p>";
+                container.innerHTML = "<p style='color:red;'>No records found for one of the players in their selected window.</p>";
                 return;
             }
 
-            // Find minutes for scaling
             let minA = 36.0, minB = 36.0;
             (playerAData.sections || []).forEach(sec => {
                 if (sec.data && sec.data.rows) {
@@ -564,7 +571,6 @@
                 }
             });
 
-            // Map player B rows by stat_key
             const bMap = {};
             (playerBData.sections || []).forEach(sec => {
                 if (sec.data && sec.data.rows) {
