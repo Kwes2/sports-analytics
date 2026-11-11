@@ -69,8 +69,8 @@
             "stat_name": "Assists Per Game",
             "value": 1.0,
             "tooltip": "Average assists credited per game",
-            "league_rank": 420,
-            "league_percentile": 33.0,
+            "league_rank": 419,
+            "league_percentile": 33.1,
             "pos_rank": 231,
             "pos_percentile": 21.2
           },
@@ -79,10 +79,10 @@
             "stat_name": "Steals Per Game",
             "value": 1.0,
             "tooltip": "Average steals credited per game",
-            "league_rank": 109,
-            "league_percentile": 80.1,
+            "league_rank": 107,
+            "league_percentile": 80.3,
             "pos_rank": 71,
-            "pos_percentile": 72.8
+            "pos_percentile": 72.7
           },
           {
             "stat_key": "blk_pg",
@@ -149,7 +149,7 @@
             "stat_name": "Field Goal %",
             "value": 66.7,
             "tooltip": "Percentage of field goals made (FGM / FGA)",
-            "league_rank": 18,
+            "league_rank": 19,
             "league_percentile": 97.0,
             "pos_rank": 2,
             "pos_percentile": 99.5
@@ -159,10 +159,10 @@
             "stat_name": "3-Pointers Made Per Game",
             "value": 0.0,
             "tooltip": "Average 3-point field goals made per game",
-            "league_rank": 542,
-            "league_percentile": 8.0,
-            "pos_rank": 284,
-            "pos_percentile": 2.8
+            "league_rank": 543,
+            "league_percentile": 7.9,
+            "pos_rank": 285,
+            "pos_percentile": 2.7
           },
           {
             "stat_key": "fg3a_pg",
@@ -179,10 +179,10 @@
             "stat_name": "3-Point %",
             "value": 0.0,
             "tooltip": "Percentage of 3-point attempts made (3PM / 3PA)",
-            "league_rank": 562,
+            "league_rank": 563,
             "league_percentile": 6.4,
-            "pos_rank": 284,
-            "pos_percentile": 2.8
+            "pos_rank": 285,
+            "pos_percentile": 2.7
           },
           {
             "stat_key": "ftm_pg",
@@ -240,9 +240,9 @@
             "value": 2.0,
             "tooltip": "Combined steals + blocks per game",
             "league_rank": 51,
-            "league_percentile": 91.2,
+            "league_percentile": 91.4,
             "pos_rank": 22,
-            "pos_percentile": 92.0
+            "pos_percentile": 92.2
           }
         ]
       }
@@ -291,8 +291,8 @@
             "stat_name": "Turnover Rate %",
             "value": 20.5,
             "tooltip": "Turnovers committed per 100 individual offensive plays used",
-            "league_rank": 597,
-            "league_percentile": 7.4,
+            "league_rank": 598,
+            "league_percentile": 7.2,
             "pos_rank": 282,
             "pos_percentile": 6.2
           },
@@ -302,7 +302,7 @@
             "value": 1.0,
             "tooltip": "Ratio of assists credited to turnovers committed",
             "league_rank": 536,
-            "league_percentile": 14.7,
+            "league_percentile": 14.8,
             "pos_rank": 275,
             "pos_percentile": 7.5
           },
@@ -312,17 +312,17 @@
             "value": 33.3,
             "tooltip": "Percentage of total field goal attempts that are 3-pointers",
             "league_rank": 449,
-            "league_percentile": 30.2,
+            "league_percentile": 30.1,
             "pos_rank": 252,
-            "pos_percentile": 16.2
+            "pos_percentile": 16.0
           },
           {
             "stat_key": "ft_rate",
             "stat_name": "Free Throw Rate",
             "value": 66.7,
             "tooltip": "Ratio of free throw attempts to field goal attempts (FTA / FGA)",
-            "league_rank": 17,
-            "league_percentile": 97.4,
+            "league_rank": 18,
+            "league_percentile": 97.3,
             "pos_rank": 3,
             "pos_percentile": 99.2
           },
@@ -341,9 +341,9 @@
             "stat_name": "Average Game Score",
             "value": 6.1,
             "tooltip": "John Hollinger's single-game overall box score efficiency rating",
-            "league_rank": 324,
-            "league_percentile": 49.4,
-            "pos_rank": 152,
+            "league_rank": 322,
+            "league_percentile": 49.5,
+            "pos_rank": 151,
             "pos_percentile": 49.2
           },
           {
@@ -375,6 +375,26 @@
             "league_percentile": 17.9,
             "pos_rank": 254,
             "pos_percentile": 15.5
+          },
+          {
+            "stat_key": "team_reb_share",
+            "stat_name": "Team Rebound Share %",
+            "value": 0.0,
+            "tooltip": "Percentage of total team rebounds grabbed by this player across games played: Player Rebounds / Team Rebounds",
+            "league_rank": 622,
+            "league_percentile": 1.8,
+            "pos_rank": 288,
+            "pos_percentile": 2.2
+          },
+          {
+            "stat_key": "on_court_reb_pct",
+            "stat_name": "On-Court Available Rebound %",
+            "value": 0.0,
+            "tooltip": "Percentage of all available rebounds grabbed while on the floor: Player Rebounds / (Team + Opponent Rebounds while on court)",
+            "league_rank": 636,
+            "league_percentile": 0.7,
+            "pos_rank": 296,
+            "pos_percentile": 0.8
           }
         ]
       }
@@ -413,8 +433,8 @@
             "stat_name": "Moreyball Efficiency Index",
             "value": 74.2,
             "tooltip": "Percentage of shot possessions ending in high-efficiency areas (Rim, 3PT, or Free Throw line)",
-            "league_rank": 86,
-            "league_percentile": 86.6,
+            "league_rank": 87,
+            "league_percentile": 86.5,
             "pos_rank": 43,
             "pos_percentile": 85.7
           },
@@ -423,10 +443,10 @@
             "stat_name": "Corner 3PT %",
             "value": 0.0,
             "tooltip": "Field goal percentage on 3-point attempts from the left/right corners",
-            "league_rank": 517,
+            "league_rank": 518,
             "league_percentile": 9.9,
-            "pos_rank": 268,
-            "pos_percentile": 5.5
+            "pos_rank": 269,
+            "pos_percentile": 5.3
           },
           {
             "stat_key": "corner3_fga_pg",
@@ -443,8 +463,8 @@
             "stat_name": "Above-the-Break 3PT %",
             "value": 0.0,
             "tooltip": "Field goal percentage on 3-point attempts above the break (wings and top of key)",
-            "league_rank": 540,
-            "league_percentile": 8.2,
+            "league_rank": 541,
+            "league_percentile": 8.1,
             "pos_rank": 283,
             "pos_percentile": 3.0
           },
@@ -493,10 +513,10 @@
             "stat_name": "Unassisted 3PT %",
             "value": 0.0,
             "tooltip": "Percentage of player's made 3-pointers that were unassisted (pull-ups / off the dribble)",
-            "league_rank": 562,
+            "league_rank": 563,
             "league_percentile": 6.4,
-            "pos_rank": 284,
-            "pos_percentile": 2.8
+            "pos_rank": 285,
+            "pos_percentile": 2.7
           },
           {
             "stat_key": "rim_fga_pg",
@@ -685,30 +705,30 @@
             "stat_name": "% of Team Points Accounted For",
             "value": 7.5,
             "tooltip": "Share of the team's total game scoring directly created by this player",
-            "league_rank": 411,
-            "league_percentile": 35.9,
-            "pos_rank": 217,
-            "pos_percentile": 27.5
+            "league_rank": 412,
+            "league_percentile": 35.8,
+            "pos_rank": 218,
+            "pos_percentile": 27.3
           },
           {
             "stat_key": "xprf_pg",
             "stat_name": "Expected Points Responsible For (xPRF)",
             "value": 6.2,
             "tooltip": "Expected total points generated from volume: (FGA * xFG%) + (3PA * x3P%) + (FTA * xFT%) + Expected Assist Points per game",
-            "league_rank": 448,
-            "league_percentile": 30.0,
-            "pos_rank": 235,
-            "pos_percentile": 21.3
+            "league_rank": 449,
+            "league_percentile": 29.9,
+            "pos_rank": 236,
+            "pos_percentile": 21.0
           },
           {
             "stat_key": "prfoe_pg",
             "stat_name": "Points Responsible For Over Expected (PRFOE)",
             "value": 1.8,
             "tooltip": "Actual PRF/G minus Expected PRF/G. Measures individual scoring & playmaking shot-making talent above opportunity baseline",
-            "league_rank": 266,
-            "league_percentile": 57.9,
-            "pos_rank": 153,
-            "pos_percentile": 48.7
+            "league_rank": 265,
+            "league_percentile": 57.8,
+            "pos_rank": 154,
+            "pos_percentile": 48.3
           }
         ]
       }
@@ -727,10 +747,10 @@
             "stat_name": "Team On Offensive Rating",
             "value": 103.7,
             "tooltip": "Team points scored per 100 possessions while player is ON the court",
-            "league_rank": 563,
-            "league_percentile": 12.5,
-            "pos_rank": 264,
-            "pos_percentile": 12.2
+            "league_rank": 564,
+            "league_percentile": 12.3,
+            "pos_rank": 265,
+            "pos_percentile": 11.8
           },
           {
             "stat_key": "team_on_drtg",
@@ -758,49 +778,49 @@
             "value": 115.5,
             "tooltip": "Team points scored per 100 possessions while player is OFF the court",
             "league_rank": 533,
-            "league_percentile": 17.1,
+            "league_percentile": 17.0,
             "pos_rank": 252,
             "pos_percentile": 16.2
           },
           {
             "stat_key": "team_off_drtg",
             "stat_name": "Team Off Defensive Rating",
-            "value": 124.1,
+            "value": 124.0,
             "tooltip": "Opponent points scored per 100 possessions while player is OFF the court",
-            "league_rank": 501,
-            "league_percentile": 21.9,
-            "pos_rank": 234,
-            "pos_percentile": 21.8
+            "league_rank": 495,
+            "league_percentile": 22.7,
+            "pos_rank": 232,
+            "pos_percentile": 22.5
           },
           {
             "stat_key": "team_off_net_rtg",
             "stat_name": "Team Off Net Rating",
             "value": -8.6,
             "tooltip": "Team Net Rating (ORtg - DRtg) while player is OFF the court",
-            "league_rank": 545,
-            "league_percentile": 15.2,
+            "league_rank": 546,
+            "league_percentile": 15.1,
             "pos_rank": 253,
-            "pos_percentile": 15.7
+            "pos_percentile": 15.5
           },
           {
             "stat_key": "team_diff_ortg",
             "stat_name": "Team Diff Offensive Rating",
             "value": -11.8,
             "tooltip": "Team Offensive Rating ON minus OFF the court",
-            "league_rank": 468,
-            "league_percentile": 27.2,
-            "pos_rank": 223,
-            "pos_percentile": 25.7
+            "league_rank": 470,
+            "league_percentile": 26.9,
+            "pos_rank": 224,
+            "pos_percentile": 25.3
           },
           {
             "stat_key": "team_diff_drtg",
             "stat_name": "Team Diff Defensive Rating",
-            "value": 11.1,
+            "value": 11.2,
             "tooltip": "Team Defensive Rating ON minus OFF the court (negative = better defense on-court)",
-            "league_rank": 620,
-            "league_percentile": 3.7,
-            "pos_rank": 290,
-            "pos_percentile": 3.3
+            "league_rank": 621,
+            "league_percentile": 3.6,
+            "pos_rank": 291,
+            "pos_percentile": 3.2
           },
           {
             "stat_key": "team_diff_net_rtg",
@@ -827,10 +847,10 @@
             "stat_name": "Opponent On Defensive Rating",
             "value": 103.7,
             "tooltip": "Team points allowed by opponent per 100 possessions while player is ON the court",
-            "league_rank": 563,
-            "league_percentile": 12.5,
-            "pos_rank": 264,
-            "pos_percentile": 12.2
+            "league_rank": 564,
+            "league_percentile": 12.3,
+            "pos_rank": 265,
+            "pos_percentile": 11.8
           },
           {
             "stat_key": "opp_on_net_rtg",
@@ -845,12 +865,12 @@
           {
             "stat_key": "opp_off_ortg",
             "stat_name": "Opponent Off Offensive Rating",
-            "value": 124.1,
+            "value": 124.0,
             "tooltip": "Opponent points scored per 100 possessions while player is OFF the court",
-            "league_rank": 501,
-            "league_percentile": 21.9,
-            "pos_rank": 234,
-            "pos_percentile": 21.8
+            "league_rank": 495,
+            "league_percentile": 22.7,
+            "pos_rank": 232,
+            "pos_percentile": 22.5
           },
           {
             "stat_key": "opp_off_drtg",
@@ -858,7 +878,7 @@
             "value": 115.5,
             "tooltip": "Team points allowed by opponent per 100 possessions while player is OFF the court",
             "league_rank": 533,
-            "league_percentile": 17.1,
+            "league_percentile": 17.0,
             "pos_rank": 252,
             "pos_percentile": 16.2
           },
@@ -867,30 +887,30 @@
             "stat_name": "Opponent Off Net Rating",
             "value": 8.6,
             "tooltip": "Opponent Net Rating while player is OFF the court",
-            "league_rank": 545,
-            "league_percentile": 15.2,
+            "league_rank": 546,
+            "league_percentile": 15.1,
             "pos_rank": 253,
-            "pos_percentile": 15.7
+            "pos_percentile": 15.5
           },
           {
             "stat_key": "opp_diff_ortg",
             "stat_name": "Opponent Diff Offensive Rating",
-            "value": 11.1,
+            "value": 11.2,
             "tooltip": "Opponent Offensive Rating ON minus OFF (negative = suppressed opponent offense)",
-            "league_rank": 620,
-            "league_percentile": 3.7,
-            "pos_rank": 290,
-            "pos_percentile": 3.3
+            "league_rank": 621,
+            "league_percentile": 3.6,
+            "pos_rank": 291,
+            "pos_percentile": 3.2
           },
           {
             "stat_key": "opp_diff_drtg",
             "stat_name": "Opponent Diff Defensive Rating",
             "value": -11.8,
             "tooltip": "Opponent Defensive Rating ON minus OFF",
-            "league_rank": 468,
-            "league_percentile": 27.2,
-            "pos_rank": 223,
-            "pos_percentile": 25.7
+            "league_rank": 470,
+            "league_percentile": 26.9,
+            "pos_rank": 224,
+            "pos_percentile": 25.3
           },
           {
             "stat_key": "opp_diff_net_rtg",
@@ -908,27 +928,27 @@
             "value": -0.08,
             "tooltip": "Isolated offensive scoring contribution per 100 possessions above league average",
             "league_rank": 325,
-            "league_percentile": 49.3,
+            "league_percentile": 49.4,
             "pos_rank": 154,
             "pos_percentile": 48.7
           },
           {
             "stat_key": "drapm",
             "stat_name": "Defensive RAPM",
-            "value": -0.3,
+            "value": -0.31,
             "tooltip": "Isolated defensive suppression per 100 possessions (higher = better defense)",
-            "league_rank": 425,
-            "league_percentile": 33.9,
+            "league_rank": 426,
+            "league_percentile": 33.6,
             "pos_rank": 197,
-            "pos_percentile": 34.5
+            "pos_percentile": 34.2
           },
           {
             "stat_key": "net_rapm",
             "stat_name": "Net RAPM",
             "value": -0.38,
             "tooltip": "Regularized Adjusted Plus-Minus: Isolated net impact per 100 possessions via 10-man ridge regression",
-            "league_rank": 390,
-            "league_percentile": 39.5,
+            "league_rank": 388,
+            "league_percentile": 39.8,
             "pos_rank": 180,
             "pos_percentile": 40.2
           }
@@ -997,7 +1017,7 @@
           {
             "stat_key": "def_on_off",
             "stat_name": "Def On Off",
-            "value": 11.1,
+            "value": 11.2,
             "tooltip": "Def On Off metric",
             "league_rank": "-",
             "league_percentile": 50.0,
@@ -1060,7 +1080,7 @@
             "fg_pct": 66.7,
             "shot_share": 60.0,
             "league_avg_fg": 51.3,
-            "eff_percentile": 93.7
+            "eff_percentile": 93.6
           }
         ]
       }

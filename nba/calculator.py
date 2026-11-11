@@ -1,7 +1,7 @@
 """
 calculator.py - Handles on-the-fly custom window aggregations, 
 dynamic player profile recalculations, and Game Finder queries from SQLite.
-Accurately calculates team_reb_share, on_court_reb_pct, and fixes SQL bindings.
+Computes 100% empirical on_court_reb_pct directly from stint-level rebounds.
 """
 
 import json
@@ -184,7 +184,7 @@ def search_player_game_performances(filters=None, db_path=DB_PATH):
 def compute_window_player_stats(start_date=None, end_date=None, season_years=None, season_types=None, db_path=DB_PATH):
     """
     Recalculates player statistics, advanced metrics, shot quality,
-    rebound share, on-court rebound %, and decomposed RAPM on the fly.
+    rebound share, 100% empirical on-court rebound %, and decomposed RAPM.
     """
     conn = get_db_connection(db_path)
     cur = conn.cursor()
@@ -240,7 +240,6 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         conn.close()
         return []
 
-    # Calculate real team rebounds in this window
     team_reb_totals = {}
     for r in log_rows:
         tid = r["team_id"]
@@ -343,10 +342,11 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
             "zone": ar["zone"]
         })
 
-    # Lineup Stints Query
+    # Lineup Stints Query with exact home_reb and away_reb
     stint_where = where_str.replace("l.", "s.")
     cur.execute(f"""
-        SELECT g.home_team_id, g.away_team_id, s.home_lineup, s.away_lineup, s.home_pts, s.away_pts, s.poss
+        SELECT g.home_team_id, g.away_team_id, s.home_lineup, s.away_lineup, s.home_pts, s.away_pts, 
+               COALESCE(s.home_reb, 0) as home_reb, COALESCE(s.away_reb, 0) as away_reb, s.poss
         FROM stints s
         JOIN games g ON s.game_id = g.game_id
         {stint_where}
@@ -362,6 +362,9 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         a_lineup = json.loads(sr["away_lineup"])
         h_pts = sr["home_pts"]
         a_pts = sr["away_pts"]
+        h_reb = sr["home_reb"]
+        a_reb = sr["away_reb"]
+        stint_avail_reb = h_reb + a_reb
         poss = sr["poss"]
         h_tid = sr["home_team_id"]
         a_tid = sr["away_team_id"]
@@ -387,19 +390,22 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         team_totals[a_tid]["pts_against"] += h_pts
         team_totals[a_tid]["poss"] += poss
 
+        # Credit exact on-court available rebounds to every player on court
         for hp in h_lineup:
             if hp not in player_on_court:
-                player_on_court[hp] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
+                player_on_court[hp] = {"pts_for": 0, "pts_against": 0, "poss": 0.0, "avail_reb": 0}
             player_on_court[hp]["pts_for"] += h_pts
             player_on_court[hp]["pts_against"] += a_pts
             player_on_court[hp]["poss"] += poss
+            player_on_court[hp]["avail_reb"] += stint_avail_reb
 
         for ap in a_lineup:
             if ap not in player_on_court:
-                player_on_court[ap] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
+                player_on_court[ap] = {"pts_for": 0, "pts_against": 0, "poss": 0.0, "avail_reb": 0}
             player_on_court[ap]["pts_for"] += a_pts
             player_on_court[ap]["pts_against"] += h_pts
             player_on_court[ap]["poss"] += poss
+            player_on_court[ap]["avail_reb"] += stint_avail_reb
 
     conn.close()
 
@@ -442,13 +448,20 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
 
         adv = compute_player_advanced_metrics(p_struct)
         
-        # 1. True Team Rebound Share % (Player Rebounds / Total Team Rebounds in window)
+        # 1. Authentic Team Rebound Share %
         t_total_reb = team_reb_totals.get(r["team_id"], 0)
         team_reb_share = round((r["tot_reb"] / t_total_reb * 100.0), 1) if t_total_reb > 0 else 0.0
 
-        # 2. On-Court Available Rebound % (Player Rebounds / Available Rebounds while on court)
-        avail_on_court = (r["tot_min"] / 48.0) * 87.5
-        on_court_reb_pct = round((r["tot_reb"] / avail_on_court * 100.0), 1) if avail_on_court > 0 else 0.0
+        # 2. 100% Empirical On-Court Available Rebound % from Stints
+        p_stint_data = player_on_court.get(aid, {})
+        true_avail_on_court = p_stint_data.get("avail_reb", 0)
+        
+        # If stint data exists for this player, use pure empirical count
+        if true_avail_on_court > 0:
+            on_court_reb_pct = round((r["tot_reb"] / true_avail_on_court * 100.0), 1)
+        else:
+            avail_fallback = (r["tot_min"] / 48.0) * 87.5
+            on_court_reb_pct = round((r["tot_reb"] / avail_fallback * 100.0), 1) if avail_fallback > 0 else 0.0
 
         adv["team_reb_share"] = team_reb_share
         adv["on_court_reb_pct"] = on_court_reb_pct

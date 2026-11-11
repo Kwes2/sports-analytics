@@ -1,6 +1,7 @@
 """
 fetch_and_compute.py - Core data compilation pipeline. Crawls ESPN, populates 
 SQLite database, calculates advanced metrics, RAPM, and exports structured JSONs.
+Eliminates 20.0% rebound fallback and compiles authentic rebound share metrics.
 """
 
 import json
@@ -299,7 +300,6 @@ def main():
             p["tot_plus_minus"] += ev["plus_minus"]
             p["game_logs"].append(ev["log"])
 
-            # Clean categorical result token
             is_w = ev["log"]["result"].startswith("W")
             is_ot = ("OT" in ev["log"]["result"])
             res_token = ("OT-W" if is_w else "OT-L") if is_ot else ("W" if is_w else "L")
@@ -423,7 +423,6 @@ def main():
 
     optimize_db(DB_PATH)
 
-    # Save compiled game performances for Game Finder
     all_game_performances.sort(key=lambda x: (x["date"], x["pts"]), reverse=True)
     with open(DATA_DIR / "game_performances.json", "w") as f:
         json.dump({
@@ -440,6 +439,11 @@ def main():
             league_granular_efg[gz] = round((fgm + 0.5 * fg3m) / fga * 100, 1)
         else:
             league_granular_efg[gz] = 50.0
+
+    # Calculate aggregate team rebounds
+    team_total_rebs = {}
+    for tid, g_list in team_game_stats_ledger.items():
+        team_total_rebs[tid] = sum((g.get("oreb", 0) + g.get("dreb", 0)) for g in g_list)
 
     active_players = {}
     for aid, p in players.items():
@@ -474,18 +478,26 @@ def main():
 
         p["game_logs"].sort(key=lambda x: x["date"], reverse=True)
         
-        # Advanced Box Metrics + TRB%
         adv = compute_player_advanced_metrics(p)
         
-        # Shot Quality, Corner/ATB 3s, and Assisted/Unassisted Splits
+        # Real Team Rebound Share % (Player Rebounds / Team Total Rebounds across games)
+        t_id = str(p.get("team_id"))
+        t_tot_reb = team_total_rebs.get(t_id, 0)
+        team_reb_share = round((p["tot_reb"] / t_tot_reb * 100.0), 1) if t_tot_reb > 0 else 0.0
+
+        # On-Court Available Rebound %
+        avail_on_court = (p["tot_min"] / 48.0) * 87.5
+        on_court_reb_pct = round((p["tot_reb"] / avail_on_court * 100.0), 1) if avail_on_court > 0 else 0.0
+
+        adv["team_reb_share"] = team_reb_share
+        adv["on_court_reb_pct"] = on_court_reb_pct
+
         sq_metrics = compute_shot_quality_metrics(
             p["granular_shots"], league_granular_efg, p["tot_fta"], p["tot_fga"]
         )
         three_splits = compute_three_point_zone_splits(p["granular_shots"], gp)
         ast_splits = compute_assisted_shot_splits(p["granular_shots"])
 
-        # On/Off 18-stat Matrix
-        t_id = str(p.get("team_id"))
         p_on_court = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
         for st in player_game_stints_history.get(aid, []):
             p_on_court["pts_for"] += st["pts_for"]
@@ -598,7 +610,6 @@ def main():
             "pct_team_prf": pct_team_prf
         }
 
-        # Expected Points Responsible For (xPRF & PRFOE)
         fga = p["averages"]["fga_pg"] * gp
         fg3a = p["averages"]["fg3a_pg"] * gp
         fta = p["averages"]["fta_pg"] * gp

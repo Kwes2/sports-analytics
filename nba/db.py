@@ -1,3 +1,8 @@
+"""
+db.py - SQLite schema initialization and atomic database operations for NBA tracking.
+Includes stint-level home and away rebound accumulation.
+"""
+
 import sqlite3
 from pathlib import Path
 
@@ -12,7 +17,6 @@ def get_db_connection(db_path=DB_PATH):
 
 
 def get_existing_completed_game_ids(db_path=DB_PATH):
-    """Returns a set of all game IDs already fully processed in SQLite."""
     if not Path(db_path).exists():
         return set()
     conn = get_db_connection(db_path)
@@ -27,7 +31,6 @@ def get_existing_completed_game_ids(db_path=DB_PATH):
 
 
 def init_db(db_path=DB_PATH):
-    """Creates normalized atomic tables with explicit season_year and season_type columns."""
     conn = get_db_connection(db_path)
     cur = conn.cursor()
 
@@ -120,7 +123,7 @@ def init_db(db_path=DB_PATH):
         );
     """)
 
-    # 6. Stints Table (Lineup interactions)
+    # 6. Stints Table (with on-court home_reb and away_reb)
     cur.execute("""
         CREATE TABLE IF NOT EXISTS stints (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -132,11 +135,20 @@ def init_db(db_path=DB_PATH):
             away_lineup TEXT,
             home_pts INTEGER,
             away_pts INTEGER,
+            home_reb INTEGER,
+            away_reb INTEGER,
             poss REAL
         );
     """)
 
-    # High-Speed Composite Indexes for Window/Preset Queries
+    # Migrate older table if missing rebound columns
+    try:
+        cur.execute("ALTER TABLE stints ADD COLUMN home_reb INTEGER DEFAULT 0;")
+        cur.execute("ALTER TABLE stints ADD COLUMN away_reb INTEGER DEFAULT 0;")
+    except sqlite3.OperationalError:
+        pass
+
+    # High-Speed Indexes
     cur.execute("CREATE INDEX IF NOT EXISTS idx_games_filter ON games(season_year, season_type, date);")
     cur.execute("CREATE INDEX IF NOT EXISTS idx_logs_filter ON player_game_logs(season_year, season_type, date);")
     cur.execute("CREATE INDEX IF NOT EXISTS idx_logs_player ON player_game_logs(player_id);")
