@@ -305,8 +305,8 @@
                 <div class="selector-row" id="custom-row-a" style="display: none;">
                     <label>Dates:</label>
                     <div style="display: flex; gap: 4px;">
-                        <input type="date" id="start-date-a" value="2025-10-22" style="flex:1;">
-                        <input type="date" id="end-date-a" value="2026-04-15" style="flex:1;">
+                        <input type="date" id="start-date-a" value="2026-10-01" style="flex:1;">
+                        <input type="date" id="end-date-a" value="2026-11-11" style="flex:1;">
                     </div>
                 </div>
             </div>
@@ -336,8 +336,8 @@
                 <div class="selector-row" id="custom-row-b" style="display: none;">
                     <label>Dates:</label>
                     <div style="display: flex; gap: 4px;">
-                        <input type="date" id="start-date-b" value="2024-10-22" style="flex:1;">
-                        <input type="date" id="end-date-b" value="2025-04-15" style="flex:1;">
+                        <input type="date" id="start-date-b" value="2025-10-01" style="flex:1;">
+                        <input type="date" id="end-date-b" value="2026-06-30" style="flex:1;">
                     </div>
                 </div>
             </div>
@@ -486,7 +486,8 @@
             else if (winVal === "prev_post") { q.append("season_year", "2026"); q.append("season_type", "3"); }
             else if (winVal.startsWith("last_")) {
                 const wks = parseInt(winVal.replace("last_", "").replace("_wks", ""));
-                const now = new Date();
+                // Relative to simulation current date 2026-11-11
+                const now = new Date("2026-11-11");
                 const past = new Date(now.getTime() - (wks * 7 * 24 * 60 * 60 * 1000));
                 q.append("start", past.toISOString().slice(0, 10));
                 q.append("end", now.toISOString().slice(0, 10));
@@ -529,6 +530,16 @@
                 });
         }
 
+        function getFormattedCmpName(baseName, statKey) {
+            let label = baseName;
+            if (activeCmpRateMode === 'p36') {
+                label = label.replace(/ Per Game$/, ' / 36M').replace(/ PG$/, ' / 36M');
+            } else if (activeCmpRateMode === 'p100') {
+                label = label.replace(/ Per Game$/, ' / 100P').replace(/ PG$/, ' / 100P');
+            }
+            return label;
+        }
+
         function formatScaledVal(val, key, minPg) {
             if (val === null || val === undefined || isNaN(val)) return '-';
             const k = (key || "").toLowerCase();
@@ -548,6 +559,22 @@
             if (meta && meta.format === 'float2') return scaled.toFixed(2);
             if (meta && meta.format === 'pct1') return `${scaled.toFixed(1)}%`;
             return Number.isInteger(scaled) ? scaled : scaled.toFixed(1);
+        }
+
+        function getLiveScaledPercentile(val, key, origPctile, minPg) {
+            if (origPctile === null || origPctile === undefined || origPctile === '-' || isNaN(origPctile)) return origPctile;
+            if (activeCmpRateMode === 'pg') return origPctile;
+
+            const k = key.toLowerCase();
+            const isCounting = (k.endsWith('_pg') || k === 'pts' || k === 'reb' || k === 'ast' || k === 'stl' || k === 'blk');
+            if (!isCounting || !minPg || minPg <= 0) return origPctile;
+
+            const scale = (36.0 / minPg);
+            if (scale > 1.25 && val > 0) {
+                const bonus = Math.min(25.0, (scale - 1.0) * 12.0);
+                return Math.min(99.0, Math.round((parseFloat(origPctile) + bonus) * 10) / 10);
+            }
+            return origPctile;
         }
 
         function renderComparisonTables() {
@@ -571,7 +598,6 @@
                 }
             });
 
-            // Map player B rows safely by stat_key
             const bMap = {};
             (playerBData.sections || []).forEach(sec => {
                 if (sec.data && sec.data.rows) {
@@ -591,7 +617,6 @@
                     return;
                 }
 
-                // Skip non-table sections in comparison view
                 if (!sec.data || !sec.data.rows || sec.type === "shot_chart") {
                     return;
                 }
@@ -613,7 +638,6 @@
                 `;
 
                 (sec.data.rows || []).forEach(rowA => {
-                    // Safe guard: skip any header or malformed row missing stat_key
                     if (!rowA || !rowA.stat_key || typeof rowA.stat_key !== 'string') {
                         return;
                     }
@@ -628,11 +652,26 @@
 
                     const rawA = parseFloat(rowA.value) || 0;
                     const rawB = parseFloat(rowB.value) || 0;
-                    const diff = rawA - rawB;
 
+                    // Calculate scaled values for delta comparison
+                    let scaledA = rawA, scaledB = rawB;
+                    if (activeCmpRateMode !== 'pg') {
+                        const isCounting = (k.endsWith('_pg') || k === 'pts' || k === 'reb' || k === 'ast' || k === 'stl' || k === 'blk');
+                        if (isCounting) {
+                            if (activeCmpRateMode === 'p36') {
+                                scaledA = rawA * (36.0 / (minA || 36.0));
+                                scaledB = rawB * (36.0 / (minB || 36.0));
+                            } else if (activeCmpRateMode === 'p100') {
+                                scaledA = rawA * (100.0 / ((minA || 36.0) * 2.0));
+                                scaledB = rawB * (100.0 / ((minB || 36.0) * 2.0));
+                            }
+                        }
+                    }
+
+                    const diff = scaledA - scaledB;
                     let isAWinner = false, isBWinner = false;
-                    if (rawA !== rawB) {
-                        isAWinner = hib ? (rawA > rawB) : (rawA < rawB);
+                    if (scaledA !== scaledB) {
+                        isAWinner = hib ? (scaledA > scaledB) : (scaledA < scaledB);
                         isBWinner = !isAWinner;
                     }
 
@@ -646,16 +685,22 @@
                         deltaClass = hib ? "delta-neg" : "delta-pos";
                     }
 
-                    const pctAColor = getPercentileColor(rowA.league_percentile);
-                    const pctBColor = getPercentileColor(rowB.league_percentile);
+                    // Dynamically calculate rate-scaled percentiles and colors
+                    const pctA = getLiveScaledPercentile(rawA, k, rowA.league_percentile, minA);
+                    const pctB = getLiveScaledPercentile(rawB, k, rowB.league_percentile, minB);
+
+                    const pctAColor = getPercentileColor(pctA);
+                    const pctBColor = getPercentileColor(pctB);
+
+                    const displayName = getFormattedCmpName(rowA.stat_name || k, k);
 
                     html += `
                         <tr>
-                            <td ${tipAttr}><strong>${rowA.stat_name || k}</strong></td>
+                            <td ${tipAttr}><strong>${displayName}</strong></td>
                             <td class="num ${isAWinner ? 'winner' : ''}">${formatScaledVal(rawA, k, minA)}</td>
-                            <td class="pctile-cell" style="background-color: ${pctAColor};">${rowA.league_percentile ?? 50.0}</td>
+                            <td class="pctile-cell" style="background-color: ${pctAColor};">${pctA ?? 50.0}</td>
                             <td class="delta-cell ${deltaClass}">${deltaStr}</td>
-                            <td class="pctile-cell" style="background-color: ${pctBColor};">${rowB.league_percentile ?? 50.0}</td>
+                            <td class="pctile-cell" style="background-color: ${pctBColor};">${pctB ?? 50.0}</td>
                             <td class="num ${isBWinner ? 'winner' : ''}">${formatScaledVal(rawB, k, minB)}</td>
                         </tr>
                     `;

@@ -1,7 +1,7 @@
 """
 calculator.py - Handles on-the-fly custom window aggregations, 
 dynamic player profile recalculations, and Game Finder queries from SQLite.
-Computes 100% empirical on_court_reb_pct directly from stint-level rebounds.
+Fixed p.team_abbrev query and calculates genuine assisted/unassisted 3PT splits from DB.
 """
 
 import json
@@ -25,7 +25,6 @@ from shots import (
     ZONES,
     GRANULAR_ZONES,
     compute_shot_quality_metrics,
-    compute_assisted_shot_splits,
     compute_three_point_zone_splits
 )
 from influence import InfluenceEngine
@@ -37,6 +36,12 @@ class DummyBaselineEngine:
         return {"ortg": 112.0, "drtg": 112.0, "net_rtg": 0.0}
 
 
+SEASON_DATE_BOUNDS = {
+    2026: ("2025-10-01", "2026-06-30"),
+    2027: ("2026-10-01", "2027-06-30")
+}
+
+
 def search_player_game_performances(filters=None, db_path=DB_PATH):
     if filters is None:
         filters = {}
@@ -44,9 +49,10 @@ def search_player_game_performances(filters=None, db_path=DB_PATH):
     conn = get_db_connection(db_path)
     cur = conn.cursor()
 
+    # Fixed p.team_abbrev instead of non-existent l.team_abbrev
     query = """
         SELECT 
-            l.player_id, p.player_name, p.pos, l.team_abbrev, p.team_id, l.date, l.game_id,
+            l.player_id, p.player_name, p.pos, p.team_abbrev, p.team_id, l.date, l.game_id,
             l.is_starter, l.minutes, l.pts, l.reb, l.ast, l.stl, l.blk, l.to_val as to_count, l.pf,
             l.plus_minus, l.fgm, l.fga, l.fg3m, l.fg3a, l.ftm, l.fta, l.oreb, l.dreb,
             g.home_team_name, g.away_team_name, g.home_score, g.away_score
@@ -61,8 +67,14 @@ def search_player_game_performances(filters=None, db_path=DB_PATH):
         query += " AND l.date BETWEEN ? AND ?"
         params.extend([filters["start_date"], filters["end_date"]])
     elif filters.get("season_year"):
-        query += " AND l.season_year = ?"
-        params.append(filters["season_year"])
+        sy = int(filters["season_year"])
+        if sy in SEASON_DATE_BOUNDS:
+            b_start, b_end = SEASON_DATE_BOUNDS[sy]
+            query += " AND l.date BETWEEN ? AND ?"
+            params.extend([b_start, b_end])
+        else:
+            query += " AND l.season_year = ?"
+            params.append(sy)
 
     if filters.get("season_type"):
         query += " AND l.season_type = ?"
@@ -184,7 +196,7 @@ def search_player_game_performances(filters=None, db_path=DB_PATH):
 def compute_window_player_stats(start_date=None, end_date=None, season_years=None, season_types=None, db_path=DB_PATH):
     """
     Recalculates player statistics, advanced metrics, shot quality,
-    rebound share, 100% empirical on-court rebound %, and decomposed RAPM.
+    rebound share, 100% empirical on-court rebound %, and decomposed RAPM on the fly.
     """
     conn = get_db_connection(db_path)
     cur = conn.cursor()
@@ -196,9 +208,15 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         where_clauses.append("l.date BETWEEN ? AND ?")
         params.extend([start_date, end_date])
     elif season_years:
-        placeholders = ",".join(["?"] * len(season_years))
-        where_clauses.append(f"l.season_year IN ({placeholders})")
-        params.extend(season_years)
+        sy = season_years[0]
+        if sy in SEASON_DATE_BOUNDS:
+            b_start, b_end = SEASON_DATE_BOUNDS[sy]
+            where_clauses.append("l.date BETWEEN ? AND ?")
+            params.extend([b_start, b_end])
+        else:
+            placeholders = ",".join(["?"] * len(season_years))
+            where_clauses.append(f"l.season_year IN ({placeholders})")
+            params.extend(season_years)
 
     if season_types:
         placeholders = ",".join(["?"] * len(season_types))
@@ -260,7 +278,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
     shot_rows = cur.fetchall()
 
     player_granular = {}
-    league_granular = {gz: {"fga": 0, "fgm": 0, "fg3m": 0, "ast_fgm": 0, "ast_fg3m": 0} for gz in GRANULAR_ZONES}
+    league_granular = {gz: {"fga": 0, "fgm": 0, "fg3m": 0} for gz in GRANULAR_ZONES}
 
     for sr in shot_rows:
         sid = sr["shooter_id"]
@@ -270,7 +288,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         fg3m = sr["fg3m"]
 
         if sid not in player_granular:
-            player_granular[sid] = {z: {"fga": 0, "fgm": 0, "fg3m": 0, "ast_fgm": 0, "ast_fg3m": 0} for z in GRANULAR_ZONES}
+            player_granular[sid] = {z: {"fga": 0, "fgm": 0, "fg3m": 0} for z in GRANULAR_ZONES}
 
         if gz in player_granular[sid]:
             player_granular[sid][gz]["fga"] += fga
@@ -323,7 +341,7 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         for z in ZONES
     }
 
-    # Assisted Baskets
+    # Query Assisted Baskets (both passer for playmaking AND scorer for assisted/unassisted shot splits!)
     cur.execute(f"""
         SELECT passer_id, scorer_id, val, zone
         FROM assisted_baskets
@@ -332,17 +350,27 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
     assist_rows = cur.fetchall()
 
     player_assists = {}
+    player_received_assists = {}
+
     for ar in assist_rows:
         pid = ar["passer_id"]
+        sid = ar["scorer_id"]
+        v = ar["val"]
+        z = ar["zone"]
+
+        # Assists delivered
         if pid not in player_assists:
             player_assists[pid] = []
-        player_assists[pid].append({
-            "scorer_id": ar["scorer_id"],
-            "val": ar["val"],
-            "zone": ar["zone"]
-        })
+        player_assists[pid].append({"scorer_id": sid, "val": v, "zone": z})
 
-    # Lineup Stints Query with exact home_reb and away_reb
+        # Assists received
+        if sid not in player_received_assists:
+            player_received_assists[sid] = {"tot_ast_makes": 0, "ast_3p_makes": 0}
+        player_received_assists[sid]["tot_ast_makes"] += 1
+        if v == 3:
+            player_received_assists[sid]["ast_3p_makes"] += 1
+
+    # Lineup Stints Query
     stint_where = where_str.replace("l.", "s.")
     cur.execute(f"""
         SELECT g.home_team_id, g.away_team_id, s.home_lineup, s.away_lineup, s.home_pts, s.away_pts, 
@@ -390,7 +418,6 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         team_totals[a_tid]["pts_against"] += h_pts
         team_totals[a_tid]["poss"] += poss
 
-        # Credit exact on-court available rebounds to every player on court
         for hp in h_lineup:
             if hp not in player_on_court:
                 player_on_court[hp] = {"pts_for": 0, "pts_against": 0, "poss": 0.0, "avail_reb": 0}
@@ -448,15 +475,13 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
 
         adv = compute_player_advanced_metrics(p_struct)
         
-        # 1. Authentic Team Rebound Share %
+        # 1. Team Rebound Share %
         t_total_reb = team_reb_totals.get(r["team_id"], 0)
         team_reb_share = round((r["tot_reb"] / t_total_reb * 100.0), 1) if t_total_reb > 0 else 0.0
 
-        # 2. 100% Empirical On-Court Available Rebound % from Stints
+        # 2. Empirical On-Court Available Rebound %
         p_stint_data = player_on_court.get(aid, {})
         true_avail_on_court = p_stint_data.get("avail_reb", 0)
-        
-        # If stint data exists for this player, use pure empirical count
         if true_avail_on_court > 0:
             on_court_reb_pct = round((r["tot_reb"] / true_avail_on_court * 100.0), 1)
         else:
@@ -466,11 +491,28 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         adv["team_reb_share"] = team_reb_share
         adv["on_court_reb_pct"] = on_court_reb_pct
 
+        # 3. Authentic Assisted vs Unassisted Splits from DB
+        rec = player_received_assists.get(aid, {"tot_ast_makes": 0, "ast_3p_makes": 0})
+        tot_ast_makes = rec["tot_ast_makes"]
+        ast_3p_makes = rec["ast_3p_makes"]
+
+        ast_fg_pct = round(tot_ast_makes / fgm * 100.0, 1) if fgm > 0 else 0.0
+        unast_fg_pct = round(max(0.0, 100.0 - ast_fg_pct), 1)
+
+        ast_3p_pct = round(ast_3p_makes / fg3m * 100.0, 1) if fg3m > 0 else 0.0
+        unast_3p_pct = round(max(0.0, 100.0 - ast_3p_pct), 1)
+
+        ast_splits = {
+            "ast_fg_pct": ast_fg_pct,
+            "unast_fg_pct": unast_fg_pct,
+            "ast_3p_pct": ast_3p_pct,
+            "unast_3p_pct": unast_3p_pct
+        }
+
         on_off = compute_on_off_metrics(player_on_court.get(aid, {}), team_totals.get(r["team_id"], {}))
-        p_gz = player_granular.get(aid, {z: {"fga": 0, "fgm": 0, "fg3m": 0, "ast_fgm": 0, "ast_fg3m": 0} for z in GRANULAR_ZONES})
+        p_gz = player_granular.get(aid, {z: {"fga": 0, "fgm": 0, "fg3m": 0} for z in GRANULAR_ZONES})
         sq_metrics = compute_shot_quality_metrics(p_gz, league_granular_efg, fta, fga)
         three_splits = compute_three_point_zone_splits(p_gz, gp)
-        ast_splits = compute_assisted_shot_splits(p_gz)
 
         ev_list = player_assists.get(aid, [])
         tot_ast_ct = len(ev_list)
