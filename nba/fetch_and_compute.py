@@ -1,7 +1,7 @@
 """
 fetch_and_compute.py - Core data compilation pipeline. Crawls ESPN, populates 
 SQLite database, calculates advanced metrics, RAPM, and exports structured JSONs.
-Eliminates 20.0% rebound fallback and compiles authentic rebound share metrics.
+Calculates exact assisted/unassisted splits from assisted_baskets.
 """
 
 import json
@@ -21,7 +21,6 @@ from shots import (
     init_granular_dict,
     process_game_shots,
     compute_shot_quality_metrics,
-    compute_assisted_shot_splits,
     compute_three_point_zone_splits,
     classify_shot_distance,
     classify_shot_granular
@@ -36,7 +35,6 @@ from stats import (
     compute_player_situational_splits,
     compute_team_situational_splits,
     compute_on_off_metrics,
-    compute_rebound_rate,
     compute_xprf_metrics
 )
 from percentiles import (
@@ -169,7 +167,8 @@ def main():
 
             for s in game_stints_collector:
                 db_stints_rows.append((
-                    s[0], season_year, season_type, s[1], s[2], s[3], s[4], s[5], s[6]
+                    s[0], season_year, season_type, s[1], s[2], s[3], s[4], s[5],
+                    stint_tracker.home_reb_stint, stint_tracker.away_reb_stint, s[6]
                 ))
                 all_games_stints.append({
                     "home_lineup": json.loads(s[2]),
@@ -252,9 +251,6 @@ def main():
                     players[aid]["granular_shots"][gz]["fga"] += g_zones[gz]["fga"]
                     players[aid]["granular_shots"][gz]["fgm"] += g_zones[gz]["fgm"]
                     players[aid]["granular_shots"][gz]["fg3m"] += g_zones[gz]["fg3m"]
-                    players[aid]["granular_shots"][gz]["ast_fgm"] += g_zones.get("ast_fgm", 0)
-                    players[aid]["granular_shots"][gz]["ast_fg3m"] += g_zones.get("ast_fg3m", 0)
-
                     league_granular_shots[gz]["fga"] += g_zones[gz]["fga"]
                     league_granular_shots[gz]["fgm"] += g_zones[gz]["fgm"]
                     league_granular_shots[gz]["fg3m"] += g_zones[gz]["fg3m"]
@@ -418,7 +414,7 @@ def main():
     ], db_assisted_rows)
 
     bulk_insert(DB_PATH, "stints", [
-        "game_id", "season_year", "season_type", "date", "home_lineup", "away_lineup", "home_pts", "away_pts", "poss"
+        "game_id", "season_year", "season_type", "date", "home_lineup", "away_lineup", "home_pts", "away_pts", "home_reb", "away_reb", "poss"
     ], db_stints_rows)
 
     optimize_db(DB_PATH)
@@ -440,10 +436,34 @@ def main():
         else:
             league_granular_efg[gz] = 50.0
 
-    # Calculate aggregate team rebounds
     team_total_rebs = {}
     for tid, g_list in team_game_stats_ledger.items():
         team_total_rebs[tid] = sum((g.get("oreb", 0) + g.get("dreb", 0)) for g in g_list)
+
+    # Build Assist Network Maps
+    passer_finisher_map = {}
+    finisher_passer_map = {}
+    all_passer_events_map = {}
+
+    for ev in all_season_assisted_plays:
+        p_id = ev["passer_id"]
+        s_id = ev["scorer_id"]
+
+        if p_id not in all_passer_events_map:
+            all_passer_events_map[p_id] = []
+        all_passer_events_map[p_id].append(ev)
+
+        if p_id not in passer_finisher_map:
+            passer_finisher_map[p_id] = {}
+        if s_id not in passer_finisher_map[p_id]:
+            passer_finisher_map[p_id][s_id] = []
+        passer_finisher_map[p_id][s_id].append(ev)
+
+        if s_id not in finisher_passer_map:
+            finisher_passer_map[s_id] = {}
+        if p_id not in finisher_passer_map[s_id]:
+            finisher_passer_map[s_id][p_id] = []
+        finisher_passer_map[s_id][p_id].append(ev)
 
     active_players = {}
     for aid, p in players.items():
@@ -480,29 +500,57 @@ def main():
         
         adv = compute_player_advanced_metrics(p)
         
-        # Real Team Rebound Share % (Player Rebounds / Team Total Rebounds across games)
+        # 1. Authentic Team Rebound Share %
         t_id = str(p.get("team_id"))
         t_tot_reb = team_total_rebs.get(t_id, 0)
         team_reb_share = round((p["tot_reb"] / t_tot_reb * 100.0), 1) if t_tot_reb > 0 else 0.0
 
-        # On-Court Available Rebound %
-        avail_on_court = (p["tot_min"] / 48.0) * 87.5
-        on_court_reb_pct = round((p["tot_reb"] / avail_on_court * 100.0), 1) if avail_on_court > 0 else 0.0
+        # 2. Authentic On-Court Available Rebound %
+        p_stints = player_game_stints_history.get(aid, [])
+        total_avail_on_court = sum((st.get("team_reb", 0) + st.get("opp_reb", 0)) for st in p_stints)
+        if total_avail_on_court > 0:
+            on_court_reb_pct = round((p["tot_reb"] / total_avail_on_court * 100.0), 1)
+        else:
+            avail_fallback = (p["tot_min"] / 48.0) * 87.5
+            on_court_reb_pct = round((p["tot_reb"] / avail_fallback * 100.0), 1) if avail_fallback > 0 else 0.0
 
         adv["team_reb_share"] = team_reb_share
         adv["on_court_reb_pct"] = on_court_reb_pct
+
+        # 3. Authentic Assisted vs Unassisted Shot Splits from assisted_baskets
+        received_assists = []
+        for passer_ev_list in finisher_passer_map.get(aid, {}).values():
+            received_assists.extend(passer_ev_list)
+
+        tot_assisted_makes = len(received_assists)
+        tot_assisted_3s = sum(1 for ev in received_assists if ev.get("val") == 3)
+
+        tot_fgm = p["tot_fgm"]
+        tot_fg3m = p.get("tot_fg3m", 0)
+
+        ast_fg_pct = round(tot_assisted_makes / tot_fgm * 100.0, 1) if tot_fgm > 0 else 0.0
+        unast_fg_pct = round(max(0.0, 100.0 - ast_fg_pct), 1)
+
+        ast_3p_pct = round(tot_assisted_3s / tot_fg3m * 100.0, 1) if tot_fg3m > 0 else 0.0
+        unast_3p_pct = round(max(0.0, 100.0 - ast_3p_pct), 1)
+
+        ast_splits = {
+            "ast_fg_pct": ast_fg_pct,
+            "unast_fg_pct": unast_fg_pct,
+            "ast_3p_pct": ast_3p_pct,
+            "unast_3p_pct": unast_3p_pct
+        }
 
         sq_metrics = compute_shot_quality_metrics(
             p["granular_shots"], league_granular_efg, p["tot_fta"], p["tot_fga"]
         )
         three_splits = compute_three_point_zone_splits(p["granular_shots"], gp)
-        ast_splits = compute_assisted_shot_splits(p["granular_shots"])
 
         p_on_court = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
-        for st in player_game_stints_history.get(aid, []):
-            p_on_court["pts_for"] += st["pts_for"]
-            p_on_court["pts_against"] += st["pts_against"]
-            p_on_court["poss"] += st["poss"]
+        for st in p_stints:
+            p_on_court["pts_for"] += st.get("pts_for", 0)
+            p_on_court["pts_against"] += st.get("pts_against", 0)
+            p_on_court["poss"] += st.get("poss", 0.0)
 
         t_totals = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
         for g_stints in team_game_stats_ledger.get(t_id, []):
@@ -545,30 +593,6 @@ def main():
         z: round(league_zone_totals[z]["fgm"] / league_zone_totals[z]["fga"] * 100, 1) if league_zone_totals[z]["fga"] > 0 else 0.0
         for z in ZONES
     }
-
-    passer_finisher_map = {}
-    finisher_passer_map = {}
-    all_passer_events_map = {}
-
-    for ev in all_season_assisted_plays:
-        p_id = ev["passer_id"]
-        s_id = ev["scorer_id"]
-
-        if p_id not in all_passer_events_map:
-            all_passer_events_map[p_id] = []
-        all_passer_events_map[p_id].append(ev)
-
-        if p_id not in passer_finisher_map:
-            passer_finisher_map[p_id] = {}
-        if s_id not in passer_finisher_map[p_id]:
-            passer_finisher_map[p_id][s_id] = []
-        passer_finisher_map[p_id][s_id].append(ev)
-
-        if s_id not in finisher_passer_map:
-            finisher_passer_map[s_id] = {}
-        if p_id not in finisher_passer_map[s_id]:
-            finisher_passer_map[s_id][p_id] = []
-        finisher_passer_map[s_id][p_id].append(ev)
 
     for aid, p in active_players.items():
         p_events = all_passer_events_map.get(aid, [])
@@ -768,7 +792,6 @@ def main():
     with open(DATA_DIR / "player_stats.json", "w") as f:
         json.dump({"meta_keys": ["player", "team", "pos"], "rows": all_player_stats_rows}, f, indent=2)
 
-    # Compile team profiles
     for t_row in team_rows:
         t_id = t_row["team_id"]
         t_name = t_row["team"]
@@ -932,7 +955,7 @@ def main():
     with open(DATA_DIR / "team_stats.json", "w") as f:
         json.dump({"meta_keys": ["team"], "rows": enriched_standings}, f, indent=2)
 
-    print("Pipeline Complete: Full DB and JSON compiled with categorized player profiles, On/Off ratings, and Game Finder dataset.")
+    print("Pipeline Complete: Full DB and JSON compiled with authentic rebound rates and assisted shot splits.")
 
 
 if __name__ == "__main__":

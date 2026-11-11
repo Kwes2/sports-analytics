@@ -1,6 +1,6 @@
 """
 stats.py - Core mathematical routines for NBA box scores, advanced metrics,
-total rebound percentage (TRB%), xPRF/PRFOE, and 18-stat On/Off differentials.
+xPRF/PRFOE, and 18-stat On/Off differentials.
 """
 
 def parse_int(val):
@@ -274,27 +274,10 @@ def compute_assist_connection_metrics(assisted_events, league_zone_avg_fg, activ
     }
 
 
-def compute_rebound_rate(player_reb, player_min, team_min, team_reb, opp_reb):
-    """
-    Computes canonical Total Rebound Percentage (TRB%).
-    TRB% = 100 * (Rebounds * (Team Minutes / 5)) / (Player Minutes * (Team Rebounds + Opponent Rebounds))
-    """
-    if player_min <= 0 or (team_reb + opp_reb) <= 0:
-        return 0.0
-    team_total_min = team_min if team_min > 0 else (player_min * 5.0)
-    trb = 100.0 * (player_reb * (team_total_min / 5.0)) / (player_min * (team_reb + opp_reb))
-    return round(trb, 1)
-
-
 def compute_xprf_metrics(fga, xfg_pct, fg3a, x3p_pct, fta, xft_pct, expected_assist_pts, actual_prf_pg, gp):
-    """
-    Computes Expected Points Responsible For (xPRF) and Points Responsible For Over Expected (PRFOE):
-    xPRF = (FGA * xFG%) + (3PA * x3P%) + (FTA * xFT%) + Expected Assist Points (per game).
-    """
     if gp <= 0:
         return {"xprf_pg": 0.0, "prfoe_pg": 0.0}
 
-    # xFG is 2-point value expectation; x3P is 3-point value expectation
     two_pa = max(0, fga - fg3a)
     exp_2pt_pts = two_pa * (xfg_pct / 100.0) * 2.0
     exp_3pt_pts = fg3a * (x3p_pct / 100.0) * 3.0
@@ -310,7 +293,7 @@ def compute_xprf_metrics(fga, xfg_pct, fg3a, x3p_pct, fta, xft_pct, expected_ass
     }
 
 
-def compute_player_advanced_metrics(p, team_stats=None):
+def compute_player_advanced_metrics(p):
     gp = p["gp"]
     fga = p["tot_fga"]
     fgm = p["tot_fgm"]
@@ -344,12 +327,6 @@ def compute_player_advanced_metrics(p, team_stats=None):
     used_plays = fga + 0.44 * fta + to
     usg_pct = round((used_plays / (tot_min * 2.0)) * 100.0, 1) if tot_min > 0 else 0.0
 
-    # Rebound Percentage (TRB%)
-    t_min = team_stats.get("tot_min", tot_min * 5.0) if team_stats else (tot_min * 5.0)
-    t_reb = team_stats.get("tot_reb", reb * 2.5) if team_stats else (reb * 2.5)
-    opp_reb = team_stats.get("opp_reb", reb * 2.5) if team_stats else (reb * 2.5)
-    trb_pct = compute_rebound_rate(reb, tot_min, t_min, t_reb, opp_reb)
-
     # PER Approximation
     if tot_min > 0:
         raw_per = (pts + reb + ast + stl + blk - (fga - fgm) - (fta - ftm) - to) / tot_min
@@ -371,7 +348,6 @@ def compute_player_advanced_metrics(p, team_stats=None):
 
     return {
         "gp": gp,
-        "trb_pct": trb_pct,
         "ts_pct": ts_pct,
         "efg_pct": efg_pct,
         "usg_pct": usg_pct,
@@ -491,8 +467,8 @@ def compute_player_situational_splits(game_logs):
         "Home Games": [g for g in game_logs if not g["opponent"].startswith("@")],
         "Away Games": [g for g in game_logs if g["opponent"].startswith("@")],
         "Last 5 Games": game_logs[:5],
-        "In Team Wins": [g for g in game_logs if g["result"].startswith("W")],
-        "In Team Losses": [g for g in game_logs if g["result"].startswith("L")]
+        "In Team Wins": [g for g in game_logs if g["result"].startswith("W") or g["result"] == "OT-W"],
+        "In Team Losses": [g for g in game_logs if g["result"].startswith("L") or g["result"] == "OT-L"]
     }
 
     rows = []
@@ -582,11 +558,6 @@ def compute_team_situational_splits(team_name, completed_games):
 
 
 def compute_on_off_metrics(player_on_court, team_totals):
-    """
-    Computes complete 18-stat Team & Opponent On/Off Ratings Matrix:
-    - Team On/Off: on_ortg, on_drtg, on_net_rtg, off_ortg, off_drtg, off_net_rtg, diff_ortg, diff_drtg, diff_net_rtg
-    - Opponent On/Off: opp_on_ortg, opp_on_drtg, opp_on_net_rtg, opp_off_ortg, opp_off_drtg, opp_off_net_rtg, opp_diff_ortg, opp_diff_drtg, opp_diff_net_rtg
-    """
     on_poss = player_on_court.get("poss", 0.0)
     on_pf = player_on_court.get("pts_for", 0)
     on_pa = player_on_court.get("pts_against", 0)
@@ -599,38 +570,31 @@ def compute_on_off_metrics(player_on_court, team_totals):
     off_pf = max(0, t_pf - on_pf)
     off_pa = max(0, t_pa - on_pa)
 
-    # 1. Team On Ratings
     team_on_ortg = (on_pf / on_poss * 100.0) if on_poss > 0 else 0.0
     team_on_drtg = (on_pa / on_poss * 100.0) if on_poss > 0 else 0.0
     team_on_net = team_on_ortg - team_on_drtg
 
-    # 2. Team Off Ratings
     team_off_ortg = (off_pf / off_poss * 100.0) if off_poss > 0 else 0.0
     team_off_drtg = (off_pa / off_poss * 100.0) if off_poss > 0 else 0.0
     team_off_net = team_off_ortg - team_off_drtg
 
-    # 3. Team Differentials (On minus Off)
     team_diff_ortg = team_on_ortg - team_off_ortg
     team_diff_drtg = team_on_drtg - team_off_drtg
     team_diff_net = team_on_net - team_off_net
 
-    # 4. Opponent On Ratings (Opponent Offense = Team Defense, Opponent Defense = Team Offense)
     opp_on_ortg = team_on_drtg
     opp_on_drtg = team_on_ortg
     opp_on_net = opp_on_ortg - opp_on_drtg
 
-    # 5. Opponent Off Ratings
     opp_off_ortg = team_off_drtg
     opp_off_drtg = team_off_ortg
     opp_off_net = opp_off_ortg - opp_off_drtg
 
-    # 6. Opponent Differentials (On minus Off)
     opp_diff_ortg = opp_on_ortg - opp_off_ortg
     opp_diff_drtg = opp_on_drtg - opp_off_drtg
     opp_diff_net = opp_on_net - opp_off_net
 
     return {
-        # Team On/Off
         "team_on_ortg": round(team_on_ortg, 1),
         "team_on_drtg": round(team_on_drtg, 1),
         "team_on_net_rtg": round(team_on_net, 1),
@@ -641,7 +605,6 @@ def compute_on_off_metrics(player_on_court, team_totals):
         "team_diff_drtg": round(team_diff_drtg, 1),
         "team_diff_net_rtg": round(team_diff_net, 1),
 
-        # Opponent On/Off
         "opp_on_ortg": round(opp_on_ortg, 1),
         "opp_on_drtg": round(opp_on_drtg, 1),
         "opp_on_net_rtg": round(opp_on_net, 1),
@@ -652,7 +615,6 @@ def compute_on_off_metrics(player_on_court, team_totals):
         "opp_diff_drtg": round(opp_diff_drtg, 1),
         "opp_diff_net_rtg": round(opp_diff_net, 1),
 
-        # Legacy aliases for backward compatibility with earlier views
         "on_ortg": round(team_on_ortg, 1),
         "on_drtg": round(team_on_drtg, 1),
         "on_net_rtg": round(team_on_net, 1),

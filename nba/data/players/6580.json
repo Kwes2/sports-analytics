@@ -389,7 +389,7 @@
           {
             "stat_key": "on_court_reb_pct",
             "stat_name": "On-Court Available Rebound %",
-            "value": 2.3,
+            "value": 2.1,
             "tooltip": "Percentage of all available rebounds grabbed while on the floor: Player Rebounds / (Team + Opponent Rebounds while on court)",
             "league_rank": 632,
             "league_percentile": 1.9,
@@ -481,42 +481,42 @@
           {
             "stat_key": "ast_fg_pct",
             "stat_name": "Assisted FG %",
-            "value": 0.0,
+            "value": 83.3,
             "tooltip": "Percentage of player's made field goals that were assisted by a teammate",
-            "league_rank": 1,
-            "league_percentile": 50.0,
-            "pos_rank": 1,
-            "pos_percentile": 50.0
+            "league_rank": 119,
+            "league_percentile": 80.9,
+            "pos_rank": 47,
+            "pos_percentile": 83.8
           },
           {
             "stat_key": "unast_fg_pct",
             "stat_name": "Unassisted (Self-Created) FG %",
-            "value": 100.0,
+            "value": 16.7,
             "tooltip": "Percentage of player's made field goals created independently without an assist",
-            "league_rank": 1,
-            "league_percentile": 50.8,
-            "pos_rank": 1,
-            "pos_percentile": 50.7
+            "league_rank": 517,
+            "league_percentile": 19.1,
+            "pos_rank": 250,
+            "pos_percentile": 16.2
           },
           {
             "stat_key": "ast_3p_pct",
             "stat_name": "Assisted 3PT %",
-            "value": 0.0,
+            "value": 100.0,
             "tooltip": "Percentage of player's made 3-pointers that were assisted (catch-and-shoot looks)",
             "league_rank": 1,
-            "league_percentile": 50.0,
+            "league_percentile": 92.0,
             "pos_rank": 1,
-            "pos_percentile": 50.0
+            "pos_percentile": 95.8
           },
           {
             "stat_key": "unast_3p_pct",
             "stat_name": "Unassisted 3PT %",
-            "value": 100.0,
+            "value": 0.0,
             "tooltip": "Percentage of player's made 3-pointers that were unassisted (pull-ups / off the dribble)",
-            "league_rank": 1,
-            "league_percentile": 56.4,
-            "pos_rank": 1,
-            "pos_percentile": 52.7
+            "league_rank": 542,
+            "league_percentile": 8.0,
+            "pos_rank": 276,
+            "pos_percentile": 4.2
           },
           {
             "stat_key": "rim_fga_pg",
@@ -964,16 +964,6 @@
           "stat_name"
         ],
         "rows": [
-          {
-            "stat_key": "trb_pct",
-            "stat_name": "Trb %",
-            "value": 20.0,
-            "tooltip": "Trb % metric",
-            "league_rank": "-",
-            "league_percentile": 50.0,
-            "pos_rank": "-",
-            "pos_percentile": 50.0
-          },
           {
             "stat_key": "on_ortg",
             "stat_name": "On Ortg",
