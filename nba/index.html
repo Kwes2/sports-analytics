@@ -215,7 +215,7 @@
         .table-scroll-container {
             overflow: auto;
             max-width: 100%;
-            max-height: 78vh;
+            max-height: 75vh;
             border: 1px solid #888;
             position: relative;
             transition: opacity 0.2s ease, filter 0.2s ease;
@@ -342,6 +342,17 @@
         .result-badge.res-w { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; }
         .result-badge.res-l { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
         .result-badge.res-ot { background-color: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+
+        .pagination-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border: 1px solid #ccc;
+            border-top: none;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -377,6 +388,7 @@
     <div style="position: relative;">
         <div id="recalc-badge" class="recalc-overlay-badge">⏳ Recalculating window across entire league...</div>
         <div id="table-container">Loading data...</div>
+        <div id="pagination-controls" class="pagination-bar" style="display: none;"></div>
     </div>
 
     <script>
@@ -408,8 +420,11 @@
         let currentSortColumn = null;
         let isAscending = false;
         let activeViewTitle = "";
-
         let activeRateMode = 'pg';
+
+        // DOM Slicing: Only renders 100 rows at once for sub-millisecond speed
+        const PAGE_SIZE = 100;
+        let currentPageLimit = 100;
 
         let activeFilterRules = [];
         let visibleColumns = new Set();
@@ -497,10 +512,7 @@
             if (c.includes('pct') || c.includes('_pg') || c === 'smoe' || c === 'mei' || c === 'pace' || c.includes('ortg') || c.includes('drtg') || c.includes('net_rtg') || c.includes('share') || c === 'diff' || c.includes('rate') || c.includes('par') || c.includes('avg') || c === 'bpm' || c === 'per') {
                 return scaledVal.toFixed(1);
             }
-            if (Number.isInteger(scaledVal)) {
-                return scaledVal;
-            }
-            return scaledVal.toFixed(1);
+            return Number.isInteger(scaledVal) ? scaledVal : scaledVal.toFixed(1);
         }
 
         function loadView(title, fileKey, el) {
@@ -517,6 +529,7 @@
             document.getElementById('table-title').innerText = `NBA - ${title}`;
             const container = document.getElementById('table-container');
             container.innerHTML = "Loading...";
+            currentPageLimit = 100;
 
             activeFilterRules = [];
             showFilterDrawer = false;
@@ -774,6 +787,7 @@
             if (tableElem) tableElem.classList.add('is-recalculating');
             if (badge) badge.classList.add('active');
             if (status) status.innerText = "Querying and recalculating window...";
+            currentPageLimit = 100;
 
             const queryParams = new URLSearchParams();
 
@@ -806,7 +820,7 @@
                     filteredRows = [...rawRows];
 
                     if (rawRows.length === 0) {
-                        status.innerText = "0 games found for this selection; try broadening your criteria.";
+                        status.innerText = "0 records found for this selection.";
                     } else {
                         status.innerText = `Done! Loaded ${rawRows.length} records.`;
                     }
@@ -908,6 +922,7 @@
             renderTable();
         }
 
+        // Fast Filter Drawer: Instant calculation without rendering thousands of checkboxes
         function renderFilterDrawer() {
             const container = document.getElementById('filter-panel-container');
             if (!showFilterDrawer || (activeViewTitle !== "Player Stats" && activeViewTitle !== "Game Finder") || rawRows.length === 0) {
@@ -954,18 +969,7 @@
                         <input type="number" step="any" style="width: 75px;" value="${rule.val}" oninput="updateRuleValue(${rIdx}, this.value)" placeholder="Value" />
                     `;
                 } else {
-                    const distinctVals = [...new Set(rawRows.map(r => r[rule.column]))].sort();
-                    rulesHtml += `<span style="font-size:12px; color:#555;">Match:</span> <div class="checkbox-group">`;
-                    distinctVals.forEach(val => {
-                        const checked = (rule.selectedVals || []).includes(val);
-                        rulesHtml += `
-                            <label>
-                                <input type="checkbox" value="${val}" ${checked ? 'checked' : ''} onchange="toggleRuleCatVal(${rIdx}, '${val}')">
-                                ${val}
-                            </label>
-                        `;
-                    });
-                    rulesHtml += `</div>`;
+                    rulesHtml += `<input type="text" style="width: 120px;" value="${rule.val || ''}" oninput="updateRuleValue(${rIdx}, this.value)" placeholder="Filter text..." />`;
                 }
 
                 rulesHtml += `<button class="remove-rule-btn" onclick="removeRule(${rIdx})">✕ Remove</button>`;
@@ -976,7 +980,7 @@
                 <div class="drawer-panel">
                     <div class="drawer-header">
                         <div>
-                            <strong>Filter Rules:</strong> Showing <strong>${filteredRows.length}</strong> of <strong>${rawRows.length}</strong> records
+                            <strong>Filter Rules:</strong> Matching <strong>${filteredRows.length}</strong> of <strong>${rawRows.length}</strong> records
                         </div>
                         <div>
                             <button class="tool-btn" onclick="addRule()">+ Add Rule</button>
@@ -998,8 +1002,7 @@
             activeFilterRules.push({
                 column: defaultCol,
                 op: ">=",
-                val: isNum ? (defaultCol === 'pts' ? 30 : 20) : "",
-                selectedVals: isNum ? [] : [...new Set(rawRows.map(r => r[defaultCol]))]
+                val: isNum ? (defaultCol === 'pts' ? 30 : 20) : ""
             });
 
             applyFilterRules();
@@ -1018,9 +1021,8 @@
         function updateRuleColumn(rIdx, col) {
             const isNum = typeof rawRows[0][col] === 'number';
             activeFilterRules[rIdx].column = col;
-            activeFilterRules[rIdx].op = isNum ? ">=" : "in";
+            activeFilterRules[rIdx].op = isNum ? ">=" : "=";
             activeFilterRules[rIdx].val = isNum ? 0 : "";
-            activeFilterRules[rIdx].selectedVals = isNum ? [] : [...new Set(rawRows.map(r => r[col]))];
             applyFilterRules();
         }
 
@@ -1031,18 +1033,6 @@
 
         function updateRuleValue(rIdx, val) {
             activeFilterRules[rIdx].val = val;
-            applyFilterRules();
-        }
-
-        function toggleRuleCatVal(rIdx, val) {
-            const rule = activeFilterRules[rIdx];
-            if (!rule.selectedVals) rule.selectedVals = [];
-            const idx = rule.selectedVals.indexOf(val);
-            if (idx > -1) {
-                rule.selectedVals.splice(idx, 1);
-            } else {
-                rule.selectedVals.push(val);
-            }
             applyFilterRules();
         }
 
@@ -1069,8 +1059,8 @@
                         if (rule.op === "<" && !(rowVal < targetVal)) return false;
                         if (rule.op === "=" && !(rowVal === targetVal)) return false;
                     } else {
-                        if (rule.selectedVals && rule.selectedVals.length > 0) {
-                            if (!rule.selectedVals.includes(rowVal)) return false;
+                        if (rule.val && !String(rowVal).toLowerCase().includes(String(rule.val).toLowerCase())) {
+                            return false;
                         }
                     }
                 }
@@ -1086,14 +1076,22 @@
             renderTable();
         }
 
+        function loadMoreRows() {
+            currentPageLimit += 100;
+            renderTable();
+        }
+
+        // Sub-millisecond Table Renderer using DOM Slicing
         function renderTable() {
             const container = document.getElementById('table-container');
+            const paginationEl = document.getElementById('pagination-controls');
             const prevScrollElem = container.querySelector('.table-scroll-container');
             const prevLeft = prevScrollElem ? prevScrollElem.scrollLeft : 0;
             const prevTop = prevScrollElem ? prevScrollElem.scrollTop : 0;
 
             if (filteredRows.length === 0) {
                 container.innerHTML = "<p>No matching records found.</p>";
+                if (paginationEl) paginationEl.style.display = "none";
                 return;
             }
 
@@ -1106,6 +1104,9 @@
             const orderedCols = [...metaCols, ...statCols];
 
             const isPlayerTable = orderedCols.includes("player");
+
+            // Slice visible rows to prevent browser freeze
+            const displayedRows = filteredRows.slice(0, currentPageLimit);
 
             let html = `<div class="table-scroll-container"><table><thead><tr>`;
 
@@ -1142,7 +1143,7 @@
 
             html += `</tr></thead><tbody>`;
 
-            filteredRows.forEach((row, rIdx) => {
+            displayedRows.forEach((row, rIdx) => {
                 html += `<tr>`;
 
                 if (isPlayerTable) {
@@ -1161,8 +1162,7 @@
                     } else if (col === 'result') {
                         const token = String(rawVal).trim().toUpperCase();
                         let badgeClass = "res-w";
-                        if (token === "L") badgeClass = "res-l";
-                        else if (token === "OT-L") badgeClass = "res-l";
+                        if (token === "L" || token === "OT-L") badgeClass = "res-l";
                         else if (token.startsWith("OT")) badgeClass = "res-ot";
                         cellContent = `<span class="result-badge ${badgeClass}">${token}</span>`;
                     } else if (col === 'box_score' && rawVal) {
@@ -1185,6 +1185,20 @@
 
             html += `</tbody></table></div>`;
             container.innerHTML = html;
+
+            // Render pagination bar
+            if (paginationEl) {
+                if (filteredRows.length > currentPageLimit) {
+                    paginationEl.style.display = "flex";
+                    paginationEl.innerHTML = `
+                        <span>Showing <strong>1 to ${displayedRows.length}</strong> of <strong>${filteredRows.length}</strong> records</span>
+                        <button class="calc-btn" onclick="loadMoreRows()">Load More 100 Rows &darr;</button>
+                    `;
+                } else {
+                    paginationEl.style.display = "flex";
+                    paginationEl.innerHTML = `<span>Showing all <strong>${filteredRows.length}</strong> matching records</span>`;
+                }
+            }
 
             const newScrollElem = container.querySelector('.table-scroll-container');
             if (newScrollElem) {
