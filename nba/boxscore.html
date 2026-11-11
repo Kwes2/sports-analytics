@@ -191,9 +191,11 @@
             text-decoration: underline;
         }
 
-        .starter-badge {
+        .starter-star {
             font-weight: bold;
-            color: #000;
+            font-size: 14px;
+            text-align: center;
+            display: block;
         }
     </style>
 </head>
@@ -341,22 +343,38 @@
                 html += `<div id="${ffId}_box">${renderSortableBoxTable(ffId)}</div>`;
             }
 
-            // Unified Team Box Scores (Merged Starters + Bench)
+            // Unified Team Box Scores (Merged into 1 single table per team)
             (game.teams || []).forEach((team, tIdx) => {
                 const teamTitleLink = team.team_id ? `<a class="table-link" href="team.html?id=${team.team_id}">${team.team_name}</a>` : team.team_name;
                 html += `<h3>${teamTitleLink} Box Score</h3>`;
 
-                // Unified table rows
-                const unifiedRows = team.rows || [...(team.starters || []), ...(team.bench || [])];
-                const teamTableId = `table_team_${tIdx}_unified`;
+                // Build unified list of rows with starter flag
+                let unifiedRows = [];
+                if (team.rows && team.rows.length > 0) {
+                    unifiedRows = team.rows;
+                } else {
+                    const starters = (team.starters || []).map(r => ({ ...r, starter: 1 }));
+                    const bench = (team.bench || []).map(r => ({ ...r, starter: 0 }));
+                    unifiedRows = [...starters, ...bench];
+                }
 
-                boxTableState[teamTableId] = {
+                // Ensure starter flag is set on each row
+                unifiedRows = unifiedRows.map((r, idx) => {
+                    if (r.starter === undefined) {
+                        r.starter = (idx < 5) ? 1 : 0;
+                    }
+                    return r;
+                });
+
+                const unifiedTableId = `table_team_${tIdx}_unified`;
+                boxTableState[unifiedTableId] = {
                     metaKeys: ["player", "starter", "pos"],
                     rows: unifiedRows,
                     sortCol: null,
                     isAsc: false
                 };
-                html += `<div id="${teamTableId}_box">${renderSortableBoxTable(teamTableId)}</div>`;
+
+                html += `<div id="${unifiedTableId}_box">${renderSortableBoxTable(unifiedTableId)}</div>`;
 
                 // Shooting Splits
                 if (team.shooting_splits && team.shooting_splits.rows) {
@@ -407,7 +425,7 @@
 
                 const colLower = col.toLowerCase();
                 const meta = STAT_DEFINITIONS[colLower];
-                const tip = meta ? meta.tooltip : "";
+                const tip = meta ? meta.tooltip : (col === 'starter' ? "Starter Indicator (* = Starter)" : "");
                 const tipAttr = tip ? `title="${tip}" class="${isNumeric && !isMeta ? 'num' : ''} has-tip"` : `class="${isNumeric && !isMeta ? 'num' : ''}"`;
 
                 html += `<th ${tipAttr} onclick="handleBoxSort('${tblId}', '${col}')">
@@ -426,12 +444,12 @@
                     let cellContent = val !== null ? val : '';
 
                     if (col === 'starter') {
-                        cellContent = val === 1 ? `<span class="starter-badge">*</span>` : `<span style="color:#aaa;">-</span>`;
+                        cellContent = val === 1 ? `<span class="starter-star">*</span>` : `<span style="color:#bbb; text-align:center; display:block;">-</span>`;
                     } else if (col === 'player' && row.player_id) {
                         cellContent = `<a class="table-link" href="player.html?id=${row.player_id}">${val}</a>`;
                     }
 
-                    html += `<td class="${isNumeric && !isMeta ? 'num' : ''}">${cellContent}</td>`;
+                    html += `<td class="${isNumeric && !isMeta && col !== 'starter' ? 'num' : ''}">${cellContent}</td>`;
                 });
                 html += `</tr>`;
             });

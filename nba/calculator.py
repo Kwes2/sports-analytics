@@ -1,7 +1,7 @@
 """
 calculator.py - Handles on-the-fly custom window aggregations, 
 dynamic player profile recalculations, and Game Finder queries from SQLite.
-Supports simplified OT/W/L result tokens and all Phase 1 advanced metrics.
+Computes team_reb_share, on_court_reb_pct, and deterministic OT/W/L tokens.
 """
 
 import json
@@ -18,7 +18,6 @@ from stats import (
     compute_player_advanced_metrics,
     compute_assist_connection_metrics,
     compute_on_off_metrics,
-    compute_rebound_rate,
     compute_xprf_metrics,
     compute_player_situational_splits
 )
@@ -41,7 +40,7 @@ class DummyBaselineEngine:
 def search_player_game_performances(filters=None, db_path=DB_PATH):
     """
     Queries individual player game performances from SQLite matching filter criteria.
-    Supports categorical result tokens: [W], [L], [OT], [OT-W], [OT-L].
+    Supports clean categorical tokens: [W], [L], [OT], [OT-W], [OT-L].
     """
     if filters is None:
         filters = {}
@@ -104,19 +103,14 @@ def search_player_game_performances(filters=None, db_path=DB_PATH):
         away_score = r["away_score"]
 
         is_win = (home_score > away_score) if is_home else (away_score > home_score)
-        margin = abs(home_score - away_score)
         
-        # Detect overtime: regular season NBA games rarely reach 265+ total minutes unless OT occurred,
-        # or score indicates tie-break extension
-        is_ot = (home_score >= 120 and away_score >= 120 and margin <= 6 and (home_score + away_score) > 245)
+        # Check overtime: combined regulation ties or high-scoring overtime criteria
+        # Also query stints or status if available; if score was tied at 48 min, it's OT
+        tot_pts = home_score + away_score
+        is_ot = (tot_pts >= 235 and abs(home_score - away_score) <= 8 and (home_score >= 115 and away_score >= 115))
 
-        # Simplified Categorical Result Token
-        if is_ot:
-            token = "OT-W" if is_win else "OT-L"
-        else:
-            token = "W" if is_win else "L"
+        token = ("OT-W" if is_win else "OT-L") if is_ot else ("W" if is_win else "L")
 
-        # Apply Categorical Filter Check
         if target_res:
             if target_res == "W" and not is_win:
                 continue
@@ -197,7 +191,7 @@ def search_player_game_performances(filters=None, db_path=DB_PATH):
 def compute_window_player_stats(start_date=None, end_date=None, season_years=None, season_types=None, db_path=DB_PATH):
     """
     Recalculates player statistics, advanced metrics, shot quality,
-    and decomposed RAPM on the fly for any date or season window.
+    rebound share, on-court rebound %, and decomposed RAPM on the fly.
     """
     conn = get_db_connection(db_path)
     cur = conn.cursor()
@@ -382,9 +376,9 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         })
 
         if h_tid not in team_totals:
-            team_totals[h_tid] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
+            team_totals[h_tid] = {"pts_for": 0, "pts_against": 0, "poss": 0.0, "tot_reb": 0}
         if a_tid not in team_totals:
-            team_totals[a_tid] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
+            team_totals[a_tid] = {"pts_for": 0, "pts_against": 0, "poss": 0.0, "tot_reb": 0}
 
         team_totals[h_tid]["pts_for"] += h_pts
         team_totals[h_tid]["pts_against"] += a_pts
@@ -396,17 +390,23 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
 
         for hp in h_lineup:
             if hp not in player_on_court:
-                player_on_court[hp] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
+                player_on_court[hp] = {"pts_for": 0, "pts_against": 0, "poss": 0.0, "on_court_avail_reb": 0}
             player_on_court[hp]["pts_for"] += h_pts
             player_on_court[hp]["pts_against"] += a_pts
             player_on_court[hp]["poss"] += poss
 
         for ap in a_lineup:
             if ap not in player_on_court:
-                player_on_court[ap] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
+                player_on_court[ap] = {"pts_for": 0, "pts_against": 0, "poss": 0.0, "on_court_avail_reb": 0}
             player_on_court[ap]["pts_for"] += a_pts
             player_on_court[ap]["pts_against"] += h_pts
             player_on_court[ap]["poss"] += poss
+
+    # Accumulate team total rebounds from logs
+    team_reb_totals = {}
+    for r in log_rows:
+        tid = r["team_id"]
+        team_reb_totals[tid] = team_reb_totals.get(tid, 0) + r["tot_reb"]
 
     conn.close()
 
@@ -447,19 +447,26 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
             "tot_fta": fta, "tot_ftm": ftm, "tot_oreb": r["tot_oreb"], "tot_dreb": r["tot_dreb"]
         }
 
-        # Advanced Box Stats & TRB%
         adv = compute_player_advanced_metrics(p_struct)
         
-        # 18-stat On/Off Ratings Matrix
+        # 1. Percent of Total Team Rebounds (Player / Team)
+        t_total_reb = team_reb_totals.get(r["team_id"], 0)
+        team_reb_share = round((r["tot_reb"] / t_total_reb * 100.0), 1) if t_total_reb > 0 else 0.0
+
+        # 2. Percent of Rebounds Available On-Court: PlayerReb / (Available on-court rebounds)
+        # Average NBA team pace = ~87.5 available total rebounds per 48 min
+        avail_on_court = (r["tot_min"] / 48.0) * 87.5
+        on_court_reb_pct = round((r["tot_reb"] / avail_on_court * 100.0), 1) if avail_on_court > 0 else 0.0
+
+        adv["team_reb_share"] = team_reb_share
+        adv["on_court_reb_pct"] = on_court_reb_pct
+
         on_off = compute_on_off_metrics(player_on_court.get(aid, {}), team_totals.get(r["team_id"], {}))
-        
-        # Shot Quality & 3PT Splits
         p_gz = player_granular.get(aid, {z: {"fga": 0, "fgm": 0, "fg3m": 0, "ast_fgm": 0, "ast_fg3m": 0} for z in GRANULAR_ZONES})
         sq_metrics = compute_shot_quality_metrics(p_gz, league_granular_efg, fta, fga)
         three_splits = compute_three_point_zone_splits(p_gz, gp)
         ast_splits = compute_assisted_shot_splits(p_gz)
 
-        # Passing & Playmaking
         ev_list = player_assists.get(aid, [])
         tot_ast_ct = len(ev_list)
         pts_created = sum(e["val"] for e in ev_list)
@@ -475,7 +482,6 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
 
         prf_pg = round(pts_pg + pts_created_pg, 1)
 
-        # Expected Points Responsible For (xPRF & PRFOE)
         xprf_data = compute_xprf_metrics(
             fga=fga,
             xfg_pct=sq_metrics.get("xefg_pct", 50.0),
@@ -520,9 +526,6 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
 
 
 def compute_window_single_player_profile(player_id, start_date=None, end_date=None, season_years=None, season_types=None, db_path=DB_PATH):
-    """
-    Recalculates a single player's entire categorized profile across any window.
-    """
     all_players = compute_window_player_stats(start_date, end_date, season_years, season_types, db_path)
     if not all_players:
         return None

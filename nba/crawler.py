@@ -1,3 +1,8 @@
+"""
+crawler.py - Scrapes ESPN NBA schedules, summaries, play-by-play, and rosters.
+Accurately detects Overtime (OT) games, periods, scores, and competition types.
+"""
+
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 import requests
@@ -40,7 +45,7 @@ def determine_season_type(event, comp):
     if date_str:
         try:
             dt = datetime.strptime(date_str, "%Y-%m-%d")
-            # Discard July, August, September, and early October
+            # Discard July, August, September, and early October (preseason)
             if dt.month in [7, 8, 9] or (dt.month == 10 and dt.day < 18):
                 return None
             # Playoffs generally run mid-April to June
@@ -54,7 +59,7 @@ def determine_season_type(event, comp):
     if "play-in" in desc or "play-in" in name:
         return 5
 
-    return 2  # Regular Season
+    return 2
 
 
 def fetch_team_schedule(team_id, season=2027):
@@ -150,6 +155,11 @@ def crawl_full_season_schedule(seasons=[2026, 2027]):
             or "final" in type_obj.get("name", "").lower()
         )
 
+        # Overtime Detection (Period > 4 or 'OT' in detail text)
+        period = int(status_obj.get("period", 4) or 4)
+        detail_txt = (type_obj.get("detail", "") or type_obj.get("shortDetail", "") or "").lower()
+        is_ot = (period > 4) or ("ot" in detail_txt) or ("final/ot" in detail_txt)
+
         venue_obj = comp.get("venue", {})
         venue_name = venue_obj.get("fullName", "Unknown Venue")
         city = venue_obj.get("address", {}).get("city", "")
@@ -188,7 +198,9 @@ def crawl_full_season_schedule(seasons=[2026, 2027]):
                 "home_score": home_score,
                 "away_score": away_score,
                 "margin": margin,
-                "total_points": home_score + away_score
+                "total_points": home_score + away_score,
+                "is_overtime": is_ot,
+                "overtime_periods": max(0, period - 4) if is_ot else 0
             })
             completed_ids.append(event_id)
         else:
@@ -210,10 +222,6 @@ def crawl_full_season_schedule(seasons=[2026, 2027]):
 
 
 def crawl_game_summaries(event_ids):
-    """
-    INCREMENTAL DOWNLOADER:
-    Checks SQLite database on disk first. Only downloads games that have NOT yet been processed!
-    """
     already_saved_ids = get_existing_completed_game_ids()
     new_ids = [eid for eid in event_ids if eid not in already_saved_ids]
 

@@ -182,12 +182,19 @@ STAT_METADATA = {
     },
 
     # -------------------------------------------------------------
-    # ADVANCED EFFICIENCY & BOX SCORE VALUE
+    # ADVANCED EFFICIENCY & REBOUND RATES
     # -------------------------------------------------------------
-    "trb_pct": {
-        "name": "Total Rebound % (TRB%)",
+    "team_reb_share": {
+        "name": "Team Rebound Share %",
         "category": "Advanced",
-        "tooltip": "Estimate of the percentage of available rebounds a player grabbed while on the court",
+        "tooltip": "Percentage of total team rebounds grabbed by this player across games played: Player Rebounds / Team Rebounds",
+        "format": "pct1",
+        "higher_is_better": True
+    },
+    "on_court_reb_pct": {
+        "name": "On-Court Available Rebound %",
+        "category": "Advanced",
+        "tooltip": "Percentage of all available rebounds grabbed while on the floor: Player Rebounds / (Team + Opponent Rebounds while on court)",
         "format": "pct1",
         "higher_is_better": True
     },
@@ -317,7 +324,7 @@ STAT_METADATA = {
     "atb3_pct": {
         "name": "Above-the-Break 3PT %",
         "category": "Shooting",
-        "tooltip": "Field goal percentage on 3-point attempts above the break (wings and top of the key)",
+        "tooltip": "Field goal percentage on 3-point attempts above the break (wings and top of key)",
         "format": "pct1",
         "higher_is_better": True
     },
@@ -657,7 +664,6 @@ STAT_METADATA = {
     }
 }
 
-# Standardized Column Presets for Table Viewers
 PRESET_COLUMNS = {
     "standard": [
         "player", "team", "pos", "gp", "gs", "min_pg", "pts_pg", "prf_pg",
@@ -665,7 +671,7 @@ PRESET_COLUMNS = {
     ],
     "advanced": [
         "player", "team", "pos", "gp", "min_pg", "pts_pg", "prf_pg", "xprf_pg", "prfoe_pg",
-        "trb_pct", "ts_pct", "efg_pct", "xefg_pct", "smoe", "mei", "usg_pct", "tov_pct", "ast_to_ratio", "ppsa", "gmsc_avg"
+        "team_reb_share", "on_court_reb_pct", "ts_pct", "efg_pct", "xefg_pct", "smoe", "mei", "usg_pct", "tov_pct", "ast_to_ratio", "ppsa", "gmsc_avg"
     ],
     "ratings": [
         "player", "team", "pos", "gp", "min_pg",

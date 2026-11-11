@@ -40,8 +40,9 @@
             border-top: 1px solid #ddd;
             padding-top: 6px;
             align-items: center;
+            flex-wrap: wrap;
         }
-        .sub-nav button, .sub-nav a.sub-link {
+        .sub-nav button, .sub-nav a.sub-tab-link {
             background: none;
             border: none;
             padding: 0;
@@ -50,7 +51,7 @@
             text-decoration: underline;
             font-size: 13px;
         }
-        .sub-nav button.active-sub {
+        .sub-nav button.active-sub, .sub-nav a.sub-tab-link.active-sub {
             font-weight: bold;
             color: #000;
             text-decoration: none;
@@ -331,13 +332,16 @@
         }
         .result-badge {
             font-weight: bold;
-            padding: 1px 4px;
-            border-radius: 2px;
+            padding: 2px 6px;
+            border-radius: 3px;
             font-size: 11px;
+            display: inline-block;
+            text-align: center;
+            min-width: 24px;
         }
-        .result-badge.w { background: #dcfce7; color: #166534; }
-        .result-badge.l { background: #fee2e2; color: #991b1b; }
-        .result-badge.ot { background: #fef3c7; color: #92400e; }
+        .result-badge.res-w { background-color: #dcfce7; color: #166534; border: 1px solid #86efac; }
+        .result-badge.res-l { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+        .result-badge.res-ot { background-color: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
     </style>
 </head>
 <body>
@@ -356,7 +360,7 @@
             <button onclick="loadView('Team Stats', 'team_stats.json', this)">Team Stats</button>
             <button onclick="loadView('Upcoming Schedule', 'upcoming_games.json', this)">Upcoming Games</button>
             <button onclick="loadView('Game Finder', 'game_performances.json', this)">Game Finder</button>
-            <a href="compare.html" class="sub-link" style="margin-left: auto; font-weight: bold;">⚡ Compare Players</a>
+            <a href="compare.html" class="sub-tab-link">Compare Players</a>
         </div>
     </header>
 
@@ -449,6 +453,18 @@
             renderTable();
         }
 
+        function formatHeaderName(col) {
+            let base = col.replace(/_/g, ' ').toUpperCase();
+            if (activeViewTitle === "Player Stats") {
+                if (activeRateMode === 'p36') {
+                    base = base.replace(/ PG$/, ' / 36M').replace(/ PER GAME$/, ' / 36M');
+                } else if (activeRateMode === 'p100') {
+                    base = base.replace(/ PG$/, ' / 100P').replace(/ PER GAME$/, ' / 100P');
+                }
+            }
+            return base;
+        }
+
         function formatSmartValue(val, col, row) {
             if (val === null || val === undefined || val === '') return '';
             if (typeof val !== 'number') return val;
@@ -493,7 +509,7 @@
                 activeRecalcController = null;
             }
 
-            document.querySelectorAll('.sub-nav button').forEach(b => b.classList.remove('active-sub'));
+            document.querySelectorAll('.sub-nav button, .sub-nav a').forEach(b => b.classList.remove('active-sub'));
             if (el) el.classList.add('active-sub');
 
             activeViewTitle = title;
@@ -870,7 +886,7 @@
             } else if (preset === 'standard') {
                 visibleColumns = new Set(["player", "team", "pos", "gp", "gs", "min_pg", "pts_pg", "prf_pg", "reb_pg", "ast_pg", "stl_pg", "blk_pg", "fg_pct", "fg3_pct", "ft_pct"]);
             } else if (preset === 'advanced') {
-                visibleColumns = new Set(["player", "team", "pos", "gp", "min_pg", "pts_pg", "prf_pg", "xprf_pg", "prfoe_pg", "trb_pct", "ts_pct", "efg_pct", "xefg_pct", "smoe", "mei", "usg_pct", "tov_pct", "ast_to_ratio", "ppsa", "gmsc_avg"]);
+                visibleColumns = new Set(["player", "team", "pos", "gp", "min_pg", "pts_pg", "prf_pg", "xprf_pg", "prfoe_pg", "team_reb_share", "on_court_reb_pct", "ts_pct", "efg_pct", "xefg_pct", "smoe", "mei", "usg_pct", "tov_pct", "ast_to_ratio", "ppsa", "gmsc_avg"]);
             } else if (preset === 'ratings') {
                 visibleColumns = new Set([
                     "player", "team", "pos", "gp", "min_pg",
@@ -1038,11 +1054,12 @@
 
                     if (rule.column === "result") {
                         if (!rule.val) continue;
-                        if (rule.val === "W" && !String(rowVal).startsWith("W") && rowVal !== "OT-W") return false;
-                        if (rule.val === "L" && !String(rowVal).startsWith("L") && rowVal !== "OT-L") return false;
-                        if (rule.val === "OT" && !String(rowVal).startsWith("OT")) return false;
-                        if (rule.val === "OT-W" && rowVal !== "OT-W") return false;
-                        if (rule.val === "OT-L" && rowVal !== "OT-L") return false;
+                        const v = String(rowVal).trim().toUpperCase();
+                        if (rule.val === "W" && v !== "W" && v !== "OT-W") return false;
+                        if (rule.val === "L" && v !== "L" && v !== "OT-L") return false;
+                        if (rule.val === "OT" && !v.startsWith("OT")) return false;
+                        if (rule.val === "OT-W" && v !== "OT-W") return false;
+                        if (rule.val === "OT-L" && v !== "OT-L") return false;
                     } else if (isNum) {
                         const targetVal = parseFloat(rule.val);
                         if (isNaN(targetVal)) continue;
@@ -1119,7 +1136,7 @@
 
                 html += `
                     <th ${classAttr} ${tipAttr} onclick="sortTable('${col}')">
-                        ${formatHeader(col)} ${indicator}
+                        ${formatHeaderName(col)} ${indicator}
                     </th>`;
             });
 
@@ -1142,10 +1159,12 @@
                     if (col === 'starter') {
                         cellContent = rawVal === 1 ? `<strong>*</strong>` : `<span style="color:#aaa;">-</span>`;
                     } else if (col === 'result') {
-                        let badgeClass = "w";
-                        if (rawVal === "L" || rawVal === "OT-L") badgeClass = "l";
-                        if (String(rawVal).startsWith("OT")) badgeClass = "ot";
-                        cellContent = `<span class="result-badge ${badgeClass}">${rawVal}</span>`;
+                        const token = String(rawVal).trim().toUpperCase();
+                        let badgeClass = "res-w";
+                        if (token === "L") badgeClass = "res-l";
+                        else if (token === "OT-L") badgeClass = "res-l";
+                        else if (token.startsWith("OT")) badgeClass = "res-ot";
+                        cellContent = `<span class="result-badge ${badgeClass}">${token}</span>`;
                     } else if (col === 'box_score' && rawVal) {
                         cellContent = `<a class="table-link" href="${rawVal}">Box Score</a>`;
                     } else if (col === 'player' && row.player_id) {
@@ -1233,10 +1252,6 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-        }
-
-        function formatHeader(header) {
-            return header.replace(/_/g, ' ').toUpperCase();
         }
     </script>
 </body>

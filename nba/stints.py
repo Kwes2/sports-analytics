@@ -1,3 +1,8 @@
+"""
+stints.py - Tracks 5-man on-court lineups, scoring, possessions, and 
+exact on-court team and opponent rebounds while each player is on the floor.
+"""
+
 class StintTracker:
     def __init__(self, home_starters, away_starters, home_team_id, away_team_id):
         self.home_team_id = str(home_team_id)
@@ -14,6 +19,8 @@ class StintTracker:
         self.away_pts_stint = 0
         self.home_poss_stint = 0.0
         self.away_poss_stint = 0.0
+        self.home_reb_stint = 0
+        self.away_reb_stint = 0
 
     def process_play(self, play, player_pairs_ledger, player_stints_ledger, db_stints_collector=None, event_id=None, date_str=None):
         txt = play.get("text", "").lower()
@@ -35,7 +42,14 @@ class StintTracker:
             elif team_id == self.away_team_id:
                 self.away_pts_stint += score_val
 
-        # 3. Exact Possession Tracking
+        # 3. Exact Rebound Tracking while on-court
+        if "rebound" in txt:
+            if team_id == self.home_team_id:
+                self.home_reb_stint += 1
+            elif team_id == self.away_team_id:
+                self.away_reb_stint += 1
+
+        # 4. Exact Possession Tracking
         if "defensive rebound" in txt or ("rebound" in txt and "offensive" not in txt):
             if team_id == self.home_team_id:
                 self.away_poss_stint += 1.0
@@ -60,7 +74,7 @@ class StintTracker:
             elif team_id == self.away_team_id:
                 self.away_poss_stint += 1.0
 
-        # 4. Substitution Trigger: Commit stint, then update active lineup
+        # 5. Substitution Trigger: Commit stint, then update active lineup
         if "substitutions" in play.get("type", {}).get("text", "").lower() or "enters the game" in txt:
             participants = play.get("participants", [])
             if len(participants) >= 2:
@@ -79,7 +93,7 @@ class StintTracker:
 
     def commit_stint(self, player_pairs_ledger, player_stints_ledger, db_stints_collector=None, event_id=None, date_str=None):
         stint_poss = (self.home_poss_stint + self.away_poss_stint) / 2.0
-        if stint_poss <= 0 and self.home_pts_stint == 0 and self.away_pts_stint == 0:
+        if stint_poss <= 0 and self.home_pts_stint == 0 and self.away_pts_stint == 0 and self.home_reb_stint == 0 and self.away_reb_stint == 0:
             return
         if stint_poss <= 0:
             stint_poss = 0.5
@@ -87,20 +101,30 @@ class StintTracker:
         home_list = list(self.home_on_court)
         away_list = list(self.away_on_court)
 
-        # 1. Update individual on-court stats (used to build their personal baseline)
+        # 1. Update individual on-court stats (scoring, possessions, and on-court available rebounds)
         for hp in home_list:
             if hp not in player_stints_ledger:
-                player_stints_ledger[hp] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
+                player_stints_ledger[hp] = {
+                    "pts_for": 0, "pts_against": 0, "poss": 0.0,
+                    "team_reb": 0, "opp_reb": 0
+                }
             player_stints_ledger[hp]["pts_for"] += self.home_pts_stint
             player_stints_ledger[hp]["pts_against"] += self.away_pts_stint
             player_stints_ledger[hp]["poss"] += stint_poss
+            player_stints_ledger[hp]["team_reb"] += self.home_reb_stint
+            player_stints_ledger[hp]["opp_reb"] += self.away_reb_stint
 
         for ap in away_list:
             if ap not in player_stints_ledger:
-                player_stints_ledger[ap] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
+                player_stints_ledger[ap] = {
+                    "pts_for": 0, "pts_against": 0, "poss": 0.0,
+                    "team_reb": 0, "opp_reb": 0
+                }
             player_stints_ledger[ap]["pts_for"] += self.away_pts_stint
             player_stints_ledger[ap]["pts_against"] += self.home_pts_stint
             player_stints_ledger[ap]["poss"] += stint_poss
+            player_stints_ledger[ap]["team_reb"] += self.away_reb_stint
+            player_stints_ledger[ap]["opp_reb"] += self.home_reb_stint
 
         # 2. Update Teammates
         for i in range(len(home_list)):
@@ -137,6 +161,8 @@ class StintTracker:
         self.away_pts_stint = 0
         self.home_poss_stint = 0.0
         self.away_poss_stint = 0.0
+        self.home_reb_stint = 0
+        self.away_reb_stint = 0
 
     def _log_pair(self, ledger, p_main, p_target, pts_for, pts_against, poss, is_teammate):
         if p_main not in ledger:

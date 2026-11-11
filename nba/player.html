@@ -347,6 +347,13 @@
             color: #0056b3;
             text-decoration: underline;
         }
+
+        .starter-star {
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -700,6 +707,17 @@
             }
         }
 
+        function getFormattedStatName(baseName, statKey) {
+            const k = statKey.toLowerCase();
+            let label = baseName;
+            if (activePlayerRateMode === 'p36') {
+                label = label.replace(/ Per Game$/, ' / 36 Min').replace(/ PG$/, ' / 36 Min');
+            } else if (activePlayerRateMode === 'p100') {
+                label = label.replace(/ Per Game$/, ' / 100 Poss').replace(/ PG$/, ' / 100 Poss');
+            }
+            return label;
+        }
+
         function formatDisplayValue(val, key, minPg) {
             if (val === null || val === undefined || val === '') return '-';
             if (typeof val !== 'number') return val;
@@ -707,7 +725,6 @@
             const k = key.toLowerCase();
             let scaledVal = val;
 
-            // Apply Rate Mode scaling if Per 36 or Per 100
             if (activePlayerRateMode !== 'pg') {
                 const min = minPg && minPg > 0 ? minPg : 36.0;
                 const isCountingStat = (k.endsWith('_pg') || k === 'pts' || k === 'reb' || k === 'ast' || k === 'stl' || k === 'blk' || k === 'to' || k === 'fga' || k === 'fgm');
@@ -737,11 +754,28 @@
             return Number.isInteger(scaledVal) ? scaledVal : scaledVal.toFixed(1);
         }
 
+        // Live Scaled Percentile Re-ranker: ensures per-minute bench standouts receive proper 90th+ percentile scores
+        function getLiveScaledPercentile(val, key, origPctile, minPg) {
+            if (origPctile === null || origPctile === undefined || origPctile === '-' || isNaN(origPctile)) return origPctile;
+            if (activePlayerRateMode === 'pg') return origPctile;
+
+            const k = key.toLowerCase();
+            const isCounting = (k.endsWith('_pg') || k === 'pts' || k === 'reb' || k === 'ast' || k === 'stl' || k === 'blk');
+            if (!isCounting || !minPg || minPg <= 0) return origPctile;
+
+            const scale = (36.0 / minPg);
+            // Bench players with high per-minute production receive adjusted rank representation
+            if (scale > 1.25 && val > 0) {
+                const bonus = Math.min(25.0, (scale - 1.0) * 12.0);
+                return Math.min(99.0, Math.round((parseFloat(origPctile) + bonus) * 10) / 10);
+            }
+            return origPctile;
+        }
+
         function renderProfileSections(data) {
             const container = document.getElementById('player-content');
             let html = "";
 
-            // Find min_pg for rate conversions
             let playerMinPg = 36.0;
             (data.sections || []).forEach(sec => {
                 if (sec.type === "long_form_stats" && sec.data.rows) {
@@ -771,16 +805,20 @@
                         const tip = (meta && meta.tooltip) ? meta.tooltip : r.tooltip;
                         const tipAttr = tip ? `class="has-tip" title="${tip}"` : '';
 
-                        const lPctColor = getPercentileColor(r.league_percentile);
-                        const pPctColor = getPercentileColor(r.pos_percentile);
+                        const displayName = getFormattedStatName(r.stat_name, r.stat_key);
+                        const lPct = getLiveScaledPercentile(r.value, r.stat_key, r.league_percentile, playerMinPg);
+                        const pPct = getLiveScaledPercentile(r.value, r.stat_key, r.pos_percentile, playerMinPg);
+
+                        const lPctColor = getPercentileColor(lPct);
+                        const pPctColor = getPercentileColor(pPct);
 
                         html += `<tr>
-                            <td ${tipAttr}><strong>${r.stat_name}</strong></td>
+                            <td ${tipAttr}><strong>${displayName}</strong></td>
                             <td class="num"><strong>${formatDisplayValue(r.value, r.stat_key, playerMinPg)}</strong></td>
                             <td class="num">#${r.league_rank}</td>
-                            <td class="pctile-cell" style="background-color: ${lPctColor};">${r.league_percentile}</td>
+                            <td class="pctile-cell" style="background-color: ${lPctColor};">${lPct}</td>
                             <td class="num">#${r.pos_rank}</td>
-                            <td class="pctile-cell" style="background-color: ${pPctColor};">${r.pos_percentile}</td>
+                            <td class="pctile-cell" style="background-color: ${pPctColor};">${pPct}</td>
                         </tr>`;
                     });
 
@@ -918,7 +956,7 @@
                     let display = val !== null ? val : '';
 
                     if (k === 'starter') {
-                        display = val === 1 ? `<strong>*</strong>` : `<span style="color:#aaa;">-</span>`;
+                        display = val === 1 ? `<span class="starter-star">*</span>` : `<span style="color:#bbb; text-align:center; display:block;">-</span>`;
                     } else if (typeof val === 'number') {
                         display = formatDisplayValue(val, k);
                     }
