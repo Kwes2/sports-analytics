@@ -1,7 +1,7 @@
 """
 fetch_and_compute.py - Core data compilation pipeline. Crawls ESPN, populates 
 SQLite database, calculates advanced metrics, RAPM, and exports structured JSONs.
-Calculates exact assisted/unassisted splits from assisted_baskets.
+Tags authentic OT-W and OT-L games in the Game Finder dataset.
 """
 
 import json
@@ -71,6 +71,10 @@ def main():
 
     position_map = crawl_team_rosters()
     completed_games, upcoming_games, completed_ids = crawl_full_season_schedule(seasons=[2026, 2027])
+
+    # Build direct lookup of all legitimate overtime games
+    ot_game_ids = set(str(g["game_id"]) for g in completed_games if g.get("is_overtime"))
+    print(f"Verified Overtime Games Indexed: {len(ot_game_ids)}")
 
     with open(DATA_DIR / "completed_games.json", "w") as f:
         json.dump({
@@ -251,9 +255,15 @@ def main():
                     players[aid]["granular_shots"][gz]["fga"] += g_zones[gz]["fga"]
                     players[aid]["granular_shots"][gz]["fgm"] += g_zones[gz]["fgm"]
                     players[aid]["granular_shots"][gz]["fg3m"] += g_zones[gz]["fg3m"]
+                    players[aid]["granular_shots"][gz]["ast_fgm"] += g_zones.get("ast_fgm", 0)
+                    players[aid]["granular_shots"][gz]["ast_fg3m"] += g_zones.get("ast_fg3m", 0)
+
                     league_granular_shots[gz]["fga"] += g_zones[gz]["fga"]
                     league_granular_shots[gz]["fgm"] += g_zones[gz]["fgm"]
                     league_granular_shots[gz]["fg3m"] += g_zones[gz]["fg3m"]
+
+        # Deterministic Overtime Tagging for Game Performances
+        is_game_ot = str(event_id) in ot_game_ids
 
         for aid, ev in player_events.items():
             player_names_map[aid] = ev["player"]
@@ -297,8 +307,7 @@ def main():
             p["game_logs"].append(ev["log"])
 
             is_w = ev["log"]["result"].startswith("W")
-            is_ot = ("OT" in ev["log"]["result"])
-            res_token = ("OT-W" if is_w else "OT-L") if is_ot else ("W" if is_w else "L")
+            res_token = ("OT-W" if is_w else "OT-L") if is_game_ot else ("W" if is_w else "L")
 
             all_game_performances.append({
                 "player_id": aid,
@@ -440,7 +449,6 @@ def main():
     for tid, g_list in team_game_stats_ledger.items():
         team_total_rebs[tid] = sum((g.get("oreb", 0) + g.get("dreb", 0)) for g in g_list)
 
-    # Build Assist Network Maps
     passer_finisher_map = {}
     finisher_passer_map = {}
     all_passer_events_map = {}
@@ -497,7 +505,6 @@ def main():
         dreb_pg = round(p["tot_dreb"] / gp, 1)
 
         p["game_logs"].sort(key=lambda x: x["date"], reverse=True)
-        
         adv = compute_player_advanced_metrics(p)
         
         # 1. Authentic Team Rebound Share %
@@ -517,7 +524,7 @@ def main():
         adv["team_reb_share"] = team_reb_share
         adv["on_court_reb_pct"] = on_court_reb_pct
 
-        # 3. Authentic Assisted vs Unassisted Shot Splits from assisted_baskets
+        # 3. Authentic Assisted vs Unassisted Splits
         received_assists = []
         for passer_ev_list in finisher_passer_map.get(aid, {}).values():
             received_assists.extend(passer_ev_list)
@@ -827,7 +834,7 @@ def main():
             fgm = t_shots[z]["fgm"]
             fga = t_shots[z]["fga"]
             pct = round(fgm / fga * 100, 1) if fga > 0 else 0.0
-            share = round(fga / tot_t_fga * 100, 1) if tot_t_fga > 0 else 0.0
+            share = round(fga / tot_fga * 100, 1) if tot_fga > 0 else 0.0
             eff_pctile = compute_percentile(pct, eff_pools[z]) if fga >= 2 else 50.0
             t_shooting_rows.append({
                 "zone": z, "fgm": fgm, "fga": fga, "fg_pct": pct, "shot_share": share,
@@ -955,7 +962,7 @@ def main():
     with open(DATA_DIR / "team_stats.json", "w") as f:
         json.dump({"meta_keys": ["team"], "rows": enriched_standings}, f, indent=2)
 
-    print("Pipeline Complete: Full DB and JSON compiled with authentic rebound rates and assisted shot splits.")
+    print("Pipeline Complete: Full DB and JSON compiled with authentic rebound rates, assisted shot splits, and verified OT game logs.")
 
 
 if __name__ == "__main__":

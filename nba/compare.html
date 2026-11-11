@@ -531,7 +531,7 @@
 
         function formatScaledVal(val, key, minPg) {
             if (val === null || val === undefined || isNaN(val)) return '-';
-            const k = key.toLowerCase();
+            const k = (key || "").toLowerCase();
             let scaled = val;
 
             if (activeCmpRateMode !== 'pg') {
@@ -560,21 +560,26 @@
             let minA = 36.0, minB = 36.0;
             (playerAData.sections || []).forEach(sec => {
                 if (sec.data && sec.data.rows) {
-                    const r = sec.data.rows.find(x => x.stat_key === "min_pg");
+                    const r = sec.data.rows.find(x => x && x.stat_key === "min_pg");
                     if (r && r.value) minA = parseFloat(r.value);
                 }
             });
             (playerBData.sections || []).forEach(sec => {
                 if (sec.data && sec.data.rows) {
-                    const r = sec.data.rows.find(x => x.stat_key === "min_pg");
+                    const r = sec.data.rows.find(x => x && x.stat_key === "min_pg");
                     if (r && r.value) minB = parseFloat(r.value);
                 }
             });
 
+            // Map player B rows safely by stat_key
             const bMap = {};
             (playerBData.sections || []).forEach(sec => {
                 if (sec.data && sec.data.rows) {
-                    sec.data.rows.forEach(r => { bMap[r.stat_key] = r; });
+                    sec.data.rows.forEach(r => {
+                        if (r && r.stat_key) {
+                            bMap[r.stat_key] = r;
+                        }
+                    });
                 }
             });
 
@@ -583,6 +588,11 @@
             (playerAData.sections || []).forEach(sec => {
                 const cat = sec.category || "Miscellaneous";
                 if (activeCategoryFilter !== 'All' && activeCategoryFilter !== cat) {
+                    return;
+                }
+
+                // Skip non-table sections in comparison view
+                if (!sec.data || !sec.data.rows || sec.type === "shot_chart") {
                     return;
                 }
 
@@ -603,12 +613,17 @@
                 `;
 
                 (sec.data.rows || []).forEach(rowA => {
+                    // Safe guard: skip any header or malformed row missing stat_key
+                    if (!rowA || !rowA.stat_key || typeof rowA.stat_key !== 'string') {
+                        return;
+                    }
+
                     const k = rowA.stat_key;
                     const rowB = bMap[k] || { value: 0, league_percentile: 50.0 };
 
                     const meta = STAT_DEFINITIONS[k.toLowerCase()];
                     const hib = meta ? meta.higher_is_better : true;
-                    const tip = meta ? meta.tooltip : rowA.tooltip;
+                    const tip = meta ? meta.tooltip : (rowA.tooltip || "");
                     const tipAttr = tip ? `class="has-tip" title="${tip}"` : '';
 
                     const rawA = parseFloat(rowA.value) || 0;
@@ -636,11 +651,11 @@
 
                     html += `
                         <tr>
-                            <td ${tipAttr}><strong>${rowA.stat_name}</strong></td>
+                            <td ${tipAttr}><strong>${rowA.stat_name || k}</strong></td>
                             <td class="num ${isAWinner ? 'winner' : ''}">${formatScaledVal(rawA, k, minA)}</td>
-                            <td class="pctile-cell" style="background-color: ${pctAColor};">${rowA.league_percentile}</td>
+                            <td class="pctile-cell" style="background-color: ${pctAColor};">${rowA.league_percentile ?? 50.0}</td>
                             <td class="delta-cell ${deltaClass}">${deltaStr}</td>
-                            <td class="pctile-cell" style="background-color: ${pctBColor};">${rowB.league_percentile}</td>
+                            <td class="pctile-cell" style="background-color: ${pctBColor};">${rowB.league_percentile ?? 50.0}</td>
                             <td class="num ${isBWinner ? 'winner' : ''}">${formatScaledVal(rawB, k, minB)}</td>
                         </tr>
                     `;
