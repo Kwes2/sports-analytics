@@ -128,7 +128,7 @@ class WebsiteRequestHandler(SimpleHTTPRequestHandler):
                 return
 
             # FAST-PATH: If querying full season without date slices, serve precomputed JSON (0ms, 0MB RAM)
-            is_full_season = (not start_date and not end_date and (not season_years or 2027 in season_years))
+            is_full_season = (not start_date and not end_date and (not season_years or season_years == [2027]) and not season_types)
             if is_full_season:
                 cached_file = NBA_DIR / "data" / "players" / f"{player_id}.json"
                 if cached_file.exists():

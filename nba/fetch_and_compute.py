@@ -1,7 +1,8 @@
 """
 fetch_and_compute.py - Core data compilation pipeline. Crawls ESPN, populates 
 SQLite database, calculates advanced metrics, RAPM, and exports structured JSONs.
-Guarantees OT-W and OT-L tagging for all 62 overtime games in the Game Finder dataset.
+Isolates active player profiles to the current 2026-2027 season while keeping
+full multi-season history in SQLite.
 """
 
 import json
@@ -61,6 +62,8 @@ PLAYER_DIR.mkdir(parents=True, exist_ok=True)
 TEAM_DIR.mkdir(parents=True, exist_ok=True)
 WINDOWS_DIR.mkdir(parents=True, exist_ok=True)
 
+CURRENT_SEASON_YEAR = 2027
+
 
 def main():
     print("Initializing SQLite Database (nba.db)...")
@@ -72,7 +75,6 @@ def main():
     position_map = crawl_team_rosters()
     completed_games, upcoming_games, completed_ids = crawl_full_season_schedule(seasons=[2026, 2027])
 
-    # Build clean string lookup of all 62 overtime game IDs
     ot_game_ids = set(str(g["game_id"]).strip() for g in completed_games if g.get("is_overtime"))
     print(f"Verified Overtime Games Indexed: {len(ot_game_ids)} games")
 
@@ -93,10 +95,8 @@ def main():
     team_scoring_map = {t["team_id"]: t["pts_pg"] for t in team_rows}
     team_scoring_by_name = {t["team"]: t["pts_pg"] for t in team_rows}
 
-    # Fetch summaries for new games, or read local boxscores if already saved
     summaries = crawl_game_summaries(completed_ids)
 
-    # If summaries is empty (all cached), load from disk to ensure full dataset compilation
     if not summaries:
         print("Loading local box score cache for full database re-indexing...")
         for cid in completed_ids:
@@ -137,8 +137,24 @@ def main():
 
         venue_str = comp.get("venue", {}).get("fullName", data.get("venue", "Unknown Venue"))
         date_str = comp.get("date", data.get("date", ""))[:10]
-        season_year = 2026 if "2025" in date_str or ("2026" in date_str and int(date_str[5:7]) < 7) else 2027
-        season_type = 2
+        
+        # Canonical season year logic: games played after Oct 2026 belong to Season 2027
+        if "2026" in date_str and int(date_str[5:7]) >= 10:
+            season_year = 2027
+        elif "2027" in date_str:
+            season_year = 2027
+        else:
+            season_year = 2026
+
+        desc = comp.get("status", {}).get("type", {}).get("description", "").lower()
+        header_name = header_info.get("name", "").lower()
+        
+        if "playoff" in desc or "postseason" in header_name or "playoff" in header_name:
+            season_type = 3
+        elif "play-in" in desc or "play-in" in header_name:
+            season_type = 5
+        else:
+            season_type = 2
 
         competitors = comp.get("competitors", [])
         home_comp = next((c for c in competitors if c.get("homeAway") == "home"), {})
@@ -162,10 +178,9 @@ def main():
         ))
 
         team_shots, game_player_shots, game_player_granular = process_game_shots(plays, home_id, away_id)
-        
-        # If plays wasn't in cache, fall back to stored rows
+
+        # Fallback for cached files without raw play-by-play
         if not game_players and "teams" in data:
-            # Game is loaded from stored box score JSON
             for t_item in data["teams"]:
                 t_id = str(t_item.get("team_id", ""))
                 is_home = (t_id == home_id)
@@ -239,18 +254,21 @@ def main():
                     s[0], season_year, season_type, s[1], s[2], s[3], s[4], s[5],
                     stint_tracker.home_reb_stint, stint_tracker.away_reb_stint, s[6]
                 ))
-                all_games_stints.append({
-                    "home_lineup": json.loads(s[2]),
-                    "away_lineup": json.loads(s[3]),
-                    "home_pts": s[4],
-                    "away_pts": s[5],
-                    "poss": s[6]
-                })
+                # Only feed stints into RAPM if they belong to current season
+                if season_year == CURRENT_SEASON_YEAR:
+                    all_games_stints.append({
+                        "home_lineup": json.loads(s[2]),
+                        "away_lineup": json.loads(s[3]),
+                        "home_pts": s[4],
+                        "away_pts": s[5],
+                        "poss": s[6]
+                    })
 
             for p_id, g_stint in game_player_stints.items():
-                if p_id not in player_game_stints_history:
-                    player_game_stints_history[p_id] = []
-                player_game_stints_history[p_id].append(g_stint)
+                if season_year == CURRENT_SEASON_YEAR:
+                    if p_id not in player_game_stints_history:
+                        player_game_stints_history[p_id] = []
+                    player_game_stints_history[p_id].append(g_stint)
 
         for play in plays:
             coord = play.get("coordinate")
@@ -269,12 +287,13 @@ def main():
                 if sh_id:
                     db_shots_rows.append((event_id, season_year, season_type, date_str, sh_id, val, is_made, z, gz))
 
-        for tid in [home_id, away_id]:
-            if tid not in team_season_shots:
-                team_season_shots[tid] = init_zone_dict()
-            for z in ZONES:
-                team_season_shots[tid][z]["fga"] += team_shots[tid][z]["fga"]
-                team_season_shots[tid][z]["fgm"] += team_shots[tid][z]["fgm"]
+        if season_year == CURRENT_SEASON_YEAR:
+            for tid in [home_id, away_id]:
+                if tid not in team_season_shots:
+                    team_season_shots[tid] = init_zone_dict()
+                for z in ZONES:
+                    team_season_shots[tid][z]["fga"] += team_shots[tid][z]["fga"]
+                    team_season_shots[tid][z]["fgm"] += team_shots[tid][z]["fgm"]
 
         def sum_team_stat(t_id, key):
             rows = game_team_rows.get(t_id, {}).get("all_rows", [])
@@ -295,78 +314,82 @@ def main():
         ]:
             if tid not in team_game_stats_ledger:
                 team_game_stats_ledger[tid] = []
-            team_game_stats_ledger[tid].append({
-                "date": date_str, "pts": pts, "opp_pts": opp_pts, "fga": fga, "fgm": fgm, "fg3m": fg3m,
-                "fta": fta, "to": to, "oreb": oreb, "dreb": dreb, "opp_fga": o_fga, "opp_fgm": o_fgm,
-                "opp_fg3m": o_fg3m, "opp_fta": o_fta, "opp_to": o_to, "opp_oreb": o_oreb, "opp_dreb": o_dreb
-            })
+            if season_year == CURRENT_SEASON_YEAR:
+                team_game_stats_ledger[tid].append({
+                    "date": date_str, "pts": pts, "opp_pts": opp_pts, "fga": fga, "fgm": fgm, "fg3m": fg3m,
+                    "fta": fta, "to": to, "oreb": oreb, "dreb": dreb, "opp_fga": o_fga, "opp_fgm": o_fgm,
+                    "opp_fg3m": o_fg3m, "opp_fta": o_fta, "opp_to": o_to, "opp_oreb": o_oreb, "opp_dreb": o_dreb
+                })
 
-        for aid, s_zones in game_player_shots.items():
-            if aid not in players:
-                players[aid] = {
-                    "player_id": aid, "player": "Unknown", "team": "", "team_id": "", "team_abbrev": "", "pos": "-",
-                    "gp": 0, "gs": 0, "tot_min": 0.0, "tot_pts": 0, "tot_reb": 0, "tot_ast": 0, "tot_stl": 0, "tot_blk": 0,
-                    "tot_to": 0, "tot_fgm": 0, "tot_fga": 0, "tot_fg3m": 0, "tot_fg3a": 0, "tot_ftm": 0, "tot_fta": 0,
-                    "tot_oreb": 0, "tot_dreb": 0, "tot_pf": 0, "tot_plus_minus": 0, "game_logs": [],
-                    "zone_shots": init_zone_dict(), "granular_shots": init_granular_dict()
-                }
-            for z in ZONES:
-                players[aid]["zone_shots"][z]["fga"] += s_zones[z]["fga"]
-                players[aid]["zone_shots"][z]["fgm"] += s_zones[z]["fgm"]
+        # Only accumulate active player averages if game belongs to CURRENT 2026-2027 season
+        if season_year == CURRENT_SEASON_YEAR:
+            for aid, s_zones in game_player_shots.items():
+                if aid not in players:
+                    players[aid] = {
+                        "player_id": aid, "player": "Unknown", "team": "", "team_id": "", "team_abbrev": "", "pos": "-",
+                        "gp": 0, "gs": 0, "tot_min": 0.0, "tot_pts": 0, "tot_reb": 0, "tot_ast": 0, "tot_stl": 0, "tot_blk": 0,
+                        "tot_to": 0, "tot_fgm": 0, "tot_fga": 0, "tot_fg3m": 0, "tot_fg3a": 0, "tot_ftm": 0, "tot_fta": 0,
+                        "tot_oreb": 0, "tot_dreb": 0, "tot_pf": 0, "tot_plus_minus": 0, "game_logs": [],
+                        "zone_shots": init_zone_dict(), "granular_shots": init_granular_dict()
+                    }
+                for z in ZONES:
+                    players[aid]["zone_shots"][z]["fga"] += s_zones[z]["fga"]
+                    players[aid]["zone_shots"][z]["fgm"] += s_zones[z]["fgm"]
 
-        for aid, g_zones in game_player_granular.items():
-            if aid in players:
-                for gz in GRANULAR_ZONES:
-                    players[aid]["granular_shots"][gz]["fga"] += g_zones[gz]["fga"]
-                    players[aid]["granular_shots"][gz]["fgm"] += g_zones[gz]["fgm"]
-                    players[aid]["granular_shots"][gz]["fg3m"] += g_zones[gz]["fg3m"]
-                    players[aid]["granular_shots"][gz]["ast_fgm"] += g_zones.get("ast_fgm", 0)
-                    players[aid]["granular_shots"][gz]["ast_fg3m"] += g_zones.get("ast_fg3m", 0)
+            for aid, g_zones in game_player_granular.items():
+                if aid in players:
+                    for gz in GRANULAR_ZONES:
+                        players[aid]["granular_shots"][gz]["fga"] += g_zones[gz]["fga"]
+                        players[aid]["granular_shots"][gz]["fgm"] += g_zones[gz]["fgm"]
+                        players[aid]["granular_shots"][gz]["fg3m"] += g_zones[gz]["fg3m"]
+                        players[aid]["granular_shots"][gz]["ast_fgm"] += g_zones.get("ast_fgm", 0)
+                        players[aid]["granular_shots"][gz]["ast_fg3m"] += g_zones.get("ast_fg3m", 0)
 
-                    league_granular_shots[gz]["fga"] += g_zones[gz]["fga"]
-                    league_granular_shots[gz]["fgm"] += g_zones[gz]["fgm"]
-                    league_granular_shots[gz]["fg3m"] += g_zones[gz]["fg3m"]
+                        league_granular_shots[gz]["fga"] += g_zones[gz]["fga"]
+                        league_granular_shots[gz]["fgm"] += g_zones[gz]["fgm"]
+                        league_granular_shots[gz]["fg3m"] += g_zones[gz]["fg3m"]
 
         for aid, ev in player_events.items():
             player_names_map[aid] = ev["player"]
             db_players_lookup[aid] = (aid, ev["player"], ev["team_id"], ev["team_abbrev"], ev["pos"])
 
-            if aid not in players:
-                players[aid] = {
-                    "player_id": aid, "player": ev["player"], "team": ev["team"], "team_id": ev["team_id"],
-                    "team_abbrev": ev["team_abbrev"], "pos": ev["pos"], "gp": 0, "gs": 0, "tot_min": 0.0, "tot_pts": 0,
-                    "tot_reb": 0, "tot_ast": 0, "tot_stl": 0, "tot_blk": 0, "tot_to": 0, "tot_fgm": 0, "tot_fga": 0,
-                    "tot_fg3m": 0, "tot_fg3a": 0, "tot_ftm": 0, "tot_fta": 0, "tot_oreb": 0, "tot_dreb": 0, "tot_pf": 0,
-                    "tot_plus_minus": 0, "game_logs": [], "zone_shots": init_zone_dict(), "granular_shots": init_granular_dict()
-                }
+            if season_year == CURRENT_SEASON_YEAR:
+                if aid not in players:
+                    players[aid] = {
+                        "player_id": aid, "player": ev["player"], "team": ev["team"], "team_id": ev["team_id"],
+                        "team_abbrev": ev["team_abbrev"], "pos": ev["pos"], "gp": 0, "gs": 0, "tot_min": 0.0, "tot_pts": 0,
+                        "tot_reb": 0, "tot_ast": 0, "tot_stl": 0, "tot_blk": 0, "tot_to": 0, "tot_fgm": 0, "tot_fga": 0,
+                        "tot_fg3m": 0, "tot_fg3a": 0, "tot_ftm": 0, "tot_fta": 0, "tot_oreb": 0, "tot_dreb": 0, "tot_pf": 0,
+                        "tot_plus_minus": 0, "game_logs": [], "zone_shots": init_zone_dict(), "granular_shots": init_granular_dict()
+                    }
 
-            p = players[aid]
-            p["player"] = ev["player"]
-            p["team"] = ev["team"]
-            p["team_id"] = ev["team_id"]
-            p["team_abbrev"] = ev["team_abbrev"]
-            p["pos"] = ev["pos"]
-            p["gp"] += 1
-            if ev["is_starter"]:
-                p["gs"] += 1
-            p["tot_min"] += ev["minutes"]
-            p["tot_pts"] += ev["pts"]
-            p["tot_reb"] += ev["reb"]
-            p["tot_ast"] += ev["ast"]
-            p["tot_stl"] += ev["stl"]
-            p["tot_blk"] += ev["blk"]
-            p["tot_to"] += ev["to"]
-            p["tot_fgm"] += ev["fgm"]
-            p["tot_fga"] += ev["fga"]
-            p["tot_fg3m"] += ev["fg3m"]
-            p["tot_fg3a"] += ev["fg3a"]
-            p["tot_ftm"] += ev["ftm"]
-            p["tot_fta"] += ev["fta"]
-            p["tot_oreb"] += ev["oreb"]
-            p["tot_dreb"] += ev["dreb"]
-            p["tot_pf"] += ev["pf"]
-            p["tot_plus_minus"] += ev["plus_minus"]
-            p["game_logs"].append(ev["log"])
+                p = players[aid]
+                p["player"] = ev["player"]
+                p["team"] = ev["team"]
+                p["team_id"] = ev["team_id"]
+                p["team_abbrev"] = ev["team_abbrev"]
+                p["pos"] = ev["pos"]
+                p["gp"] += 1
+                if ev["is_starter"]:
+                    p["gs"] += 1
+                p["tot_min"] += ev["minutes"]
+                p["tot_pts"] += ev["pts"]
+                p["tot_reb"] += ev["reb"]
+                p["tot_ast"] += ev["ast"]
+                p["tot_stl"] += ev["stl"]
+                p["tot_blk"] += ev["blk"]
+                p["tot_to"] += ev["to"]
+                p["tot_fgm"] += ev["fgm"]
+                p["tot_fga"] += ev["fga"]
+                p["tot_fg3m"] += ev["fg3m"]
+                p["tot_fg3a"] += ev["fg3a"]
+                p["tot_ftm"] += ev["ftm"]
+                p["tot_fta"] += ev["fta"]
+                p["tot_oreb"] += ev["oreb"]
+                p["tot_dreb"] += ev["dreb"]
+                p["tot_pf"] += ev["pf"]
+                p["tot_plus_minus"] += ev["plus_minus"]
+                p["game_logs"].append(ev["log"])
 
             is_w = ev["log"]["result"].startswith("W")
             res_token = ("OT-W" if is_w else "OT-L") if is_game_ot else ("W" if is_w else "L")
@@ -413,8 +436,8 @@ def main():
             ))
 
         game_four_factors = [
-            {"team": home_name, **compute_team_advanced_metrics(home_name, [team_game_stats_ledger[home_id][-1]])},
-            {"team": away_name, **compute_team_advanced_metrics(away_name, [team_game_stats_ledger[away_id][-1]])}
+            {"team": home_name, **compute_team_advanced_metrics(home_name, [team_game_stats_ledger.get(home_id, [{}])[-1]])},
+            {"team": away_name, **compute_team_advanced_metrics(away_name, [team_game_stats_ledger.get(away_id, [{}])[-1]])}
         ]
 
         pbp_rows = []
@@ -490,10 +513,6 @@ def main():
         ], db_stints_rows)
 
         optimize_db(DB_PATH)
-
-    # Count verified OT performances
-    ot_perf_count = sum(1 for p in all_game_performances if str(p["result"]).startswith("OT"))
-    print(f"Total Single-Game Performances with Overtime Tokens: {ot_perf_count}")
 
     all_game_performances.sort(key=lambda x: (x["date"], x["pts"]), reverse=True)
     with open(DATA_DIR / "game_performances.json", "w") as f:
@@ -1029,7 +1048,7 @@ def main():
     with open(DATA_DIR / "team_stats.json", "w") as f:
         json.dump({"meta_keys": ["team"], "rows": enriched_standings}, f, indent=2)
 
-    print("Pipeline Complete: Full DB and JSON compiled with authentic rebound rates, assisted shot splits, and verified OT game logs.")
+    print("Pipeline Complete: Active profiles strictly isolated to Season 2027 (current year).")
 
 
 if __name__ == "__main__":
