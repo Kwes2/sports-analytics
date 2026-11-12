@@ -691,6 +691,10 @@ def main():
         for z in ZONES
     }
 
+    league_fta_tot = sum(p["averages"]["fta_pg"] * p["averages"]["gp"] for p in active_players.values())
+    league_ftm_tot = sum(p["averages"]["ftm_pg"] * p["averages"]["gp"] for p in active_players.values())
+    league_true_ft_pct = round((league_ftm_tot / league_fta_tot) * 100.0, 1) if league_fta_tot > 0 else 78.0
+
     for aid, p in active_players.items():
         p_events = all_passer_events_map.get(aid, [])
         gp = p["averages"]["gp"]
@@ -732,16 +736,13 @@ def main():
         }
 
         fga = p["averages"]["fga_pg"] * gp
-        fg3a = p["averages"]["fg3a_pg"] * gp
         fta = p["averages"]["fta_pg"] * gp
         tot_xpts = p["passing_profile"]["xpts_per_ast"] * p["passing_profile"]["ast_recorded"]
         xprf_data = compute_xprf_metrics(
             fga=fga,
             xfg_pct=p["advanced"].get("xefg_pct", 50.0),
-            fg3a=fg3a,
-            x3p_pct=36.0,
             fta=fta,
-            xft_pct=78.0,
+            xft_pct=league_true_ft_pct,
             expected_assist_pts=tot_xpts,
             actual_prf_pg=prf_pg,
             gp=gp

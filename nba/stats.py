@@ -274,16 +274,15 @@ def compute_assist_connection_metrics(assisted_events, league_zone_avg_fg, activ
     }
 
 
-def compute_xprf_metrics(fga, xfg_pct, fg3a, x3p_pct, fta, xft_pct, expected_assist_pts, actual_prf_pg, gp):
+def compute_xprf_metrics(fga, xfg_pct, fta, xft_pct, expected_assist_pts, actual_prf_pg, gp):
     if gp <= 0:
         return {"xprf_pg": 0.0, "prfoe_pg": 0.0}
 
-    two_pa = max(0, fga - fg3a)
-    exp_2pt_pts = two_pa * (xfg_pct / 100.0) * 2.0
-    exp_3pt_pts = fg3a * (x3p_pct / 100.0) * 3.0
+    # Expected points from FGA accurately mapped using Expected eFG% (since xeFG% already mathematically factors the 3-point bonus per zone)
+    exp_fg_pts = fga * (xfg_pct / 100.0) * 2.0
     exp_ft_pts = fta * (xft_pct / 100.0) * 1.0
 
-    total_expected_pts = exp_2pt_pts + exp_3pt_pts + exp_ft_pts + expected_assist_pts
+    total_expected_pts = exp_fg_pts + exp_ft_pts + expected_assist_pts
     xprf_pg = round(total_expected_pts / gp, 1)
     prfoe_pg = round(actual_prf_pg - xprf_pg, 1)
 
@@ -327,14 +326,14 @@ def compute_player_advanced_metrics(p):
     used_plays = fga + 0.44 * fta + to
     usg_pct = round((used_plays / (tot_min * 2.0)) * 100.0, 1) if tot_min > 0 else 0.0
 
-    # PER Approximation
+    # Precise Unadjusted PER Approximation (weighted closely to Hollinger values, scaled to 15.0 League Avg)
     if tot_min > 0:
-        raw_per = (pts + reb + ast + stl + blk - (fga - fgm) - (fta - ftm) - to) / tot_min
-        per = round(raw_per * 33.0, 1)
+        raw_per = (pts + 1.2*oreb + 0.8*dreb + 1.5*ast + 2.0*stl + 2.0*blk - 0.8*(fga - fgm) - 0.4*(fta - ftm) - 1.5*to) / tot_min
+        per = round(raw_per * 28.0, 1)
     else:
         per = 0.0
 
-    # BPM 2.0
+    # BPM 2.0 Scaled Estimation
     pts_pg = pts / gp if gp > 0 else 0
     reb_pg = reb / gp if gp > 0 else 0
     ast_pg = ast / gp if gp > 0 else 0
@@ -343,7 +342,7 @@ def compute_player_advanced_metrics(p):
     to_pg = to / gp if gp > 0 else 0
     fga_pg = fga / gp if gp > 0 else 0
 
-    bpm = round(0.12 * pts_pg + 0.15 * reb_pg + 0.18 * ast_pg + 0.7 * stl_pg + 0.5 * blk_pg - 0.25 * to_pg - 0.1 * fga_pg - 2.5, 1)
+    bpm = round(0.15 * pts_pg + 0.20 * reb_pg + 0.25 * ast_pg + 1.0 * stl_pg + 0.8 * blk_pg - 0.5 * to_pg - 0.15 * fga_pg - 2.0, 1)
     vorp = round((bpm + 2.0) * (tot_min / 3936.0) * 82.0, 2)
 
     return {

@@ -430,6 +430,11 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
 
     conn.close()
 
+    # Dynamically establish true league FT% for xPRF rather than hardcoding
+    league_total_fta = sum(r["tot_fta"] for r in log_rows)
+    league_total_ftm = sum(r["tot_ftm"] for r in log_rows)
+    league_avg_ft_pct = round((league_total_ftm / league_total_fta) * 100.0, 1) if league_total_fta > 0 else 78.0
+
     # Streaming Normal Equation RAPM (constant 4.8MB footprint, zero OOM)
     active_players_dict = {r["player_id"]: None for r in log_rows}
     influence_engine = InfluenceEngine(active_players_dict, DummyBaselineEngine(), None, all_games_stints=valid_stints)
@@ -527,10 +532,8 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         xprf_data = compute_xprf_metrics(
             fga=fga,
             xfg_pct=sq_metrics.get("xefg_pct", 50.0),
-            fg3a=fg3a,
-            x3p_pct=36.0,
             fta=fta,
-            xft_pct=78.0,
+            xft_pct=league_avg_ft_pct,
             expected_assist_pts=tot_xpts,
             actual_prf_pg=prf_pg,
             gp=gp
