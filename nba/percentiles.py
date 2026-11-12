@@ -43,27 +43,53 @@ def compute_rank(val, all_vals, higher_is_better=True):
 def build_stat_pools(players_dict, stat_keys):
     league_pools = {k: [] for k in stat_keys}
     pos_pools = {}
+    league_pools_p36 = {k: [] for k in stat_keys}
+    pos_pools_p36 = {}
+    league_pools_p100 = {k: [] for k in stat_keys}
+    pos_pools_p100 = {}
 
     for p in players_dict.values():
         pos = p["pos"]
         if pos not in pos_pools:
             pos_pools[pos] = {k: [] for k in stat_keys}
+            pos_pools_p36[pos] = {k: [] for k in stat_keys}
+            pos_pools_p100[pos] = {k: [] for k in stat_keys}
 
         combined_stats = {
-            **p["averages"],
-            **p["advanced"],
-            **p["on_off"],
-            **p["passing_profile"],
-            **p["prf_metrics"],
-            **p["influence_metrics"]
+            **p.get("averages", {}),
+            **p.get("advanced", {}),
+            **p.get("on_off", {}),
+            **p.get("passing_profile", {}),
+            **p.get("prf_metrics", {}),
+            **p.get("influence_metrics", {}),
+            **p.get("zone_summary", {})
         }
+
+        min_pg = combined_stats.get("min_pg", 0.0)
 
         for k in stat_keys:
             val = combined_stats.get(k, 0.0)
             league_pools[k].append(val)
             pos_pools[pos][k].append(val)
+            
+            is_counting = k.endswith("_pg") or k in ["pts", "reb", "ast", "stl", "blk", "fga", "fgm"]
+            if is_counting and min_pg > 0:
+                val_p36 = val * (36.0 / min_pg)
+                val_p100 = val * (100.0 / (min_pg * 2.0))
+            else:
+                val_p36 = val
+                val_p100 = val
+                
+            league_pools_p36[k].append(val_p36)
+            pos_pools_p36[pos][k].append(val_p36)
+            league_pools_p100[k].append(val_p100)
+            pos_pools_p100[pos][k].append(val_p100)
 
-    return league_pools, pos_pools
+    return (
+        league_pools, pos_pools,
+        league_pools_p36, pos_pools_p36,
+        league_pools_p100, pos_pools_p100
+    )
 
 
 def build_shot_pools(players_dict, zones):

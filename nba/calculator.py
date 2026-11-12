@@ -580,17 +580,54 @@ def compute_window_single_player_profile(player_id, start_date=None, end_date=No
     stat_keys = list(STAT_METADATA.keys())
     league_pools = {k: [] for k in stat_keys}
     pos_pools = {}
+    league_pools_p36 = {k: [] for k in stat_keys}
+    pos_pools_p36 = {}
+    league_pools_p100 = {k: [] for k in stat_keys}
+    pos_pools_p100 = {}
 
     for p in all_players:
         pos = p["pos"]
+        min_pg = p.get("min_pg", 0.0)
         if pos not in pos_pools:
             pos_pools[pos] = {k: [] for k in stat_keys}
+            pos_pools_p36[pos] = {k: [] for k in stat_keys}
+            pos_pools_p100[pos] = {k: [] for k in stat_keys}
+            
         for k in stat_keys:
             val = p.get(k, 0.0)
             league_pools[k].append(val)
             pos_pools[pos][k].append(val)
+            
+            is_counting = k.endswith("_pg") or k in ["pts", "reb", "ast", "stl", "blk", "fga", "fgm"]
+            if is_counting and min_pg > 0:
+                val_p36 = val * (36.0 / min_pg)
+                val_p100 = val * (100.0 / (min_pg * 2.0))
+            else:
+                val_p36 = val
+                val_p100 = val
+                
+            league_pools_p36[k].append(val_p36)
+            pos_pools_p36[pos][k].append(val_p36)
+            league_pools_p100[k].append(val_p100)
+            pos_pools_p100[pos][k].append(val_p100)
+
+    min_pg_target = target.get("min_pg", 0.0)
+    target_p36_dict = {}
+    target_p100_dict = {}
+    
+    for k in stat_keys:
+        v = target.get(k, 0.0)
+        is_counting = k.endswith("_pg") or k in ["pts", "reb", "ast", "stl", "blk", "fga", "fgm"]
+        if is_counting and min_pg_target > 0:
+            target_p36_dict[k] = v * (36.0 / min_pg_target)
+            target_p100_dict[k] = v * (100.0 / (min_pg_target * 2.0))
+        else:
+            target_p36_dict[k] = v
+            target_p100_dict[k] = v
 
     rankings_data = compute_player_rankings_and_percentiles(target, league_pools, pos_pools, target["pos"], stat_keys)
+    rankings_p36 = compute_player_rankings_and_percentiles(target_p36_dict, league_pools_p36, pos_pools_p36, target["pos"], stat_keys)
+    rankings_p100 = compute_player_rankings_and_percentiles(target_p100_dict, league_pools_p100, pos_pools_p100, target["pos"], stat_keys)
 
     categorized_tables = {
         "Basic": [],
@@ -611,6 +648,12 @@ def compute_window_single_player_profile(player_id, start_date=None, end_date=No
             "value": v, "league_rank": "-", "league_percentile": 50.0,
             "pos_rank": "-", "pos_percentile": 50.0
         })
+        r_info_p36 = rankings_p36.get(k, {
+            "league_percentile": 50.0, "pos_percentile": 50.0
+        })
+        r_info_p100 = rankings_p100.get(k, {
+            "league_percentile": 50.0, "pos_percentile": 50.0
+        })
 
         categorized_tables[cat].append({
             "stat_key": k,
@@ -620,7 +663,11 @@ def compute_window_single_player_profile(player_id, start_date=None, end_date=No
             "league_rank": r_info["league_rank"],
             "league_percentile": r_info["league_percentile"],
             "pos_rank": r_info["pos_rank"],
-            "pos_percentile": r_info["pos_percentile"]
+            "pos_percentile": r_info["pos_percentile"],
+            "league_percentile_p36": r_info_p36["league_percentile"],
+            "pos_percentile_p36": r_info_p36["pos_percentile"],
+            "league_percentile_p100": r_info_p100["league_percentile"],
+            "pos_percentile_p100": r_info_p100["pos_percentile"]
         })
 
     sections = []

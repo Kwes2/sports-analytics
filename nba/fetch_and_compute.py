@@ -766,7 +766,7 @@ def main():
         p["zone_summary"] = zone_summary
 
     stat_keys = list(STAT_METADATA.keys())
-    league_pools, pos_pools = build_stat_pools(active_players, stat_keys)
+    league_pools, pos_pools, l_p36, p_p36, l_p100, p_p100 = build_stat_pools(active_players, stat_keys)
     vol_pools, eff_pools = build_shot_pools(active_players, ZONES)
 
     all_player_stats_rows = []
@@ -782,10 +782,24 @@ def main():
             **p["influence_metrics"],
             **p["zone_summary"]
         }
+        
+        min_pg = combined.get("min_pg", 0.0)
+        target_p36_dict = {}
+        target_p100_dict = {}
+        
+        for k in stat_keys:
+            v = combined.get(k, 0.0)
+            is_counting = k.endswith("_pg") or k in ["pts", "reb", "ast", "stl", "blk", "fga", "fgm"]
+            if is_counting and min_pg > 0:
+                target_p36_dict[k] = v * (36.0 / min_pg)
+                target_p100_dict[k] = v * (100.0 / (min_pg * 2.0))
+            else:
+                target_p36_dict[k] = v
+                target_p100_dict[k] = v
 
-        rankings_data = compute_player_rankings_and_percentiles(
-            combined, league_pools, pos_pools, pos, stat_keys
-        )
+        rankings_data = compute_player_rankings_and_percentiles(combined, league_pools, pos_pools, pos, stat_keys)
+        rankings_p36 = compute_player_rankings_and_percentiles(target_p36_dict, l_p36, p_p36, pos, stat_keys)
+        rankings_p100 = compute_player_rankings_and_percentiles(target_p100_dict, l_p100, p_p100, pos, stat_keys)
 
         categorized_tables = {
             "Basic": [],
@@ -806,6 +820,12 @@ def main():
                 "value": v, "league_rank": "-", "league_percentile": 50.0,
                 "pos_rank": "-", "pos_percentile": 50.0
             })
+            r_info_p36 = rankings_p36.get(k, {
+                "league_percentile": 50.0, "pos_percentile": 50.0
+            })
+            r_info_p100 = rankings_p100.get(k, {
+                "league_percentile": 50.0, "pos_percentile": 50.0
+            })
 
             categorized_tables[cat].append({
                 "stat_key": k,
@@ -815,7 +835,11 @@ def main():
                 "league_rank": r_info["league_rank"],
                 "league_percentile": r_info["league_percentile"],
                 "pos_rank": r_info["pos_rank"],
-                "pos_percentile": r_info["pos_percentile"]
+                "pos_percentile": r_info["pos_percentile"],
+                "league_percentile_p36": r_info_p36["league_percentile"],
+                "pos_percentile_p36": r_info_p36["pos_percentile"],
+                "league_percentile_p100": r_info_p100["league_percentile"],
+                "pos_percentile_p100": r_info_p100["pos_percentile"]
             })
 
         sections = []

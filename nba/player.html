@@ -754,22 +754,14 @@
             return Number.isInteger(scaledVal) ? scaledVal : scaledVal.toFixed(1);
         }
 
-        // Live Scaled Percentile Re-ranker: ensures per-minute bench standouts receive proper 90th+ percentile scores
-        function getLiveScaledPercentile(val, key, origPctile, minPg) {
-            if (origPctile === null || origPctile === undefined || origPctile === '-' || isNaN(origPctile)) return origPctile;
-            if (activePlayerRateMode === 'pg') return origPctile;
-
-            const k = key.toLowerCase();
-            const isCounting = (k.endsWith('_pg') || k === 'pts' || k === 'reb' || k === 'ast' || k === 'stl' || k === 'blk');
-            if (!isCounting || !minPg || minPg <= 0) return origPctile;
-
-            const scale = (36.0 / minPg);
-            // Bench players with high per-minute production receive adjusted rank representation
-            if (scale > 1.25 && val > 0) {
-                const bonus = Math.min(25.0, (scale - 1.0) * 12.0);
-                return Math.min(99.0, Math.round((parseFloat(origPctile) + bonus) * 10) / 10);
+        function getRatePercentile(row, isLeague) {
+            if (!row) return 50.0;
+            if (activePlayerRateMode === 'p36' && row.league_percentile_p36 !== undefined) {
+                return isLeague ? row.league_percentile_p36 : row.pos_percentile_p36;
+            } else if (activePlayerRateMode === 'p100' && row.league_percentile_p100 !== undefined) {
+                return isLeague ? row.league_percentile_p100 : row.pos_percentile_p100;
             }
-            return origPctile;
+            return isLeague ? row.league_percentile : row.pos_percentile;
         }
 
         function renderProfileSections(data) {
@@ -806,8 +798,8 @@
                         const tipAttr = tip ? `class="has-tip" title="${tip}"` : '';
 
                         const displayName = getFormattedStatName(r.stat_name, r.stat_key);
-                        const lPct = getLiveScaledPercentile(r.value, r.stat_key, r.league_percentile, playerMinPg);
-                        const pPct = getLiveScaledPercentile(r.value, r.stat_key, r.pos_percentile, playerMinPg);
+                        const lPct = getRatePercentile(r, true);
+                        const pPct = getRatePercentile(r, false);
 
                         const lPctColor = getPercentileColor(lPct);
                         const pPctColor = getPercentileColor(pPct);

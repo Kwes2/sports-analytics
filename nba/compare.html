@@ -561,20 +561,14 @@
             return Number.isInteger(scaled) ? scaled : scaled.toFixed(1);
         }
 
-        function getLiveScaledPercentile(val, key, origPctile, minPg) {
-            if (origPctile === null || origPctile === undefined || origPctile === '-' || isNaN(origPctile)) return origPctile;
-            if (activeCmpRateMode === 'pg') return origPctile;
-
-            const k = key.toLowerCase();
-            const isCounting = (k.endsWith('_pg') || k === 'pts' || k === 'reb' || k === 'ast' || k === 'stl' || k === 'blk');
-            if (!isCounting || !minPg || minPg <= 0) return origPctile;
-
-            const scale = (36.0 / minPg);
-            if (scale > 1.25 && val > 0) {
-                const bonus = Math.min(25.0, (scale - 1.0) * 12.0);
-                return Math.min(99.0, Math.round((parseFloat(origPctile) + bonus) * 10) / 10);
+        function getRatePercentile(row, isLeague) {
+            if (!row) return 50.0;
+            if (activeCmpRateMode === 'p36' && row.league_percentile_p36 !== undefined) {
+                return isLeague ? row.league_percentile_p36 : row.pos_percentile_p36;
+            } else if (activeCmpRateMode === 'p100' && row.league_percentile_p100 !== undefined) {
+                return isLeague ? row.league_percentile_p100 : row.pos_percentile_p100;
             }
-            return origPctile;
+            return isLeague ? row.league_percentile : row.pos_percentile;
         }
 
         function renderComparisonTables() {
@@ -685,9 +679,9 @@
                         deltaClass = hib ? "delta-neg" : "delta-pos";
                     }
 
-                    // Dynamically calculate rate-scaled percentiles and colors
-                    const pctA = getLiveScaledPercentile(rawA, k, rowA.league_percentile, minA);
-                    const pctB = getLiveScaledPercentile(rawB, k, rowB.league_percentile, minB);
+                    // Calculate precise percentiles straight from parallel backend pools
+                    const pctA = getRatePercentile(rowA, true);
+                    const pctB = getRatePercentile(rowB, true);
 
                     const pctAColor = getPercentileColor(pctA);
                     const pctBColor = getPercentileColor(pctB);
