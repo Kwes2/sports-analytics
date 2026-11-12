@@ -308,18 +308,22 @@ def main():
             sum_team_stat(away_id, "fta"), sum_team_stat(away_id, "to"), sum_team_stat(away_id, "oreb"), sum_team_stat(away_id, "dreb")
         )
 
-        for tid, name, pts, fga, fgm, fg3m, fta, to, oreb, dreb, opp_pts, o_fga, o_fgm, o_fg3m, o_fta, o_to, o_oreb, o_dreb in [
-            (home_id, home_name, home_score, h_fga, h_fgm, h_fg3m, h_fta, h_to, h_oreb, h_dreb, away_score, a_fga, a_fgm, a_fg3m, a_fta, a_to, a_oreb, a_dreb),
-            (away_id, away_name, away_score, a_fga, a_fgm, a_fg3m, a_fta, a_to, a_oreb, a_dreb, home_score, h_fga, h_fgm, h_fg3m, h_fta, h_to, h_oreb, h_dreb)
-        ]:
+        home_stat_dict = {
+            "date": date_str, "pts": home_score, "opp_pts": away_score, "fga": h_fga, "fgm": h_fgm, "fg3m": h_fg3m,
+            "fta": h_fta, "to": h_to, "oreb": h_oreb, "dreb": h_dreb, "opp_fga": a_fga, "opp_fgm": a_fgm,
+            "opp_fg3m": a_fg3m, "opp_fta": a_fta, "opp_to": a_to, "opp_oreb": a_oreb, "opp_dreb": a_dreb
+        }
+        away_stat_dict = {
+            "date": date_str, "pts": away_score, "opp_pts": home_score, "fga": a_fga, "fgm": a_fgm, "fg3m": a_fg3m,
+            "fta": a_fta, "to": a_to, "oreb": a_oreb, "dreb": a_dreb, "opp_fga": h_fga, "opp_fgm": h_fgm,
+            "opp_fg3m": h_fg3m, "opp_fta": h_fta, "opp_to": h_to, "opp_oreb": h_oreb, "opp_dreb": h_dreb
+        }
+
+        for tid, stat_dict in [(home_id, home_stat_dict), (away_id, away_stat_dict)]:
             if tid not in team_game_stats_ledger:
                 team_game_stats_ledger[tid] = []
             if season_year == CURRENT_SEASON_YEAR:
-                team_game_stats_ledger[tid].append({
-                    "date": date_str, "pts": pts, "opp_pts": opp_pts, "fga": fga, "fgm": fgm, "fg3m": fg3m,
-                    "fta": fta, "to": to, "oreb": oreb, "dreb": dreb, "opp_fga": o_fga, "opp_fgm": o_fgm,
-                    "opp_fg3m": o_fg3m, "opp_fta": o_fta, "opp_to": o_to, "opp_oreb": o_oreb, "opp_dreb": o_dreb
-                })
+                team_game_stats_ledger[tid].append(stat_dict)
 
         # Only accumulate active player averages if game belongs to CURRENT 2026-2027 season
         if season_year == CURRENT_SEASON_YEAR:
@@ -436,8 +440,8 @@ def main():
             ))
 
         game_four_factors = [
-            {"team": home_name, **compute_team_advanced_metrics(home_name, [team_game_stats_ledger.get(home_id, [{}])[-1]])},
-            {"team": away_name, **compute_team_advanced_metrics(away_name, [team_game_stats_ledger.get(away_id, [{}])[-1]])}
+            {"team": home_name, **compute_team_advanced_metrics(home_name, [home_stat_dict])},
+            {"team": away_name, **compute_team_advanced_metrics(away_name, [away_stat_dict])}
         ]
 
         pbp_rows = []
