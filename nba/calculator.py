@@ -474,13 +474,18 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         }
 
         adv = compute_player_advanced_metrics(p_struct)
+        p_stint_data = player_on_court.get(aid, {})
+        on_court_poss = p_stint_data.get("poss", 0.0)
         
-        # 1. Team Rebound Share %
+        # 1. Exact True Usage Rate (Replaces Minute Approximation)
+        used_plays = fga + 0.44 * fta + r["tot_to"]
+        adv["usg_pct"] = round((used_plays / on_court_poss) * 100.0, 1) if on_court_poss > 0 else 0.0
+        
+        # 2. Team Rebound Share %
         t_total_reb = team_reb_totals.get(r["team_id"], 0)
         team_reb_share = round((r["tot_reb"] / t_total_reb * 100.0), 1) if t_total_reb > 0 else 0.0
 
-        # 2. Empirical On-Court Available Rebound %
-        p_stint_data = player_on_court.get(aid, {})
+        # 3. Empirical On-Court Available Rebound %
         true_avail_on_court = p_stint_data.get("avail_reb", 0)
         if true_avail_on_court > 0:
             on_court_reb_pct = round((r["tot_reb"] / true_avail_on_court * 100.0), 1)

@@ -323,9 +323,6 @@ def compute_player_advanced_metrics(p):
     tot_gmsc = pts + 0.4 * fgm - 0.7 * fga - 0.4 * (fta - ftm) + 0.7 * oreb + 0.3 * dreb + stl + 0.7 * ast + 0.7 * blk - 0.4 * pf - to
     gmsc_avg = round(tot_gmsc / gp, 1) if gp > 0 else 0.0
 
-    used_plays = fga + 0.44 * fta + to
-    usg_pct = round((used_plays / (tot_min * 2.0)) * 100.0, 1) if tot_min > 0 else 0.0
-
     # Precise Unadjusted PER Approximation (weighted closely to Hollinger values, scaled to 15.0 League Avg)
     if tot_min > 0:
         raw_per = (pts + 1.2*oreb + 0.8*dreb + 1.5*ast + 2.0*stl + 2.0*blk - 0.8*(fga - fgm) - 0.4*(fta - ftm) - 1.5*to) / tot_min
@@ -349,7 +346,6 @@ def compute_player_advanced_metrics(p):
         "gp": gp,
         "ts_pct": ts_pct,
         "efg_pct": efg_pct,
-        "usg_pct": usg_pct,
         "tov_pct": tov_pct,
         "ast_to_ratio": ast_to,
         "three_par": three_par,

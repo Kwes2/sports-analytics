@@ -124,6 +124,7 @@ def main():
 
     merged_pair_ledger = {}
     player_game_stints_history = {}
+    team_exact_stint_totals = {}
     all_games_stints = []
     all_game_performances = []
 
@@ -256,13 +257,31 @@ def main():
                 ))
                 # Only feed stints into RAPM if they belong to current season
                 if season_year == CURRENT_SEASON_YEAR:
+                    poss = s[6]
+                    h_pts = s[4]
+                    a_pts = s[5]
+                    
                     all_games_stints.append({
                         "home_lineup": json.loads(s[2]),
                         "away_lineup": json.loads(s[3]),
-                        "home_pts": s[4],
-                        "away_pts": s[5],
-                        "poss": s[6]
+                        "home_pts": h_pts,
+                        "away_pts": a_pts,
+                        "poss": poss
                     })
+                    
+                    # Accumulate EXACT team totals to prevent On/Off Differential mismatch
+                    if home_id not in team_exact_stint_totals:
+                        team_exact_stint_totals[home_id] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
+                    if away_id not in team_exact_stint_totals:
+                        team_exact_stint_totals[away_id] = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
+                        
+                    team_exact_stint_totals[home_id]["poss"] += poss
+                    team_exact_stint_totals[home_id]["pts_for"] += h_pts
+                    team_exact_stint_totals[home_id]["pts_against"] += a_pts
+                    
+                    team_exact_stint_totals[away_id]["poss"] += poss
+                    team_exact_stint_totals[away_id]["pts_for"] += a_pts
+                    team_exact_stint_totals[away_id]["pts_against"] += h_pts
 
             for p_id, g_stint in game_player_stints.items():
                 if season_year == CURRENT_SEASON_YEAR:
@@ -648,14 +667,12 @@ def main():
             p_on_court["pts_for"] += st.get("pts_for", 0)
             p_on_court["pts_against"] += st.get("pts_against", 0)
             p_on_court["poss"] += st.get("poss", 0.0)
+            
+        used_plays = p["tot_fga"] + 0.44 * p["tot_fta"] + p["tot_to"]
+        adv["usg_pct"] = round((used_plays / p_on_court["poss"]) * 100.0, 1) if p_on_court["poss"] > 0 else 0.0
 
-        t_totals = {"pts_for": 0, "pts_against": 0, "poss": 0.0}
-        for g_stints in team_game_stats_ledger.get(t_id, []):
-            t_totals["pts_for"] += g_stints["pts"]
-            t_totals["pts_against"] += g_stints["opp_pts"]
-            t_poss = 0.96 * (g_stints["fga"] + g_stints["to"] + 0.44 * g_stints["fta"] - g_stints["oreb"])
-            t_totals["poss"] += t_poss
-
+        # Team exact totals mathematically synced with p_on_court exact totals
+        t_totals = team_exact_stint_totals.get(t_id, {"pts_for": 0, "pts_against": 0, "poss": 0.0})
         on_off = compute_on_off_metrics(p_on_court, t_totals)
 
         active_players[aid] = {
