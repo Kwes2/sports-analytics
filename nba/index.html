@@ -372,6 +372,10 @@
             <button onclick="loadView('Upcoming Schedule', 'upcoming_games.json', this)">Upcoming Games</button>
             <button onclick="loadView('Game Finder', 'game_performances.json', this)">Game Finder</button>
             <a href="compare.html" class="sub-tab-link">Compare Players</a>
+            <span style="margin-left: auto; font-size: 12px; color: #555;">
+                Last Updated: <strong id="last-updated-text">Checking...</strong>
+                <button id="update-data-btn" class="tool-btn" style="margin-left: 8px;" onclick="triggerDataUpdate()">🔄 Update Data</button>
+            </span>
         </div>
     </header>
 
@@ -447,7 +451,45 @@
             end_date: "2026-04-15"
         };
 
+        function checkUpdateStatus() {
+            fetch(getApiPath('update_status'))
+                .then(res => res.json())
+                .then(data => {
+                    const lbl = document.getElementById('last-updated-text');
+                    const btn = document.getElementById('update-data-btn');
+                    if (lbl && data.last_updated) lbl.innerText = data.last_updated;
+                    if (btn) {
+                        btn.disabled = !!data.updating;
+                        btn.innerText = data.updating ? "⏳ Updating..." : "🔄 Update Data";
+                    }
+                    if (data.updating) {
+                        setTimeout(checkUpdateStatus, 3000);
+                    }
+                })
+                .catch(() => {});
+        }
+
+        function triggerDataUpdate() {
+            const btn = document.getElementById('update-data-btn');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerText = "⏳ Updating...";
+            }
+            fetch(getApiPath('trigger_update'))
+                .then(res => res.json())
+                .then(() => {
+                    setTimeout(checkUpdateStatus, 2000);
+                })
+                .catch(() => {
+                    if (btn) {
+                        btn.disabled = false;
+                        btn.innerText = "🔄 Update Data";
+                    }
+                });
+        }
+
         window.onload = () => {
+            checkUpdateStatus();
             const lastTab = sessionStorage.getItem('nba_active_tab') || 'Completed Games';
             const btn = [...document.querySelectorAll('.sub-nav button')].find(b => b.innerText === lastTab) || document.querySelector('.sub-nav button');
             

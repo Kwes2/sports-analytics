@@ -8,7 +8,9 @@ import gc
 import json
 import os
 import socket
+import subprocess
 import sys
+import threading
 import traceback
 import urllib.parse
 from http.server import SimpleHTTPRequestHandler, HTTPServer
@@ -36,6 +38,23 @@ from calculator import (
 )
 
 PORT = int(os.environ.get("PORT", 8000))
+
+UPDATE_LOCK = threading.Lock()
+IS_UPDATING = False
+
+
+def run_update_pipeline():
+    global IS_UPDATING
+    try:
+        script_path = NBA_DIR / "fetch_and_compute.py"
+        print(f">> [UPDATER] Running {script_path}...")
+        subprocess.run([sys.executable, str(script_path)], check=True)
+        print(">> [UPDATER] Pipeline completed successfully.")
+    except Exception as e:
+        print(f">> [UPDATER ERROR] {e}")
+    finally:
+        with UPDATE_LOCK:
+            IS_UPDATING = False
 
 
 class WebsiteRequestHandler(SimpleHTTPRequestHandler):
@@ -171,6 +190,33 @@ class WebsiteRequestHandler(SimpleHTTPRequestHandler):
                         self._send_json_response(json.load(f))
                 else:
                     self._send_json_response({"error": str(e)}, status=500)
+            return
+
+        # -------------------------------------------------------------
+        # 3b. API: Data Update Status & Trigger
+        # -------------------------------------------------------------
+        elif "update_status" in path:
+            last_updated = "Unknown"
+            lu_file = NBA_DIR / "data" / "last_updated.json"
+            if lu_file.exists():
+                try:
+                    with open(lu_file, "r", encoding="utf-8") as f:
+                        last_updated = json.load(f).get("last_updated", "Unknown")
+                except Exception:
+                    pass
+            self._send_json_response({"updating": IS_UPDATING, "last_updated": last_updated})
+            return
+
+        elif "trigger_update" in path:
+            global IS_UPDATING
+            with UPDATE_LOCK:
+                if IS_UPDATING:
+                    self._send_json_response({"status": "already_running", "updating": True})
+                    return
+                IS_UPDATING = True
+                t = threading.Thread(target=run_update_pipeline, daemon=True)
+                t.start()
+            self._send_json_response({"status": "started", "updating": True})
             return
 
         # -------------------------------------------------------------
