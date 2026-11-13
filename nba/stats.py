@@ -577,18 +577,6 @@ def compute_on_off_metrics(player_on_court, team_totals):
     team_diff_drtg = team_on_drtg - team_off_drtg
     team_diff_net = team_on_net - team_off_net
 
-    opp_on_ortg = team_on_drtg
-    opp_on_drtg = team_on_ortg
-    opp_on_net = opp_on_ortg - opp_on_drtg
-
-    opp_off_ortg = team_off_drtg
-    opp_off_drtg = team_off_ortg
-    opp_off_net = opp_off_ortg - opp_off_drtg
-
-    opp_diff_ortg = opp_on_ortg - opp_off_ortg
-    opp_diff_drtg = opp_on_drtg - opp_off_drtg
-    opp_diff_net = opp_on_net - opp_off_net
-
     return {
         "team_on_ortg": round(team_on_ortg, 1),
         "team_on_drtg": round(team_on_drtg, 1),
@@ -599,16 +587,6 @@ def compute_on_off_metrics(player_on_court, team_totals):
         "team_diff_ortg": round(team_diff_ortg, 1),
         "team_diff_drtg": round(team_diff_drtg, 1),
         "team_diff_net_rtg": round(team_diff_net, 1),
-
-        "opp_on_ortg": round(opp_on_ortg, 1),
-        "opp_on_drtg": round(opp_on_drtg, 1),
-        "opp_on_net_rtg": round(opp_on_net, 1),
-        "opp_off_ortg": round(opp_off_ortg, 1),
-        "opp_off_drtg": round(opp_off_drtg, 1),
-        "opp_off_net_rtg": round(opp_off_net, 1),
-        "opp_diff_ortg": round(opp_diff_ortg, 1),
-        "opp_diff_drtg": round(opp_diff_drtg, 1),
-        "opp_diff_net_rtg": round(opp_diff_net, 1),
 
         "on_ortg": round(team_on_ortg, 1),
         "on_drtg": round(team_on_drtg, 1),

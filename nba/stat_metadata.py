@@ -596,71 +596,6 @@ STAT_METADATA = {
         "tooltip": "Team Net Rating ON minus OFF the court (Net On/Off impact)",
         "format": "float1",
         "higher_is_better": True
-    },
-
-    # Opponent On/Off Ratings
-    "opp_on_ortg": {
-        "name": "Opponent On Offensive Rating",
-        "category": "Ratings",
-        "tooltip": "Opponent points scored per 100 possessions while player is ON the court",
-        "format": "float1",
-        "higher_is_better": False
-    },
-    "opp_on_drtg": {
-        "name": "Opponent On Defensive Rating",
-        "category": "Ratings",
-        "tooltip": "Team points allowed by opponent per 100 possessions while player is ON the court",
-        "format": "float1",
-        "higher_is_better": True
-    },
-    "opp_on_net_rtg": {
-        "name": "Opponent On Net Rating",
-        "category": "Ratings",
-        "tooltip": "Opponent Net Rating while player is ON the court",
-        "format": "float1",
-        "higher_is_better": False
-    },
-    "opp_off_ortg": {
-        "name": "Opponent Off Offensive Rating",
-        "category": "Ratings",
-        "tooltip": "Opponent points scored per 100 possessions while player is OFF the court",
-        "format": "float1",
-        "higher_is_better": False
-    },
-    "opp_off_drtg": {
-        "name": "Opponent Off Defensive Rating",
-        "category": "Ratings",
-        "tooltip": "Team points allowed by opponent per 100 possessions while player is OFF the court",
-        "format": "float1",
-        "higher_is_better": True
-    },
-    "opp_off_net_rtg": {
-        "name": "Opponent Off Net Rating",
-        "category": "Ratings",
-        "tooltip": "Opponent Net Rating while player is OFF the court",
-        "format": "float1",
-        "higher_is_better": False
-    },
-    "opp_diff_ortg": {
-        "name": "Opponent Diff Offensive Rating",
-        "category": "Ratings",
-        "tooltip": "Opponent Offensive Rating ON minus OFF (negative = suppressed opponent offense)",
-        "format": "float1",
-        "higher_is_better": False
-    },
-    "opp_diff_drtg": {
-        "name": "Opponent Diff Defensive Rating",
-        "category": "Ratings",
-        "tooltip": "Opponent Defensive Rating ON minus OFF",
-        "format": "float1",
-        "higher_is_better": True
-    },
-    "opp_diff_net_rtg": {
-        "name": "Opponent Diff Net Rating",
-        "category": "Ratings",
-        "tooltip": "Opponent Net Rating ON minus OFF the court",
-        "format": "float1",
-        "higher_is_better": False
     }
 }
 
@@ -678,10 +613,7 @@ PRESET_COLUMNS = {
         "net_rapm", "orapm", "drapm", "bpm", "vorp", "per",
         "team_on_ortg", "team_on_drtg", "team_on_net_rtg",
         "team_off_ortg", "team_off_drtg", "team_off_net_rtg",
-        "team_diff_ortg", "team_diff_drtg", "team_diff_net_rtg",
-        "opp_on_ortg", "opp_on_drtg", "opp_on_net_rtg",
-        "opp_off_ortg", "opp_off_drtg", "opp_off_net_rtg",
-        "opp_diff_ortg", "opp_diff_drtg", "opp_diff_net_rtg"
+        "team_diff_ortg", "team_diff_drtg", "team_diff_net_rtg"
     ],
     "passing": [
         "player", "team", "pos", "gp", "ast_pg", "pts_created_pg", "prf_pg", "xprf_pg", "prfoe_pg",
