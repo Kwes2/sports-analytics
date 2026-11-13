@@ -928,7 +928,17 @@ def main():
         }
         all_player_stats_rows.append(flattened_player)
 
-    all_player_stats_rows.sort(key=lambda x: x.get("pts_pg", 0), reverse=True)
+    from calculator import compute_window_player_stats
+    db_player_stats = compute_window_player_stats(
+        season_years=[CURRENT_SEASON_YEAR],
+        solve_rapm=True,
+        db_path=DB_PATH
+    )
+    if db_player_stats:
+        all_player_stats_rows = db_player_stats
+    else:
+        all_player_stats_rows.sort(key=lambda x: x.get("pts_pg", 0), reverse=True)
+
     with open(DATA_DIR / "player_stats.json", "w") as f:
         json.dump({"meta_keys": ["player", "team", "pos"], "rows": all_player_stats_rows}, f, indent=2)
 
