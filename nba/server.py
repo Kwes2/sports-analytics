@@ -76,6 +76,7 @@ class WebsiteRequestHandler(SimpleHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
+        global IS_UPDATING
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path.lower()
         params = urllib.parse.parse_qs(parsed.query)
@@ -208,7 +209,6 @@ class WebsiteRequestHandler(SimpleHTTPRequestHandler):
             return
 
         elif "trigger_update" in path:
-            global IS_UPDATING
             with UPDATE_LOCK:
                 if IS_UPDATING:
                     self._send_json_response({"status": "already_running", "updating": True})
