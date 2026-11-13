@@ -432,12 +432,13 @@
                 return;
             }
 
-            fetch(getDataPath(`players/${playerId}.json`))
+            fetch(`${getApiPath('player_window')}?id=${playerId}&season_year=2027&season_type=2`)
                 .then(res => res.json())
                 .then(data => {
+                    if (data.error) throw new Error(data.error);
                     defaultPlayerData = data;
                     currentLoadedData = data;
-                    renderHeader(data.name, data.team, data.team_id, data.position, "Full Season");
+                    renderHeader(data.name, data.team, data.team_id, data.position, "2026-2027 (Regular Season)");
                     renderProfileSections(data);
                 })
                 .catch(() => {
@@ -718,7 +719,7 @@
             return label;
         }
 
-        function formatDisplayValue(val, key, minPg) {
+        function formatDisplayValue(val, key, minPg, possPg) {
             if (val === null || val === undefined || val === '') return '-';
             if (typeof val !== 'number') return val;
 
@@ -770,10 +771,13 @@
             let html = "";
 
             let playerMinPg = 36.0;
+            let playerPossPg = 0.0;
             (data.sections || []).forEach(sec => {
                 if (sec.type === "long_form_stats" && sec.data.rows) {
                     const mRow = sec.data.rows.find(r => r.stat_key === "min_pg");
                     if (mRow && mRow.value) playerMinPg = parseFloat(mRow.value);
+                    const pRow = sec.data.rows.find(r => r.stat_key === "poss_pg");
+                    if (pRow && pRow.value) playerPossPg = parseFloat(pRow.value);
                 }
             });
 
@@ -807,7 +811,7 @@
 
                         html += `<tr>
                             <td ${tipAttr}><strong>${displayName}</strong></td>
-                            <td class="num"><strong>${formatDisplayValue(r.value, r.stat_key, playerMinPg)}</strong></td>
+                            <td class="num"><strong>${formatDisplayValue(r.value, r.stat_key, playerMinPg, playerPossPg)}</strong>
                             <td class="num">#${r.league_rank}</td>
                             <td class="pctile-cell" style="background-color: ${lPctColor};">${lPct}</td>
                             <td class="num">#${r.pos_rank}</td>
