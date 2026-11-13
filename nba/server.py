@@ -250,7 +250,34 @@ class ReusableServer(HTTPServer):
         super().server_bind()
 
 
+def check_startup_update():
+    global IS_UPDATING
+    from datetime import datetime, timezone
+    lu_file = NBA_DIR / "data" / "last_updated.json"
+    needs_update = True
+    if lu_file.exists():
+        try:
+            with open(lu_file, "r", encoding="utf-8") as f:
+                ts_str = json.load(f).get("last_updated", "")
+            if ts_str:
+                dt = datetime.fromisoformat(ts_str.replace("Z", "+00:00"))
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+                age_hours = (datetime.now(timezone.utc) - dt).total_seconds() / 3600.0
+                if age_hours < 6.0:
+                    needs_update = False
+        except Exception:
+            pass
+
+    if needs_update:
+        with UPDATE_LOCK:
+            if not IS_UPDATING:
+                IS_UPDATING = True
+                threading.Thread(target=run_update_pipeline, daemon=True).start()
+
+
 def run_server():
+    check_startup_update()
     server_address = ("0.0.0.0", PORT)
     httpd = ReusableServer(server_address, WebsiteRequestHandler)
     print(f">> Server ready on port {PORT}. Serving files...")
