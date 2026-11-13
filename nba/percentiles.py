@@ -66,24 +66,25 @@ def build_stat_pools(players_dict, stat_keys):
         }
 
         min_pg = combined_stats.get("min_pg", 0.0)
+        poss_pg = combined_stats.get("poss_pg", 0.0) or (min_pg * 2.0)
 
         for k in stat_keys:
             val = combined_stats.get(k, 0.0)
             league_pools[k].append(val)
             pos_pools[pos][k].append(val)
-            
+                
             is_counting = k.endswith("_pg") or k in ["pts", "reb", "ast", "stl", "blk", "fga", "fgm"]
             if is_counting and min_pg > 0:
                 val_p36 = val * (36.0 / min_pg)
-                val_p100 = val * (100.0 / (min_pg * 2.0))
-            else:
+                val_p100 = val * (100.0 / poss_pg) if poss_pg > 0 else val
+        else:
                 val_p36 = val
                 val_p100 = val
                 
-            league_pools_p36[k].append(val_p36)
-            pos_pools_p36[pos][k].append(val_p36)
-            league_pools_p100[k].append(val_p100)
-            pos_pools_p100[pos][k].append(val_p100)
+        league_pools_p36[k].append(val_p36)
+        pos_pools_p36[pos][k].append(val_p36)
+        league_pools_p100[k].append(val_p100)
+        pos_pools_p100[pos][k].append(val_p100)
 
     return (
         league_pools, pos_pools,

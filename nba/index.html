@@ -494,8 +494,7 @@
                     if (activeRateMode === 'p36') {
                         scaledVal = (val * (36.0 / min));
                     } else if (activeRateMode === 'p100') {
-                        const pace = row && row.pace ? row.pace : 100.0;
-                        const poss = (pace / 48.0) * min;
+                        const poss = (row && row.poss_pg > 0) ? row.poss_pg : (min * 2.0);
                         if (poss > 0) scaledVal = (val * (100.0 / poss));
                     }
                 }

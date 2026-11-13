@@ -108,9 +108,16 @@ class InfluenceEngine:
                 self.player_influences[aid] = {"orapm": 0.0, "drapm": 0.0, "net_rapm": 0.0}
             return
 
-        # Add Ridge Regularization Penalty lambda (unpenalized intercept at index 0)
-        # Scaled to sample size: LAMBDA_REG = 3000.0
-        LAMBDA_REG = 3000.0
+        # Dynamically scale Ridge Regularization Penalty (Lambda) based on sample size.
+        # A[i, i] perfectly represents the total possessions player 'i' played.
+        # This guarantees accurate RAPM variance whether the window is 1 week or a full season.
+        total_player_possessions = sum(A[i, i] for i in range(1, total_cols))
+        avg_poss_per_player = total_player_possessions / max(1, n_players * 2) 
+        
+        # A full season yields ~2400 avg possessions. We target a ~3000 Lambda for a full season.
+        LAMBDA_REG = max(50.0, avg_poss_per_player * 1.25)
+        
+        # Apply penalty to diagonal (unpenalized intercept at index 0)
         for i in range(1, total_cols):
             A[i, i] += LAMBDA_REG
 

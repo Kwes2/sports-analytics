@@ -477,9 +477,10 @@ def compute_window_player_stats(start_date=None, end_date=None, season_years=Non
         p_stint_data = player_on_court.get(aid, {})
         on_court_poss = p_stint_data.get("poss", 0.0)
         
-        # 1. Exact True Usage Rate (Replaces Minute Approximation)
+        # 1. Exact True Usage Rate & Exact Possessions Per Game
         used_plays = fga + 0.44 * fta + r["tot_to"]
         adv["usg_pct"] = round((used_plays / on_court_poss) * 100.0, 1) if on_court_poss > 0 else 0.0
+        adv["poss_pg"] = round(on_court_poss / gp, 1) if gp > 0 else 0.0
         
         # 2. Team Rebound Share %
         t_total_reb = team_reb_totals.get(r["team_id"], 0)
@@ -596,6 +597,7 @@ def compute_window_single_player_profile(player_id, start_date=None, end_date=No
     for p in all_players:
         pos = p["pos"]
         min_pg = p.get("min_pg", 0.0)
+        poss_pg = p.get("poss_pg", 0.0) or (min_pg * 2.0)
         if pos not in pos_pools:
             pos_pools[pos] = {k: [] for k in stat_keys}
             pos_pools_p36[pos] = {k: [] for k in stat_keys}
@@ -609,7 +611,7 @@ def compute_window_single_player_profile(player_id, start_date=None, end_date=No
             is_counting = k.endswith("_pg") or k in ["pts", "reb", "ast", "stl", "blk", "fga", "fgm"]
             if is_counting and min_pg > 0:
                 val_p36 = val * (36.0 / min_pg)
-                val_p100 = val * (100.0 / (min_pg * 2.0))
+                val_p100 = val * (100.0 / poss_pg) if poss_pg > 0 else val
             else:
                 val_p36 = val
                 val_p100 = val
@@ -620,6 +622,7 @@ def compute_window_single_player_profile(player_id, start_date=None, end_date=No
             pos_pools_p100[pos][k].append(val_p100)
 
     min_pg_target = target.get("min_pg", 0.0)
+    poss_pg_target = target.get("poss_pg", 0.0) or (min_pg_target * 2.0)
     target_p36_dict = {}
     target_p100_dict = {}
     
@@ -628,7 +631,7 @@ def compute_window_single_player_profile(player_id, start_date=None, end_date=No
         is_counting = k.endswith("_pg") or k in ["pts", "reb", "ast", "stl", "blk", "fga", "fgm"]
         if is_counting and min_pg_target > 0:
             target_p36_dict[k] = v * (36.0 / min_pg_target)
-            target_p100_dict[k] = v * (100.0 / (min_pg_target * 2.0))
+            target_p100_dict[k] = v * (100.0 / poss_pg_target) if poss_pg_target > 0 else v
         else:
             target_p36_dict[k] = v
             target_p100_dict[k] = v

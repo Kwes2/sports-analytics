@@ -732,7 +732,8 @@
                     if (activePlayerRateMode === 'p36') {
                         scaledVal = (val * (36.0 / min));
                     } else if (activePlayerRateMode === 'p100') {
-                        scaledVal = (val * (100.0 / (min * 2.0)));
+                        const poss = (possPg && possPg > 0) ? possPg : (min * 2.0);
+                        scaledVal = (val * (100.0 / poss));
                     }
                 }
             }

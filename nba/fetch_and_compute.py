@@ -670,6 +670,7 @@ def main():
             
         used_plays = p["tot_fga"] + 0.44 * p["tot_fta"] + p["tot_to"]
         adv["usg_pct"] = round((used_plays / p_on_court["poss"]) * 100.0, 1) if p_on_court["poss"] > 0 else 0.0
+        adv["poss_pg"] = round(p_on_court["poss"] / p["gp"], 1) if p["gp"] > 0 else 0.0
 
         # Team exact totals mathematically synced with p_on_court exact totals
         t_totals = team_exact_stint_totals.get(t_id, {"pts_for": 0, "pts_against": 0, "poss": 0.0})

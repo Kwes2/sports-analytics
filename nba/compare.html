@@ -550,7 +550,10 @@
                 const isCounting = (k.endsWith('_pg') || k === 'pts' || k === 'reb' || k === 'ast' || k === 'stl' || k === 'blk' || k === 'to' || k === 'fga' || k === 'fgm');
                 if (isCounting) {
                     if (activeCmpRateMode === 'p36') scaled = val * (36.0 / min);
-                    else if (activeCmpRateMode === 'p100') scaled = val * (100.0 / (min * 2.0));
+                    else if (activeCmpRateMode === 'p100') {
+                        const poss = (possPg && possPg > 0) ? possPg : (min * 2.0);
+                        scaledVal = val * (100.0 / poss);
+                    }
                 }
             }
 
