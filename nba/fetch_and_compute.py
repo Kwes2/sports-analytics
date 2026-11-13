@@ -1095,9 +1095,9 @@ def main():
     with open(DATA_DIR / "team_stats.json", "w") as f:
         json.dump({"meta_keys": ["team"], "rows": enriched_standings}, f, indent=2)
 
-    from datetime import datetime
+    from datetime import datetime, timezone
     with open(DATA_DIR / "last_updated.json", "w") as f:
-        json.dump({"last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S")}, f, indent=2)
+        json.dump({"last_updated": datetime.now(timezone.utc).isoformat()}, f, indent=2)
 
     print("Pipeline Complete: Active profiles strictly isolated to Season 2027 (current year).")
 
